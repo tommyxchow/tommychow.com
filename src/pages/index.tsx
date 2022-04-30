@@ -99,10 +99,10 @@ const Home: NextPage = () => {
   ];
 
   return (
-    <Layout description='My Personal Website'>
-      <div className='mb-20 flex flex-col items-center gap-4'>
-        <div className='flex flex-col items-center gap-6 lg:flex-row'>
-          <div className='relative h-28 w-28 overflow-hidden rounded-full md:h-36 md:w-36 lg:h-40 lg:w-40'>
+    <Layout description="Tommy Chow's Personal Website">
+      <div className='mb-20 flex flex-col items-center gap-4 md:items-start'>
+        <div className='flex flex-col items-center gap-6 md:flex-row'>
+          <div className='relative h-36 w-36 shrink-0 overflow-hidden rounded-full md:h-40 md:w-40'>
             <Image
               priority
               src='/me.jpeg'
@@ -112,8 +112,8 @@ const Home: NextPage = () => {
             />
           </div>
 
-          <div className='flex flex-col items-center gap-4 lg:mt-6 lg:items-start'>
-            <h1 className='text-center text-2xl font-medium md:text-3xl lg:text-left lg:text-4xl'>
+          <div className='flex flex-col items-center gap-4 md:mt-6 md:items-start'>
+            <h1 className='text-center text-3xl font-medium md:text-left md:text-5xl'>
               Hi! I&apos;m <span className='font-bold'>Tommy</span>,
               <br />a <span className='font-bold'>React Developer</span>.
             </h1>
@@ -125,14 +125,14 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <p className='w-80 lg:w-[500px]'>
+        <p className='w-80 md:w-full'>
           I enjoy and focus on full-stack mobile and web development, with an
           emphasis on declarative front-end frameworks.
         </p>
       </div>
 
       <ResumeSection icon={<FaLightbulb size={20} />} heading='Projects'>
-        <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8 lg:grid-cols-3'>
+        <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8'>
           {projects.map((project) => (
             <ProjectCard key={project.name} {...project} />
           ))}
