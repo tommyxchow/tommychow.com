@@ -1,18 +1,45 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import Layout from '../components/layout';
-import ProjectCard, { ProjectInfo } from '../components/project-card';
 import {
-  FaLinkedin,
+  FaEnvelope,
+  FaFile,
   FaGithub,
   FaLightbulb,
+  FaLinkedin,
   FaSuitcase,
   FaTools,
 } from 'react-icons/fa';
-import ResumeSection from '../components/resume-section';
 import { allBadges } from '../components/badge';
+import HeaderLink, { HeaderLinkInfo } from '../components/header-link';
+import Layout from '../components/layout';
+import ProjectCard, { ProjectInfo } from '../components/project-card';
+import ResumeSection from '../components/resume-section';
+import { email, githubLink, linkedInLink } from '../constants';
 
 const Home: NextPage = () => {
+  const links: HeaderLinkInfo[] = [
+    {
+      icon: <FaGithub />,
+      title: 'GitHub',
+      href: githubLink,
+    },
+    {
+      icon: <FaLinkedin />,
+      title: 'LinkedIn',
+      href: linkedInLink,
+    },
+    {
+      icon: <FaEnvelope />,
+      title: 'Email',
+      href: email,
+    },
+    {
+      icon: <FaFile />,
+      title: 'Resume',
+      href: '/resume.pdf',
+    },
+  ];
+
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
@@ -91,14 +118,9 @@ const Home: NextPage = () => {
           </h1>
 
           <div className='flex gap-4 text-xs uppercase tracking-wider'>
-            <div className='flex gap-1 opacity-80 transition hover:scale-110 hover:opacity-100'>
-              <FaGithub size={15} />
-              <p>GitHub</p>
-            </div>
-            <div className='flex gap-1 opacity-80 transition hover:scale-110 hover:opacity-100'>
-              <FaLinkedin size={15} />
-              <p>LinkedIn</p>
-            </div>
+            {links.map((link) => (
+              <HeaderLink key={link.title} {...link} />
+            ))}
           </div>
         </div>
 
