@@ -14,7 +14,9 @@ const Layout = (props: LayoutProps) => {
 
       {/* <NavBar /> */}
 
-      <main className='flex min-h-screen flex-col p-8'>{props.children}</main>
+      <main className='m-auto flex min-h-screen max-w-7xl flex-col p-8 pt-24'>
+        {props.children}
+      </main>
 
       <footer className='flex flex-col items-center gap-4 pb-8'>
         <p className='text-sm font-light opacity-80'>Thanks for stopping by!</p>

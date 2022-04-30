@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge, { BadgeInfo } from './badge';
 
 const ProjectCard = (project: ProjectInfo) => {
   return (
-    <div className='w-72 shrink-0 snap-start scroll-ml-8 overflow-hidden rounded-lg bg-gray-800 shadow-lg transition first:ml-8 last:mr-8 hover:scale-105 hover:shadow-xl'>
+    <div className='w-72 shrink-0 snap-start scroll-ml-8 overflow-hidden rounded-lg bg-slate-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:scale-105 hover:shadow-xl md:w-full md:first:ml-0'>
       <a
-        className='group relative flex h-56 items-center justify-center'
+        className='group relative flex h-64 items-center justify-center md:h-72'
         href={project.projectLink}
         target='_blank'
         rel='noreferrer'

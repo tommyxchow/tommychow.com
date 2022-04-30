@@ -9,7 +9,7 @@ import {
   FaSuitcase,
   FaTools,
 } from 'react-icons/fa';
-import { allBadges } from '../components/badge';
+import Badge, { allBadges } from '../components/badge';
 import HeaderLink, { HeaderLinkInfo } from '../components/header-link';
 import Layout from '../components/layout';
 import ProjectCard, { ProjectInfo } from '../components/project-card';
@@ -100,9 +100,9 @@ const Home: NextPage = () => {
 
   return (
     <Layout description='My Personal Website'>
-      <div className='mb-20 flex flex-col gap-4'>
-        <div className='mb-10 flex flex-col items-center gap-4'>
-          <div className='relative h-28 w-28 overflow-hidden rounded-full'>
+      <div className='mb-20 flex flex-col items-center gap-4'>
+        <div className='flex flex-col items-center gap-6 lg:flex-row'>
+          <div className='relative h-28 w-28 overflow-hidden rounded-full md:h-36 md:w-36 lg:h-40 lg:w-40'>
             <Image
               priority
               src='/me.jpeg'
@@ -112,27 +112,27 @@ const Home: NextPage = () => {
             />
           </div>
 
-          <h1 className='text-center text-2xl font-medium'>
-            Hi! I&apos;m <span className='font-bold'>Tommy</span>,
-            <br />a <span className='font-bold'>React Developer</span>.
-          </h1>
-
-          <div className='flex gap-4 text-xs uppercase tracking-wider'>
-            {links.map((link) => (
-              <HeaderLink key={link.title} {...link} />
-            ))}
+          <div className='flex flex-col items-center gap-4 lg:mt-6 lg:items-start'>
+            <h1 className='text-center text-2xl font-medium md:text-3xl lg:text-left lg:text-4xl'>
+              Hi! I&apos;m <span className='font-bold'>Tommy</span>,
+              <br />a <span className='font-bold'>React Developer</span>.
+            </h1>
+            <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider'>
+              {links.map((link) => (
+                <HeaderLink key={link.title} {...link} />
+              ))}
+            </div>
           </div>
         </div>
 
-        <p className=''>
-          I focus on full stack mobile and web development, with an emphasis on
-          declarative frameworks including Flutter, React, React Native, and
-          SwiftUI.
+        <p className='w-80 lg:w-[500px]'>
+          I enjoy and focus on full-stack mobile and web development, with an
+          emphasis on declarative front-end frameworks.
         </p>
       </div>
 
       <ResumeSection icon={<FaLightbulb size={20} />} heading='Projects'>
-        <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6'>
+        <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8 lg:grid-cols-3'>
           {projects.map((project) => (
             <ProjectCard key={project.name} {...project} />
           ))}
