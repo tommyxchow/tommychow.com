@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     {
       icon: <FaEnvelope />,
       title: 'Email',
-      href: email,
+      href: `mailto:${email}`,
     },
     {
       icon: <FaFile />,
