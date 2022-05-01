@@ -14,7 +14,7 @@ const Layout = (props: LayoutProps) => {
 
       {/* <NavBar /> */}
 
-      <main className='m-auto flex min-h-screen max-w-screen-md flex-col p-8 pt-24'>
+      <main className='m-auto min-h-screen max-w-screen-md p-8 pt-24'>
         {props.children}
       </main>
 
