@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
-      date: 'Mar. 2022',
+      date: 'May 2022',
       description:
         'Twitch client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/frosty-app.png',
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
     },
     {
       name: 'Frosty (Website)',
-      date: 'Mar. 2022',
+      date: 'May 2022',
       description: 'Marketing website for the Frosty app.',
       imageLink: '/frosty-website.png',
       projectLink: 'https://github.com/tommyxchow/frostyapp.io',
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
     },
     {
       name: 'Study Seeker',
-      date: 'Mar. 2022',
+      date: 'May 2022',
       description:
         'Responsive web app aimed to allow students to find and rate potential study partners, create and join groups, and explore classes.',
       imageLink: '/study-seeker.jpg',
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
     },
     {
       name: 'Zeal',
-      date: 'Dec. 2021',
+      date: 'December 2021',
       description:
         'Social web app that allows creating, exploring, and joining events.',
       imageLink: '/zeal.jpg',
@@ -114,15 +114,14 @@ const Home: NextPage = () => {
             />
           </div>
 
-          <div className='flex flex-col items-center gap-4 md:mt-6 md:items-start'>
+          <div className='flex flex-col items-center gap-4 md:mt-8 md:items-start'>
             <h1 className='text-center text-3xl font-medium md:text-left md:text-5xl'>
-              Hi! I&apos;m <span className='font-bold'>Tommy</span>,
-              <br />a{' '}
+              Hi! I&apos;m <span className='font-bold'>Tommy</span>, a
+              <br />
               <span className='font-bold'>
                 <span className='text-cyan-400'>Software</span>{' '}
                 <span className='text-orange-400'>Developer</span>
               </span>
-              .
             </h1>
             <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider'>
               {links.map((link) => (
