@@ -117,7 +117,12 @@ const Home: NextPage = () => {
           <div className='flex flex-col items-center gap-4 md:mt-6 md:items-start'>
             <h1 className='text-center text-3xl font-medium md:text-left md:text-5xl'>
               Hi! I&apos;m <span className='font-bold'>Tommy</span>,
-              <br />a <span className='font-bold'>Software Developer</span>.
+              <br />a{' '}
+              <span className='font-bold'>
+                <span className='text-cyan-400'>Software</span>{' '}
+                <span className='text-orange-400'>Developer</span>
+              </span>
+              .
             </h1>
             <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider'>
               {links.map((link) => (
@@ -127,7 +132,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <p className='w-80 md:w-full md:text-lg'>
+        <p className='md:text-lg'>
           I enjoy and focus on full-stack mobile and web development, with an
           emphasis on declarative front-end frameworks.
         </p>

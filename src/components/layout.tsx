@@ -4,12 +4,11 @@ import NavBar from './navbar';
 
 const Layout = (props: LayoutProps) => {
   return (
-    <div className='bg-black'>
+    <>
       <Head>
         <title>Tommy Chow</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta name='description' content={props.description} />
-        <link rel='icon' href='/logo.svg' />
       </Head>
 
       {/* <NavBar /> */}
@@ -24,7 +23,7 @@ const Layout = (props: LayoutProps) => {
           Built with Next.js and Tailwind CSS
         </p>
       </footer>
-    </div>
+    </>
   );
 };
 

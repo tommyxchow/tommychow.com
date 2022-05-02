@@ -15,7 +15,9 @@ const ProjectCard = (project: ProjectInfo) => {
       >
         <div className='absolute z-10 flex flex-col items-center gap-2 opacity-0 transition group-hover:opacity-100'>
           <HiExternalLink size={30} />
-          <p className='text-sm uppercase tracking-wider'>Check it out!</p>
+          <p className='text-sm font-medium uppercase tracking-wider'>
+            Check it out!
+          </p>
         </div>
         <div className='relative h-full w-full transition group-hover:opacity-30 group-active:opacity-10'>
           <Image
