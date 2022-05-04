@@ -15,7 +15,7 @@ const ProjectCard = (project: ProjectInfo) => {
       >
         <div className='absolute z-10 flex flex-col items-center gap-2 opacity-0 transition group-hover:opacity-100'>
           <HiExternalLink size={30} />
-          <p className='text-sm font-medium uppercase tracking-wider'>
+          <p className='text-sm font-medium uppercase tracking-wider opacity-100'>
             Check it out!
           </p>
         </div>
@@ -31,10 +31,10 @@ const ProjectCard = (project: ProjectInfo) => {
         </div>
       </a>
 
-      <div className='p-4'>
+      <div className='px-4 py-6'>
         <div className='mb-4'>
           <a
-            className='group flex items-center text-lg font-medium transition hover:underline'
+            className='group flex items-center text-lg font-medium transition'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'
@@ -52,7 +52,7 @@ const ProjectCard = (project: ProjectInfo) => {
             ))}
           </div>
         </div>
-        <p className='text-sm opacity-75'>{project.description}</p>
+        <p className='text-sm'>{project.description}</p>
       </div>
     </div>
   );

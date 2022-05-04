@@ -9,7 +9,7 @@ import {
   FaSuitcase,
   FaTools,
 } from 'react-icons/fa';
-import Badge, { allBadges } from '../components/badge';
+import { allBadges } from '../components/badge';
 import HeaderLink, { HeaderLinkInfo } from '../components/header-link';
 import Layout from '../components/layout';
 import ProjectCard, { ProjectInfo } from '../components/project-card';
@@ -74,7 +74,7 @@ const Home: NextPage = () => {
       name: 'Zeal',
       date: 'December 2021',
       description:
-        'Social web app that allows creating, exploring, and joining events.',
+        'Social web app that streamlines creating, exploring, and joining events.',
       imageLink: '/zeal.jpg',
       projectLink: 'https://github.com/Prakshal-Jain/Zeal',
       badges: [allBadges.react, allBadges.django],
@@ -102,7 +102,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout description="Tommy Chow's Personal Website">
-      <div className='mb-20 flex flex-col items-center gap-4 md:items-start'>
+      <div className='mb-12 flex flex-col items-center gap-4 md:items-start'>
         <div className='flex flex-col items-center gap-6 md:flex-row'>
           <div className='relative h-36 w-36 shrink-0 overflow-hidden rounded-full md:h-40 md:w-40'>
             <Image
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
                 <span className='text-orange-400'>Developer</span>
               </span>
             </h1>
-            <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider'>
+            <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider md:text-sm'>
               {links.map((link) => (
                 <HeaderLink key={link.title} {...link} />
               ))}
@@ -133,7 +133,8 @@ const Home: NextPage = () => {
 
         <p className='md:text-lg'>
           I enjoy and focus on full-stack mobile and web development, with an
-          emphasis on declarative front-end frameworks.
+          emphasis on declarative front-end frameworks including Flutter, React,
+          and SwiftUI.
         </p>
       </div>
 
@@ -141,8 +142,8 @@ const Home: NextPage = () => {
         <p>
           These projects that I&apos;ve worked on contibuted the most to my
           growth as a developer. I was able to gain hands-on experience with
-          popular frameworks, design and wire-framing, deployment and CI/CD,
-          common Agile practices and leadership and teamwork.
+          popular frameworks, design, wire-framing, deployment, CI/CD, common
+          Agile practices, leadership, teamwork, and more.
         </p>
         <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8'>
           {projects.map((project) => (
