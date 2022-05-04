@@ -18,7 +18,7 @@ const Layout = (props: LayoutProps) => {
       </main>
 
       <footer className='flex flex-col items-center gap-4 pb-8'>
-        <p className='text-sm font-light opacity-80'>Thanks for stopping by!</p>
+        <p className='text-sm font-light'>Thanks for stopping by!</p>
         <p className='text-xs font-light opacity-50'>
           Built with Next.js and Tailwind CSS
         </p>

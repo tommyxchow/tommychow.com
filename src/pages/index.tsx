@@ -9,7 +9,7 @@ import {
   FaSuitcase,
   FaTools,
 } from 'react-icons/fa';
-import Badge, { allBadges } from '../components/badge';
+import { allBadges } from '../components/badge';
 import HeaderLink, { HeaderLinkInfo } from '../components/header-link';
 import Layout from '../components/layout';
 import ProjectCard, { ProjectInfo } from '../components/project-card';
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
-      date: 'Mar. 2022',
+      date: 'May 2022',
       description:
         'Twitch client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/frosty-app.png',
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
     },
     {
       name: 'Frosty (Website)',
-      date: 'Mar. 2022',
+      date: 'May 2022',
       description: 'Marketing website for the Frosty app.',
       imageLink: '/frosty-website.png',
       projectLink: 'https://github.com/tommyxchow/frostyapp.io',
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
     },
     {
       name: 'Study Seeker',
-      date: 'Mar. 2022',
+      date: 'May 2022',
       description:
         'Responsive web app aimed to allow students to find and rate potential study partners, create and join groups, and explore classes.',
       imageLink: '/study-seeker.jpg',
@@ -72,9 +72,9 @@ const Home: NextPage = () => {
     },
     {
       name: 'Zeal',
-      date: 'Dec. 2021',
+      date: 'December 2021',
       description:
-        'Social web app that allows creating, exploring, and joining events.',
+        'Social web app that streamlines creating, exploring, and joining events.',
       imageLink: '/zeal.jpg',
       projectLink: 'https://github.com/Prakshal-Jain/Zeal',
       badges: [allBadges.react, allBadges.django],
@@ -102,7 +102,7 @@ const Home: NextPage = () => {
 
   return (
     <Layout description="Tommy Chow's Personal Website">
-      <div className='mb-20 flex flex-col items-center gap-4 md:items-start'>
+      <div className='mb-12 flex flex-col items-center gap-4 md:items-start'>
         <div className='flex flex-col items-center gap-6 md:flex-row'>
           <div className='relative h-36 w-36 shrink-0 overflow-hidden rounded-full md:h-40 md:w-40'>
             <Image
@@ -114,17 +114,16 @@ const Home: NextPage = () => {
             />
           </div>
 
-          <div className='flex flex-col items-center gap-4 md:mt-6 md:items-start'>
+          <div className='flex flex-col items-center gap-4 md:mt-8 md:items-start'>
             <h1 className='text-center text-3xl font-medium md:text-left md:text-5xl'>
-              Hi! I&apos;m <span className='font-bold'>Tommy</span>,
-              <br />a{' '}
+              Hi! I&apos;m <span className='font-bold'>Tommy</span>, a
+              <br />
               <span className='font-bold'>
                 <span className='text-cyan-400'>Software</span>{' '}
                 <span className='text-orange-400'>Developer</span>
               </span>
-              .
             </h1>
-            <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider'>
+            <div className='mb-8 flex gap-4 text-xs uppercase tracking-wider md:text-sm'>
               {links.map((link) => (
                 <HeaderLink key={link.title} {...link} />
               ))}
@@ -134,7 +133,8 @@ const Home: NextPage = () => {
 
         <p className='md:text-lg'>
           I enjoy and focus on full-stack mobile and web development, with an
-          emphasis on declarative front-end frameworks.
+          emphasis on declarative front-end frameworks including Flutter, React,
+          and SwiftUI.
         </p>
       </div>
 
@@ -142,8 +142,8 @@ const Home: NextPage = () => {
         <p>
           These projects that I&apos;ve worked on contibuted the most to my
           growth as a developer. I was able to gain hands-on experience with
-          popular frameworks, design and wire-framing, deployment and CI/CD,
-          common Agile practices and leadership and teamwork.
+          popular frameworks, design, wire-framing, deployment, CI/CD, common
+          Agile practices, leadership, teamwork, and more.
         </p>
         <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8'>
           {projects.map((project) => (
