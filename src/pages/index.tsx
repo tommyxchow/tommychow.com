@@ -2,12 +2,12 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import {
   FaEnvelope,
-  FaFile,
+  FaFileAlt,
   FaGithub,
   FaLightbulb,
   FaLinkedin,
-  FaSuitcase,
-  FaTools,
+  FaUser,
+  FaWalking,
 } from 'react-icons/fa';
 import { allBadges } from '../components/badge';
 import HeaderLink, { HeaderLinkInfo } from '../components/header-link';
@@ -34,13 +34,13 @@ const Home: NextPage = () => {
       href: `mailto:${email}`,
     },
     {
-      icon: <FaFile />,
+      icon: <FaFileAlt />,
       title: 'Resume',
       href: '/resume.pdf',
     },
   ];
 
-  const projects: ProjectInfo[] = [
+  const myProjects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
       date: 'May 2022',
@@ -60,11 +60,14 @@ const Home: NextPage = () => {
       badges: [allBadges.nextJs, allBadges.tailwind, allBadges.typeScript],
       priority: true,
     },
+  ];
+
+  const schoolProjects: ProjectInfo[] = [
     {
       name: 'Study Seeker',
       date: 'May 2022',
       description:
-        'Responsive web app aimed to allow students to find and rate potential study partners, create and join groups, and explore classes.',
+        'Responsive social media platform aimed to help students find the best match for a potential study partner.',
       imageLink: '/study-seeker.jpg',
       projectLink: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
       badges: [allBadges.react, allBadges.css],
@@ -102,8 +105,8 @@ const Home: NextPage = () => {
 
   return (
     <Layout description="Tommy Chow's Personal Website">
-      <div className='mb-12 flex flex-col items-center gap-4 md:items-start'>
-        <div className='flex flex-col items-center gap-6 md:flex-row'>
+      <div className='mb-8'>
+        <div className='mb-4 flex flex-col items-center gap-6 md:flex-row'>
           <div className='relative h-36 w-36 shrink-0 overflow-hidden rounded-full md:h-40 md:w-40'>
             <Image
               priority
@@ -115,10 +118,10 @@ const Home: NextPage = () => {
           </div>
 
           <div className='flex flex-col items-center gap-4 md:mt-8 md:items-start'>
-            <h1 className='text-center text-3xl font-medium md:text-left md:text-5xl'>
-              Hi! I&apos;m <span className='font-bold'>Tommy</span>, a
+            <h1 className='text-center text-3xl md:text-left md:text-5xl'>
+              Hi! I&apos;m <span className='font-extrabold'>Tommy</span>, a
               <br />
-              <span className='font-bold'>
+              <span className='font-extrabold'>
                 <span className='text-cyan-400'>Software</span>{' '}
                 <span className='text-orange-400'>Developer</span>
               </span>
@@ -130,34 +133,94 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-
-        <p className='md:text-lg'>
-          I enjoy and focus on full-stack mobile and web development, with an
-          emphasis on declarative front-end frameworks including Flutter, React,
-          and SwiftUI.
-        </p>
       </div>
 
-      <ResumeSection icon={<FaLightbulb size={20} />} heading='Projects'>
-        <p>
-          These projects that I&apos;ve worked on contibuted the most to my
-          growth as a developer. I was able to gain hands-on experience with
-          popular frameworks, design, wire-framing, deployment, CI/CD, common
-          Agile practices, leadership, teamwork, and more.
+      <ResumeSection icon={<FaWalking />} heading="What I'm Doing Now">
+        <p className='md:text-lg'>
+          Currently, I&apos;m a senior computer science student at the
+          University at Buffalo and am looking for a job either remote or in the
+          NYC area. If you&apos;d like to know more about my professional
+          experience, please check out my resume at the link above!
         </p>
-        <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8'>
-          {projects.map((project) => (
+      </ResumeSection>
+
+      <ResumeSection icon={<FaUser />} heading='About Me'>
+        <p className='md:text-lg'>
+          I&apos;m a passionate mobile and web developer who enjoys working with
+          declarative front-end frameworks including Flutter, React, and
+          SwiftUI. For more insight into my development experience, check out my
+          GitHub profile at the link above!
+          <br />
+          <br />
+          Beyond the software development world, I was born and raised in
+          Queens, NY, where I discovered my favorite foods such as sushi, fried
+          chicken, halal, and Korean BBQ. When I&apos;m not busy eating or
+          programming, I&apos;ll probably be playing video games online with
+          friends and watching live streams on Twitch.
+          <br />
+          <br />A somewhat unusual hobby that I have is building and customizing
+          mechanical keyboards (check out{' '}
+          <a
+            className='hover:underline'
+            href={'https://www.reddit.com/r/MechanicalKeyboards'}
+            target='_blank'
+            rel='noreferrer'
+          >
+            /r/MechanicalKeyboards on Reddit
+          </a>{' '}
+          if you&apos;re curious!). My current keyboard is the{' '}
+          <a
+            className='hover:underline'
+            href='https://rama.works/m65-b'
+            target='_blank'
+            rel='noreferrer'
+          >
+            RAMA WORKS M65-B
+          </a>{' '}
+          with{' '}
+          <a
+            className='hover:underline'
+            href='https://drop.com/buy/drop-oblotzky-gmk-oblivion-v2-custom-keycap-set'
+            target='_blank'
+            rel='noreferrer'
+          >
+            GMK Oblivion V2 keycaps
+          </a>{' '}
+          and{' '}
+          <a
+            className='hover:underline'
+            href='https://thekey.company/products/c3-tangerine-switches-r2'
+            target='_blank'
+            rel='noreferrer'
+          >
+            Tangerine switches
+          </a>
+          .
+        </p>
+      </ResumeSection>
+
+      <ResumeSection icon={<FaLightbulb />} heading='My Projects'>
+        <p className='mb-8 md:text-lg'>
+          Below are some of the projects that I&apos;ve worked on which
+          contributed greatly to my growth as a developer. I was able to gain
+          hands-on experience with popular frameworks, design, wireframing,
+          deployment, CI/CD, common Agile practices, teamwork, leadership, and
+          more.
+        </p>
+
+        <h3 className='font-medium uppercase tracking-wider'>Personal</h3>
+        <div className='-mx-8 mb-6 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8'>
+          {myProjects.map((project) => (
             <ProjectCard key={project.name} {...project} />
           ))}
         </div>
-      </ResumeSection>
 
-      <ResumeSection icon={<FaTools size={20} />} heading='Technical Skills'>
-        <h2>Technical Skills</h2>
-      </ResumeSection>
-
-      <ResumeSection icon={<FaSuitcase size={20} />} heading='Work Experience'>
-        <h2>Work Experience</h2>
+        <h3 className='font-medium uppercase tracking-wider'>School</h3>
+        <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 md:grid md:snap-none md:grid-cols-2 md:px-8'>
+          {schoolProjects.map((project) => (
+            <ProjectCard key={project.name} {...project} />
+          ))}
+        </div>
       </ResumeSection>
     </Layout>
   );

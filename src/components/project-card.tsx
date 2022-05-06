@@ -34,7 +34,7 @@ const ProjectCard = (project: ProjectInfo) => {
       <div className='px-4 py-6'>
         <div className='mb-4'>
           <a
-            className='group flex items-center text-lg font-medium transition'
+            className='group flex items-center text-lg font-semibold transition'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'
@@ -45,8 +45,10 @@ const ProjectCard = (project: ProjectInfo) => {
               className='ml-2 opacity-0 transition group-hover:opacity-100'
             />
           </a>
-          <p className='mb-2 mt-1 text-sm opacity-50'>{project.date}</p>
-          <div className='flex flex-wrap items-center gap-2'>
+          <p className='mb-2 mt-1 text-sm font-medium uppercase tracking-wider opacity-50'>
+            {project.date}
+          </p>
+          <div className='flex flex-wrap items-center gap-2 font-medium'>
             {project.badges.map((badge) => (
               <Badge key={badge.text} {...badge} />
             ))}
