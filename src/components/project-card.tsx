@@ -6,7 +6,7 @@ import Badge, { BadgeInfo } from './badge';
 
 const ProjectCard = (project: ProjectInfo) => {
   return (
-    <div className='w-72 shrink-0 snap-start scroll-ml-8 overflow-hidden rounded-lg bg-neutral-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:shadow-xl md:w-full md:first:ml-0 md:hover:scale-105'>
+    <div className='relative w-72 shrink-0 snap-start scroll-ml-8 overflow-hidden rounded-lg bg-neutral-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:shadow-xl md:w-full md:first:ml-0 md:hover:scale-105'>
       <a
         className='group relative flex h-64 items-center justify-center md:h-72'
         href={project.projectLink}
