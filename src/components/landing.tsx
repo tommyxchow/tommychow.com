@@ -17,13 +17,13 @@ const Landing = () => {
     {
       icon: <FaUser />,
       title: 'About Me',
-      href: githubLink,
+      href: '#about-me',
       external: false,
     },
     {
       icon: <FaLightbulb />,
       title: 'Projects',
-      href: linkedInLink,
+      href: '#projects',
       external: false,
     },
   ];
@@ -57,8 +57,8 @@ const Landing = () => {
 
   return (
     <div className='flex min-h-screen items-center justify-center p-8'>
-      <div className='grid grid-cols-2 gap-y-4 sm:grid-cols-3'>
-        <div className='relative col-span-full h-24 w-24 shrink-0 self-center overflow-hidden rounded-full sm:col-span-1 sm:mr-8 sm:justify-self-end md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-40 xl:w-40'>
+      <div className='grid grid-cols-2 gap-y-4 sm:grid-cols-4'>
+        <div className='relative col-span-full h-24 w-24 shrink-0 self-center overflow-hidden rounded-full sm:col-span-1 sm:justify-self-center md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-40 xl:w-40'>
           <Image priority src='/me.jpeg' alt='Me' layout='fill' quality={100} />
         </div>
 
@@ -71,17 +71,17 @@ const Landing = () => {
           </h1>
         </div>
 
-        <h1 className='col-span-full mb-8 max-w-sm text-sm sm:col-start-2 md:max-w-md md:text-base lg:max-w-xl xl:max-w-2xl'>
+        <h1 className='col-span-full mb-8 max-w-sm text-sm opacity-90 sm:col-start-2 md:max-w-md md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'>
           Welcome to my website! Currently, I&apos;m a senior computer science
-          student at the University at Buffalo and am looking for a job,
-          preferably remote or in the NYC area.
+          student at University at Buffalo and am looking for a job either
+          remote or in the NYC area.
         </h1>
 
         <div className='col-span-full row-start-5 sm:col-span-1 sm:col-start-2 sm:row-start-3'>
           <LinkTable header='Table of Contents' links={contents} />
         </div>
 
-        <div className='col-span-full mb-8 sm:col-span-1 sm:col-start-3 sm:mb-0'>
+        <div className='col-span-full mb-8 sm:col-span-1 sm:col-start-4 sm:mb-0'>
           <LinkTable header='Links' links={links} />
         </div>
       </div>

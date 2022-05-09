@@ -4,18 +4,24 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 const LinkTable = (props: LinkTableProps) => {
   return (
     <div className='flex flex-col gap-4'>
-      <h2 className='text-xs uppercase tracking-wider opacity-80 md:text-sm'>
+      <h2 className='text-xs uppercase tracking-wider opacity-80 lg:text-base'>
         {props.header}
       </h2>
 
       {props.links.map((link) => (
-        <div className='flex items-center gap-2' key={link.title}>
+        <a
+          className='flex w-fit items-center gap-2 hover:underline'
+          key={link.title}
+          href={link.href}
+          target={link.external ? '_blank' : undefined}
+          rel='noreferrer'
+        >
           {link.icon}
-          <h3 className='md:text-lg'>{`${link.title}${
+          <h3 className='md:text-lg lg:text-xl'>{`${link.title}${
             link.external == true ? '' : ' ->'
           }`}</h3>
           {link.external && <FaExternalLinkAlt />}
-        </div>
+        </a>
       ))}
     </div>
   );
