@@ -13,16 +13,7 @@ const Layout = (props: LayoutProps) => {
 
       {/* <NavBar /> */}
 
-      <main className='m-auto min-h-screen max-w-screen-md p-8 pt-24'>
-        {props.children}
-      </main>
-
-      <footer className='flex flex-col items-center gap-4 pb-8'>
-        <p className='text-sm font-light'>Thanks for stopping by!</p>
-        <p className='text-xs font-light opacity-50'>
-          Built with Next.js and Tailwind CSS
-        </p>
-      </footer>
+      <main className='flex flex-col'>{props.children}</main>
     </>
   );
 };
