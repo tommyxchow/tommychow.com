@@ -13,7 +13,9 @@ const Layout = (props: LayoutProps) => {
 
       {/* <NavBar /> */}
 
-      <main className='flex flex-col'>{props.children}</main>
+      <main className='m-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg'>
+        {props.children}
+      </main>
     </>
   );
 };

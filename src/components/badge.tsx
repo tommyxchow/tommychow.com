@@ -3,7 +3,7 @@ import React from 'react';
 const Badge = (badge: BadgeInfo) => {
   return (
     <div
-      className={`w-fit rounded-sm bg-opacity-50 py-0.5 px-1 text-xs uppercase tracking-wider ${badge.badgeColor}`}
+      className={`w-fit rounded-sm bg-opacity-50 py-0.5 px-1 text-xs font-semibold uppercase tracking-wider ${badge.badgeColor}`}
     >
       {badge.text}
     </div>
