@@ -8,10 +8,8 @@ const Home: NextPage = () => {
   return (
     <Layout description="Tommy Chow's Personal Website">
       <Landing />
-
-      <About />
-
       <Projects />
+      <About />
     </Layout>
   );
 };

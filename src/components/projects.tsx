@@ -5,7 +5,7 @@ import ProjectCard, { ProjectInfo } from './project-card';
 import ResumeSection from './resume-section';
 
 const Projects = () => {
-  const myProjects: ProjectInfo[] = [
+  const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
       date: 'May 2022',
@@ -25,9 +25,6 @@ const Projects = () => {
       badges: [allBadges.nextJs, allBadges.tailwind, allBadges.typeScript],
       priority: true,
     },
-  ];
-
-  const schoolProjects: ProjectInfo[] = [
     {
       name: 'Study Seeker',
       date: 'May 2022',
@@ -78,16 +75,8 @@ const Projects = () => {
         more.
       </p>
 
-      <h3 className='font-medium uppercase tracking-wider'>Personal</h3>
-      <div className='-mx-8 mb-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:px-8 md:grid-cols-1'>
-        {myProjects.map((project) => (
-          <ProjectCard key={project.name} {...project} />
-        ))}
-      </div>
-
-      <h3 className='font-medium uppercase tracking-wider'>School</h3>
-      <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:px-8 md:grid-cols-1'>
-        {schoolProjects.map((project) => (
+      <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:px-8 lg:grid-cols-3'>
+        {projects.map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}
       </div>
