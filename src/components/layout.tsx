@@ -11,7 +11,7 @@ const Layout = (props: LayoutProps) => {
         <meta name='description' content={props.description} />
       </Head>
 
-      {/* <NavBar /> */}
+      <NavBar />
 
       <main className='m-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg'>
         {props.children}
