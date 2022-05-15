@@ -1,6 +1,5 @@
 import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
-import { FaGithub, FaLinkedin, FaMoon } from 'react-icons/fa';
 
 const NavBar = () => {
   const sectionNames = ['Landing', 'Projects', 'About'];
@@ -14,7 +13,7 @@ const NavBar = () => {
     const about = document.getElementById('about');
 
     scroll.scrollY.attach(() => {
-      if (landing!.getBoundingClientRect().top == 0) {
+      if (landing!.getBoundingClientRect().top >= 0) {
         setCurrentPageIndex(0);
       } else if (about!.getBoundingClientRect().top > 0) {
         setCurrentPageIndex(1);
