@@ -75,7 +75,7 @@ const Projects = () => {
         more.
       </p>
 
-      <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:px-8 lg:grid-cols-3'>
+      <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'>
         {projects.map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}

@@ -73,17 +73,12 @@ const Landing = () => {
           <Image priority src='/me.jpeg' alt='Me' layout='fill' quality={100} />
         </motion.div>
 
-        <motion.h1
-          className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'
-          initial={{ x: '20%' }}
-          animate={{ x: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
+        <h1 className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'>
           Hi! I&apos;m <span className='font-extrabold'>Tommy</span>, a
           <br />
           <span className='font-extrabold text-cyan-400'>Software</span>{' '}
           <span className='font-extrabold text-orange-400'>Developer</span>
-        </motion.h1>
+        </h1>
 
         <motion.p
           className='col-span-full mb-8 max-w-sm text-sm opacity-90 sm:col-start-2 md:max-w-lg md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'
