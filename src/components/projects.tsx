@@ -1,3 +1,4 @@
+import { motion, Variants } from 'framer-motion';
 import React from 'react';
 import { FaLightbulb } from 'react-icons/fa';
 import { allBadges } from './badge';
@@ -65,21 +66,33 @@ const Projects = () => {
     },
   ];
 
+  const variants: Variants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+    },
+  };
+
   return (
     <ResumeSection id='projects' icon={<FaLightbulb />} heading='My Projects'>
-      <p className='mb-8 md:text-lg'>
+      <motion.p variants={variants} className='mb-8 md:text-lg'>
         Below are some of the projects that I&apos;ve worked on which
         contributed greatly to my growth as a developer. I was able to gain
         hands-on experience with popular frameworks, design, wireframing,
         deployment, CI/CD, common Agile practices, teamwork, leadership, and
         more.
-      </p>
+      </motion.p>
 
-      <div className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'>
+      <motion.div
+        variants={variants}
+        className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'
+      >
         {projects.map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}
-      </div>
+      </motion.div>
     </ResumeSection>
   );
 };

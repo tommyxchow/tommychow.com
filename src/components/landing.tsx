@@ -1,16 +1,16 @@
-import React from 'react';
+import { motion, Transition } from 'framer-motion';
 import Image from 'next/image';
+import React from 'react';
 import {
   FaEnvelope,
   FaFileAlt,
   FaGithub,
+  FaLightbulb,
   FaLinkedin,
   FaUser,
-  FaLightbulb,
 } from 'react-icons/fa';
-import LinkTable, { LinkInfo } from './link-table';
 import { email, githubLink, linkedInLink } from '../constants';
-import { motion } from 'framer-motion';
+import LinkTable, { LinkInfo } from './link-table';
 
 const Landing = () => {
   const links: LinkInfo[] = [
@@ -55,54 +55,72 @@ const Landing = () => {
     },
   ];
 
+  const transition: Transition = {
+    delay: 0.5,
+    type: 'spring',
+  };
+
   return (
-    <motion.div
-      id='landing'
-      className='flex min-h-screen items-center justify-center p-8'
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5, duration: 1 }}
-    >
-      <div className='grid w-full grid-cols-2 gap-y-4 sm:grid-cols-4'>
-        <motion.div
-          className='relative col-span-full h-24 w-24 shrink-0 self-center overflow-hidden rounded-full sm:col-span-1 sm:justify-self-center md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-40 xl:w-40'
-          initial={{ y: '-20%' }}
-          animate={{ y: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          <Image priority src='/me.jpeg' alt='Me' layout='fill' quality={100} />
-        </motion.div>
+    <div className='flex w-full justify-center'>
+      <motion.div
+        id='landing'
+        className='flex min-h-screen w-fit items-center justify-center p-8'
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={transition}
+      >
+        <div className='grid w-full grid-cols-2 gap-y-4 sm:grid-cols-4'>
+          <motion.div
+            className='relative col-span-full h-24 w-24 shrink-0 self-center overflow-hidden rounded-full sm:col-span-1 sm:justify-self-center md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-40 xl:w-40'
+            initial={{ y: '-25%' }}
+            animate={{ y: 0 }}
+            transition={transition}
+          >
+            <Image
+              priority
+              src='/me.jpeg'
+              alt='Me'
+              layout='fill'
+              quality={100}
+            />
+          </motion.div>
 
-        <h1 className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'>
-          Hi! I&apos;m <span className='font-extrabold'>Tommy</span>, a
-          <br />
-          <span className='font-extrabold text-cyan-400'>Software</span>{' '}
-          <span className='font-extrabold text-orange-400'>Developer</span>
-        </h1>
+          <motion.h1
+            className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'
+            initial={{ y: '-25%' }}
+            animate={{ y: 0 }}
+            transition={transition}
+          >
+            Hi! I&apos;m <span className='font-extrabold'>Tommy</span>, a
+            <br />
+            <span className='font-extrabold text-cyan-400'>Software</span>{' '}
+            <span className='font-extrabold text-orange-400'>Developer</span>
+          </motion.h1>
 
-        <motion.p
-          className='col-span-full mb-8 max-w-sm text-sm opacity-90 sm:col-start-2 md:max-w-lg md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'
-          initial={{ x: '20%' }}
-          animate={{ x: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          Welcome to my website! Currently, I&apos;m a senior computer science
-          student at University at Buffalo and am looking for a job either
-          remote or in the NYC area.
-        </motion.p>
+          <motion.p
+            className='col-span-full mb-8 max-w-sm text-sm opacity-90 sm:col-start-2 md:max-w-lg md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'
+            initial={{ x: '25%' }}
+            animate={{ x: 0 }}
+            transition={transition}
+          >
+            Welcome to my website! I&apos;m a recent computer science graduate
+            from the University at Buffalo and am looking for a job either
+            remote or in the NYC area.
+          </motion.p>
 
-        <motion.div
-          className='col-span-full space-y-8 sm:col-start-2'
-          initial={{ y: '20%' }}
-          animate={{ y: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        >
-          <LinkTable header='Links' links={links} />
+          <motion.div
+            className='col-span-full space-y-10 sm:col-start-2'
+            initial={{ y: '25%' }}
+            animate={{ y: 0 }}
+            transition={transition}
+          >
+            <LinkTable header='Links' links={links} />
 
-          <LinkTable header='Table of Contents' links={contents} />
-        </motion.div>
-      </div>
-    </motion.div>
+            <LinkTable header='Table of Contents' links={contents} />
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

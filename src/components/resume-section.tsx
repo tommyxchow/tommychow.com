@@ -1,15 +1,28 @@
+import { motion, Variants } from 'framer-motion';
 import React from 'react';
 import { FaHashtag } from 'react-icons/fa';
-import { motion } from 'framer-motion';
 
 const ResumeSection = (props: ResumeSectionProps) => {
+  const variants: Variants = {
+    hidden: {
+      opacity: 0,
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 1,
+      },
+    },
+  };
+
   return (
     <motion.section
       id={props.id}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: false }}
-      className='flex min-h-screen flex-col justify-center p-8'
+      variants={variants}
+      initial='hidden'
+      whileInView='visible'
+      viewport={{ once: true }}
+      className='flex min-h-screen flex-col justify-center p-8 py-12'
     >
       <div className='group mb-4 -ml-6 flex items-center gap-2 md:-ml-8'>
         <a

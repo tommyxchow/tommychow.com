@@ -1,16 +1,19 @@
+import Image from 'next/image';
 import React from 'react';
 import { FaUser } from 'react-icons/fa';
 import ResumeSection from './resume-section';
 
 const About = () => {
+  const imageNames = ['nyc', 'queens', 'ub'];
+
   return (
     <ResumeSection id='about' icon={<FaUser />} heading='About Me'>
-      <p className='md:text-lg'>
-        I currently attend University at Buffalo as a senior computer science
-        student. I&apos;m a passionate mobile and web developer who enjoys
-        working with declarative front-end frameworks including Flutter, React,
-        and SwiftUI. For more insight into my development experience, check out
-        my GitHub profile!
+      <p className='mb-8 md:text-lg'>
+        I graduated from the University at Buffalo in May 2022 with a Bachelors
+        of Science in Computer Science. I&apos;m a passionate mobile and web
+        developer who enjoys working with declarative front-end frameworks
+        including Flutter, React, and SwiftUI. For more insight into my
+        development experience, check out my GitHub profile!
         <br />
         <br />
         Beyond the software development world, I was born and raised in Queens,
@@ -58,6 +61,20 @@ const About = () => {
         </a>
         .
       </p>
+
+      {imageNames.map((imageName) => (
+        <div
+          key={imageName}
+          className='relative mb-4 h-52 w-full overflow-hidden rounded-xl sm:h-72 md:h-96'
+        >
+          <Image
+            src={`/about/${imageName}.jpeg`}
+            layout='fill'
+            objectFit='cover'
+            alt='Daytime landscape shot of the New York City skyline'
+          />
+        </div>
+      ))}
     </ResumeSection>
   );
 };
