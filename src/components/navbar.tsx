@@ -38,15 +38,17 @@ const NavBar = () => {
           <motion.a
             key={sectionName}
             href={`#${sectionName.toLowerCase()}`}
+            className='pointer-events-auto bg-black px-4 py-2 text-sm font-medium uppercase tracking-wider sm:text-base lg:text-xl'
             initial={{ y: 150 }}
             animate={{
               y: showNavBar ? 0 : 150,
-              opacity: currentPageIndex == index ? 1 : 0.5,
             }}
           >
-            <p className='pointer-events-auto bg-black px-4 py-2 font-medium uppercase tracking-wider lg:text-xl'>
+            <motion.p
+              animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}
+            >
               {sectionName}
-            </p>
+            </motion.p>
           </motion.a>
         ))}
       </nav>
