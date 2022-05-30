@@ -61,7 +61,7 @@ const Landing = () => {
   };
 
   return (
-    <div className='flex w-full justify-center'>
+    <div className='mb-52 flex w-full justify-center'>
       <motion.div
         id='landing'
         className='flex min-h-screen w-fit items-center justify-center p-8'

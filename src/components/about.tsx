@@ -1,11 +1,8 @@
-import Image from 'next/image';
 import React from 'react';
 import { FaUser } from 'react-icons/fa';
 import ResumeSection from './resume-section';
 
 const About = () => {
-  const imageNames = ['nyc', 'queens', 'ub'];
-
   return (
     <ResumeSection id='about' icon={<FaUser />} heading='About Me'>
       <p className='mb-8 md:text-lg'>
@@ -61,20 +58,6 @@ const About = () => {
         </a>
         .
       </p>
-
-      {imageNames.map((imageName) => (
-        <div
-          key={imageName}
-          className='relative mb-4 h-52 w-full overflow-hidden rounded-xl sm:h-72 md:h-96'
-        >
-          <Image
-            src={`/about/${imageName}.jpeg`}
-            layout='fill'
-            objectFit='cover'
-            alt='Daytime landscape shot of the New York City skyline'
-          />
-        </div>
-      ))}
     </ResumeSection>
   );
 };
