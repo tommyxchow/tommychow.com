@@ -72,7 +72,7 @@ const Landing = () => {
         <div className='grid w-full grid-cols-2 gap-y-4 sm:grid-cols-4'>
           <motion.div
             className='relative col-span-full h-24 w-24 shrink-0 self-center overflow-hidden rounded-full sm:col-span-1 sm:justify-self-center md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-40 xl:w-40'
-            initial={{ y: '-25%' }}
+            initial={{ y: '-50' }}
             animate={{ y: 0 }}
             transition={transition}
           >
@@ -81,13 +81,13 @@ const Landing = () => {
               src='/me.jpeg'
               alt='Me'
               layout='fill'
-              quality={100}
+              quality={50}
             />
           </motion.div>
 
           <motion.h1
             className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'
-            initial={{ y: '-25%' }}
+            initial={{ y: '-50' }}
             animate={{ y: 0 }}
             transition={transition}
           >
@@ -99,8 +99,8 @@ const Landing = () => {
 
           <motion.p
             className='col-span-full mb-8 max-w-sm text-sm opacity-90 sm:col-start-2 md:max-w-lg md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'
-            initial={{ x: '25%' }}
-            animate={{ x: 0 }}
+            initial={{ y: '-50' }}
+            animate={{ y: 0 }}
             transition={transition}
           >
             Welcome to my website! I&apos;m a recent computer science graduate
@@ -110,7 +110,7 @@ const Landing = () => {
 
           <motion.div
             className='col-span-full space-y-10 sm:col-start-2'
-            initial={{ y: '25%' }}
+            initial={{ y: '50' }}
             animate={{ y: 0 }}
             transition={transition}
           >

@@ -15,7 +15,7 @@ const NavBar = () => {
     const about = document.getElementById('about');
 
     scroll.scrollY.attach(() => {
-      if (landing!.getBoundingClientRect().top == 0) {
+      if (landing!.getBoundingClientRect().top >= 0) {
         setShowNavBar(false);
       } else {
         setShowNavBar(true);
