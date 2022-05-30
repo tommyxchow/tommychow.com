@@ -81,7 +81,7 @@ const Landing = () => {
               src='/me.jpeg'
               alt='Me'
               layout='fill'
-              quality={50}
+              quality={100}
             />
           </motion.div>
 
