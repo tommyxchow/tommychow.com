@@ -2,12 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  p {
-    @apply opacity-80
-  }
-}
-
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
 }
