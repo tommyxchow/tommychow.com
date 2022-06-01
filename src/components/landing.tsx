@@ -98,7 +98,7 @@ const Landing = () => {
           </motion.h1>
 
           <motion.p
-            className='col-span-full mb-8 max-w-sm text-sm opacity-90 sm:col-start-2 md:max-w-lg md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'
+            className='col-span-full mb-8 max-w-sm text-sm sm:col-start-2 md:max-w-lg md:text-base lg:max-w-xl lg:text-lg xl:max-w-2xl'
             initial={{ y: '-50' }}
             animate={{ y: 0 }}
             transition={transition}

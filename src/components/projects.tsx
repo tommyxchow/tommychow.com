@@ -48,7 +48,7 @@ const Projects = () => {
     },
     {
       name: 'The Gallery',
-      date: 'May 2020',
+      date: 'May 2021',
       description:
         'Image sharing web app developed to learn internet protocols and full-stack web development.',
       imageLink: '/gallery.jpg',

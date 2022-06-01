@@ -33,7 +33,7 @@ const NavBar = () => {
 
   return (
     <AnimatePresence>
-      <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center p-4 lg:flex-col lg:justify-end'>
+      <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8 lg:flex-col lg:justify-end lg:p-4'>
         {sectionNames.map((sectionName, index) => (
           <motion.a
             key={sectionName}
