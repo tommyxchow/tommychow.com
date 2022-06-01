@@ -44,7 +44,7 @@ export default function Document() {
           name='msapplication-config'
           content='/favicons/browserconfig.xml'
         />
-        <meta name='theme-color' content='#ffffff' />
+        <meta name='theme-color' content='#000000' />
       </Head>
       <body>
         <Main />
