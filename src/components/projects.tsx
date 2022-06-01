@@ -9,9 +9,9 @@ const Projects = () => {
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
-      date: 'May 2022',
+      date: 'June 2022',
       description:
-        'Twitch client for iOS and Android with BTTV, FFZ, and 7TV support.',
+        'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/frosty-app.png',
       projectLink: 'https://github.com/tommyxchow/frosty',
       badges: [allBadges.openSource, allBadges.flutter],
@@ -50,7 +50,7 @@ const Projects = () => {
       name: 'The Gallery',
       date: 'May 2020',
       description:
-        'Basic web app developed to learn the foundations of internet protocols and full-stack web development.',
+        'Image sharing web app developed to learn internet protocols and full-stack web development.',
       imageLink: '/gallery.jpg',
       projectLink: 'https://github.com/tommyxchow/the-gallery',
       badges: [allBadges.python, allBadges.html, allBadges.css],
@@ -59,7 +59,7 @@ const Projects = () => {
       name: 'Stock Chart Visualizer',
       date: 'May 2019',
       description:
-        'Simple web app that allows entering any stock ticker to see the relevant price history and volume charts.',
+        'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
       imageLink: '/stonks.jpg',
       projectLink: 'https://github.com/tommyxchow/stock-chart-visualizer',
       badges: [allBadges.python, allBadges.html, allBadges.css],
@@ -78,11 +78,11 @@ const Projects = () => {
   return (
     <ResumeSection id='projects' icon={<FaLightbulb />} heading='My Projects'>
       <motion.p variants={variants} className='mb-8 md:text-lg'>
-        Below are some of the projects that I&apos;ve worked on which
-        contributed greatly to my growth as a developer. I was able to gain
-        hands-on experience with popular frameworks, design, wireframing,
-        deployment, CI/CD, common Agile practices, teamwork, leadership, and
-        more.
+        Below are some of the projects that I&apos;ve worked on directly which
+        contributed immensely to my growth as a developer. I was able to gain
+        hands-on experience with open-source, popular frameworks, UI and UX
+        design, usability and A/B testing, wireframing, deployment, CI/CD,
+        common Agile practices, teamwork, leadership, and more!
       </motion.p>
 
       <motion.div

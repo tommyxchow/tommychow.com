@@ -8,9 +8,9 @@ const About = () => {
       <p className='mb-8 md:text-lg'>
         I graduated from the University at Buffalo in May 2022 with a Bachelors
         of Science in Computer Science. I&apos;m a passionate mobile and web
-        developer who enjoys working with declarative front-end frameworks
-        including Flutter, React, and SwiftUI. For more insight into my
-        development experience, check out my GitHub profile!
+        developer who enjoys UI/UX design and working with declarative front-end
+        frameworks including Flutter, React, and SwiftUI. For more insight into
+        my development experience, check out my GitHub profile!
         <br />
         <br />
         Beyond the software development world, I was born and raised in Queens,
