@@ -15,7 +15,7 @@ const ProjectCard = (project: ProjectInfo) => {
       >
         <div className='absolute z-10 flex flex-col items-center gap-2 opacity-0 transition group-hover:opacity-100'>
           <HiExternalLink size={30} />
-          <p className='text-sm font-medium uppercase tracking-wider opacity-100'>
+          <p className='text-sm font-semibold uppercase tracking-wider opacity-100'>
             Check it out!
           </p>
         </div>
@@ -32,9 +32,12 @@ const ProjectCard = (project: ProjectInfo) => {
       </a>
 
       <div className='px-4 py-6'>
-        <div className='mb-4'>
+        <div className='mb-4 space-y-2'>
+          <p className='text-sm font-medium uppercase tracking-wider opacity-50'>
+            {project.date}
+          </p>
           <a
-            className='group flex items-center text-lg font-semibold transition'
+            className='group flex items-center text-lg font-semibold underline-offset-2 transition hover:underline'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'
@@ -45,9 +48,6 @@ const ProjectCard = (project: ProjectInfo) => {
               className='ml-2 opacity-0 transition group-hover:opacity-100'
             />
           </a>
-          <p className='mb-2 mt-1 text-sm font-medium uppercase tracking-wider opacity-50'>
-            {project.date}
-          </p>
           <div className='flex flex-wrap items-center gap-2'>
             {project.badges.map((badge) => (
               <Badge key={badge.text} {...badge} />
