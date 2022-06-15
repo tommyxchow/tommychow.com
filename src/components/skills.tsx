@@ -180,11 +180,6 @@ const Skills = () => {
           name: 'VS Code',
           color: 'bg-[#007ACC]',
         },
-        {
-          icon: <SiXcode color='#147EFB' />,
-          name: 'Xcode',
-          color: 'bg-[#147EFB]',
-        },
       ],
     },
     {
@@ -204,6 +199,11 @@ const Skills = () => {
           icon: <SiHeroku />,
           name: 'Heroku',
           color: 'bg-[#430098]',
+        },
+        {
+          icon: <SiXcode color='#147EFB' />,
+          name: 'Xcode',
+          color: 'bg-[#147EFB]',
         },
       ],
     },
@@ -230,8 +230,10 @@ const Skills = () => {
         {skillTitles.map((skillTitle, index) => (
           <button
             key={skillTitle}
-            className={`rounded-lg p-2 text-sm font-semibold first:pl-0 ${
-              currentIndex == index ? 'text-white' : 'opacity-50'
+            className={`rounded-lg p-2 text-sm font-semibold first:pl-0 md:text-base ${
+              currentIndex == index
+                ? 'text-white underline underline-offset-4'
+                : 'opacity-50'
             }`}
             onClick={() => setCurrentIndex(index)}
           >
@@ -239,6 +241,7 @@ const Skills = () => {
           </button>
         ))}
       </div>
+
       {skills[currentIndex].map((skill) => (
         <SkillSection key={skill.level} {...skill} />
       ))}
@@ -248,11 +251,12 @@ const Skills = () => {
 
 const SkillSection = (skillDetails: SkillDetails) => {
   return (
-    <div className='mb-8'>
-      <h3 className='mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-wider opacity-80'>
+    <div className='mb-8 items-center md:flex md:flex-col'>
+      <h3 className='mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-wider opacity-80 md:text-sm'>
         {skillDetails.level}
         <FaInfoCircle />
       </h3>
+
       <div className='flex flex-wrap gap-2'>
         {skillDetails.skills.map((skill) => (
           <SkillBadge key={skill.name} {...skill} />
@@ -265,7 +269,7 @@ const SkillSection = (skillDetails: SkillDetails) => {
 const SkillBadge = (skill: Skill) => {
   return (
     <div
-      className={`bg-2 flex items-center gap-2 rounded-lg bg-opacity-30 py-2 px-4 text-sm font-medium shadow-md transition ${skill.color}`}
+      className={`bg-2 flex items-center gap-2 rounded-lg bg-opacity-20 py-2 px-4 text-sm font-medium shadow-md transition md:text-lg ${skill.color}`}
     >
       {skill.icon}
       {skill.name}

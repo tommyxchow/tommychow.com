@@ -7,6 +7,7 @@ import {
   FaGithub,
   FaLightbulb,
   FaLinkedin,
+  FaToolbox,
   FaUser,
 } from 'react-icons/fa';
 import { email, githubLink, linkedInLink } from '../constants';
@@ -42,6 +43,12 @@ const Landing = () => {
 
   const contents: LinkInfo[] = [
     {
+      icon: <FaToolbox />,
+      title: 'Skills',
+      href: '#skills',
+      external: false,
+    },
+    {
       icon: <FaLightbulb />,
       title: 'Projects',
       href: '#projects',
@@ -49,7 +56,7 @@ const Landing = () => {
     },
     {
       icon: <FaUser />,
-      title: 'About Me',
+      title: 'About',
       href: '#about',
       external: false,
     },
