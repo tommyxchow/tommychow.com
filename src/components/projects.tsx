@@ -76,7 +76,7 @@ const Projects = () => {
   };
 
   return (
-    <ResumeSection id='projects' icon={<FaLightbulb />} heading='My Projects'>
+    <ResumeSection id='projects' icon={<FaLightbulb />} heading='Projects'>
       <motion.p variants={variants} className='mb-8 md:text-lg'>
         Below are some of the projects that I&apos;ve worked on directly which
         contributed immensely to my growth as a developer. I was able to gain

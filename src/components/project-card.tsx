@@ -43,10 +43,7 @@ const ProjectCard = (project: ProjectInfo) => {
             rel='noreferrer'
           >
             {project.name}
-            <FaExternalLinkAlt
-              size={15}
-              className='ml-2 opacity-0 transition group-hover:opacity-100'
-            />
+            <FaExternalLinkAlt size={15} className='ml-2' />
           </a>
           <div className='flex flex-wrap items-center gap-2'>
             {project.badges.map((badge) => (
