@@ -3,11 +3,13 @@ import About from '../components/about';
 import Landing from '../components/landing';
 import Layout from '../components/layout';
 import Projects from '../components/projects';
+import Skills from '../components/skills';
 
 const Home: NextPage = () => {
   return (
     <Layout description="Tommy Chow's Personal Website">
       <Landing />
+      <Skills />
       <Projects />
       <About />
     </Layout>
