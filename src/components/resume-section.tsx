@@ -1,6 +1,7 @@
 import { motion, Variants } from 'framer-motion';
 import React from 'react';
 import { FaHashtag } from 'react-icons/fa';
+import { accentColor } from '../constants';
 
 const ResumeSection = (props: ResumeSectionProps) => {
   const variants: Variants = {
@@ -29,7 +30,7 @@ const ResumeSection = (props: ResumeSectionProps) => {
           href={'#' + props.id}
           className='opacity-0 transition group-hover:opacity-100 md:text-xl'
         >
-          <FaHashtag color='#a3e635' />
+          <FaHashtag color={accentColor} />
         </a>
         <div className='text-xl md:text-2xl'>{props.icon} </div>
         <h2 className='text-2xl font-semibold md:text-3xl'>{props.heading}</h2>

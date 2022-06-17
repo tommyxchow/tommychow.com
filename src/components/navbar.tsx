@@ -44,8 +44,8 @@ const NavBar = () => {
           key={sectionName}
           href={`#${sectionName.toLowerCase()}`}
           className='pointer-events-auto bg-black p-2 text-sm font-medium uppercase tracking-wider sm:text-base lg:text-xl'
-          initial={{ x: 200 }}
-          animate={{ x: showNavBar ? 0 : 200 }}
+          initial={{ y: 200 }}
+          animate={{ y: showNavBar ? 0 : 200 }}
         >
           <motion.p animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}>
             {sectionName}
