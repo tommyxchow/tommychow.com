@@ -77,7 +77,7 @@ const Skills = () => {
         },
         {
           icon: <SiTailwindcss color='#06B6D4' />,
-          name: 'Tailwind CSS',
+          name: 'Tailwind',
           color: 'bg-[#06B6D4]',
         },
         {
@@ -232,7 +232,7 @@ const Skills = () => {
           {skillTitles.map((skillTitle, index) => (
             <motion.button
               key={skillTitle}
-              className={`rounded-lg p-2 text-sm font-semibold transition first:pl-0 active:scale-95 md:text-base ${
+              className={`m-4 text-sm font-semibold transition first:ml-0 active:scale-95 md:text-base ${
                 currentIndex == index
                   ? 'text-white underline decoration-lime-400 underline-offset-4'
                   : 'text-neutral-400'
@@ -255,7 +255,7 @@ const Skills = () => {
 const SkillSection = (skillDetails: SkillDetails) => {
   return (
     <div className='mb-8 w-full md:grid md:grid-cols-3'>
-      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider md:mr-8 md:mb-0 md:justify-end md:text-sm'>
+      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider md:mr-12 md:mb-0 md:justify-end md:text-sm'>
         {skillDetails.level}
         {/* <FaInfoCircle /> */}
       </h3>
@@ -281,7 +281,7 @@ const SkillSection = (skillDetails: SkillDetails) => {
 const SkillBadge = (skill: Skill) => {
   return (
     <div
-      className={`bg-2 flex items-center gap-2 rounded-lg bg-opacity-20 py-2 px-4 text-sm font-medium shadow-md transition md:text-lg ${skill.color}`}
+      className={`bg-2 flex items-center gap-2 rounded-full bg-opacity-20 py-2 px-4 font-mono text-sm shadow-md transition md:text-lg ${skill.color}`}
     >
       {skill.icon}
       {skill.name}

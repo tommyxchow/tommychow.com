@@ -18,8 +18,8 @@ const Layout = (props: LayoutProps) => {
       </main>
 
       <footer className='flex flex-col items-center gap-4 pb-20 lg:pb-8'>
-        <p className='text-sm font-light'>Thanks for stopping by! ❤️</p>
-        <p className='text-xs font-light opacity-50'>
+        <p className='text-sm font-light'>Thanks for stopping by! </p>
+        <p className='text-xs font-light text-neutral-400'>
           Built with{' '}
           <a
             className='hover:underline'
