@@ -68,7 +68,7 @@ const Landing = () => {
   };
 
   return (
-    <div className='mb-52 flex w-full justify-center'>
+    <div className='flex w-full justify-center'>
       <motion.div
         id='landing'
         className='flex min-h-screen w-fit items-center justify-center p-8'
@@ -85,7 +85,7 @@ const Landing = () => {
           >
             <Image
               priority
-              src='/me.jpeg'
+              src='/me.jpg'
               alt='Me'
               layout='fill'
               quality={100}
@@ -98,10 +98,13 @@ const Landing = () => {
             animate={{ y: 0 }}
             transition={transition}
           >
-            Hi! I&apos;m <span className='font-extrabold'>Tommy</span>, a
+            Hi! I&apos;m{' '}
+            <span className='font-extrabold text-lime-400'>Tommy</span>, a
             <br />
-            <span className='font-extrabold text-cyan-400'>Software</span>{' '}
-            <span className='font-extrabold text-orange-400'>Developer</span>
+            <span className='font-extrabold text-lime-400'>
+              Software Developer
+            </span>
+            .
           </motion.h1>
 
           <motion.p

@@ -26,7 +26,10 @@ const NavBar = () => {
         setCurrentPageIndex(0);
       } else if (projects!.getBoundingClientRect().top > 0) {
         setCurrentPageIndex(1);
-      } else if (about!.getBoundingClientRect().top > 0) {
+      } else if (
+        about!.getBoundingClientRect().top > 0 &&
+        projects!.getBoundingClientRect().bottom > 0
+      ) {
         setCurrentPageIndex(2);
       } else {
         setCurrentPageIndex(3);
@@ -35,27 +38,21 @@ const NavBar = () => {
   });
 
   return (
-    <AnimatePresence>
-      <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8 lg:flex-col lg:justify-end lg:p-4'>
-        {sectionNames.map((sectionName, index) => (
-          <motion.a
-            key={sectionName}
-            href={`#${sectionName.toLowerCase()}`}
-            className='pointer-events-auto bg-black p-2 text-sm font-medium uppercase tracking-wider sm:text-base lg:text-xl'
-            initial={{ y: 150 }}
-            animate={{
-              y: showNavBar ? 0 : 150,
-            }}
-          >
-            <motion.p
-              animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}
-            >
-              {sectionName}
-            </motion.p>
-          </motion.a>
-        ))}
-      </nav>
-    </AnimatePresence>
+    <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8 lg:flex-col lg:justify-end lg:p-4'>
+      {sectionNames.map((sectionName, index) => (
+        <motion.a
+          key={sectionName}
+          href={`#${sectionName.toLowerCase()}`}
+          className='pointer-events-auto bg-black p-2 text-sm font-medium uppercase tracking-wider sm:text-base lg:text-xl'
+          initial={{ x: 200 }}
+          animate={{ x: showNavBar ? 0 : 200 }}
+        >
+          <motion.p animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}>
+            {sectionName}
+          </motion.p>
+        </motion.a>
+      ))}
+    </nav>
   );
 };
 

@@ -226,20 +226,22 @@ const Skills = () => {
 
   return (
     <ResumeSection id='skills' heading='Skills' icon={<FaToolbox />}>
-      <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2'>
-        {skillTitles.map((skillTitle, index) => (
-          <button
-            key={skillTitle}
-            className={`rounded-lg p-2 text-sm font-semibold first:pl-0 md:text-base ${
-              currentIndex == index
-                ? 'text-white underline underline-offset-4'
-                : 'opacity-50'
-            }`}
-            onClick={() => setCurrentIndex(index)}
-          >
-            {skillTitle}
-          </button>
-        ))}
+      <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-3 md:gap-0'>
+        <div className='md:col-start-2'>
+          {skillTitles.map((skillTitle, index) => (
+            <button
+              key={skillTitle}
+              className={`rounded-lg p-2 text-sm font-semibold first:pl-0 md:text-base ${
+                currentIndex == index
+                  ? 'text-white underline decoration-lime-400 underline-offset-4'
+                  : 'opacity-50'
+              }`}
+              onClick={() => setCurrentIndex(index)}
+            >
+              {skillTitle}
+            </button>
+          ))}
+        </div>
       </div>
 
       {skills[currentIndex].map((skill) => (
@@ -251,13 +253,13 @@ const Skills = () => {
 
 const SkillSection = (skillDetails: SkillDetails) => {
   return (
-    <div className='mb-8 items-center md:flex md:flex-col'>
-      <h3 className='mb-4 flex items-center gap-2 text-xs font-medium uppercase tracking-wider opacity-80 md:text-sm'>
+    <div className='mb-8 w-full md:grid md:grid-cols-3'>
+      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider opacity-80 md:mr-8 md:mb-0 md:justify-end md:text-sm'>
         {skillDetails.level}
         <FaInfoCircle />
       </h3>
 
-      <div className='flex flex-wrap gap-2'>
+      <div className='flex flex-wrap gap-2 md:col-span-2'>
         {skillDetails.skills.map((skill) => (
           <SkillBadge key={skill.name} {...skill} />
         ))}
