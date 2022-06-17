@@ -260,20 +260,19 @@ const SkillSection = (skillDetails: SkillDetails) => {
         {/* <FaInfoCircle /> */}
       </h3>
 
-      <div className='flex flex-wrap gap-2 md:col-span-3'>
-        <AnimatePresence exitBeforeEnter>
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          key={skillDetails.skills[0].name}
+          className='flex flex-wrap gap-2 md:col-span-3'
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
           {skillDetails.skills.map((skill) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0 }}
-            >
-              <SkillBadge {...skill} />
-            </motion.div>
+            <SkillBadge key={skill.name} {...skill} />
           ))}
-        </AnimatePresence>
-      </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
