@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaInfoCircle, FaToolbox } from 'react-icons/fa';
+import { FaInfoCircle, FaTools } from 'react-icons/fa';
 import ResumeSection from './resume-section';
 import {
   SiC,
@@ -225,7 +225,7 @@ const Skills = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <ResumeSection id='skills' heading='Skills' icon={<FaToolbox />}>
+    <ResumeSection id='skills' heading='Skills' icon={<FaTools />}>
       <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-3 md:gap-0'>
         <div className='md:col-start-2'>
           {skillTitles.map((skillTitle, index) => (
