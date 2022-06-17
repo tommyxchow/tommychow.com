@@ -227,12 +227,12 @@ const Skills = () => {
 
   return (
     <ResumeSection id='skills' heading='Skills' icon={<FaTools />}>
-      <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-3 md:gap-0'>
+      <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-4 md:gap-0'>
         <div className='md:col-start-2'>
           {skillTitles.map((skillTitle, index) => (
             <motion.button
               key={skillTitle}
-              className={`m-4 text-sm font-semibold transition first:ml-0 active:scale-95 md:text-base ${
+              className={`m-4 text-sm font-semibold transition first:ml-0 active:scale-95 md:text-base lg:text-lg ${
                 currentIndex == index
                   ? 'text-white underline decoration-lime-400 underline-offset-4'
                   : 'text-neutral-400'
@@ -254,13 +254,13 @@ const Skills = () => {
 
 const SkillSection = (skillDetails: SkillDetails) => {
   return (
-    <div className='mb-8 w-full md:grid md:grid-cols-3'>
-      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider md:mr-12 md:mb-0 md:justify-end md:text-sm'>
+    <div className='mb-8 w-full md:grid md:grid-cols-4'>
+      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider md:mr-12 md:mb-0 md:justify-end md:text-sm lg:text-base'>
         {skillDetails.level}
         {/* <FaInfoCircle /> */}
       </h3>
 
-      <div className='flex flex-wrap gap-2 md:col-span-2'>
+      <div className='flex flex-wrap gap-2 md:col-span-3'>
         <AnimatePresence exitBeforeEnter>
           {skillDetails.skills.map((skill) => (
             <motion.div

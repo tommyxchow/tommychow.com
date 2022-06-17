@@ -38,20 +38,26 @@ const NavBar = () => {
   });
 
   return (
-    <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8 lg:flex-col lg:justify-end lg:p-4'>
-      {sectionNames.map((sectionName, index) => (
-        <motion.a
-          key={sectionName}
-          href={`#${sectionName.toLowerCase()}`}
-          className='pointer-events-auto bg-black p-2 text-sm font-medium uppercase tracking-wider sm:text-base lg:text-xl'
-          initial={{ y: 200 }}
-          animate={{ y: showNavBar ? 0 : 200 }}
-        >
-          <motion.p animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}>
-            {sectionName}
-          </motion.p>
-        </motion.a>
-      ))}
+    <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8 lg:justify-end lg:p-4'>
+      <motion.div
+        className='flex gap-4 rounded-xl bg-black p-6 lg:flex-col lg:gap-2'
+        initial={{ y: 200 }}
+        animate={{ y: showNavBar ? 0 : 200 }}
+      >
+        {sectionNames.map((sectionName, index) => (
+          <a
+            key={sectionName}
+            href={`#${sectionName.toLowerCase()}`}
+            className='pointer-events-auto text-sm font-semibold transition active:scale-95 sm:text-base lg:text-xl'
+          >
+            <motion.p
+              animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}
+            >
+              {sectionName}
+            </motion.p>
+          </a>
+        ))}
+      </motion.div>
     </nav>
   );
 };

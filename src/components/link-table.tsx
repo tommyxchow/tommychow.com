@@ -8,7 +8,7 @@ const LinkTable = (props: LinkTableProps) => {
         {props.header}
       </h2>
 
-      <div className='flex flex-wrap gap-8'>
+      <div className='flex flex-wrap gap-4'>
         {props.links.map((link) => (
           <a
             className='group flex w-fit items-center gap-2 font-medium decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95 lg:text-lg xl:text-xl'

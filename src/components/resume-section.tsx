@@ -32,8 +32,8 @@ const ResumeSection = (props: ResumeSectionProps) => {
         >
           <FaHashtag color={accentColor} />
         </a>
-        <div className='text-xl md:text-2xl'>{props.icon} </div>
-        <h2 className='text-2xl font-semibold md:text-3xl'>{props.heading}</h2>
+        <div className='text-xl md:text-2xl'>{props.icon}</div>
+        <h2 className='text-2xl font-bold md:text-3xl'>{props.heading}</h2>
       </div>
       {props.children}
     </motion.section>
