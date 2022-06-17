@@ -28,6 +28,7 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Skills = () => {
   const frameworkSkills: SkillDetails[] = [
@@ -229,17 +230,17 @@ const Skills = () => {
       <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-3 md:gap-0'>
         <div className='md:col-start-2'>
           {skillTitles.map((skillTitle, index) => (
-            <button
+            <motion.button
               key={skillTitle}
-              className={`rounded-lg p-2 text-sm font-semibold first:pl-0 md:text-base ${
+              className={`rounded-lg p-2 text-sm font-semibold transition first:pl-0 active:scale-95 md:text-base ${
                 currentIndex == index
                   ? 'text-white underline decoration-lime-400 underline-offset-4'
-                  : 'opacity-50'
+                  : 'text-neutral-400'
               }`}
               onClick={() => setCurrentIndex(index)}
             >
               {skillTitle}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -254,15 +255,24 @@ const Skills = () => {
 const SkillSection = (skillDetails: SkillDetails) => {
   return (
     <div className='mb-8 w-full md:grid md:grid-cols-3'>
-      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider opacity-80 md:mr-8 md:mb-0 md:justify-end md:text-sm'>
+      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider md:mr-8 md:mb-0 md:justify-end md:text-sm'>
         {skillDetails.level}
-        <FaInfoCircle />
+        {/* <FaInfoCircle /> */}
       </h3>
 
       <div className='flex flex-wrap gap-2 md:col-span-2'>
-        {skillDetails.skills.map((skill) => (
-          <SkillBadge key={skill.name} {...skill} />
-        ))}
+        <AnimatePresence exitBeforeEnter>
+          {skillDetails.skills.map((skill) => (
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
+            >
+              <SkillBadge {...skill} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
