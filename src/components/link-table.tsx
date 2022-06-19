@@ -4,7 +4,7 @@ import { FaArrowDown, FaExternalLinkAlt } from 'react-icons/fa';
 const LinkTable = (props: LinkTableProps) => {
   return (
     <div className='flex flex-col gap-4'>
-      <h2 className='text-xs font-semibold uppercase tracking-wider underline-offset-4 xl:text-base'>
+      <h2 className='text-xs font-semibold uppercase tracking-wider text-neutral-300 underline-offset-4 xl:text-base'>
         {props.header}
       </h2>
 
