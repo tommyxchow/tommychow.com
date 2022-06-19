@@ -32,7 +32,7 @@ const ProjectCard = (project: ProjectInfo) => {
 
       <div className='px-4 py-6'>
         <div className='mb-4 space-y-2'>
-          <p className='text-sm font-medium uppercase tracking-wider text-neutral-400'>
+          <p className='text-sm font-semibold uppercase tracking-wider text-neutral-400'>
             {project.date}
           </p>
           <a
