@@ -40,7 +40,7 @@ const NavBar = () => {
   return (
     <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8 lg:justify-end lg:p-4'>
       <motion.div
-        className='flex gap-4 rounded-xl bg-black p-4 lg:flex-col lg:gap-2 lg:p-6'
+        className='flex gap-4 rounded-xl bg-neutral-800 p-4 shadow-xl lg:flex-col lg:gap-2 lg:p-6'
         initial={{ y: 250 }}
         animate={{ y: showNavBar ? 0 : 250 }}
       >
