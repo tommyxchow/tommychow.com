@@ -37,13 +37,16 @@ const ProjectCard = (project: ProjectInfo) => {
             {project.date}
           </p>
           <a
-            className='group flex items-center text-lg font-semibold underline-offset-2 transition hover:underline'
+            className='group flex items-center text-lg font-semibold decoration-lime-400 underline-offset-2 transition hover:underline'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'
           >
             {project.name}
-            <FaExternalLinkAlt size={15} className='ml-2' />
+            <FaExternalLinkAlt
+              size={15}
+              className='ml-2 opacity-0 transition group-hover:opacity-100'
+            />
           </a>
           <div className='flex flex-wrap items-center gap-2'>
             {project.badges.map((badge) => (

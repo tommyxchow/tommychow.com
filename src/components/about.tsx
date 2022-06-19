@@ -5,7 +5,7 @@ import ResumeSection from './resume-section';
 const About = () => {
   return (
     <ResumeSection id='about' icon={<FaUser />} heading='About'>
-      <p className='mb-8 md:text-lg'>
+      <p className='mb-8 decoration-lime-400 underline-offset-4 md:text-lg'>
         I graduated from the University at Buffalo in May 2022 with a Bachelors
         of Science in Computer Science. I&apos;m a passionate mobile and web
         developer based in NYC who enjoys UI and UX design and working with
