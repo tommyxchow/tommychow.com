@@ -33,7 +33,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 const Skills = () => {
   const frameworkSkills: SkillDetails[] = [
     {
-      level: 'Experienced In',
+      level: 'Experienced With',
       skills: [
         {
           icon: <SiFlutter color='#02569B' />,
@@ -91,7 +91,7 @@ const Skills = () => {
 
   const languageSkills: SkillDetails[] = [
     {
-      level: 'Experienced In',
+      level: 'Experienced With',
       skills: [
         {
           icon: <SiCss3 color='#1572B6' />,
@@ -159,7 +159,7 @@ const Skills = () => {
 
   const toolSkills: SkillDetails[] = [
     {
-      level: 'Experienced In',
+      level: 'Experienced With',
       skills: [
         {
           icon: <SiFigma color='#F24E1E' />,

@@ -13,7 +13,7 @@ import {
 import { email, githubLink, linkedInLink } from '../constants';
 import LinkTable, { LinkInfo } from './link-table';
 
-const Landing = () => {
+const Intro = () => {
   const links: LinkInfo[] = [
     {
       icon: <FaEnvelope />,
@@ -70,7 +70,7 @@ const Landing = () => {
   return (
     <div className='flex w-full justify-center'>
       <motion.div
-        id='landing'
+        id='intro'
         className='flex min-h-screen w-fit items-center justify-center p-8'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -134,4 +134,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Intro;

@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 const NavBar = () => {
-  const sectionNames = ['Landing', 'Skills', 'Projects', 'About'];
+  const sectionNames = ['Intro', 'Skills', 'Projects', 'About'];
 
   const scroll = useViewportScroll();
 
@@ -10,13 +10,13 @@ const NavBar = () => {
   const [showNavBar, setShowNavBar] = useState(false);
 
   useEffect(() => {
-    const landing = document.getElementById('landing');
+    const intro = document.getElementById('intro');
     const skills = document.getElementById('skills');
     const projects = document.getElementById('projects');
     const about = document.getElementById('about');
 
     scroll.scrollY.attach(() => {
-      if (landing!.getBoundingClientRect().top >= 0) {
+      if (intro!.getBoundingClientRect().top >= 0) {
         setShowNavBar(false);
       } else {
         setShowNavBar(true);
