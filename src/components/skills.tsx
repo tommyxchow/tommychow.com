@@ -58,7 +58,7 @@ const Skills = () => {
         {
           icon: <SiFlask />,
           name: 'Flask',
-          color: 'bg-[#ffffff]',
+          color: 'bg-neutral-600',
         },
         {
           icon: <SiSwift color='#F05138' />,
@@ -73,7 +73,7 @@ const Skills = () => {
         {
           icon: <SiNextdotjs />,
           name: 'Next.js',
-          color: 'bg-[#ffffff]',
+          color: 'bg-neutral-600',
         },
         {
           icon: <SiTailwindcss color='#06B6D4' />,
@@ -174,7 +174,7 @@ const Skills = () => {
         {
           icon: <SiGithub />,
           name: 'GitHub',
-          color: 'bg-[#ffffff]',
+          color: 'bg-neutral-600',
         },
         {
           icon: <SiVisualstudiocode color='#007ACC' />,
@@ -214,7 +214,7 @@ const Skills = () => {
         {
           icon: <SiVercel />,
           name: 'Vercel',
-          color: 'bg-[#ffffff]',
+          color: 'bg-neutral-600',
         },
       ],
     },
