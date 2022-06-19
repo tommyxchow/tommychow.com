@@ -1,6 +1,7 @@
 import { motion, Variants } from 'framer-motion';
 import React from 'react';
 import { FaHashtag } from 'react-icons/fa';
+import { accentColor } from '../constants';
 
 const ResumeSection = (props: ResumeSectionProps) => {
   const variants: Variants = {
@@ -22,17 +23,17 @@ const ResumeSection = (props: ResumeSectionProps) => {
       initial='hidden'
       whileInView='visible'
       viewport={{ once: true }}
-      className='flex min-h-screen flex-col justify-center p-8 py-12'
+      className='mb-96 flex flex-col justify-center p-8 py-12 md:items-center'
     >
       <div className='group mb-4 -ml-6 flex items-center gap-2 md:-ml-8'>
         <a
           href={'#' + props.id}
           className='opacity-0 transition group-hover:opacity-100 md:text-xl'
         >
-          <FaHashtag />
+          <FaHashtag color={accentColor} />
         </a>
-        <div className='text-lg md:text-2xl'>{props.icon} </div>
-        <h2 className='text-xl font-semibold md:text-3xl'>{props.heading}</h2>
+        <div className='text-xl md:text-2xl'>{props.icon}</div>
+        <h2 className='text-2xl font-bold md:text-3xl'>{props.heading}</h2>
       </div>
       {props.children}
     </motion.section>

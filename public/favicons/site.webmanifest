@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Tommy Chow",
+    "short_name": "Tommy Chow",
     "icons": [
         {
             "src": "/favicons/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#a3e635",
+    "background_color": "#a3e635",
     "display": "standalone"
 }

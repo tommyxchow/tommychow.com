@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
@@ -11,7 +11,7 @@ export default function Document() {
           crossOrigin='anonymous'
         />
         <link
-          href='https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Manrope:wght@200;300;400;500;600;700;800&display=swap'
+          href='https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Manrope:wght@300;400;500;600;700;800&display=swap'
           rel='stylesheet'
         />
 
@@ -36,15 +36,15 @@ export default function Document() {
         <link
           rel='mask-icon'
           href='/favicons/safari-pinned-tab.svg'
-          color='#000000'
+          color='#a3e635'
         />
         <link rel='shortcut icon' href='/favicons/favicon.ico' />
-        <meta name='msapplication-TileColor' content='#000000' />
+        <meta name='msapplication-TileColor' content='#a3e635' />
         <meta
           name='msapplication-config'
           content='/favicons/browserconfig.xml'
         />
-        <meta name='theme-color' content='#000000' />
+        <meta name='theme-color' content='#a3e635' />
       </Head>
       <body>
         <Main />

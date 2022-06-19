@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge, { BadgeInfo } from './badge';
 
 const ProjectCard = (project: ProjectInfo) => {
   return (
-    <div className='relative flex w-72 shrink-0 snap-start scroll-mx-8 flex-col overflow-hidden rounded-lg bg-neutral-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:shadow-xl sm:w-full sm:first:ml-0 sm:hover:scale-105'>
+    <div className='relative flex w-72 shrink-0 snap-start scroll-mx-8 flex-col overflow-hidden rounded-xl bg-neutral-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:shadow-xl sm:w-full sm:first:ml-0 sm:hover:scale-105'>
       <a
         className='group relative flex h-64 w-full items-center justify-center'
         href={project.projectLink}
@@ -33,11 +32,11 @@ const ProjectCard = (project: ProjectInfo) => {
 
       <div className='px-4 py-6'>
         <div className='mb-4 space-y-2'>
-          <p className='text-sm font-medium uppercase tracking-wider opacity-50'>
+          <p className='text-sm font-semibold uppercase tracking-wider text-neutral-400'>
             {project.date}
           </p>
           <a
-            className='group flex items-center text-lg font-semibold underline-offset-2 transition hover:underline'
+            className='group flex items-center text-lg font-semibold decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'

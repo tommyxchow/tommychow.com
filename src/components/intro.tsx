@@ -1,18 +1,18 @@
 import { motion, Transition } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
 import {
   FaEnvelope,
   FaFileAlt,
   FaGithub,
   FaLightbulb,
   FaLinkedin,
+  FaTools,
   FaUser,
 } from 'react-icons/fa';
 import { email, githubLink, linkedInLink } from '../constants';
 import LinkTable, { LinkInfo } from './link-table';
 
-const Landing = () => {
+const Intro = () => {
   const links: LinkInfo[] = [
     {
       icon: <FaEnvelope />,
@@ -42,6 +42,12 @@ const Landing = () => {
 
   const contents: LinkInfo[] = [
     {
+      icon: <FaTools />,
+      title: 'Skills',
+      href: '#skills',
+      external: false,
+    },
+    {
       icon: <FaLightbulb />,
       title: 'Projects',
       href: '#projects',
@@ -49,7 +55,7 @@ const Landing = () => {
     },
     {
       icon: <FaUser />,
-      title: 'About Me',
+      title: 'About',
       href: '#about',
       external: false,
     },
@@ -61,9 +67,9 @@ const Landing = () => {
   };
 
   return (
-    <div className='mb-52 flex w-full justify-center'>
+    <div className='flex w-full justify-center'>
       <motion.div
-        id='landing'
+        id='intro'
         className='flex min-h-screen w-fit items-center justify-center p-8'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -78,7 +84,7 @@ const Landing = () => {
           >
             <Image
               priority
-              src='/me.jpeg'
+              src='/me.jpg'
               alt='Me'
               layout='fill'
               quality={100}
@@ -86,15 +92,18 @@ const Landing = () => {
           </motion.div>
 
           <motion.h1
-            className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'
+            className='col-span-full self-start text-3xl font-semibold sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:whitespace-nowrap xl:text-7xl'
             initial={{ y: '-50' }}
             animate={{ y: 0 }}
             transition={transition}
           >
-            Hi! I&apos;m <span className='font-extrabold'>Tommy</span>, a
+            Hi! I&apos;m{' '}
+            <span className='font-extrabold text-lime-400'>Tommy</span>, a
             <br />
-            <span className='font-extrabold text-cyan-400'>Software</span>{' '}
-            <span className='font-extrabold text-orange-400'>Developer</span>
+            <span className='font-extrabold text-lime-400'>
+              Software Developer
+            </span>
+            .
           </motion.h1>
 
           <motion.p
@@ -124,4 +133,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Intro;
