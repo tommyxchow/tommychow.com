@@ -92,7 +92,7 @@ const Intro = () => {
           </motion.div>
 
           <motion.h1
-            className='col-span-full self-start text-3xl sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl'
+            className='col-span-full self-start text-3xl font-semibold sm:col-start-2 sm:self-center sm:text-4xl md:text-5xl lg:text-6xl xl:whitespace-nowrap xl:text-7xl'
             initial={{ y: '-50' }}
             animate={{ y: 0 }}
             transition={transition}
