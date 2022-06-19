@@ -36,7 +36,7 @@ const ProjectCard = (project: ProjectInfo) => {
             {project.date}
           </p>
           <a
-            className='group flex items-center text-lg font-semibold decoration-lime-400 underline-offset-2 transition hover:underline'
+            className='group flex items-center text-lg font-semibold decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'
