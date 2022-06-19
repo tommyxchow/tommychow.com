@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaArrowDown, FaArrowRight, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaArrowDown, FaExternalLinkAlt } from 'react-icons/fa';
 
 const LinkTable = (props: LinkTableProps) => {
   return (

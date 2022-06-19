@@ -1,6 +1,5 @@
 import { motion, Transition } from 'framer-motion';
 import Image from 'next/image';
-import React from 'react';
 import {
   FaEnvelope,
   FaFileAlt,

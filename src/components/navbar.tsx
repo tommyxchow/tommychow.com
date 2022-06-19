@@ -1,5 +1,5 @@
-import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import { motion, useViewportScroll } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const NavBar = () => {
   const sectionNames = ['Intro', 'Skills', 'Projects', 'About'];

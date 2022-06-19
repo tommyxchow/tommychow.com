@@ -1,6 +1,6 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { FaInfoCircle, FaTools } from 'react-icons/fa';
-import ResumeSection from './resume-section';
+import { FaTools } from 'react-icons/fa';
 import {
   SiC,
   SiCplusplus,
@@ -28,7 +28,7 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
-import { AnimatePresence, motion } from 'framer-motion';
+import ResumeSection from './resume-section';
 
 const Skills = () => {
   const frameworkSkills: SkillDetails[] = [

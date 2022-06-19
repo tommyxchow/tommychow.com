@@ -1,5 +1,4 @@
 import { motion, Variants } from 'framer-motion';
-import React from 'react';
 import { FaLightbulb } from 'react-icons/fa';
 import { allBadges } from './badge';
 import ProjectCard, { ProjectInfo } from './project-card';

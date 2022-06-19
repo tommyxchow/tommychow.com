@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import React, { useState } from 'react';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge, { BadgeInfo } from './badge';
