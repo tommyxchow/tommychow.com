@@ -85,7 +85,7 @@ const Intro = () => {
             <Image
               priority
               src='/me.jpg'
-              alt='Me'
+              alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
               layout='fill'
               quality={100}
             />
@@ -98,11 +98,11 @@ const Intro = () => {
             transition={transition}
           >
             Hi! I&apos;m{' '}
-            <span className='font-extrabold text-lime-400'>Tommy</span>, a
+            <strong className='font-extrabold text-lime-400'>Tommy</strong>, a
             <br />
-            <span className='font-extrabold text-lime-400'>
+            <strong className='font-extrabold text-lime-400'>
               Software Developer
-            </span>
+            </strong>
             .
           </motion.h1>
 

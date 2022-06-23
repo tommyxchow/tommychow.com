@@ -227,22 +227,23 @@ const Skills = () => {
 
   return (
     <ResumeSection id='skills' heading='Skills' icon={<FaTools />}>
-      <div className='mb-4 flex items-center gap-2 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-4 md:gap-0'>
-        <div className='md:col-start-2'>
+      <div className='mb-4 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-4'>
+        <menu className='flex md:col-start-2 md:gap-2'>
           {skillTitles.map((skillTitle, index) => (
-            <motion.button
-              key={skillTitle}
-              className={`m-4 text-sm font-semibold transition first:ml-0 active:scale-95 md:text-base lg:text-lg ${
-                currentIndex == index
-                  ? 'text-white underline decoration-lime-400 underline-offset-4'
-                  : 'text-neutral-400'
-              }`}
-              onClick={() => setCurrentIndex(index)}
-            >
-              {skillTitle}
-            </motion.button>
+            <li key={skillTitle}>
+              <motion.button
+                className={`m-4 text-sm font-semibold transition first:ml-0 active:scale-95 md:text-base lg:text-lg ${
+                  currentIndex == index
+                    ? 'text-white underline decoration-lime-400 underline-offset-4'
+                    : 'text-neutral-400'
+                }`}
+                onClick={() => setCurrentIndex(index)}
+              >
+                {skillTitle}
+              </motion.button>
+            </li>
           ))}
-        </div>
+        </menu>
       </div>
 
       {skills[currentIndex].map((skill) => (
@@ -261,7 +262,7 @@ const SkillSection = (skillDetails: SkillDetails) => {
       </h3>
 
       <AnimatePresence exitBeforeEnter>
-        <motion.div
+        <motion.li
           key={skillDetails.skills[0].name}
           className='flex flex-wrap gap-2 md:col-span-3'
           initial={{ opacity: 0 }}
@@ -269,9 +270,11 @@ const SkillSection = (skillDetails: SkillDetails) => {
           exit={{ opacity: 0 }}
         >
           {skillDetails.skills.map((skill) => (
-            <SkillBadge key={skill.name} {...skill} />
+            <ul key={skill.name}>
+              <SkillBadge {...skill} />
+            </ul>
           ))}
-        </motion.div>
+        </motion.li>
       </AnimatePresence>
     </div>
   );
@@ -279,12 +282,12 @@ const SkillSection = (skillDetails: SkillDetails) => {
 
 const SkillBadge = (skill: Skill) => {
   return (
-    <div
+    <figure
       className={`bg-2 flex items-center gap-2 rounded-full bg-opacity-20 py-2 px-4 font-mono text-sm shadow-md transition md:text-lg ${skill.color}`}
     >
       {skill.icon}
-      {skill.name}
-    </div>
+      <figcaption>{skill.name}</figcaption>
+    </figure>
   );
 };
 

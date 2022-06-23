@@ -1,9 +1,11 @@
 const Badge = (badge: BadgeInfo) => {
   return (
     <div
-      className={`w-fit rounded-full bg-opacity-50 py-1 px-2 text-xs font-semibold uppercase tracking-wider shadow-md ${badge.badgeColor}`}
+      className={`w-fit rounded-full bg-opacity-50 py-1 px-2 shadow-md ${badge.badgeColor}`}
     >
-      {badge.text}
+      <p className='text-xs font-semibold uppercase tracking-wider'>
+        {badge.text}
+      </p>
     </div>
   );
 };

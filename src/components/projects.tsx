@@ -8,7 +8,7 @@ const Projects = () => {
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
-      date: 'June 2022',
+      date: '2022-06-22',
       description:
         'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/frosty-app.png',
@@ -18,7 +18,7 @@ const Projects = () => {
     },
     {
       name: 'Frosty (Website)',
-      date: 'May 2022',
+      date: '2022-06-22',
       description: 'Marketing website for the Frosty app.',
       imageLink: '/frosty-website.png',
       projectLink: 'https://github.com/tommyxchow/frostyapp.io',
@@ -27,7 +27,7 @@ const Projects = () => {
     },
     {
       name: 'Study Seeker',
-      date: 'May 2022',
+      date: '2022-05-06',
       description:
         'Responsive social media platform aimed to help students find the best match for a potential study partner.',
       imageLink: '/study-seeker.jpg',
@@ -37,7 +37,7 @@ const Projects = () => {
     },
     {
       name: 'Zeal',
-      date: 'December 2021',
+      date: '2021-12-04',
       description:
         'Social web app that streamlines creating, exploring, and joining events.',
       imageLink: '/zeal.jpg',
@@ -47,7 +47,7 @@ const Projects = () => {
     },
     {
       name: 'The Gallery',
-      date: 'May 2021',
+      date: '2021-05-18',
       description:
         'Image sharing web app developed to learn internet protocols and full-stack web development.',
       imageLink: '/gallery.jpg',
@@ -56,7 +56,7 @@ const Projects = () => {
     },
     {
       name: 'Stock Chart Visualizer',
-      date: 'May 2019',
+      date: '2019-05-18',
       description:
         'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
       imageLink: '/stonks.jpg',
@@ -84,14 +84,16 @@ const Projects = () => {
         common Agile practices, teamwork, leadership, and more!
       </motion.p>
 
-      <motion.div
+      <motion.ul
         variants={variants}
         className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'
       >
         {projects.map((project) => (
-          <ProjectCard key={project.name} {...project} />
+          <li key={project.name}>
+            <ProjectCard {...project} />
+          </li>
         ))}
-      </motion.div>
+      </motion.ul>
     </ResumeSection>
   );
 };
