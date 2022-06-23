@@ -8,46 +8,42 @@ const Projects = () => {
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty (Mobile App)',
-      date: 'June 2022',
+      date: '2022-06-22',
       description:
         'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/frosty-app.png',
       projectLink: 'https://github.com/tommyxchow/frosty',
       badges: [allBadges.openSource, allBadges.flutter],
-      priority: true,
     },
     {
       name: 'Frosty (Website)',
-      date: 'May 2022',
+      date: '2022-06-22',
       description: 'Marketing website for the Frosty app.',
       imageLink: '/frosty-website.png',
       projectLink: 'https://github.com/tommyxchow/frostyapp.io',
       badges: [allBadges.nextJs, allBadges.tailwind, allBadges.typeScript],
-      priority: true,
     },
     {
       name: 'Study Seeker',
-      date: 'May 2022',
+      date: '2022-05-06',
       description:
         'Responsive social media platform aimed to help students find the best match for a potential study partner.',
       imageLink: '/study-seeker.jpg',
       projectLink: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
       badges: [allBadges.react, allBadges.css],
-      priority: true,
     },
     {
       name: 'Zeal',
-      date: 'December 2021',
+      date: '2021-12-04',
       description:
         'Social web app that streamlines creating, exploring, and joining events.',
       imageLink: '/zeal.jpg',
       projectLink: 'https://github.com/Prakshal-Jain/Zeal',
       badges: [allBadges.react, allBadges.django],
-      priority: true,
     },
     {
       name: 'The Gallery',
-      date: 'May 2021',
+      date: '2021-05-18',
       description:
         'Image sharing web app developed to learn internet protocols and full-stack web development.',
       imageLink: '/gallery.jpg',
@@ -56,7 +52,7 @@ const Projects = () => {
     },
     {
       name: 'Stock Chart Visualizer',
-      date: 'May 2019',
+      date: '2019-05-18',
       description:
         'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
       imageLink: '/stonks.jpg',
@@ -84,14 +80,19 @@ const Projects = () => {
         common Agile practices, teamwork, leadership, and more!
       </motion.p>
 
-      <motion.div
+      <motion.ul
         variants={variants}
-        className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'
+        className='-mx-8 flex snap-x snap-mandatory gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'
       >
         {projects.map((project) => (
-          <ProjectCard key={project.name} {...project} />
+          <li
+            key={project.name}
+            className='first:ml-8 last:mr-8 sm:first:ml-0 sm:last:mr-0'
+          >
+            <ProjectCard {...project} />
+          </li>
         ))}
-      </motion.div>
+      </motion.ul>
     </ResumeSection>
   );
 };

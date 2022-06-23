@@ -4,8 +4,14 @@ import { HiExternalLink } from 'react-icons/hi';
 import Badge, { BadgeInfo } from './badge';
 
 const ProjectCard = (project: ProjectInfo) => {
+  const date = new Date(project.date);
+
+  const formattedDate = `${date.toLocaleString('default', {
+    month: 'long',
+  })} ${date.getFullYear()}`;
+
   return (
-    <div className='relative flex w-72 shrink-0 snap-start scroll-mx-8 flex-col overflow-hidden rounded-xl bg-neutral-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:shadow-xl sm:w-full sm:first:ml-0 sm:hover:scale-105'>
+    <div className='relative flex h-full w-72 shrink-0 snap-start scroll-mx-8 flex-col overflow-hidden rounded-xl bg-neutral-800 shadow-lg transition hover:shadow-xl sm:w-full sm:hover:scale-105'>
       <a
         className='group relative flex h-64 w-full items-center justify-center'
         href={project.projectLink}
@@ -20,9 +26,8 @@ const ProjectCard = (project: ProjectInfo) => {
         </div>
         <div className='relative h-full w-full transition group-hover:opacity-30 group-active:opacity-10'>
           <Image
-            priority={project.priority}
             src={project.imageLink}
-            alt='Project Thumbnail'
+            alt={`Thumbnail and screenshot of ${project.name}.`}
             layout='fill'
             objectFit='cover'
             objectPosition='top'
@@ -31,12 +36,16 @@ const ProjectCard = (project: ProjectInfo) => {
       </a>
 
       <div className='px-4 py-6'>
-        <div className='mb-4 space-y-2'>
-          <p className='text-sm font-semibold uppercase tracking-wider text-neutral-400'>
-            {project.date}
-          </p>
+        <time
+          dateTime={project.date}
+          className='text-sm font-semibold uppercase tracking-wider text-neutral-400'
+        >
+          {formattedDate}
+        </time>
+
+        <h3>
           <a
-            className='group flex items-center text-lg font-semibold decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95'
+            className='group my-2 flex items-center text-lg font-semibold decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95'
             href={project.projectLink}
             target='_blank'
             rel='noreferrer'
@@ -47,12 +56,14 @@ const ProjectCard = (project: ProjectInfo) => {
               className='ml-2 opacity-0 transition group-hover:opacity-100'
             />
           </a>
-          <div className='flex flex-wrap items-center gap-2'>
-            {project.badges.map((badge) => (
-              <Badge key={badge.text} {...badge} />
-            ))}
-          </div>
+        </h3>
+
+        <div className='mb-4 flex flex-wrap items-center gap-2'>
+          {project.badges.map((badge) => (
+            <Badge key={badge.text} {...badge} />
+          ))}
         </div>
+
         <p className='text-sm'>{project.description}</p>
       </div>
     </div>
@@ -66,7 +77,6 @@ export interface ProjectInfo {
   imageLink: string;
   projectLink: string;
   badges: BadgeInfo[];
-  priority?: boolean;
 }
 
 export default ProjectCard;

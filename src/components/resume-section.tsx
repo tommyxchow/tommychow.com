@@ -23,18 +23,18 @@ const ResumeSection = (props: ResumeSectionProps) => {
       initial='hidden'
       whileInView='visible'
       viewport={{ once: true }}
-      className='mb-96 flex flex-col justify-center p-8 py-12 md:items-center'
+      className='flex flex-col justify-center p-8 py-32 sm:pb-40 md:items-center'
     >
-      <div className='group mb-4 -ml-6 flex items-center gap-2 md:-ml-8'>
+      <h2 className='group mb-4 -ml-6 flex items-center gap-2 text-2xl font-bold md:-ml-8 md:text-3xl'>
         <a
           href={'#' + props.id}
-          className='opacity-0 transition group-hover:opacity-100 md:text-xl'
+          className='text-lime-400 opacity-0 transition active:scale-95 group-hover:opacity-100'
         >
-          <FaHashtag color={accentColor} />
+          #
         </a>
         <div className='text-xl md:text-2xl'>{props.icon}</div>
-        <h2 className='text-2xl font-bold md:text-3xl'>{props.heading}</h2>
-      </div>
+        {props.heading}
+      </h2>
       {props.children}
     </motion.section>
   );
