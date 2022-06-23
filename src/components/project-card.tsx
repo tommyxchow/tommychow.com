@@ -11,7 +11,7 @@ const ProjectCard = (project: ProjectInfo) => {
   })} ${date.getFullYear()}`;
 
   return (
-    <div className='relative flex h-full w-72 shrink-0 snap-start scroll-mx-8 flex-col overflow-hidden rounded-xl bg-neutral-800 shadow-lg transition first:ml-8 last:mr-8 first:last:mr-0 hover:shadow-xl sm:w-full sm:first:ml-0 sm:hover:scale-105'>
+    <div className='relative flex h-full w-72 shrink-0 snap-start scroll-mx-8 flex-col overflow-hidden rounded-xl bg-neutral-800 shadow-lg transition hover:shadow-xl sm:w-full sm:hover:scale-105'>
       <a
         className='group relative flex h-64 w-full items-center justify-center'
         href={project.projectLink}

@@ -82,10 +82,13 @@ const Projects = () => {
 
       <motion.ul
         variants={variants}
-        className='-mx-8 flex snap-x gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'
+        className='-mx-8 flex snap-x snap-mandatory gap-8 overflow-auto py-6 sm:grid sm:snap-none sm:grid-cols-2 sm:overflow-visible sm:px-8 lg:grid-cols-3'
       >
         {projects.map((project) => (
-          <li key={project.name}>
+          <li
+            key={project.name}
+            className='first:ml-8 last:mr-8 sm:first:ml-0 sm:last:mr-0'
+          >
             <ProjectCard {...project} />
           </li>
         ))}
