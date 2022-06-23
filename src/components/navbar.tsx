@@ -14,7 +14,7 @@ const NavBar = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.target.id == 'intro') {
-            if (entry.intersectionRatio < 1) {
+            if (entry.intersectionRatio < 0.75) {
               setShowNavBar(true);
             } else {
               setShowNavBar(false);
@@ -50,7 +50,7 @@ const NavBar = () => {
           >
             <motion.a
               href={`#${sectionName.toLowerCase()}`}
-              animate={{ opacity: currentPageIndex == index ? 1 : 0.25 }}
+              animate={{ opacity: currentPageIndex == index ? 1 : 0.5 }}
             >
               {sectionName}
             </motion.a>

@@ -28,9 +28,9 @@ const ResumeSection = (props: ResumeSectionProps) => {
       <h2 className='group mb-4 -ml-6 flex items-center gap-2 text-2xl font-bold md:-ml-8 md:text-3xl'>
         <a
           href={'#' + props.id}
-          className='opacity-0 transition group-hover:opacity-100 md:text-xl'
+          className='text-lime-400 opacity-0 transition active:scale-95 group-hover:opacity-100'
         >
-          <FaHashtag color={accentColor} />
+          #
         </a>
         <div className='text-xl md:text-2xl'>{props.icon}</div>
         {props.heading}

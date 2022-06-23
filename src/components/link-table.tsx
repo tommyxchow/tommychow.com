@@ -12,7 +12,7 @@ const LinkTable = (props: LinkTableProps) => {
         {props.links.map((link) => (
           <li key={link.title}>
             <a
-              className='group flex w-fit items-center gap-2 font-medium decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95 lg:text-lg xl:text-xl'
+              className='group flex w-fit items-center gap-2 py-2 font-medium decoration-lime-400 underline-offset-4 transition hover:underline active:scale-95 lg:text-lg xl:text-xl'
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel='noreferrer'

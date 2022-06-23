@@ -17,7 +17,7 @@ const Layout = (props: LayoutProps) => {
         {props.children}
       </main>
 
-      <footer className='flex flex-col items-center gap-4 pb-20 pt-32 lg:pb-28'>
+      <footer className='flex flex-col items-center gap-4 pb-28 pt-40 lg:pb-36'>
         <p className='text-sm font-light'>Thanks for stopping by! </p>
         <p className='text-xs font-light text-neutral-400'>
           Built with{' '}
