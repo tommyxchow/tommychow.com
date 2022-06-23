@@ -14,7 +14,6 @@ const Projects = () => {
       imageLink: '/frosty-app.png',
       projectLink: 'https://github.com/tommyxchow/frosty',
       badges: [allBadges.openSource, allBadges.flutter],
-      priority: true,
     },
     {
       name: 'Frosty (Website)',
@@ -23,7 +22,6 @@ const Projects = () => {
       imageLink: '/frosty-website.png',
       projectLink: 'https://github.com/tommyxchow/frostyapp.io',
       badges: [allBadges.nextJs, allBadges.tailwind, allBadges.typeScript],
-      priority: true,
     },
     {
       name: 'Study Seeker',
@@ -33,7 +31,6 @@ const Projects = () => {
       imageLink: '/study-seeker.jpg',
       projectLink: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
       badges: [allBadges.react, allBadges.css],
-      priority: true,
     },
     {
       name: 'Zeal',
@@ -43,7 +40,6 @@ const Projects = () => {
       imageLink: '/zeal.jpg',
       projectLink: 'https://github.com/Prakshal-Jain/Zeal',
       badges: [allBadges.react, allBadges.django],
-      priority: true,
     },
     {
       name: 'The Gallery',

@@ -26,7 +26,6 @@ const ProjectCard = (project: ProjectInfo) => {
         </div>
         <div className='relative h-full w-full transition group-hover:opacity-30 group-active:opacity-10'>
           <Image
-            priority={project.priority}
             src={project.imageLink}
             alt={`Thumbnail and screenshot of ${project.name}.`}
             layout='fill'
@@ -78,7 +77,6 @@ export interface ProjectInfo {
   imageLink: string;
   projectLink: string;
   badges: BadgeInfo[];
-  priority?: boolean;
 }
 
 export default ProjectCard;

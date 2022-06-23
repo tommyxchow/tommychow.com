@@ -228,7 +228,7 @@ const Skills = () => {
   return (
     <ResumeSection id='skills' heading='Skills' icon={<FaTools />}>
       <div className='mb-4 overflow-auto whitespace-nowrap pb-2 md:grid md:grid-cols-4'>
-        <menu className='flex md:col-start-2 md:gap-2'>
+        <ul className='flex md:col-start-2 md:gap-2'>
           {skillTitles.map((skillTitle, index) => (
             <li key={skillTitle}>
               <motion.button
@@ -243,7 +243,7 @@ const Skills = () => {
               </motion.button>
             </li>
           ))}
-        </menu>
+        </ul>
       </div>
 
       {skills[currentIndex].map((skill) => (
@@ -256,13 +256,13 @@ const Skills = () => {
 const SkillSection = (skillDetails: SkillDetails) => {
   return (
     <div className='mb-8 w-full md:grid md:grid-cols-4'>
-      <h3 className='mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider md:mr-12 md:mb-0 md:justify-end md:text-sm lg:text-base'>
+      <h3 className='mb-4 flex items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-wider md:mr-12 md:mb-0 md:justify-end md:text-sm lg:text-base'>
         {skillDetails.level}
         {/* <FaInfoCircle /> */}
       </h3>
 
       <AnimatePresence exitBeforeEnter>
-        <motion.li
+        <motion.ul
           key={skillDetails.skills[0].name}
           className='flex flex-wrap gap-2 md:col-span-3'
           initial={{ opacity: 0 }}
@@ -270,11 +270,11 @@ const SkillSection = (skillDetails: SkillDetails) => {
           exit={{ opacity: 0 }}
         >
           {skillDetails.skills.map((skill) => (
-            <ul key={skill.name}>
+            <li key={skill.name}>
               <SkillBadge {...skill} />
-            </ul>
+            </li>
           ))}
-        </motion.li>
+        </motion.ul>
       </AnimatePresence>
     </div>
   );
