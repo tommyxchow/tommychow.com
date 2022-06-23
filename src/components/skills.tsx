@@ -231,7 +231,7 @@ const Skills = () => {
         <ul className='flex md:col-start-2 md:gap-2'>
           {skillTitles.map((skillTitle, index) => (
             <li key={skillTitle}>
-              <motion.button
+              <button
                 className={`m-4 text-sm font-semibold transition first:ml-0 active:scale-95 md:text-base lg:text-lg ${
                   currentIndex == index
                     ? 'text-white underline decoration-lime-400 underline-offset-4'
@@ -240,7 +240,7 @@ const Skills = () => {
                 onClick={() => setCurrentIndex(index)}
               >
                 {skillTitle}
-              </motion.button>
+              </button>
             </li>
           ))}
         </ul>

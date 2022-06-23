@@ -10,31 +10,30 @@ const NavBar = () => {
   const [showNavBar, setShowNavBar] = useState(false);
 
   useEffect(() => {
-    const intro = document.getElementById('intro');
-    const skills = document.getElementById('skills');
-    const projects = document.getElementById('projects');
-    const about = document.getElementById('about');
+    const sections = ['intro', 'skills', 'projects', 'about'];
 
-    scroll.scrollY.attach(() => {
-      if (intro!.getBoundingClientRect().top >= 0) {
-        setShowNavBar(false);
-      } else {
-        setShowNavBar(true);
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.id == 'intro') {
+            if (entry.intersectionRatio < 1) {
+              setShowNavBar(true);
+            } else {
+              setShowNavBar(false);
+            }
+          }
 
-      if (skills!.getBoundingClientRect().top > 0) {
-        setCurrentPageIndex(0);
-      } else if (projects!.getBoundingClientRect().top > 0) {
-        setCurrentPageIndex(1);
-      } else if (
-        about!.getBoundingClientRect().top > 0 &&
-        projects!.getBoundingClientRect().bottom > 0
-      ) {
-        setCurrentPageIndex(2);
-      } else {
-        setCurrentPageIndex(3);
-      }
-    });
+          if (entry.intersectionRatio >= 0.5) {
+            setCurrentPageIndex(sections.indexOf(entry.target.id));
+          }
+        });
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+
+    sections
+      .map((section) => document.getElementById(section))
+      .forEach((section) => observer.observe(section!));
   });
 
   return (
