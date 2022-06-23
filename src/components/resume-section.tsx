@@ -1,7 +1,5 @@
 import { motion, Variants } from 'framer-motion';
 import React from 'react';
-import { FaHashtag } from 'react-icons/fa';
-import { accentColor } from '../constants';
 
 const ResumeSection = (props: ResumeSectionProps) => {
   const variants: Variants = {
