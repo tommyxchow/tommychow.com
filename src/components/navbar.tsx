@@ -1,10 +1,8 @@
-import { motion, useViewportScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const NavBar = () => {
   const sectionNames = ['Intro', 'Skills', 'Projects', 'About'];
-
-  const scroll = useViewportScroll();
 
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [showNavBar, setShowNavBar] = useState(false);
@@ -34,7 +32,9 @@ const NavBar = () => {
     sections
       .map((section) => document.getElementById(section))
       .forEach((section) => observer.observe(section!));
-  });
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <nav className='pointer-events-none fixed z-50 flex min-h-screen w-full items-end justify-center pb-8'>
