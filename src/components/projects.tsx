@@ -29,7 +29,7 @@ const Projects = () => {
       description:
         'Responsive social media platform aimed to help students find the best match for a potential study partner.',
       imageLink: '/study-seeker.jpg',
-      projectLink: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
+      projectLink: 'https://github.com/tommyxchow/study-seeker',
       badges: [allBadges.react, allBadges.css],
     },
     {
