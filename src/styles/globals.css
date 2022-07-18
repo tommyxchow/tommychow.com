@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 html {
-  color-scheme: dark;
   scroll-behavior: smooth;
-  background-color: rgb(28, 28, 28);
+  height: 100%;
+}
+
+body, #__next {
+  height: 100%
 }

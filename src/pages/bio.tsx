@@ -1,10 +1,10 @@
-import { FaUser } from 'react-icons/fa';
-import ResumeSection from './resume-section';
+import React from 'react';
+import Layout from '../components/layout';
 
-const About = () => {
+const Bio = () => {
   return (
-    <ResumeSection id='about' icon={<FaUser />} heading='About'>
-      <p className='mb-8 decoration-lime-400 underline-offset-4 md:text-lg'>
+    <Layout title={"Tommy Chow's Bio"} description={"Tommy Chow's Bio"}>
+      <p>
         I graduated from the University at Buffalo in May 2022 with a Bachelor
         of Science in Computer Science. I&apos;m a passionate mobile and web
         developer based in NYC who enjoys UI and UX design and working with
@@ -58,8 +58,8 @@ const About = () => {
         </a>
         .
       </p>
-    </ResumeSection>
+    </Layout>
   );
 };
 
-export default About;
+export default Bio;
