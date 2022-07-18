@@ -4,7 +4,7 @@ import Layout from '../components/layout';
 const Bio = () => {
   return (
     <Layout title={"Tommy Chow's Bio"} description={"Tommy Chow's Bio"}>
-      <p>
+      <p className='text-sm'>
         I graduated from the University at Buffalo in May 2022 with a Bachelor
         of Science in Computer Science. I&apos;m a passionate mobile and web
         developer based in NYC who enjoys UI and UX design and working with

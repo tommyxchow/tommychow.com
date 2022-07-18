@@ -5,11 +5,12 @@ import NavBar from '../components/navbar';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  return (
-    <div className='flex h-full flex-col'>
-      <NavBar />
+  const routes = ['Skills', 'Projects', 'Thoughts', 'Bio'];
 
-      <div className='flex-grow'>
+  return (
+    <div className='flex min-h-screen flex-col'>
+      <div className='flex flex-grow flex-col'>
+        <NavBar />
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={router.route}
@@ -17,7 +18,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0 }}
-            className='h-full'
           >
             <Component {...pageProps} />
           </motion.div>

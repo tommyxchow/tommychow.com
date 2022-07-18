@@ -4,15 +4,15 @@ import Footer from './footer';
 
 const Layout = ({ children, title, description }: LayoutProps) => {
   return (
-    <div className='h-full'>
+    <>
       <Head>
         <title>{title}</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta name='description' content={description} />
       </Head>
 
-      <main className='flex h-full flex-col p-4'>{children}</main>
-    </div>
+      <main className='flex h-full flex-col px-4 py-2'>{children}</main>
+    </>
   );
 };
 

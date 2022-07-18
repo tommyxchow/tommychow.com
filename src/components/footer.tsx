@@ -7,35 +7,37 @@ const Footer = () => {
       icon: <FiMail />,
       title: 'Email',
       href: `mailto:${email}`,
-      external: true,
     },
     {
       icon: <FiGithub />,
       title: 'GitHub',
       href: githubLink,
-      external: true,
     },
     {
       icon: <FiLinkedin />,
       title: 'LinkedIn',
       href: linkedInLink,
-      external: true,
     },
     {
       icon: <FiFileText />,
       title: 'Resume',
       href: '/resume.pdf',
-      external: true,
     },
   ];
 
   return (
-    <footer className='border-t-2 border-black p-4'>
-      <h2 className='mb-2 text-xl font-semibold'>More</h2>
-      <ul className='flex gap-4'>
+    <footer className='sticky inset-0 flex flex-col gap-2 bg-black px-4 py-2 text-white'>
+      <ul className='flex justify-between gap-4'>
         {links.map((link) => (
-          <li key={link.title} className=''>
-            {link.title}
+          <li key={link.title}>
+            <a
+              className='text-sm font-semibold'
+              href={link.href}
+              target='_blank'
+              rel='noreferrer'
+            >
+              {link.title}
+            </a>
           </li>
         ))}
       </ul>
@@ -47,7 +49,6 @@ interface LinkInfo {
   icon?: React.ReactNode;
   title: string;
   href: string;
-  external: boolean;
 }
 
 export default Footer;

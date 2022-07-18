@@ -4,9 +4,5 @@
 
 html {
   scroll-behavior: smooth;
-  height: 100%;
-}
-
-body, #__next {
-  height: 100%
+  @apply text-gray-900
 }

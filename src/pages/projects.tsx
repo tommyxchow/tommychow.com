@@ -49,14 +49,14 @@ const Projects = () => {
       title={"Tommy Chow's Projects"}
       description={"Tommy Chow's Projects"}
     >
-      <div className='flex flex-col gap-8'>
-        <p>
+      <div className='flex flex-col gap-4'>
+        <p className='text-sm'>
           I focus on creating mobile and web experiences that motivate me to
           learn and solve meaningful problems. All of my work is free and
           open-source by default.
         </p>
 
-        <ul className='flex flex-col gap-4'>
+        <ul className='flex flex-col'>
           {projects.map((project) => (
             <Project key={project.name} {...project} />
           ))}
@@ -74,7 +74,7 @@ const Project = ({
   projectLink,
 }: ProjectInfo) => {
   return (
-    <div>
+    <div className='py-4'>
       <h1 className='text-xl font-semibold'>{name}</h1>
       <p className='text-sm'>{description}</p>
     </div>

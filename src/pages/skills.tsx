@@ -175,18 +175,21 @@ const Skills = () => {
 
   return (
     <Layout title={"Tommy Chow's Skills"} description={"Tommy Chow's Skills"}>
-      <div className='flex flex-col gap-8'>
-        <p className=''>
+      <div className='flex flex-col gap-4'>
+        <p className='text-sm'>
           I&apos;m constantly exploring both the new and old in the full-stack
           world. Thanks to the experience I&apos;ve obtained from learning and
           using all of these, I&apos;ve become very capable of adapting to and
           transferring between technologies.
         </p>
+
         <SkillSection
           skillType='Frameworks and Libraries'
           skills={frameworkSkills}
         />
+
         <SkillSection skillType='Languages' skills={languageSkills} />
+
         <SkillSection skillType='Tools' skills={toolSkills} />
       </div>
     </Layout>
@@ -195,7 +198,7 @@ const Skills = () => {
 
 const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
   return (
-    <section className='flex flex-col gap-2'>
+    <section className='flex flex-col gap-4 py-4'>
       <h2 className='text-xl font-semibold'>{skillType}</h2>
       <div className='flex flex-wrap gap-2'>
         {skills.map((skill) => (
@@ -209,7 +212,7 @@ const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
     <figure
-      className={`flex items-center gap-2 rounded-full border-2 border-black py-2 px-4 text-sm font-medium`}
+      className={`flex items-center gap-2 rounded-full border-2 border-black px-3 py-1 text-sm font-medium ${color} bg-opacity-10`}
     >
       {icon}
       <figcaption>{name}</figcaption>

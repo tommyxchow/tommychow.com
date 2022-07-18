@@ -10,41 +10,36 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'Thoughts', 'Bio'];
 
   return (
-    <header className='sticky inset-0 flex flex-col border-b-2 border-black pb-1 backdrop-blur'>
-      <div className='flex items-center justify-between px-4 pt-4'>
-        <h1 className='text-4xl font-extrabold'>
+    <header className='sticky inset-0 flex flex-col pb-0'>
+      <div className='flex items-center justify-between bg-white p-4 pb-0'>
+        <h1
+          className={`text-4xl font-extrabold ${
+            router.pathname == '/' ? undefined : 'text-gray-400'
+          }`}
+        >
           <Link href='/'>
-            <a>{"Tommy Chow's"}</a>
+            <a>Tommy Chow</a>
           </Link>
         </h1>
-        <FiMoon className='border border-black p-1 text-2xl' />
+        {/* <FiMoon className='text-2xl' /> */}
       </div>
 
-      <nav className='flex snap-x snap-mandatory scroll-pl-4 items-center gap-4 overflow-auto pb-4'>
-        <Link href='/'>
-          <a
-            className={`snap-start pl-4 text-4xl font-extrabold ${
-              router.pathname == '/' ? undefined : 'text-neutral-400'
-            }`}
-          >
-            Intro
-          </a>
-        </Link>
+      <nav className='flex items-end gap-2 overflow-auto bg-white px-4 pb-2'>
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a
-              className={`snap-start text-4xl font-extrabold last:pr-[calc(100%-4rem)]
-                  ${
-                    router.pathname == '/' + route.toLowerCase()
-                      ? undefined
-                      : 'text-neutral-400'
-                  }`}
+              className={`w-fit text-2xl font-bold ${
+                router.pathname == '/' + route.toLowerCase()
+                  ? undefined
+                  : 'text-gray-400'
+              }`}
             >
               {route}
             </a>
           </Link>
         ))}
       </nav>
+      {/* <div className='sticky inset-0 h-12 bg-gradient-to-b from-white to-transparent'></div> */}
     </header>
   );
 };
