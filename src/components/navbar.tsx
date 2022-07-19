@@ -1,6 +1,7 @@
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiMoon, HiSun } from 'react-icons/hi';
 
 const NavBar = () => {
@@ -8,14 +9,27 @@ const NavBar = () => {
 
   const routes = ['Skills', 'Projects', 'Blog', 'About'];
 
-  const [darkMode, setDarkMode] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Wait until the component is mounted to set the theme.
+  // This prevents a hydration error.
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header className='sticky inset-0 flex flex-col p-4 pb-0 backdrop-blur'>
       <div className='flex items-center justify-between'>
         <h1
           className={`text-4xl font-extrabold ${
-            router.pathname == '/' ? undefined : 'text-gray-400'
+            router.pathname == '/'
+              ? undefined
+              : 'text-neutral-400 dark:text-neutral-500'
           }`}
         >
           <Link href='/'>
@@ -24,10 +38,10 @@ const NavBar = () => {
         </h1>
 
         <button
-          className='rounded-md border-2 border-black p-1'
-          onClick={() => setDarkMode(!darkMode)}
+          className='rounded-md border-2 p-1'
+          onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
         >
-          {darkMode ? <HiSun /> : <HiMoon />}
+          {theme == 'dark' ? <HiSun /> : <HiMoon />}
         </button>
       </div>
 
@@ -38,7 +52,7 @@ const NavBar = () => {
               className={`text-2xl font-bold ${
                 router.pathname == '/' + route.toLowerCase()
                   ? undefined
-                  : 'text-gray-400'
+                  : 'text-neutral-400 dark:text-neutral-500'
               }`}
             >
               {route}

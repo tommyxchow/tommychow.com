@@ -200,23 +200,25 @@ const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
   return (
     <section className='flex flex-col gap-2'>
       <h2 className='text-xl font-semibold'>{skillType}</h2>
-      <div className='flex flex-wrap gap-2'>
+      <ul className='flex flex-wrap gap-2'>
         {skills.map((skill) => (
-          <SkillBadge key={skill.name} {...skill} />
+          <li key={skill.name}>
+            <SkillBadge {...skill} />
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };
 
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
-    <figure
+    <span
       className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium ${color}`}
     >
       {icon}
-      <figcaption>{name}</figcaption>
-    </figure>
+      {name}
+    </span>
   );
 };
 

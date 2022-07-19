@@ -26,7 +26,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className='sticky inset-0 overflow-auto bg-black px-4 py-2 text-gray-100'>
+    <footer className='sticky inset-0 overflow-auto bg-black px-4 py-2 text-neutral-100'>
       <ul className='flex justify-between gap-4'>
         {links.map((link) => (
           <li key={link.title}>
