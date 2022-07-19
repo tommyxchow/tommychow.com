@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../components/layout';
 import {
   SiC,
   SiCplusplus,
@@ -27,6 +26,7 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
+import Layout from '../components/layout';
 
 const Skills = () => {
   const frameworkSkills: Skill[] = [
@@ -174,15 +174,15 @@ const Skills = () => {
   ];
 
   return (
-    <Layout title={"Tommy Chow's Skills"} description={"Tommy Chow's Skills"}>
-      <div className='flex flex-col gap-4'>
-        <p className='text-sm'>
-          I&apos;m constantly exploring both the new and old in the full-stack
-          world. Thanks to the experience I&apos;ve obtained from learning and
-          using all of these, I&apos;ve become very capable of adapting to and
-          transferring between technologies.
-        </p>
+    <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
+      <p className='mb-12 font-medium'>
+        I&apos;m constantly exploring and understanding both the new and old in
+        the full-stack world. Thanks to the experience I&apos;ve obtained from
+        learning and using all of these, I&apos;ve become very capable of
+        adapting to and transferring between technologies.
+      </p>
 
+      <div className='flex flex-col gap-8'>
         <SkillSection
           skillType='Frameworks and Libraries'
           skills={frameworkSkills}
@@ -198,7 +198,7 @@ const Skills = () => {
 
 const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
   return (
-    <section className='flex flex-col gap-4 py-4'>
+    <section className='flex flex-col gap-2'>
       <h2 className='text-xl font-semibold'>{skillType}</h2>
       <div className='flex flex-wrap gap-2'>
         {skills.map((skill) => (
@@ -212,7 +212,7 @@ const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
     <figure
-      className={`flex items-center gap-2 rounded-full border-2 border-black px-3 py-1 text-sm font-medium ${color} bg-opacity-10`}
+      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium ${color}`}
     >
       {icon}
       <figcaption>{name}</figcaption>

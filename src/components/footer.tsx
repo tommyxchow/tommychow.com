@@ -26,16 +26,17 @@ const Footer = () => {
   ];
 
   return (
-    <footer className='sticky inset-0 flex flex-col gap-2 bg-black px-4 py-2 text-white'>
+    <footer className='sticky inset-0 overflow-auto bg-black px-4 py-2 text-gray-100'>
       <ul className='flex justify-between gap-4'>
         {links.map((link) => (
           <li key={link.title}>
             <a
-              className='text-sm font-semibold'
+              className='flex items-center gap-1 text-sm font-semibold'
               href={link.href}
               target='_blank'
               rel='noreferrer'
             >
+              {link.icon}
               {link.title}
             </a>
           </li>

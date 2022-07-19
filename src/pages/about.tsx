@@ -1,10 +1,9 @@
-import React from 'react';
 import Layout from '../components/layout';
 
-const Bio = () => {
+const About = () => {
   return (
-    <Layout title={"Tommy Chow's Bio"} description={"Tommy Chow's Bio"}>
-      <p className='text-sm'>
+    <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
+      <p className='font-medium'>
         I graduated from the University at Buffalo in May 2022 with a Bachelor
         of Science in Computer Science. I&apos;m a passionate mobile and web
         developer based in NYC who enjoys UI and UX design and working with
@@ -50,11 +49,11 @@ const Bio = () => {
         and{' '}
         <a
           className='hover:underline'
-          href='https://thekey.company/products/c3-tangerine-switches-r2'
+          href='https://stupidbulletstech.com/products/gazzew-boba-u4-silent-tactile-with-clear-top'
           target='_blank'
           rel='noreferrer'
         >
-          Tangerine switches
+          Boba U4 Silent switches
         </a>
         .
       </p>
@@ -62,4 +61,4 @@ const Bio = () => {
   );
 };
 
-export default Bio;
+export default About;

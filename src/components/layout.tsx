@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React from 'react';
-import Footer from './footer';
 
 const Layout = ({ children, title, description }: LayoutProps) => {
   return (
@@ -11,7 +10,7 @@ const Layout = ({ children, title, description }: LayoutProps) => {
         <meta name='description' content={description} />
       </Head>
 
-      <main className='flex h-full flex-col px-4 py-2'>{children}</main>
+      <main className='flex h-full flex-col p-4'>{children}</main>
     </>
   );
 };

@@ -5,8 +5,6 @@ import NavBar from '../components/navbar';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const routes = ['Skills', 'Projects', 'Thoughts', 'Bio'];
-
   return (
     <div className='flex min-h-screen flex-col'>
       <div className='flex flex-grow flex-col'>

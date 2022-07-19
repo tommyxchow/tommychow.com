@@ -24,7 +24,7 @@ const Projects = () => {
       description:
         'Social web app that streamlines creating, exploring, and joining events.',
       imageLink: '/zeal.jpg',
-      projectLink: 'https://github.com/Prakshal-Jain/Zeal',
+      projectLink: 'https://github.com/tommyxchow/zeal',
     },
     {
       name: 'The Gallery',
@@ -46,22 +46,20 @@ const Projects = () => {
 
   return (
     <Layout
-      title={"Tommy Chow's Projects"}
-      description={"Tommy Chow's Projects"}
+      title='Projects | Tommy Chow'
+      description={"Tommy Chow's projects."}
     >
-      <div className='flex flex-col gap-4'>
-        <p className='text-sm'>
-          I focus on creating mobile and web experiences that motivate me to
-          learn and solve meaningful problems. All of my work is free and
-          open-source by default.
-        </p>
+      <p className='mb-12 font-medium'>
+        I focus on creating mobile and web experiences that motivate me to learn
+        and solve meaningful problems. All of my work is free and open-source by
+        default.
+      </p>
 
-        <ul className='flex flex-col'>
-          {projects.map((project) => (
-            <Project key={project.name} {...project} />
-          ))}
-        </ul>
-      </div>
+      <ul className='flex flex-col gap-8'>
+        {projects.map((project) => (
+          <Project key={project.name} {...project} />
+        ))}
+      </ul>
     </Layout>
   );
 };
@@ -74,10 +72,12 @@ const Project = ({
   projectLink,
 }: ProjectInfo) => {
   return (
-    <div className='py-4'>
-      <h1 className='text-xl font-semibold'>{name}</h1>
-      <p className='text-sm'>{description}</p>
-    </div>
+    <li>
+      <a href={projectLink} target='_blank' rel='noopener noreferrer'>
+        <h2 className='text-xl font-semibold'>{name}</h2>
+        <p className='text-sm'>{description}</p>
+      </a>
+    </li>
   );
 };
 
