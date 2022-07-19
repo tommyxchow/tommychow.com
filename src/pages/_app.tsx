@@ -7,7 +7,7 @@ import '../styles/globals.css';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    <ThemeProvider attribute='class'>
+    <ThemeProvider attribute='class' defaultTheme='dark'>
       <div className='flex min-h-screen flex-col'>
         <div className='flex flex-grow flex-col'>
           <NavBar />
