@@ -7,7 +7,10 @@ const Home: NextPage = () => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <p className='font-medium'>
+      <p className='font-medium md:text-lg'>
+        Welcome to my personal website!
+        <br />
+        <br />
         I&apos;m a software developer and recent computer science graduate based
         in New York City. I&apos;m always eager to learn, collaborate, and make
         meaningful contributions to the world. I enjoy creating impactful mobile
@@ -17,6 +20,9 @@ const Home: NextPage = () => {
         Currently, I&apos;m seeking a full-time position in software
         engineering. I&apos;m open to all roles but my preference is frontend,
         full-stack, and mobile development either remote or in New York City.
+        <br />
+        <br />
+        Thanks for stopping by ❤️
       </p>
     </Layout>
   );

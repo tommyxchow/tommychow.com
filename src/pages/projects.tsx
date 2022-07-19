@@ -49,7 +49,7 @@ const Projects = () => {
       title='Projects | Tommy Chow'
       description={"Tommy Chow's projects."}
     >
-      <p className='mb-12 font-medium'>
+      <p className='mb-12 font-medium md:text-lg'>
         I focus on creating mobile and web experiences that motivate me to learn
         and solve meaningful problems. All of my work is free and open-source by
         default.
@@ -74,8 +74,8 @@ const Project = ({
   return (
     <li>
       <a href={projectLink} target='_blank' rel='noopener noreferrer'>
-        <h2 className='text-xl font-semibold'>{name}</h2>
-        <p className='text-sm'>{description}</p>
+        <h2 className='text-2xl font-semibold md:text-3xl'>{name}</h2>
+        <p className='text-sm md:text-base'>{description}</p>
       </a>
     </li>
   );

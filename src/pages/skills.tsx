@@ -175,7 +175,7 @@ const Skills = () => {
 
   return (
     <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
-      <p className='mb-12 font-medium'>
+      <p className='mb-12 font-medium md:text-lg'>
         I&apos;m constantly exploring and understanding both the new and old in
         the full-stack world. Thanks to the experience I&apos;ve obtained from
         learning and using all of these, I&apos;ve become very capable of
@@ -199,7 +199,7 @@ const Skills = () => {
 const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
   return (
     <section className='flex flex-col gap-2'>
-      <h2 className='text-xl font-semibold'>{skillType}</h2>
+      <h2 className='text-2xl font-semibold'>{skillType}</h2>
       <ul className='flex flex-wrap gap-2'>
         {skills.map((skill) => (
           <li key={skill.name}>
@@ -213,12 +213,12 @@ const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
 
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
-    <span
-      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium ${color}`}
+    <div
+      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium md:gap-2 md:text-base ${color}`}
     >
       {icon}
       {name}
-    </span>
+    </div>
   );
 };
 

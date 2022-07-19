@@ -23,10 +23,10 @@ const NavBar = () => {
   }
 
   return (
-    <header className='sticky inset-0 flex flex-col p-4 pb-0 backdrop-blur'>
+    <header className='sticky inset-0 flex flex-col p-4 pb-0 backdrop-blur md:gap-2'>
       <div className='flex items-center justify-between'>
         <h1
-          className={`text-4xl font-extrabold ${
+          className={`text-4xl font-extrabold md:text-5xl ${
             router.pathname == '/'
               ? undefined
               : 'text-neutral-400 dark:text-neutral-500'
@@ -38,18 +38,18 @@ const NavBar = () => {
         </h1>
 
         <button
-          className='rounded-md border-2 p-1'
+          className='rounded-md border-2 p-1 md:text-lg'
           onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
         >
           {theme == 'dark' ? <HiSun /> : <HiMoon />}
         </button>
       </div>
 
-      <nav className='flex gap-2 overflow-auto pb-2'>
+      <nav className='flex gap-2 overflow-auto pb-2 md:gap-4'>
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a
-              className={`text-2xl font-bold ${
+              className={`text-2xl font-bold md:text-3xl ${
                 router.pathname == '/' + route.toLowerCase()
                   ? undefined
                   : 'text-neutral-400 dark:text-neutral-500'

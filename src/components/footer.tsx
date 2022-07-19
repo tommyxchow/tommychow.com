@@ -27,11 +27,11 @@ const Footer = () => {
 
   return (
     <footer className='sticky inset-0 overflow-auto bg-black px-4 py-2 text-neutral-100'>
-      <ul className='flex justify-between gap-4'>
+      <ul className='flex justify-between gap-4 md:justify-evenly'>
         {links.map((link) => (
           <li key={link.title}>
             <a
-              className='flex items-center gap-1 text-sm font-semibold'
+              className='flex items-center gap-1 text-sm font-semibold md:text-base'
               href={link.href}
               target='_blank'
               rel='noreferrer'
