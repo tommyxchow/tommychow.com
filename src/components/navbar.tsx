@@ -24,17 +24,19 @@ const NavBar = ({ links }: NavBarProps) => {
   }
 
   return (
-    <header className='sticky inset-0 z-50 flex flex-col p-4 pb-0 backdrop-blur md:gap-2 lg:static lg:gap-4 lg:p-8 lg:pt-32 lg:pb-16'>
+    <header className='sticky inset-0 z-50 flex flex-col gap-2 p-4 pb-0 backdrop-blur sm:p-8 md:gap-4 lg:static lg:p-16 lg:pt-32 lg:pb-16'>
       <div className='flex justify-between'>
-        <h1
-          className={`text-4xl font-extrabold md:text-5xl lg:text-6xl ${
-            router.pathname == '/'
-              ? undefined
-              : 'text-neutral-400 dark:text-neutral-500'
-          }`}
-        >
+        <h1>
           <Link href='/'>
-            <a>Tommy Chow</a>
+            <a
+              className={`border-b-2 border-lime-700 text-4xl font-extrabold transition dark:border-lime-400 md:text-5xl lg:text-6xl  ${
+                router.pathname == '/'
+                  ? undefined
+                  : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
+              }`}
+            >
+              Tommy Chow
+            </a>
           </Link>
         </h1>
 
@@ -46,14 +48,14 @@ const NavBar = ({ links }: NavBarProps) => {
         </button>
       </div>
 
-      <nav className='flex gap-2 overflow-auto pb-2 lg:gap-8'>
+      <nav className='flex gap-2 overflow-auto pb-2 sm:overflow-visible lg:gap-8'>
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a
-              className={`text-2xl font-bold md:text-3xl lg:text-5xl ${
+              className={`border-b-2 border-lime-700 text-2xl font-bold transition dark:border-lime-400 md:text-3xl lg:text-5xl ${
                 router.pathname == '/' + route.toLowerCase()
                   ? undefined
-                  : 'text-neutral-400 dark:text-neutral-500'
+                  : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
               }`}
             >
               {route}
