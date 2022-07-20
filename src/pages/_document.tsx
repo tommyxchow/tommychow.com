@@ -46,7 +46,7 @@ export default function Document() {
         />
         <meta name='theme-color' content='#a3e635' />
       </Head>
-      <body className='text-neutral-900 transition duration-500 dark:text-neutral-100'>
+      <body className='bg-neutral-100 text-neutral-900 transition duration-500 dark:bg-neutral-900 dark:text-neutral-100'>
         <Main />
         <NextScript />
       </body>

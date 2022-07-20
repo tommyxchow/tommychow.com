@@ -7,7 +7,7 @@ const Home: NextPage = () => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <p className='font-medium md:text-lg'>
+      <p className='md:text-lg lg:col-span-3 lg:text-2xl xl:col-span-2'>
         Welcome to my personal website!
         <br />
         <br />

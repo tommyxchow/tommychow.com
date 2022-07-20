@@ -1,37 +1,13 @@
-import { FiFileText, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
-import { email, githubLink, linkedInLink } from '../constants';
+import { LinkInfo } from '../types';
 
-const Footer = () => {
-  const links: LinkInfo[] = [
-    {
-      icon: <FiMail />,
-      title: 'Email',
-      href: `mailto:${email}`,
-    },
-    {
-      icon: <FiGithub />,
-      title: 'GitHub',
-      href: githubLink,
-    },
-    {
-      icon: <FiLinkedin />,
-      title: 'LinkedIn',
-      href: linkedInLink,
-    },
-    {
-      icon: <FiFileText />,
-      title: 'Resume',
-      href: '/resume.pdf',
-    },
-  ];
-
+const Footer = ({ links }: FooterProps) => {
   return (
-    <footer className='sticky inset-0 overflow-auto bg-black px-4 py-2 text-neutral-100'>
-      <ul className='flex justify-between gap-4 md:justify-evenly'>
+    <footer className='sticky inset-0 overflow-auto bg-black px-4 py-2 text-neutral-100 lg:py-4'>
+      <ul className='flex justify-between gap-4 md:justify-evenly lg:justify-center lg:gap-8'>
         {links.map((link) => (
           <li key={link.title}>
             <a
-              className='flex items-center gap-1 text-sm font-semibold md:text-base'
+              className='flex items-center gap-1 text-sm font-semibold md:text-base lg:text-lg'
               href={link.href}
               target='_blank'
               rel='noreferrer'
@@ -46,10 +22,8 @@ const Footer = () => {
   );
 };
 
-interface LinkInfo {
-  icon?: React.ReactNode;
-  title: string;
-  href: string;
+interface FooterProps {
+  links: LinkInfo[];
 }
 
 export default Footer;

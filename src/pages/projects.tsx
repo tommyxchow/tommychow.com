@@ -1,14 +1,22 @@
+import Image from 'next/image';
 import Layout from '../components/layout';
 
 const Projects = () => {
   const projects: ProjectInfo[] = [
     {
-      name: 'Frosty',
+      name: 'Frosty for Twitch',
       date: '2022-06-22',
       description:
         'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/frosty-app.png',
       projectLink: 'https://github.com/tommyxchow/frosty',
+    },
+    {
+      name: 'Frosty Website',
+      date: '2022-06-22',
+      description: 'Marketing website for the Frosty app.',
+      imageLink: '/frosty-website.png',
+      projectLink: 'https://github.com/tommyxchow/frostyapp.io',
     },
     {
       name: 'Study Seeker',
@@ -23,7 +31,7 @@ const Projects = () => {
       date: '2021-12-04',
       description:
         'Social web app that streamlines creating, exploring, and joining events.',
-      imageLink: '/zeal.jpg',
+      imageLink: '/zeal.png',
       projectLink: 'https://github.com/tommyxchow/zeal',
     },
     {
@@ -49,22 +57,26 @@ const Projects = () => {
       title='Projects | Tommy Chow'
       description={"Tommy Chow's projects."}
     >
-      <p className='mb-12 font-medium md:text-lg'>
+      <p className='mb-12 md:text-lg lg:col-span-2 lg:text-2xl'>
         I focus on creating mobile and web experiences that motivate me to learn
         and solve meaningful problems. All of my work is free and open-source by
         default.
       </p>
 
-      <ul className='flex flex-col gap-8'>
+      <p className='mb-12 md:text-lg lg:col-span-2 lg:text-2xl'>
+        To see all my projects check out my GitHub profile.
+      </p>
+
+      <ul className='col-span-full grid flex-col gap-8 md:grid-cols-2 lg:row-start-2'>
         {projects.map((project) => (
-          <Project key={project.name} {...project} />
+          <ProjectCard key={project.name} {...project} />
         ))}
       </ul>
     </Layout>
   );
 };
 
-const Project = ({
+const ProjectCard = ({
   name,
   date,
   description,
@@ -72,10 +84,19 @@ const Project = ({
   projectLink,
 }: ProjectInfo) => {
   return (
-    <li>
+    <li className='group relative aspect-video'>
       <a href={projectLink} target='_blank' rel='noopener noreferrer'>
-        <h2 className='text-2xl font-semibold md:text-3xl'>{name}</h2>
-        <p className='text-sm md:text-base'>{description}</p>
+        <div className='absolute z-10 flex h-full w-full flex-col items-center justify-center gap-4 p-12 opacity-0 transition hover:bg-black hover:bg-opacity-80 hover:opacity-100'>
+          <h2 className='text-2xl font-semibold text-neutral-100'>{name}</h2>
+          <p className='text-center text-sm text-neutral-100'>{description}</p>
+        </div>
+
+        <Image
+          src={'/projects/frosty-website.png'}
+          alt='Thumbnail'
+          layout='fill'
+          objectFit='cover'
+        />
       </a>
     </li>
   );

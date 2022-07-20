@@ -3,7 +3,7 @@ import Layout from '../components/layout';
 const About = () => {
   return (
     <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
-      <p className='font-medium md:text-lg'>
+      <p className='md:text-lg lg:col-span-3 lg:text-2xl xl:col-span-2'>
         I graduated from the University at Buffalo in May 2022 with a Bachelor
         of Science in Computer Science. I&apos;m a passionate mobile and web
         developer based in NYC who enjoys UI and UX design and working with

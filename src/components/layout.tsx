@@ -10,7 +10,9 @@ const Layout = ({ children, title, description }: LayoutProps) => {
         <meta name='description' content={description} />
       </Head>
 
-      <main className='flex h-full flex-col p-4'>{children}</main>
+      <main className='grid h-full p-4 lg:grid-cols-4 lg:gap-20 lg:p-8'>
+        {children}
+      </main>
     </>
   );
 };
