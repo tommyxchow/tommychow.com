@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .link {
+    @apply text-lime-700 border-b border-lime-700 border-opacity-0 hover:border-opacity-100 transition dark:text-lime-400 dark:border-lime-400 dark:border-opacity-0 dark:hover:border-opacity-100
+  }
+
+}
+
+/* Fix for scrollbar shifting content */
+html {
+  margin-left: calc(100vw - 100%);
+}
