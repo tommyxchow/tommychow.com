@@ -8,14 +8,14 @@ const Projects = () => {
       date: '2022-06-22',
       description:
         'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
-      imageLink: '/frosty-app.png',
+      imageLink: '/projects/frosty-app.png',
       projectLink: 'https://github.com/tommyxchow/frosty',
     },
     {
       name: 'Frosty Website',
       date: '2022-06-22',
       description: 'Marketing website for the Frosty app.',
-      imageLink: '/frosty-website.png',
+      imageLink: '/projects/frosty-website.png',
       projectLink: 'https://github.com/tommyxchow/frostyapp.io',
     },
     {
@@ -23,7 +23,7 @@ const Projects = () => {
       date: '2022-05-06',
       description:
         'Responsive social media platform aimed to help students find the best match for a potential study partner.',
-      imageLink: '/study-seeker.jpg',
+      imageLink: '/projects/study-seeker.png',
       projectLink: 'https://github.com/tommyxchow/study-seeker',
     },
     {
@@ -31,7 +31,7 @@ const Projects = () => {
       date: '2021-12-04',
       description:
         'Social web app that streamlines creating, exploring, and joining events.',
-      imageLink: '/zeal.png',
+      imageLink: '/projects/zeal.png',
       projectLink: 'https://github.com/tommyxchow/zeal',
     },
     {
@@ -39,7 +39,7 @@ const Projects = () => {
       date: '2021-05-18',
       description:
         'Image sharing web app developed to learn internet protocols and full-stack web development.',
-      imageLink: '/gallery.jpg',
+      imageLink: '/projects/gallery.jpg',
       projectLink: 'https://github.com/tommyxchow/the-gallery',
     },
     {
@@ -47,7 +47,7 @@ const Projects = () => {
       date: '2019-05-18',
       description:
         'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
-      imageLink: '/stonks.jpg',
+      imageLink: '/projects/stonks.jpg',
       projectLink: 'https://github.com/tommyxchow/stock-chart-visualizer',
     },
   ];
@@ -92,8 +92,8 @@ const ProjectCard = ({
         </div>
 
         <Image
-          src={'/projects/frosty-website.png'}
-          alt='Thumbnail'
+          src={imageLink}
+          alt={`Thumbnail for ${name}.`}
           layout='fill'
           objectFit='cover'
         />
