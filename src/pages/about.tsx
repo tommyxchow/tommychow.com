@@ -1,5 +1,5 @@
 import ExternalLink from '../components/ExternalLink';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import { githubLink } from '../constants';
 
 const About = () => {

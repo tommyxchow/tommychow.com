@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import HomeSection from '../components/HomeSection';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
 import { LinkInfo, ProjectInfo } from '../types';
 

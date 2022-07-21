@@ -26,7 +26,7 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 
 const Skills = () => {
   const frameworkSkills: Skill[] = [

@@ -1,5 +1,5 @@
 import ExternalLink from '../components/ExternalLink';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
 import { githubLink } from '../constants';
 import { ProjectInfo } from '../types';
