@@ -1,31 +1,98 @@
-import type { NextPage } from 'next';
+import Link from 'next/link';
+import HomeSection from '../components/HomeSection';
 import Layout from '../components/layout';
+import ProjectCard from '../components/ProjectCard';
+import { LinkInfo, ProjectInfo } from '../types';
 
-const Home: NextPage = () => {
+const Home = ({ links, projects }: HomeProps) => {
   return (
     <Layout
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <p className='md:text-lg lg:col-span-3 lg:text-2xl xl:col-span-2'>
-        Welcome to my personal website!
-        <br />
-        <br />
-        I&apos;m a software developer and recent computer science graduate based
-        in New York City. I&apos;m always eager to learn, collaborate, and make
-        meaningful contributions to the world. I enjoy creating impactful mobile
-        and web experiences with Flutter and React.
-        <br />
-        <br />
-        Currently, I&apos;m seeking a full-time position in software
-        engineering. I&apos;m open to all roles but my preference is frontend,
-        full-stack, and mobile development either remote or in New York City.
-        <br />
-        <br />
-        Thanks for stopping by ❤️
-      </p>
+      <HomeSection className='lg:col-span-3' header='Welcome!'>
+        <p className='md:text-lg lg:text-2xl xl:col-span-2'>
+          I&apos;m a software developer and recent computer science graduate
+          based in New York City. I&apos;m always eager to learn, collaborate,
+          and make meaningful contributions to the world.
+          <br />
+          <br />
+          I&apos;m a full-stack developer but lean more towards the front-end
+          side. I enjoy creating impactful mobile and web experiences with
+          declarative frameworks including Flutter, React, and SwiftUI.
+          <br />
+          <br />
+          Currently, I&apos;m seeking a full-time position in software
+          engineering. I&apos;m open to all roles but my preference is frontend,
+          mobile, and full-stack either remote or in New York City.
+        </p>
+      </HomeSection>
+
+      <HomeSection
+        className='col-span-full lg:row-start-2'
+        header='Featured Projects'
+      >
+        <ul className='mb-4 grid gap-4 sm:grid-cols-2'>
+          {projects.slice(0, 2).map((projectInfo) => (
+            <ProjectCard key={projectInfo.name} {...projectInfo} />
+          ))}
+        </ul>
+
+        <div className='flex flex-col items-end gap-2 self-end md:text-lg lg:text-2xl'>
+          <Link href='/skills'>
+            <a className='link transition hover:translate-x-2'>
+              Explore my skills -&gt;
+            </a>
+          </Link>
+
+          <Link href='/projects'>
+            <a className='link transition hover:translate-x-2'>
+              See more projects -&gt;
+            </a>
+          </Link>
+        </div>
+      </HomeSection>
+
+      <HomeSection className='col-span-full lg:row-start-3' header='More'>
+        <div className='flex justify-between gap-8 md:text-lg lg:text-2xl'>
+          <ul className='flex flex-col gap-2'>
+            {links.map((link) => (
+              <li key={link.title}>
+                <a
+                  className='link flex w-fit items-center gap-2 hover:-translate-y-1'
+                  href={link.href}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {link.icon}
+                  {link.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className='text-end flex flex-col items-end justify-end gap-2'>
+            <Link href='/blog'>
+              <a className='link transition hover:translate-x-2'>
+                Read my blog -&gt;
+              </a>
+            </Link>
+
+            <Link href='/about'>
+              <a className='link transition hover:translate-x-2'>
+                Learn more about me -&gt;
+              </a>
+            </Link>
+          </div>
+        </div>
+      </HomeSection>
     </Layout>
   );
 };
+
+interface HomeProps {
+  links: LinkInfo[];
+  projects: ProjectInfo[];
+}
 
 export default Home;

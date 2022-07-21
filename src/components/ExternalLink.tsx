@@ -1,6 +1,6 @@
 const ExternalLink = ({ text, href }: ExternalLinkProps) => {
   return (
-    <a className='link' href={href} target='_blank' rel='noreferrer'>
+    <a className='link-colored' href={href} target='_blank' rel='noreferrer'>
       {text}
     </a>
   );

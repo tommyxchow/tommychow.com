@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { HiMoon, HiSun } from 'react-icons/hi';
-import { LinkInfo } from '../types';
 
-const NavBar = ({ links }: NavBarProps) => {
+const NavBar = () => {
   const router = useRouter();
 
   const routes = ['Skills', 'Projects', 'Blog', 'About'];
@@ -24,7 +23,7 @@ const NavBar = ({ links }: NavBarProps) => {
   }
 
   return (
-    <header className='sticky inset-0 z-50 flex flex-col gap-2 p-4 pb-0 backdrop-blur sm:p-8 md:gap-4 lg:static lg:p-16 lg:pt-32 lg:pb-16'>
+    <header className='z-50 flex flex-col gap-2 p-4 pb-0 backdrop-blur sm:p-8 md:gap-4 lg:static lg:p-16 lg:pt-32 lg:pb-16'>
       <div className='flex justify-between'>
         <h1>
           <Link href='/'>
@@ -66,9 +65,5 @@ const NavBar = ({ links }: NavBarProps) => {
     </header>
   );
 };
-
-interface NavBarProps {
-  links: LinkInfo[];
-}
 
 export default NavBar;
