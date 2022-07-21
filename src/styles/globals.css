@@ -4,7 +4,7 @@
 
 @layer components {
   .link-colored {
-    @apply border-b-2 border-lime-500 dark:border-lime-400
+    @apply border-b border-lime-500 dark:border-lime-400
   }
 
   .link {
