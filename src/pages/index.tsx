@@ -10,8 +10,8 @@ const Home = ({ links, projects }: HomeProps) => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <HomeSection className='lg:col-span-3' header='Welcome!'>
-        <p className='md:text-lg lg:text-2xl xl:col-span-2'>
+      <HomeSection header='Welcome!'>
+        <p className='md:text-lg lg:text-xl'>
           I&apos;m a software developer and recent computer science graduate
           based in New York City. I&apos;m always eager to learn, collaborate,
           and make meaningful contributions to the world.
@@ -28,17 +28,14 @@ const Home = ({ links, projects }: HomeProps) => {
         </p>
       </HomeSection>
 
-      <HomeSection
-        className='col-span-full lg:row-start-2'
-        header='Featured Projects'
-      >
-        <ul className='mb-4 grid gap-4 sm:grid-cols-2'>
+      <HomeSection header='Featured Projects'>
+        <ul className='mb-4 grid gap-4'>
           {projects.slice(0, 2).map((projectInfo) => (
             <ProjectCard key={projectInfo.name} {...projectInfo} />
           ))}
         </ul>
 
-        <div className='flex flex-col items-end gap-2 self-end md:text-lg lg:text-2xl'>
+        <div className='flex flex-col items-end gap-2 self-end md:text-lg lg:text-xl'>
           <Link href='/skills'>
             <a className='link transition hover:translate-x-2'>
               Explore my skills -&gt;
@@ -53,8 +50,8 @@ const Home = ({ links, projects }: HomeProps) => {
         </div>
       </HomeSection>
 
-      <HomeSection className='col-span-full lg:row-start-3' header='More'>
-        <div className='flex justify-between gap-8 md:text-lg lg:text-2xl'>
+      <HomeSection header='More'>
+        <div className='flex justify-between gap-8 md:text-lg lg:text-xl'>
           <ul className='flex flex-col gap-2'>
             {links.map((link) => (
               <li key={link.title}>
@@ -71,7 +68,7 @@ const Home = ({ links, projects }: HomeProps) => {
             ))}
           </ul>
 
-          <div className='text-end flex flex-col items-end justify-end gap-2'>
+          <div className='flex flex-col items-end justify-end gap-2 text-end'>
             <Link href='/blog'>
               <a className='link transition hover:translate-x-2'>
                 Read my blog -&gt;

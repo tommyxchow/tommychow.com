@@ -19,14 +19,14 @@ const ProjectCard = ({
 
   return (
     <li className='group relative aspect-video overflow-clip'>
-      <div className='absolute z-10 flex h-full w-full flex-col items-center justify-center gap-2 p-12 opacity-0 transition hover:bg-black hover:bg-opacity-80 hover:opacity-100'>
-        <h2 className='text-xl font-semibold text-neutral-100 lg:text-2xl'>
+      <div className='absolute z-10 flex h-full w-full flex-col items-center justify-center gap-2 p-12 text-neutral-300 opacity-0 transition hover:bg-black hover:bg-opacity-80 hover:opacity-100'>
+        <h2 className='text-xl font-semibold text-neutral-100 md:text-2xl lg:text-3xl'>
           {name}
         </h2>
-        <p className='text-center text-sm font-medium text-neutral-300 lg:text-base'>
+        <p className='text-center text-sm font-medium lg:text-base'>
           {formattedDate}
         </p>
-        <p className='mb-4 text-center text-sm font-medium text-neutral-100 lg:text-base'>
+        <p className='mb-4 text-center text-sm font-medium lg:text-base'>
           {description}
         </p>
         <div className='flex gap-4'>

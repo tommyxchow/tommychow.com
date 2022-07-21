@@ -10,22 +10,22 @@ const Projects = ({ projects }: ProjectsProps) => {
       title='Projects | Tommy Chow'
       description={"Tommy Chow's projects."}
     >
-      <p className='mb-12 md:text-lg lg:col-span-2 lg:text-2xl'>
+      <p className='mb-8 md:mb-16 md:text-lg lg:text-xl'>
         I focus on creating mobile and web experiences that motivate me to learn
         and solve meaningful problems. All of my work is free and open-source by
         default.
       </p>
 
-      <p className='mb-12 md:text-lg lg:col-span-2 lg:text-2xl'>
-        To see all my projects, check out{' '}
-        <ExternalLink text='my GitHub profile' href={githubLink} />.
-      </p>
-
-      <ul className='col-span-full grid flex-col gap-4 md:grid-cols-2 lg:row-start-2 lg:gap-8'>
+      <ul className='mb-8 flex flex-col gap-4 md:mb-16 md:gap-8'>
         {projects.map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}
       </ul>
+
+      <p className='md:text-lg lg:text-xl'>
+        To see all my projects, check out{' '}
+        <ExternalLink text='my GitHub profile' href={githubLink} />.
+      </p>
     </Layout>
   );
 };

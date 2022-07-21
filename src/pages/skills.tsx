@@ -175,14 +175,14 @@ const Skills = () => {
 
   return (
     <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
-      <p className='mb-12 md:text-lg lg:col-span-3 lg:text-2xl xl:col-span-2'>
+      <p className='mb-8 md:mb-16 md:text-lg lg:text-xl'>
         I&apos;m constantly exploring and learning both the new and old in the
         full-stack world. Thanks to the experiences, concepts, and patterns
         I&apos;ve obtained from utilizing all of these, I&apos;ve become very
         capable of adapting and transferring between technologies.
       </p>
 
-      <div className='flex flex-col gap-8 lg:col-span-full lg:row-start-2 lg:flex-row lg:gap-20'>
+      <div className='flex flex-col gap-8 md:gap-16 lg:row-start-2'>
         <SkillSection
           skillType='Frameworks and Libraries'
           skills={frameworkSkills}
@@ -198,11 +198,11 @@ const Skills = () => {
 
 const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
   return (
-    <section>
-      <h2 className='mb-2 text-2xl font-semibold lg:mb-4 lg:h-16'>
+    <section className='grid gap-2 md:grid-cols-3 md:gap-8'>
+      <h2 className='text-xl font-semibold md:text-2xl lg:h-16 lg:text-3xl'>
         {skillType}
       </h2>
-      <ul className='flex flex-wrap gap-2'>
+      <ul className='col-span-full col-start-2 flex flex-wrap gap-2'>
         {skills.map((skill) => (
           <li key={skill.name}>
             <SkillBadge {...skill} />

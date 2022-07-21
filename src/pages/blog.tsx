@@ -3,8 +3,12 @@ import Layout from '../components/layout';
 const Blog = () => {
   return (
     <Layout title='Blog | Tommy Chow' description={"Tommy Chow's blog."}>
-      <p className='md:text-lg lg:col-span-2 lg:text-2xl'>
-        Here would contain a few of my thoughts if I had any!
+      <p className='md:text-lg lg:text-2xl'>
+        I don&apos;t write out my thoughts much, but when I do I&apos;ll post
+        them here.
+        <br />
+        <br />
+        This place is empty for now, but I promise there will be something soon!
       </p>
     </Layout>
   );

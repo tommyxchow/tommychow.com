@@ -93,7 +93,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <ThemeProvider attribute='class' defaultTheme='dark'>
       <div className='flex min-h-screen flex-col'>
-        <div className='m-auto flex w-full max-w-screen-2xl flex-grow flex-col'>
+        <div className='m-auto flex w-full max-w-screen-lg flex-grow flex-col'>
           <NavBar />
           <AnimatePresence exitBeforeEnter>
             <motion.div

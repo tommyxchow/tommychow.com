@@ -5,7 +5,7 @@ import { githubLink } from '../constants';
 const About = () => {
   return (
     <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
-      <p className='md:text-lg lg:col-span-3 lg:text-2xl xl:col-span-2'>
+      <p className='md:text-lg lg:text-xl'>
         I graduated from the{' '}
         <ExternalLink
           text='University at Buffalo'

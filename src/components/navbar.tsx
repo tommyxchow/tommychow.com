@@ -23,7 +23,7 @@ const NavBar = () => {
   }
 
   return (
-    <header className='z-50 flex flex-col gap-2 p-4 pb-0 backdrop-blur sm:p-8 md:gap-4 lg:static lg:p-16 lg:pt-32 lg:pb-16'>
+    <header className='z-50 flex flex-col gap-2 p-4 backdrop-blur sm:p-8 md:gap-4 lg:p-16 lg:pt-32 lg:pb-16'>
       <div className='flex justify-between'>
         <h1>
           <Link href='/'>
@@ -47,11 +47,11 @@ const NavBar = () => {
         </button>
       </div>
 
-      <nav className='flex gap-2 overflow-auto pb-2 sm:overflow-visible lg:gap-8'>
+      <nav className='flex gap-2 overflow-auto pb-2 sm:overflow-visible lg:gap-4'>
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a
-              className={`border-b-4 border-lime-500 text-2xl font-bold transition dark:border-lime-400 md:text-3xl lg:text-5xl ${
+              className={`border-b-4 border-lime-500 text-2xl font-bold transition dark:border-lime-400 md:text-3xl lg:text-4xl ${
                 router.pathname == '/' + route.toLowerCase()
                   ? undefined
                   : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
