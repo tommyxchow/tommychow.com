@@ -176,11 +176,10 @@ const Skills = () => {
   return (
     <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
       <p className='mb-12 md:text-lg lg:col-span-3 lg:text-2xl xl:col-span-2'>
-        I&apos;m constantly exploring and understanding both the new and old in
-        the full-stack world. Thanks to the experiences, concepts, and patterns
-        I&apos;ve obtained from learning and using all of these, I&apos;ve
-        become very capable of adapting to and transferring between
-        technologies.
+        I&apos;m constantly exploring and learning both the new and old in the
+        full-stack world. Thanks to the experiences, concepts, and patterns
+        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
+        capable of adapting and transferring between technologies.
       </p>
 
       <div className='flex flex-col gap-8 lg:col-span-full lg:row-start-2 lg:flex-row lg:gap-20'>

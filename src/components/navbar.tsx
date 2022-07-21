@@ -28,7 +28,7 @@ const NavBar = () => {
         <h1>
           <Link href='/'>
             <a
-              className={`border-b-2 border-lime-700 text-4xl font-extrabold transition dark:border-lime-400 md:text-5xl lg:text-6xl  ${
+              className={`border-b-4 border-lime-500 text-4xl font-extrabold transition dark:border-lime-400 md:text-5xl lg:text-6xl  ${
                 router.pathname == '/'
                   ? undefined
                   : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
@@ -51,7 +51,7 @@ const NavBar = () => {
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a
-              className={`border-b-2 border-lime-700 text-2xl font-bold transition dark:border-lime-400 md:text-3xl lg:text-5xl ${
+              className={`border-b-4 border-lime-500 text-2xl font-bold transition dark:border-lime-400 md:text-3xl lg:text-5xl ${
                 router.pathname == '/' + route.toLowerCase()
                   ? undefined
                   : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
