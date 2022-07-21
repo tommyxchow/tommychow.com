@@ -9,5 +9,7 @@ export interface ProjectInfo {
   date: string;
   description: string;
   imageLink: string;
-  projectLink: string;
+  repoLink: string;
+  figmaLink?: string;
+  demoLink?: string;
 }

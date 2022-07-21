@@ -35,18 +35,19 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const projects: ProjectInfo[] = [
     {
       name: 'Frosty for Twitch',
-      date: '2022-06-22',
+      date: '2022-07-08',
       description:
         'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
       imageLink: '/projects/frosty-app.png',
-      projectLink: 'https://github.com/tommyxchow/frosty',
+      repoLink: 'https://github.com/tommyxchow/frosty',
     },
     {
       name: 'Frosty Website',
-      date: '2022-06-22',
+      date: '2022-07-08',
       description: 'Marketing website for the Frosty app.',
       imageLink: '/projects/frosty-website.png',
-      projectLink: 'https://github.com/tommyxchow/frostyapp.io',
+      repoLink: 'https://github.com/tommyxchow/frostyapp.io',
+      demoLink: 'https://www.frostyapp.io/',
     },
     {
       name: 'Study Seeker',
@@ -54,7 +55,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       description:
         'Responsive social media platform aimed to help students find the best match for a potential study partner.',
       imageLink: '/projects/study-seeker.png',
-      projectLink: 'https://github.com/tommyxchow/study-seeker',
+      repoLink: 'https://github.com/tommyxchow/study-seeker',
+      figmaLink:
+        'https://www.figma.com/file/QVP0FV2JZDv4nsMHetIabX/StudySeeker?node-id=0%3A1',
+      demoLink: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
     },
     {
       name: 'Zeal',
@@ -62,7 +66,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       description:
         'Social web app that streamlines creating, exploring, and joining events.',
       imageLink: '/projects/zeal.png',
-      projectLink: 'https://github.com/tommyxchow/zeal',
+      repoLink: 'https://github.com/tommyxchow/zeal',
+      figmaLink:
+        'https://www.figma.com/file/aR9EqyzY9YERRAejHNCRDB/Zeal?node-id=0%3A1',
+      demoLink: 'https://zeal5.herokuapp.com/',
     },
     {
       name: 'The Gallery',
@@ -70,7 +77,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       description:
         'Image sharing web app developed to learn internet protocols and full-stack web development.',
       imageLink: '/projects/gallery.jpg',
-      projectLink: 'https://github.com/tommyxchow/the-gallery',
+      repoLink: 'https://github.com/tommyxchow/the-gallery',
     },
     {
       name: 'Stock Chart Visualizer',
@@ -78,7 +85,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       description:
         'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
       imageLink: '/projects/stonks.jpg',
-      projectLink: 'https://github.com/tommyxchow/stock-chart-visualizer',
+      repoLink: 'https://github.com/tommyxchow/stock-chart-visualizer',
+      demoLink: 'https://replit.com/@TommyChow/Stock-Chart-Visualizer',
     },
   ];
 

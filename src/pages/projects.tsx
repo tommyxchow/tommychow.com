@@ -21,7 +21,7 @@ const Projects = ({ projects }: ProjectsProps) => {
         <ExternalLink text='my GitHub profile' href={githubLink} />.
       </p>
 
-      <ul className='col-span-full grid flex-col gap-8 md:grid-cols-2 lg:row-start-2'>
+      <ul className='col-span-full grid flex-col gap-4 md:grid-cols-2 lg:row-start-2 lg:gap-8'>
         {projects.map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}
