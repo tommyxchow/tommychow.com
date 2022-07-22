@@ -12,9 +12,10 @@ const Home = ({ links, projects }: HomeProps) => {
     >
       <HomeSection header='Intro'>
         <p>
-          I&apos;m Tommy, a software developer and recent computer science
-          graduate based in New York City. I&apos;m always eager to learn,
-          collaborate, and make meaningful contributions to the world.
+          Hello and welcome! I&apos;m Tommy, a software developer and recent
+          computer science graduate based in New York City. I&apos;m always
+          eager to learn, collaborate, and make meaningful contributions to the
+          world.
           <br />
           <br />
           I&apos;m a full-stack developer but lean more towards the front-end

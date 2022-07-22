@@ -18,11 +18,9 @@ const ProjectCard = ({
   })} ${projectDate.getFullYear()}`;
 
   return (
-    <li className='group relative aspect-video overflow-clip'>
+    <li className='group relative aspect-video overflow-clip shadow-lg'>
       <div className='absolute z-10 flex h-full w-full flex-col items-center justify-center gap-2 p-12 text-neutral-300 opacity-0 transition hover:bg-black hover:bg-opacity-80 hover:opacity-100'>
-        <h2 className='text-xl font-semibold text-neutral-100 md:text-2xl'>
-          {name}
-        </h2>
+        <h2 className='text-xl font-semibold md:text-2xl'>{name}</h2>
         <p className='text-center text-sm font-medium'>{formattedDate}</p>
         <p className='mb-4 text-center text-sm font-medium'>{description}</p>
         <div className='flex gap-4'>

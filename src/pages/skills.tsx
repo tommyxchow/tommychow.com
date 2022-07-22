@@ -220,7 +220,7 @@ const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
     <div
-      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium ${color}`}
+      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium shadow ${color}`}
     >
       {icon}
       {name}
