@@ -26,7 +26,7 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
-import Section from '../components/HomeSection';
+import Section from '../components/Section';
 import Layout from '../components/Layout';
 
 const Skills = () => {

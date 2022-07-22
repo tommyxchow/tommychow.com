@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Section from '../components/HomeSection';
+import Section from '../components/Section';
 import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
 import { LinkInfo, ProjectInfo } from '../types';

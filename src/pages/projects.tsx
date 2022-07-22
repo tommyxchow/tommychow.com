@@ -1,5 +1,5 @@
 import ExternalLink from '../components/ExternalLink';
-import Section from '../components/HomeSection';
+import Section from '../components/Section';
 import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
 import { githubLink } from '../constants';

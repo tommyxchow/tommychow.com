@@ -1,4 +1,4 @@
-import Section from '../components/HomeSection';
+import Section from '../components/Section';
 import Layout from '../components/Layout';
 
 const Blog = () => {
