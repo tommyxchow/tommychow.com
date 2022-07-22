@@ -10,11 +10,11 @@ const Home = ({ links, projects }: HomeProps) => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <HomeSection header='Welcome!'>
-        <p className='md:text-lg lg:text-xl'>
-          I&apos;m a software developer and recent computer science graduate
-          based in New York City. I&apos;m always eager to learn, collaborate,
-          and make meaningful contributions to the world.
+      <HomeSection header='Hello and welcome!'>
+        <p>
+          I&apos;m Tommy, a software developer and recent computer science
+          graduate based in New York City. I&apos;m always eager to learn,
+          collaborate, and make meaningful contributions to the world.
           <br />
           <br />
           I&apos;m a full-stack developer but lean more towards the front-end
@@ -28,14 +28,14 @@ const Home = ({ links, projects }: HomeProps) => {
         </p>
       </HomeSection>
 
-      <HomeSection header='Featured Projects'>
-        <ul className='mb-4 grid gap-4'>
+      <HomeSection header='Featured projects'>
+        <ul className='mb-4 grid grid-cols-2 gap-4'>
           {projects.slice(0, 2).map((projectInfo) => (
             <ProjectCard key={projectInfo.name} {...projectInfo} />
           ))}
         </ul>
 
-        <div className='flex flex-col items-end gap-2 self-end md:text-lg lg:text-xl'>
+        <div className='flex flex-col items-end gap-2 self-end'>
           <Link href='/skills'>
             <a className='link transition hover:translate-x-2'>
               Explore my skills -&gt;
@@ -51,7 +51,7 @@ const Home = ({ links, projects }: HomeProps) => {
       </HomeSection>
 
       <HomeSection header='More'>
-        <div className='flex justify-between gap-8 md:text-lg lg:text-xl'>
+        <div className='flex justify-between gap-8'>
           <ul className='flex flex-col gap-2'>
             {links.map((link) => (
               <li key={link.title}>

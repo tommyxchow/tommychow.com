@@ -10,7 +10,7 @@ const Projects = ({ projects }: ProjectsProps) => {
       title='Projects | Tommy Chow'
       description={"Tommy Chow's projects."}
     >
-      <p className='mb-8 md:mb-16 md:text-lg lg:text-xl'>
+      <p>
         I focus on creating mobile and web experiences that motivate me to learn
         and solve meaningful problems. All of my work is free and open-source by
         default.
@@ -22,8 +22,8 @@ const Projects = ({ projects }: ProjectsProps) => {
         ))}
       </ul>
 
-      <p className='md:text-lg lg:text-xl'>
-        To see all my projects, check out{' '}
+      <p>
+        For all of my projects, check out{' '}
         <ExternalLink text='my GitHub profile' href={githubLink} />.
       </p>
     </Layout>

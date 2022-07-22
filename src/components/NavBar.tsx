@@ -23,35 +23,26 @@ const NavBar = () => {
   }
 
   return (
-    <header className='z-50 flex flex-col gap-2 p-4 backdrop-blur sm:p-8 md:gap-4 lg:p-16 lg:pt-32 lg:pb-16'>
+    <header className='sticky inset-0 z-50 flex items-center justify-between gap-2 p-4 backdrop-blur sm:p-8 md:gap-4'>
       <div className='flex justify-between'>
-        <h1>
-          <Link href='/'>
-            <a
-              className={`border-b-4 border-lime-500 text-4xl font-extrabold transition dark:border-lime-400 md:text-5xl lg:text-6xl  ${
-                router.pathname == '/'
-                  ? undefined
-                  : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
-              }`}
-            >
-              Tommy Chow
-            </a>
-          </Link>
-        </h1>
-
-        <button
-          className='text-2xl md:text-3xl lg:text-4xl'
-          onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
-        >
-          {theme == 'dark' ? <HiSun /> : <HiMoon />}
-        </button>
+        <Link href='/'>
+          <a
+            className={`border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
+              router.pathname == '/'
+                ? undefined
+                : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
+            }`}
+          >
+            Tommy Chow
+          </a>
+        </Link>
       </div>
 
-      <nav className='flex gap-2 overflow-auto pb-2 sm:overflow-visible lg:gap-4'>
+      <nav className='flex gap-2 overflow-auto sm:overflow-visible'>
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a
-              className={`border-b-4 border-lime-500 text-2xl font-bold transition dark:border-lime-400 md:text-3xl lg:text-4xl ${
+              className={`border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
                 router.pathname == '/' + route.toLowerCase()
                   ? undefined
                   : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
@@ -61,6 +52,13 @@ const NavBar = () => {
             </a>
           </Link>
         ))}
+
+        <button
+          className='px-1'
+          onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
+        >
+          {theme == 'dark' ? <HiSun /> : <HiMoon />}
+        </button>
       </nav>
     </header>
   );

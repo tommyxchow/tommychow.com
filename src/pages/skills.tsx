@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaTools } from 'react-icons/fa';
 import {
   SiC,
   SiCplusplus,
@@ -175,14 +176,12 @@ const Skills = () => {
 
   return (
     <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
-      <p className='mb-8 md:mb-16 md:text-lg lg:text-xl'>
-        I&apos;m constantly exploring and learning both the new and old in the
-        full-stack world. Thanks to the experiences, concepts, and patterns
-        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
-        capable of adapting and transferring between technologies.
+      <p>
+        Here&apos;s an ongoing list of various stuff I&apos;ve worked with ever
+        since I began pursuing a computer science degree in 2019.
       </p>
 
-      <div className='flex flex-col gap-8 md:gap-16 lg:row-start-2'>
+      <div className='flex flex-col gap-8 md:gap-16'>
         <SkillSection
           skillType='Frameworks and Libraries'
           skills={frameworkSkills}
@@ -192,6 +191,13 @@ const Skills = () => {
 
         <SkillSection skillType='Tools' skills={toolSkills} />
       </div>
+
+      <p>
+        I&apos;m constantly exploring and learning both the new and old in the
+        full-stack world. Thanks to the experiences, concepts, and patterns
+        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
+        capable of adapting and transferring between technologies.
+      </p>
     </Layout>
   );
 };
@@ -199,9 +205,7 @@ const Skills = () => {
 const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
   return (
     <section className='grid gap-2 md:grid-cols-3 md:gap-8'>
-      <h2 className='text-xl font-semibold md:text-2xl lg:h-16 lg:text-3xl'>
-        {skillType}
-      </h2>
+      <h2 className='font-semibold'>{skillType}</h2>
       <ul className='col-span-full col-start-2 flex flex-wrap gap-2'>
         {skills.map((skill) => (
           <li key={skill.name}>
@@ -216,7 +220,7 @@ const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
     <div
-      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium md:gap-2 md:text-base lg:px-4 lg:py-2 lg:text-lg ${color}`}
+      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium ${color}`}
     >
       {icon}
       {name}

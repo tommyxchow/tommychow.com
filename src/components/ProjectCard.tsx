@@ -20,15 +20,11 @@ const ProjectCard = ({
   return (
     <li className='group relative aspect-video overflow-clip'>
       <div className='absolute z-10 flex h-full w-full flex-col items-center justify-center gap-2 p-12 text-neutral-300 opacity-0 transition hover:bg-black hover:bg-opacity-80 hover:opacity-100'>
-        <h2 className='text-xl font-semibold text-neutral-100 md:text-2xl lg:text-3xl'>
+        <h2 className='text-xl font-semibold text-neutral-100 md:text-2xl'>
           {name}
         </h2>
-        <p className='text-center text-sm font-medium lg:text-base'>
-          {formattedDate}
-        </p>
-        <p className='mb-4 text-center text-sm font-medium lg:text-base'>
-          {description}
-        </p>
+        <p className='text-center text-sm font-medium'>{formattedDate}</p>
+        <p className='mb-4 text-center text-sm font-medium'>{description}</p>
         <div className='flex gap-4'>
           {demoLink && (
             <a

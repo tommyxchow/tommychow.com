@@ -84,7 +84,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       date: '2019-05-18',
       description:
         'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
-      imageLink: '/projects/stonks.jpg',
+      imageLink: '/projects/stonks.png',
       repoLink: 'https://github.com/tommyxchow/stock-chart-visualizer',
       demoLink: 'https://replit.com/@TommyChow/Stock-Chart-Visualizer',
     },
@@ -92,8 +92,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <ThemeProvider attribute='class' defaultTheme='dark'>
-      <div className='flex min-h-screen flex-col'>
-        <div className='m-auto flex w-full max-w-screen-lg flex-grow flex-col'>
+      <div className='flex min-h-screen flex-col items-center'>
+        <div className='m-auto flex w-full max-w-screen-md flex-grow flex-col'>
           <NavBar />
           <AnimatePresence exitBeforeEnter>
             <motion.div
@@ -108,7 +108,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           </AnimatePresence>
         </div>
 
-        <Footer links={links} />
+        <Footer />
       </div>
     </ThemeProvider>
   );
