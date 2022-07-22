@@ -1,17 +1,16 @@
 import React from 'react';
 
-const HomeSection = ({ header, className, children }: HomeSectionProps) => {
+const HomeSection = ({ header, children }: HomeSectionProps) => {
   return (
-    <section className={`${className}`}>
+    <section className='grid sm:grid-cols-3 sm:gap-8'>
       <h2 className='mb-2 text-xl font-semibold'>{header}</h2>
-      {children}
+      <div className='col-span-2'>{children}</div>
     </section>
   );
 };
 
 interface HomeSectionProps {
   header: string;
-  className?: string;
   children: React.ReactNode;
 }
 

@@ -10,7 +10,7 @@ const Home = ({ links, projects }: HomeProps) => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <HomeSection header='Hello and welcome!'>
+      <HomeSection header='Intro'>
         <p>
           I&apos;m Tommy, a software developer and recent computer science
           graduate based in New York City. I&apos;m always eager to learn,
@@ -20,16 +20,17 @@ const Home = ({ links, projects }: HomeProps) => {
           I&apos;m a full-stack developer but lean more towards the front-end
           side. I enjoy creating impactful mobile and web experiences with
           declarative frameworks including Flutter, React, and SwiftUI.
-          <br />
-          <br />
-          Currently, I&apos;m seeking a full-time position in software
-          engineering. I&apos;m open to all roles but my preference is frontend,
-          mobile, and full-stack either remote or in New York City.
         </p>
       </HomeSection>
 
-      <HomeSection header='Featured projects'>
-        <ul className='mb-4 grid grid-cols-2 gap-4'>
+      <HomeSection header='Status'>
+        Currently, I&apos;m seeking a full-time position in software
+        engineering. I&apos;m open to all roles but my preference is frontend,
+        mobile, and full-stack either remote or in New York City.
+      </HomeSection>
+
+      <HomeSection header='Featured'>
+        <ul className='mb-4 grid gap-4'>
           {projects.slice(0, 2).map((projectInfo) => (
             <ProjectCard key={projectInfo.name} {...projectInfo} />
           ))}
