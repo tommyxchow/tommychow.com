@@ -1,6 +1,6 @@
 import React from 'react';
 
-const HomeSection = ({ header, children }: HomeSectionProps) => {
+const Section = ({ header, children }: HomeSectionProps) => {
   return (
     <section className='grid sm:grid-cols-3 sm:gap-8'>
       <h2 className='mb-2 text-xl font-semibold'>{header}</h2>
@@ -14,4 +14,4 @@ interface HomeSectionProps {
   children: React.ReactNode;
 }
 
-export default HomeSection;
+export default Section;

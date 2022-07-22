@@ -23,11 +23,11 @@ const NavBar = () => {
   }
 
   return (
-    <header className='sticky inset-0 z-50 flex items-center justify-between gap-2 p-4 backdrop-blur sm:p-8 md:gap-4'>
-      <div className='flex justify-between'>
+    <header className='sticky inset-0 z-50 flex grid-cols-3 justify-between gap-2 overflow-auto p-4 backdrop-blur sm:grid sm:gap-8 sm:p-8'>
+      <nav>
         <Link href='/'>
           <a
-            className={`border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
+            className={`w-fit whitespace-nowrap border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
               router.pathname == '/'
                 ? undefined
                 : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
@@ -36,9 +36,9 @@ const NavBar = () => {
             Tommy Chow
           </a>
         </Link>
-      </div>
+      </nav>
 
-      <nav className='flex gap-2 overflow-auto sm:overflow-visible'>
+      <nav className='col-span-2 flex justify-between gap-2'>
         {routes.map((route) => (
           <Link key={route} href={'/' + route.toLowerCase()}>
             <a

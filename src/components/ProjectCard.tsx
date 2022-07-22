@@ -26,7 +26,7 @@ const ProjectCard = ({
         <div className='flex gap-4'>
           {demoLink && (
             <a
-              className='flex items-center gap-1'
+              className='flex items-center gap-2'
               href={demoLink}
               target='_blank'
               rel='noopener noreferrer'
@@ -37,7 +37,7 @@ const ProjectCard = ({
           )}
           {figmaLink && (
             <a
-              className='flex items-center gap-1'
+              className='flex items-center gap-2'
               href={demoLink}
               target='_blank'
               rel='noopener noreferrer'
@@ -47,7 +47,7 @@ const ProjectCard = ({
             </a>
           )}
           <a
-            className='flex items-center gap-1'
+            className='flex items-center gap-2'
             href={repoLink}
             target='_blank'
             rel='noopener noreferrer'

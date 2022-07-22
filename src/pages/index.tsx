@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import HomeSection from '../components/HomeSection';
+import Section from '../components/HomeSection';
 import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
 import { LinkInfo, ProjectInfo } from '../types';
@@ -10,7 +10,7 @@ const Home = ({ links, projects }: HomeProps) => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <HomeSection header='Intro'>
+      <Section header='Intro'>
         <p>
           Hello and welcome! I&apos;m Tommy, a software developer and recent
           computer science graduate based in New York City. I&apos;m always
@@ -22,15 +22,15 @@ const Home = ({ links, projects }: HomeProps) => {
           side. I enjoy creating impactful mobile and web experiences with
           declarative frameworks including Flutter, React, and SwiftUI.
         </p>
-      </HomeSection>
+      </Section>
 
-      <HomeSection header='Status'>
+      <Section header='Status'>
         Currently, I&apos;m seeking a full-time position in software
         engineering. I&apos;m open to all roles but my preference is frontend,
         mobile, and full-stack either remote or in New York City.
-      </HomeSection>
+      </Section>
 
-      <HomeSection header='Featured'>
+      <Section header='Featured'>
         <ul className='mb-4 grid gap-4'>
           {projects.slice(0, 2).map((projectInfo) => (
             <ProjectCard key={projectInfo.name} {...projectInfo} />
@@ -50,9 +50,9 @@ const Home = ({ links, projects }: HomeProps) => {
             </a>
           </Link>
         </div>
-      </HomeSection>
+      </Section>
 
-      <HomeSection header='More'>
+      <Section header='More'>
         <div className='flex justify-between gap-8'>
           <ul className='flex flex-col gap-2'>
             {links.map((link) => (
@@ -84,7 +84,7 @@ const Home = ({ links, projects }: HomeProps) => {
             </Link>
           </div>
         </div>
-      </HomeSection>
+      </Section>
     </Layout>
   );
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaTools } from 'react-icons/fa';
 import {
   SiC,
   SiCplusplus,
@@ -27,6 +26,7 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
+import Section from '../components/HomeSection';
 import Layout from '../components/Layout';
 
 const Skills = () => {
@@ -68,7 +68,7 @@ const Skills = () => {
     },
     {
       icon: <SiTailwindcss color='#06B6D4' />,
-      name: 'Tailwind',
+      name: 'Tailwind CSS',
       color: 'bg-[#06B6D4]',
     },
   ];
@@ -176,51 +176,56 @@ const Skills = () => {
 
   return (
     <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
-      <p>
-        Here&apos;s an ongoing list of various stuff I&apos;ve worked with ever
-        since I began pursuing a computer science degree in 2019.
-      </p>
+      <Section header='Skills'>
+        <p>
+          Here&apos;s an ongoing list of various stuff I&apos;ve worked with
+          ever since I began pursuing a computer science degree in 2019.
+          <br />
+          <br />
+          I&apos;m constantly exploring and learning both the new and old in the
+          full-stack world. Thanks to the experiences, concepts, and patterns
+          I&apos;ve obtained from utilizing all of these, I&apos;ve become very
+          capable of adapting and transferring between technologies.
+        </p>
+      </Section>
 
-      <div className='flex flex-col gap-8 md:gap-16'>
-        <SkillSection
-          skillType='Frameworks and Libraries'
-          skills={frameworkSkills}
-        />
+      <Section header='Frameworks and Libraries'>
+        <ul className='flex flex-wrap gap-2'>
+          {frameworkSkills.map((skill) => (
+            <li key={skill.name}>
+              <SkillBadge {...skill} />
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-        <SkillSection skillType='Languages' skills={languageSkills} />
+      <Section header='Languages'>
+        <ul className='flex flex-wrap gap-2'>
+          {languageSkills.map((skill) => (
+            <li key={skill.name}>
+              <SkillBadge {...skill} />
+            </li>
+          ))}
+        </ul>
+      </Section>
 
-        <SkillSection skillType='Tools' skills={toolSkills} />
-      </div>
-
-      <p>
-        I&apos;m constantly exploring and learning both the new and old in the
-        full-stack world. Thanks to the experiences, concepts, and patterns
-        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
-        capable of adapting and transferring between technologies.
-      </p>
+      <Section header='Tools'>
+        <ul className='flex flex-wrap gap-2'>
+          {toolSkills.map((skill) => (
+            <li key={skill.name}>
+              <SkillBadge {...skill} />
+            </li>
+          ))}
+        </ul>
+      </Section>
     </Layout>
-  );
-};
-
-const SkillSection = ({ skillType, skills }: SkillSectionProps) => {
-  return (
-    <section className='grid gap-2 md:grid-cols-3 md:gap-8'>
-      <h2 className='font-semibold'>{skillType}</h2>
-      <ul className='col-span-full col-start-2 flex flex-wrap gap-2'>
-        {skills.map((skill) => (
-          <li key={skill.name}>
-            <SkillBadge {...skill} />
-          </li>
-        ))}
-      </ul>
-    </section>
   );
 };
 
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
     <div
-      className={`flex items-center gap-1 rounded-full bg-opacity-20 px-3 py-1 text-sm font-medium shadow ${color}`}
+      className={`flex items-center gap-2 rounded-full bg-opacity-20 px-3 py-1 font-medium shadow ${color}`}
     >
       {icon}
       {name}
@@ -232,11 +237,6 @@ interface Skill {
   icon: React.ReactNode;
   name: string;
   color: string;
-}
-
-interface SkillSectionProps {
-  skillType: string;
-  skills: Skill[];
 }
 
 export default Skills;
