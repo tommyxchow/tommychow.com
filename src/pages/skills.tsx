@@ -26,8 +26,8 @@ import {
   SiVisualstudiocode,
   SiXcode,
 } from 'react-icons/si';
-import Section from '../components/Section';
 import Layout from '../components/Layout';
+import Section from '../components/Section';
 
 const Skills = () => {
   const frameworkSkills: Skill[] = [
@@ -176,18 +176,12 @@ const Skills = () => {
 
   return (
     <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
-      <Section header='Skills'>
-        <p>
-          Here&apos;s an ongoing list of various stuff I&apos;ve worked with
-          ever since I began pursuing a computer science degree in 2019.
-          <br />
-          <br />
-          I&apos;m constantly exploring and learning both the new and old in the
-          full-stack world. Thanks to the experiences, concepts, and patterns
-          I&apos;ve obtained from utilizing all of these, I&apos;ve become very
-          capable of adapting and transferring between technologies.
-        </p>
-      </Section>
+      <h1 className='text-2xl font-bold'>Skills</h1>
+
+      <p>
+        Here&apos;s an ongoing list of various stuff I&apos;ve worked with ever
+        since I began pursuing a computer science degree in 2019.
+      </p>
 
       <Section header='Frameworks and Libraries'>
         <ul className='flex flex-wrap gap-2'>
@@ -218,6 +212,13 @@ const Skills = () => {
           ))}
         </ul>
       </Section>
+
+      <p>
+        I&apos;m constantly exploring and learning both the new and old in the
+        full-stack world. Thanks to the experiences, concepts, and patterns
+        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
+        capable of adapting and transferring between technologies.
+      </p>
     </Layout>
   );
 };

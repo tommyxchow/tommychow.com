@@ -3,6 +3,7 @@ import Section from '../components/Section';
 import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
 import { LinkInfo, ProjectInfo } from '../types';
+import Image from 'next/image';
 
 const Home = ({ links, projects }: HomeProps) => {
   return (
@@ -10,24 +11,35 @@ const Home = ({ links, projects }: HomeProps) => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <Section header='Intro'>
-        <p>
-          Hello and welcome! I&apos;m Tommy, a software developer and recent
-          computer science graduate based in New York City. I&apos;m always
-          eager to learn, collaborate, and make meaningful contributions to the
-          world.
+      <h1 className='text-2xl font-bold'>Welcome!</h1>
+
+      <div className=' grid gap-8 sm:grid-cols-3'>
+        <div className='relative aspect-square h-32 overflow-clip rounded-full'>
+          <Image
+            priority
+            src='/me.jpg'
+            alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
+            layout='fill'
+            quality={100}
+          />
+        </div>
+
+        <p className='col-span-2'>
+          I&apos;m Tommy, a software developer and recent computer science
+          graduate based in New York City. I&apos;m always eager to learn,
+          collaborate, and make meaningful contributions to the world.
           <br />
           <br />
-          I&apos;m a full-stack developer but lean more towards the front-end
-          side. I enjoy creating impactful mobile and web experiences with
-          declarative frameworks including Flutter, React, and SwiftUI.
+          I&apos;m a full-stack developer but lean more towards the front-end. I
+          enjoy creating impactful mobile and web experiences with declarative
+          frameworks including Flutter, React, and SwiftUI.
         </p>
-      </Section>
+      </div>
 
       <Section header='Status'>
-        Currently, I&apos;m seeking a full-time position in software
-        engineering. I&apos;m open to all roles but my preference is frontend,
-        mobile, and full-stack either remote or in New York City.
+        I&apos;m seeking a full-time position in software engineering. I&apos;m
+        open to all roles but my preference is frontend, mobile, and full-stack
+        either remote or in New York City.
       </Section>
 
       <Section header='Featured'>
