@@ -3,6 +3,7 @@ import { ProjectInfo } from './types';
 export const githubLink = 'https://github.com/tommyxchow';
 export const linkedInLink = 'https://www.linkedin.com/in/tommy-chow/';
 export const email = 'tommyxchow@gmail.com';
+export const source = 'https://github.com/tommyxchow/tommychow.com';
 
 export const projects: ProjectInfo[] = [
   {

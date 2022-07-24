@@ -1,13 +1,13 @@
-const ExternalLink = ({ text, href }: ExternalLinkProps) => {
+const ExternalLink = ({ href, children }: ExternalLinkProps) => {
   return (
     <a className='link-colored' href={href} target='_blank' rel='noreferrer'>
-      {text}
+      {children}
     </a>
   );
 };
 
 interface ExternalLinkProps {
-  text: string;
+  children: React.ReactNode;
   href: string;
 }
 

@@ -4,7 +4,13 @@ import type { AppProps } from 'next/app';
 import { FaEnvelope, FaFileAlt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
-import { email, githubLink, linkedInLink, projects } from '../constants';
+import {
+  email,
+  githubLink,
+  linkedInLink,
+  projects,
+  source,
+} from '../constants';
 import '../styles/globals.css';
 import { LinkInfo } from '../types';
 
@@ -30,13 +36,18 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       title: 'Resume',
       href: '/resume.pdf',
     },
+    {
+      icon: <FaFileAlt />,
+      title: 'Source',
+      href: source,
+    },
   ];
 
   return (
     <ThemeProvider attribute='class' defaultTheme='dark'>
       <div className='flex min-h-screen flex-col items-center'>
-        <div className='m-auto flex w-full max-w-screen-md flex-grow flex-col'>
-          <NavBar />
+        <NavBar />
+        <div className='flex max-w-screen-md flex-grow flex-col'>
           <AnimatePresence exitBeforeEnter>
             <motion.div
               key={router.route}
@@ -50,7 +61,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           </AnimatePresence>
         </div>
 
-        <Footer />
+        <Footer links={links} />
       </div>
     </ThemeProvider>
   );

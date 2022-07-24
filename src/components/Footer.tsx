@@ -1,30 +1,26 @@
 import { LinkInfo } from '../types';
 import ExternalLink from './ExternalLink';
 
-const Footer = () => {
+const Footer = ({ links }: FooterProps) => {
   return (
-    <footer className='px-4 py-16'>
-      <div className='flex flex-col items-center gap-2 text-center text-xs'>
-        <p>Thanks for stopping by ❤️</p>
-        <p>
-          Designed and developed by me with{' '}
-          <ExternalLink text='Next.js' href='https://nextjs.org/' />,{' '}
-          <ExternalLink text='Tailwind CSS' href='https://tailwindcss.com/' />,
-          and <ExternalLink text='Figma' href='https://www.figma.com/' />
-        </p>
-        <p>
-          Deployed with{' '}
-          <ExternalLink text='Vercel' href='https://vercel.com/' />
-        </p>
-        <p>
-          <ExternalLink
-            text='Last updated 2022'
-            href='https://github.com/tommyxchow/tommychow.com'
-          />
-        </p>
+    <footer className='flex w-full max-w-screen-md grid-cols-3 flex-col-reverse items-center gap-8 px-4 py-16 sm:grid sm:px-8'>
+      <p className='text-sm text-neutral-700 dark:text-neutral-300'>
+        Thanks for stopping by ❤️
+      </p>
+
+      <div className='col-span-full col-start-2 flex w-full justify-evenly text-sm text-neutral-700 dark:text-neutral-300 sm:justify-between'>
+        {links.map((link) => (
+          <ExternalLink key={link.title} href={link.href}>
+            {link.title}
+          </ExternalLink>
+        ))}
       </div>
     </footer>
   );
 };
+
+interface FooterProps {
+  links: LinkInfo[];
+}
 
 export default Footer;
