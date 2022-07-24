@@ -17,7 +17,7 @@ const Home = ({ links, projects }: HomeProps) => {
         <div className='relative aspect-square h-32 overflow-clip rounded-full'>
           <Image
             priority
-            src='/me.jpg'
+            src='/photos/me.jpg'
             alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
             layout='fill'
             quality={100}
@@ -67,7 +67,7 @@ const Home = ({ links, projects }: HomeProps) => {
       <Section header='More'>
         <div className='flex justify-between gap-8'>
           <ul className='flex flex-col gap-2'>
-            {links.map((link) => (
+            {links.slice(0, 4).map((link) => (
               <li key={link.title}>
                 <a
                   className='link flex w-fit items-center gap-2 hover:-translate-y-1'
