@@ -12,8 +12,3 @@
   }
 
 }
-
-/* Fix for scrollbar shifting content */
-html {
-  margin-left: calc(100vw - 100%);
-}

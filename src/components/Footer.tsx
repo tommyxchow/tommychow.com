@@ -8,7 +8,7 @@ const Footer = ({ links }: FooterProps) => {
         Thanks for stopping by ❤️
       </p>
 
-      <div className='col-span-full col-start-2 flex w-full justify-evenly text-sm text-neutral-700 dark:text-neutral-300 sm:justify-between'>
+      <div className='col-span-full col-start-2 flex w-full justify-evenly gap-2 text-sm text-neutral-700 dark:text-neutral-300 sm:justify-between'>
         {links.map((link) => (
           <ExternalLink key={link.title} href={link.href}>
             {link.title}
