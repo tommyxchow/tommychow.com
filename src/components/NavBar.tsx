@@ -10,10 +10,11 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'Blog', 'About'];
 
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   // Wait until the component is mounted to set the theme.
   // This prevents a hydration error.
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -23,7 +24,7 @@ const NavBar = () => {
   }
 
   return (
-    <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-20 backdrop-blur transition dark:bg-neutral-900 dark:bg-opacity-20'>
+    <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur transition dark:bg-neutral-900 dark:bg-opacity-80'>
       <div className='flex w-full max-w-screen-md grid-cols-3 justify-between gap-2 p-4 sm:grid sm:gap-8 sm:p-8'>
         <nav>
           <Link href='/'>
