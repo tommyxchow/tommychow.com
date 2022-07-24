@@ -20,7 +20,6 @@ const Home = ({ links, projects }: HomeProps) => {
             src='/photos/me.jpg'
             alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
             layout='fill'
-            quality={100}
           />
         </div>
 
