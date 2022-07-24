@@ -19,7 +19,7 @@ const Projects = ({ projects }: ProjectsProps) => {
         <br />
         <br />
         For all of my projects, check out{' '}
-        <ExternalLink text='my GitHub profile' href={githubLink} />.
+        <ExternalLink href={githubLink}>my GitHub profile</ExternalLink>.
       </p>
 
       <ul className='mb-8 flex flex-col gap-4 md:mb-16 md:gap-8'>
