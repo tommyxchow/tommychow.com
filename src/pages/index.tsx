@@ -14,7 +14,7 @@ const Home = ({ links, projects }: HomeProps) => {
       <h1 className='text-2xl font-bold'>Welcome!</h1>
 
       <div className=' grid gap-8 sm:grid-cols-3'>
-        <div className='relative aspect-square h-32 overflow-clip rounded-full'>
+        <div className='relative aspect-square h-32 overflow-hidden rounded-full shadow-md'>
           <Image
             priority
             src='/photos/me.jpg'
