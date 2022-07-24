@@ -4,9 +4,9 @@ import type { AppProps } from 'next/app';
 import { FaEnvelope, FaFileAlt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import Footer from '../components/Footer';
 import NavBar from '../components/NavBar';
-import { email, githubLink, linkedInLink } from '../constants';
+import { email, githubLink, linkedInLink, projects } from '../constants';
 import '../styles/globals.css';
-import { LinkInfo, ProjectInfo } from '../types';
+import { LinkInfo } from '../types';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const links: LinkInfo[] = [
@@ -29,64 +29,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       icon: <FaFileAlt />,
       title: 'Resume',
       href: '/resume.pdf',
-    },
-  ];
-
-  const projects: ProjectInfo[] = [
-    {
-      name: 'Frosty for Twitch',
-      date: '2022-07-08',
-      description:
-        'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
-      imageLink: '/projects/frosty-app.png',
-      repoLink: 'https://github.com/tommyxchow/frosty',
-    },
-    {
-      name: 'Frosty Website',
-      date: '2022-07-08',
-      description: 'Marketing website for the Frosty app.',
-      imageLink: '/projects/frosty-website.png',
-      repoLink: 'https://github.com/tommyxchow/frostyapp.io',
-      demoLink: 'https://www.frostyapp.io/',
-    },
-    {
-      name: 'Study Seeker',
-      date: '2022-05-06',
-      description:
-        'Responsive social media platform aimed to help students find the best match for a potential study partner.',
-      imageLink: '/projects/study-seeker.png',
-      repoLink: 'https://github.com/tommyxchow/study-seeker',
-      figmaLink:
-        'https://www.figma.com/file/QVP0FV2JZDv4nsMHetIabX/StudySeeker?node-id=0%3A1',
-      demoLink: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
-    },
-    {
-      name: 'Zeal',
-      date: '2021-12-04',
-      description:
-        'Social web app that streamlines creating, exploring, and joining events.',
-      imageLink: '/projects/zeal.png',
-      repoLink: 'https://github.com/tommyxchow/zeal',
-      figmaLink:
-        'https://www.figma.com/file/aR9EqyzY9YERRAejHNCRDB/Zeal?node-id=0%3A1',
-      demoLink: 'https://zeal5.herokuapp.com/',
-    },
-    {
-      name: 'The Gallery',
-      date: '2021-05-18',
-      description:
-        'Image sharing web app developed to learn internet protocols and full-stack web development.',
-      imageLink: '/projects/gallery.jpg',
-      repoLink: 'https://github.com/tommyxchow/the-gallery',
-    },
-    {
-      name: 'Stock Chart Visualizer',
-      date: '2019-05-18',
-      description:
-        'My first web app. Allows entering any stock ticker to see the relevant price history and volume charts.',
-      imageLink: '/projects/stonks.png',
-      repoLink: 'https://github.com/tommyxchow/stock-chart-visualizer',
-      demoLink: 'https://replit.com/@TommyChow/Stock-Chart-Visualizer',
     },
   ];
 

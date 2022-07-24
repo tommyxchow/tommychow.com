@@ -5,11 +5,13 @@ export interface LinkInfo {
 }
 
 export interface ProjectInfo {
+  id: string;
   name: string;
-  date: string;
-  description: string;
-  imageLink: string;
-  repoLink: string;
-  figmaLink?: string;
-  demoLink?: string;
+  shortDescription: string;
+  thumbnailLink: string;
+  dateCompleted?: string;
+  longDescription: string;
+  background: string;
+  links: LinkInfo[];
+  screenshotLinks?: string[];
 }
