@@ -13,13 +13,21 @@ const Projects = ({ projects }: ProjectsProps) => {
       <h1 className='text-2xl font-bold'>Projects</h1>
 
       <p>
-        I focus on creating mobile and web experiences that motivate me to learn
-        and solve meaningful problems. All of my work is free and open-source by
-        default.
+        I enjoy creating mobile and web experiences that are useful, solve
+        meaningful problems, and motivate me to learn. The projects here are
+        meant to showcase my growth, diversity, and versatility as a software
+        developer.
         <br />
         <br />
-        For all of my projects, check out{' '}
-        <ExternalLink href={githubLink}>my GitHub profile</ExternalLink>.
+        Overall, I was able to gain hands-on experience with a variety of topics
+        including open-source, popular frameworks, UI and UX design, usability
+        and A/B testing, wireframing, deployment, CI/CD, common Agile practices,
+        and teamwork/leadership.
+        <br />
+        <br />
+        All of my work is free and open-source by default. To see them all,
+        check out{' '}
+        <ExternalLink href={githubLink}>my GitHub profile</ExternalLink>!
       </p>
 
       <ul className='mb-8 flex flex-col gap-4 md:mb-16 md:gap-8'>
