@@ -91,7 +91,7 @@ export const projects: ProjectInfo[] = [
       '/projects/zeal/screenshots/landing.png',
       '/projects/zeal/screenshots/profile.png',
       '/projects/zeal/screenshots/create.png',
-      '/projects/zeal/screenshots/event.png',
+      '/projects/zeal/screenshots/events.png',
     ],
   },
   {
