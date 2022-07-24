@@ -96,7 +96,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'The Gallery',
-    thumbnailLink: '/projects/gallery.jpg',
+    thumbnailLink: '/projects/the-gallery/thumbnail.png',
     dateCompleted: '2021-05-18',
     longDescription:
       'The Gallery is a web app that features the ability to upload and share images, leave comments, and chat with other users. It was completed with minimal frameworks in an effort to learn the foundations and ins-and-outs of certain protocols and backend web development.',
@@ -111,7 +111,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'Stock Chart Visualizer',
-    thumbnailLink: '/projects/stonks.png',
+    thumbnailLink: '/projects/stocks/thumbnail.png',
     dateCompleted: '2019-05-18',
     longDescription:
       'This project was completed as part of an intro to computer science course during my freshman year at UB. It is a simple web app that allows you to enter any stock ticker and obtain the relevant price history and volume charts. There are also timeline options ranging from one day to five years.',
