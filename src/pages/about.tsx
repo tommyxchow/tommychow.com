@@ -28,7 +28,7 @@ const About = () => {
         <div className='relative aspect-video'>
           <Image
             priority
-            src='/photos/nyc.jpeg'
+            src='/photos/nyc.JPEG'
             alt='Landscape shot from the airplane window seat of the New York City skyline during sunset.'
             layout='fill'
             objectFit='cover'
@@ -39,7 +39,7 @@ const About = () => {
         <div className='relative aspect-video'>
           <Image
             priority
-            src='/photos/flushing.jpeg'
+            src='/photos/flushing.JPEG'
             alt='Night shot of main street in Flushing, NY.'
             layout='fill'
             objectFit='cover'
@@ -62,7 +62,7 @@ const About = () => {
 
       <div className='relative aspect-[3/4]'>
         <Image
-          src='/photos/bbq.jpeg'
+          src='/photos/bbq.JPEG'
           alt='POV of me eating Korean at Picnic Garden in Queens, NY. I am also watching xQc on Twitch on my phone.'
           layout='fill'
           quality={100}
@@ -92,7 +92,7 @@ const About = () => {
 
       <div className='relative aspect-[4/3]'>
         <Image
-          src='/photos/keyboard.jpeg'
+          src='/photos/keyboard.JPEG'
           alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'
           layout='fill'
           quality={100}
