@@ -26,8 +26,9 @@ const About = () => {
         </ExternalLink>{' '}
         to name a few).
       </p>
+
       <div className='space-y-8'>
-        <div className='relative aspect-video'>
+        <div className='relative aspect-video shadow-lg'>
           <Image
             priority
             src='/photos/nyc.JPEG'
@@ -37,7 +38,7 @@ const About = () => {
           />
         </div>
 
-        <div className='relative aspect-video'>
+        <div className='relative aspect-video shadow-lg'>
           <Image
             priority
             src='/photos/flushing.JPEG'
@@ -47,6 +48,7 @@ const About = () => {
           />
         </div>
       </div>
+
       <p>
         After graduating from high school, I began to pursue a finance degree at{' '}
         <ExternalLink href='https://www.baruch.cuny.edu/'>
@@ -70,7 +72,7 @@ const About = () => {
         I discovered my strong passion for frontend and mobile development.
       </p>
 
-      <div className='relative aspect-[3/4]'>
+      <div className='relative aspect-[3/4] shadow-lg'>
         <Image
           priority
           src='/photos/ub.JPEG'
@@ -93,7 +95,7 @@ const About = () => {
         course bubble tea.
       </p>
 
-      <div className='relative aspect-[3/4]'>
+      <div className='relative aspect-[3/4] shadow-lg'>
         <Image
           src='/photos/bbq.JPEG'
           alt='POV of me eating Korean at Picnic Garden in Queens, NY. I am also watching xQc on Twitch on my phone.'
@@ -120,7 +122,7 @@ const About = () => {
         </ExternalLink>
         .
       </p>
-      <div className='relative aspect-[4/3]'>
+      <div className='relative aspect-[4/3] shadow-lg'>
         <Image
           src='/photos/keyboard.JPEG'
           alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'

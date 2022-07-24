@@ -19,7 +19,7 @@ const ProjectCard = ({
 
   return (
     <li
-      className='group relative aspect-video overflow-clip shadow-lg transition hover:scale-105 active:scale-95'
+      className='group relative aspect-video overflow-clip shadow-lg transition hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-none'
       id={id}
     >
       <Link href={'/projects/' + id}>
