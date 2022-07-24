@@ -28,7 +28,7 @@ const Project = ({ project }: ProjectProps) => {
           <h2>{project.shortDescription}</h2>
         </div>
 
-        <div className='relative aspect-video'>
+        <div className='relative aspect-video shadow-lg'>
           <Image
             priority
             src={project.thumbnailLink}
@@ -71,11 +71,14 @@ const Project = ({ project }: ProjectProps) => {
         </ul>
       </Section>
 
-      {/* {project.screenshotLinks && (
+      {project.screenshotLinks && (
         <section className='flex flex-col gap-4'>
           <h2 className='text-lg font-semibold'>Screenshots</h2>
           {project.screenshotLinks?.map((screenshotLink) => (
-            <div className='relative aspect-video' key={screenshotLink}>
+            <div
+              className='relative aspect-video shadow-lg'
+              key={screenshotLink}
+            >
               <Image
                 src={screenshotLink}
                 alt='Project image'
@@ -85,7 +88,7 @@ const Project = ({ project }: ProjectProps) => {
             </div>
           ))}
         </section>
-      )} */}
+      )}
     </Layout>
   );
 };

@@ -32,6 +32,7 @@ const ProjectCard = ({
       </Link>
 
       <Image
+        priority={id.startsWith('frosty')}
         src={thumbnailLink}
         alt={`Thumbnail for ${name}.`}
         layout='fill'

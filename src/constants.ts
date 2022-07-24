@@ -7,7 +7,7 @@ export const email = 'tommyxchow@gmail.com';
 export const projects: ProjectInfo[] = [
   {
     name: 'Frosty for Twitch',
-    thumbnailLink: '/projects/frosty-app.png',
+    thumbnailLink: '/projects/frosty/thumbnail.png',
     shortDescription:
       'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
     longDescription:
@@ -21,7 +21,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'Frosty Website',
-    thumbnailLink: '/projects/frosty-website.png',
+    thumbnailLink: '/projects/frosty-website/thumbnail.png',
     shortDescription: 'Marketing website for the Frosty app.',
     longDescription:
       'The homepage and marketing website for Frosty, a mobile Twitch.tv client for iOS and Android. Built with Next.js, styled with Tailwind CSS, and deployed with Vercel.',
@@ -32,7 +32,6 @@ export const projects: ProjectInfo[] = [
       { title: 'Live Demo', href: 'https://frostyapp.io' },
     ],
     id: 'frosty-website',
-    screenshotLinks: [],
   },
   {
     name: 'Study Seeker',
@@ -40,7 +39,7 @@ export const projects: ProjectInfo[] = [
       'Responsive social media platform aimed to help students find the best match for a potential study partner.',
     background: '',
 
-    thumbnailLink: '/projects/study-seeker.png',
+    thumbnailLink: '/projects/study-seeker/thumbnail.png',
     dateCompleted: '2022-05-06',
     longDescription:
       'Study Seeker is a web app that allows students to find the best match for a potential study partner. Instead of only being able to see a name and email like a typical Piazza post, Study Seeker allows you to view all the relevant info about a potential study partner at a glance. Students can customize their profile to have details like their major, classes taken, interests, and more in order to find the most compatible match for a study buddy. After their study session, students can also leave a detailed review to let others know how great or not-so-great they were as a study buddy. On the homepage, students can also see featured users that have the top rating across the site.',
@@ -56,7 +55,14 @@ export const projects: ProjectInfo[] = [
       },
     ],
     id: 'study-seeker',
-    screenshotLinks: [],
+    screenshotLinks: [
+      '/projects/study-seeker/screenshots/landing.png',
+      '/projects/study-seeker/screenshots/home.png',
+      '/projects/study-seeker/screenshots/search.png',
+      '/projects/study-seeker/screenshots/profile.png',
+      '/projects/study-seeker/screenshots/group.png',
+      '/projects/study-seeker/screenshots/class.png',
+    ],
   },
   {
     name: 'Zeal',
@@ -64,10 +70,10 @@ export const projects: ProjectInfo[] = [
       'Social web app that streamlines creating, exploring, and joining events.',
     background: '',
 
-    thumbnailLink: '/projects/zeal.png',
+    thumbnailLink: '/projects/zeal/thumbnail.png',
     dateCompleted: '2021-12-04',
     longDescription:
-      'Zeal is a web app that aims to help event organizers and participants easily discover, create, and join events. It was originally planned as a resource for helping students and hackathons find teammates through writing a prompt that would be analyzed by OpenAI, but it was severely scaled down due to us recognizing that the work and scope would be far too large for a class project.',
+      'Zeal is a web app that aims to help event organizers and participants easily discover, create, and join events. It was originally planned as a resource for helping students and hackathons find teammates through writing a prompt that OpenAI would analyze. Eventually, it was severely scaled down due to us recognizing that the work and scope would be far too large for a class project.',
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/zeal' },
       {
@@ -80,7 +86,12 @@ export const projects: ProjectInfo[] = [
       },
     ],
     id: 'zeal',
-    screenshotLinks: [],
+    screenshotLinks: [
+      '/projects/zeal/screenshots/landing.png',
+      '/projects/zeal/screenshots/profile.png',
+      '/projects/zeal/screenshots/create.png',
+      '/projects/zeal/screenshots/event.png',
+    ],
   },
   {
     name: 'The Gallery',
