@@ -9,7 +9,7 @@ const NavBar = () => {
 
   const routes = ['Skills', 'Projects', 'Blog', 'About'];
 
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   // Wait until the component is mounted to set the theme.
   // This prevents a hydration error.
@@ -57,9 +57,9 @@ const NavBar = () => {
 
           <button
             className='px-1'
-            onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
+            onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
           >
-            {theme == 'dark' ? <FaSun /> : <FaMoon />}
+            {resolvedTheme == 'dark' ? <FaSun /> : <FaMoon />}
           </button>
         </nav>
       </div>
