@@ -14,4 +14,11 @@ export interface ProjectInfo {
   background: string;
   links: LinkInfo[];
   screenshotLinks?: string[];
+  technologies: string[];
+}
+
+export interface Skill {
+  icon: React.ReactNode;
+  name: string;
+  color: string;
 }

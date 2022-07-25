@@ -10,9 +10,15 @@ const Footer = ({ links }: FooterProps) => {
 
       <div className='col-span-full col-start-2 flex w-full justify-evenly gap-2 text-sm text-neutral-700 dark:text-neutral-300 sm:justify-between'>
         {links.map((link) => (
-          <ExternalLink key={link.title} href={link.href}>
+          <a
+            className='link flex w-fit items-center gap-2 hover:-translate-y-1'
+            href={link.href}
+            target='_blank'
+            rel='noreferrer'
+            key={link.title}
+          >
             {link.title}
-          </ExternalLink>
+          </a>
         ))}
       </div>
     </footer>

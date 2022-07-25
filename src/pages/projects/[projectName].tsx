@@ -1,13 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { FiExternalLink } from 'react-icons/fi';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
+import SkillBadge from '../../components/SkillBadge';
 import { projects } from '../../constants';
-import { ProjectInfo } from '../../types';
+import { ProjectInfo, Skill } from '../../types';
 
-const Project = ({ project }: ProjectProps) => {
+const Project = ({ project, skills }: ProjectProps) => {
   let formattedDate = 'Ongoing';
   if (project.dateCompleted) {
     const projectDate = new Date(project.dateCompleted);
@@ -45,26 +45,32 @@ const Project = ({ project }: ProjectProps) => {
           : 'Completed ' + formattedDate}
       </Section>
 
+      <Section header='Technologies'>
+        <ul className='flex flex-wrap gap-2'>
+          {project.technologies.map((tech) => (
+            <li key={tech}>
+              <SkillBadge {...skills.find((skill) => skill.name == tech)!} />
+            </li>
+          ))}
+        </ul>
+      </Section>
+
       <Section header='Description'>
         <p>{project.longDescription}</p>
       </Section>
-
-      {/* <Section header='Background'>
-        <p>{project.background}</p>
-      </Section> */}
 
       <Section header='Links'>
         <ul className='flex flex-col gap-4'>
           {project.links.map((link) => (
             <li className='w-fit' key={link.title}>
               <a
-                className='flex items-center gap-2'
+                className='link flex w-fit items-center gap-2 hover:-translate-y-1'
                 href={link.href}
                 target='_blank'
                 rel='noreferrer'
               >
                 {link.title}
-                <FaExternalLinkAlt />
+                <FiExternalLink />
               </a>
             </li>
           ))}
@@ -95,6 +101,7 @@ const Project = ({ project }: ProjectProps) => {
 
 interface ProjectProps {
   project: ProjectInfo;
+  skills: Skill[];
 }
 
 export default Project;

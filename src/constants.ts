@@ -19,6 +19,7 @@ export const projects: ProjectInfo[] = [
       { title: 'Website', href: 'https://frostyapp.io' },
     ],
     id: 'frosty',
+    technologies: ['Dart', 'Figma', 'Flutter', 'GitHub Actions'],
   },
   {
     name: 'Frosty Website',
@@ -29,10 +30,11 @@ export const projects: ProjectInfo[] = [
     background: '',
 
     links: [
+      { title: 'Demo', href: 'https://frostyapp.io' },
       { title: 'Source', href: 'https://github.com/tommyxchow/frostyapp.io' },
-      { title: 'Live Demo', href: 'https://frostyapp.io' },
     ],
     id: 'frosty-website',
+    technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
   },
   {
     name: 'Study Seeker',
@@ -45,15 +47,15 @@ export const projects: ProjectInfo[] = [
     longDescription:
       'Study Seeker is a web app that allows students to find the best match for a potential study partner. Instead of only being able to see a name and email like a typical Piazza post, Study Seeker allows you to view all the relevant info about a potential study partner at a glance. Students can customize their profile to have details like their major, classes taken, interests, and more in order to find the most compatible match for a study buddy. After their study session, students can also leave a detailed review to let others know how great or not-so-great they were as a study buddy. On the homepage, students can also see featured users that have the top rating across the site.',
     links: [
-      { title: 'Source', href: 'https://github.com/tommyxchow/study-seeker' },
+      {
+        title: 'Demo',
+        href: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
+      },
       {
         title: 'Figma',
         href: 'https://www.figma.com/file/QVP0FV2JZDv4nsMHetIabX/StudySeeker?node-id=0%3A1',
       },
-      {
-        title: 'Live Demo',
-        href: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
-      },
+      { title: 'Source', href: 'https://github.com/tommyxchow/study-seeker' },
     ],
     id: 'study-seeker',
     screenshotLinks: [
@@ -64,6 +66,7 @@ export const projects: ProjectInfo[] = [
       '/projects/study-seeker/screenshots/group.png',
       '/projects/study-seeker/screenshots/class.png',
     ],
+    technologies: ['CSS', 'Figma', 'JavaScript', 'React'],
   },
   {
     name: 'Zeal',
@@ -76,15 +79,15 @@ export const projects: ProjectInfo[] = [
     longDescription:
       'Zeal is a web app that aims to help event organizers and participants easily discover, create, and join events. It was originally planned as a resource for helping students and hackathons find teammates through writing a prompt that OpenAI would analyze. Eventually, it was severely scaled down due to us recognizing that the work and scope would be far too large for a class project.',
     links: [
-      { title: 'Source', href: 'https://github.com/tommyxchow/zeal' },
+      {
+        title: 'Demo',
+        href: 'https://zeal5.herokuapp.com/',
+      },
       {
         title: 'Figma',
         href: 'https://www.figma.com/file/aR9EqyzY9YERRAejHNCRDB/Zeal?node-id=0%3A1',
       },
-      {
-        title: 'Live Demo',
-        href: 'https://zeal5.herokuapp.com/',
-      },
+      { title: 'Source', href: 'https://github.com/tommyxchow/zeal' },
     ],
     id: 'zeal',
     screenshotLinks: [
@@ -92,6 +95,15 @@ export const projects: ProjectInfo[] = [
       '/projects/zeal/screenshots/profile.png',
       '/projects/zeal/screenshots/create.png',
       '/projects/zeal/screenshots/events.png',
+    ],
+    technologies: [
+      'CSS',
+      'Django',
+      'Docker',
+      'Figma',
+      'Heroku',
+      'JavaScript',
+      'React',
     ],
   },
   {
@@ -108,6 +120,7 @@ export const projects: ProjectInfo[] = [
       { title: 'Source', href: 'https://github.com/tommyxchow/the-gallery' },
     ],
     id: 'the-gallery',
+    technologies: ['CSS', 'Docker', 'HTML', 'JavaScript', 'Python'],
   },
   {
     name: 'Stock Chart Visualizer',
@@ -121,14 +134,15 @@ export const projects: ProjectInfo[] = [
 
     links: [
       {
+        title: 'Demo',
+        href: 'https://replit.com/@TommyChow/Stock-Chart-Visualizer',
+      },
+      {
         title: 'Source',
         href: 'https://github.com/tommyxchow/stock-chart-visualizer',
       },
-      {
-        title: 'Demo Link',
-        href: 'https://replit.com/@TommyChow/Stock-Chart-Visualizer',
-      },
     ],
     id: 'stock-chart-visualizer',
+    technologies: ['CSS', 'HTML', 'Python'],
   },
 ];
