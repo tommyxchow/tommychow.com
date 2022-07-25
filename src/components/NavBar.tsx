@@ -19,10 +19,6 @@ const NavBar = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80'>
       <div className='flex w-full max-w-screen-md grid-cols-3 justify-between gap-2 p-4 sm:grid sm:gap-8 sm:p-8'>
@@ -32,7 +28,7 @@ const NavBar = () => {
               className={`w-fit whitespace-nowrap border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
                 router.pathname == '/'
                   ? undefined
-                  : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
+                  : 'border-opacity-0 text-neutral-500 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-400 dark:hover:border-opacity-50'
               }`}
             >
               Tommy Chow
@@ -47,7 +43,7 @@ const NavBar = () => {
                 className={`border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
                   router.pathname == '/' + route.toLowerCase()
                     ? undefined
-                    : 'border-opacity-0 text-neutral-400 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-500 dark:hover:border-opacity-50'
+                    : 'border-opacity-0 text-neutral-500 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-400 dark:hover:border-opacity-50'
                 }`}
               >
                 {route}
@@ -56,10 +52,13 @@ const NavBar = () => {
           ))}
 
           <button
-            className='px-1'
+            title={`Toggle ${
+              resolvedTheme == 'dark' ? 'light mode' : 'dark mode'
+            }`}
+            className={`px-1${!mounted ? ' invisible' : ''}`}
             onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
           >
-            {resolvedTheme == 'dark' ? <FaSun /> : <FaMoon />}
+            {mounted && (resolvedTheme == 'dark' ? <FaSun /> : <FaMoon />)}
           </button>
         </nav>
       </div>
