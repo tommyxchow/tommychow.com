@@ -2,8 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  color-scheme: dark;
-  scroll-behavior: smooth;
-  background-color: rgb(28, 28, 28);
+@layer components {
+  .link-colored {
+    @apply border-b border-lime-500 dark:border-lime-400
+  }
+
+  .link {
+    @apply border-b-2 border-lime-500 border-opacity-0 hover:border-opacity-100 transition dark:border-lime-400 dark:border-opacity-0 dark:hover:border-opacity-100
+  }
+
 }
