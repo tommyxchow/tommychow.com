@@ -40,7 +40,7 @@ const Project = ({ project, skills }: ProjectProps) => {
       </section>
 
       <Section header='Status'>
-        {formattedDate == 'Ongoing'
+        {formattedDate === 'Ongoing'
           ? formattedDate
           : 'Completed ' + formattedDate}
       </Section>
@@ -49,7 +49,7 @@ const Project = ({ project, skills }: ProjectProps) => {
         <ul className='flex flex-wrap gap-2'>
           {project.technologies.map((tech) => (
             <li key={tech}>
-              <SkillBadge {...skills.find((skill) => skill.name == tech)!} />
+              <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
             </li>
           ))}
         </ul>
@@ -115,7 +115,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const project = projects.find((project) => project.id == params?.projectName);
+  const project = projects.find(
+    (project) => project.id === params?.projectName
+  );
 
   return {
     props: {

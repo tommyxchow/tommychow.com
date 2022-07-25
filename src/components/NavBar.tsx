@@ -26,7 +26,7 @@ const NavBar = () => {
           <Link href='/'>
             <a
               className={`w-fit whitespace-nowrap border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
-                router.pathname == '/'
+                router.pathname === '/'
                   ? undefined
                   : 'border-opacity-0 text-neutral-500 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-400 dark:hover:border-opacity-50'
               }`}
@@ -41,7 +41,7 @@ const NavBar = () => {
             <Link key={route} href={'/' + route.toLowerCase()}>
               <a
                 className={`border-b border-lime-500 font-semibold transition dark:border-lime-400 ${
-                  router.pathname == '/' + route.toLowerCase()
+                  router.pathname === '/' + route.toLowerCase()
                     ? undefined
                     : 'border-opacity-0 text-neutral-500 hover:border-opacity-50 dark:border-opacity-0 dark:text-neutral-400 dark:hover:border-opacity-50'
                 }`}
@@ -53,12 +53,14 @@ const NavBar = () => {
 
           <button
             title={`Toggle ${
-              resolvedTheme == 'dark' ? 'light mode' : 'dark mode'
+              resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
             }`}
             className={`px-1${!mounted ? ' invisible' : ''}`}
-            onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
+            onClick={() =>
+              setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+            }
           >
-            {mounted && (resolvedTheme == 'dark' ? <FaSun /> : <FaMoon />)}
+            {mounted && (resolvedTheme === 'dark' ? <FaSun /> : <FaMoon />)}
           </button>
         </nav>
       </div>
