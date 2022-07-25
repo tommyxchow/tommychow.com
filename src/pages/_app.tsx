@@ -214,7 +214,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   ];
 
   return (
-    <ThemeProvider attribute='class'>
+    <ThemeProvider attribute='class' disableTransitionOnChange>
       <div className='flex flex-col items-center'>
         <NavBar />
         <div className='flex min-h-screen w-full max-w-screen-md flex-col'>
