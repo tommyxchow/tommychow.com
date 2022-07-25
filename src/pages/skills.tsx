@@ -9,6 +9,7 @@ const Skills = ({ skills }: SkillProps) => {
       'Django',
       'Flask',
       'Flutter',
+      'MobX',
       'Next.js',
       'React',
       'React Native',
@@ -51,8 +52,8 @@ const Skills = ({ skills }: SkillProps) => {
       <h1 className='text-2xl font-bold'>Skills</h1>
 
       <p>
-        Here&apos;s an ongoing list of various stuff I&apos;ve worked with ever
-        since I began pursuing a computer science degree in 2019.
+        Here&apos;s an ongoing list of notable technologies I&apos;ve worked
+        with ever since I began pursuing a computer science degree in 2019.
       </p>
 
       <Section header='Frameworks and Libraries'>

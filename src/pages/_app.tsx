@@ -19,6 +19,7 @@ import {
   SiHtml5,
   SiJavascript,
   SiLinkedin,
+  SiMobx,
   SiNextdotjs,
   SiPython,
   SiReact,
@@ -85,6 +86,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       icon: <SiFlutter color='#02569B' />,
       name: 'Flutter',
       color: 'bg-[#02569B]',
+    },
+    {
+      icon: <SiMobx color='#FF9955' />,
+      name: 'MobX',
+      color: 'bg-[#FF9955]',
     },
     {
       icon: <SiNextdotjs />,
