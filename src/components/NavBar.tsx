@@ -1,7 +1,6 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
 const NavBar = () => {
@@ -9,22 +8,10 @@ const NavBar = () => {
 
   const routes = ['Skills', 'Projects', 'Blog', 'About'];
 
-  const { theme, setTheme } = useTheme();
-
-  // Wait until the component is mounted to set the theme.
-  // This prevents a hydration error.
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
+  const { resolvedTheme, setTheme } = useTheme();
 
   return (
-    <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur transition dark:bg-neutral-900 dark:bg-opacity-80'>
+    <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur transition duration-500 dark:bg-neutral-900 dark:bg-opacity-80'>
       <div className='flex w-full max-w-screen-md grid-cols-3 justify-between gap-2 p-4 sm:grid sm:gap-8 sm:p-8'>
         <nav>
           <Link href='/'>
@@ -57,9 +44,9 @@ const NavBar = () => {
 
           <button
             className='px-1'
-            onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
+            onClick={() => setTheme(resolvedTheme == 'dark' ? 'light' : 'dark')}
           >
-            {theme == 'dark' ? <FaSun /> : <FaMoon />}
+            {resolvedTheme == 'dark' ? <FaSun /> : <FaMoon />}
           </button>
         </nav>
       </div>
