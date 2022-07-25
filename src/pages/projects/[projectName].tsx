@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
-import { FiExternalLink } from 'react-icons/fi';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
 import SkillBadge from '../../components/SkillBadge';
@@ -70,7 +70,7 @@ const Project = ({ project, skills }: ProjectProps) => {
                 rel='noreferrer'
               >
                 {link.title}
-                <FiExternalLink />
+                <FaExternalLinkAlt />
               </a>
             </li>
           ))}

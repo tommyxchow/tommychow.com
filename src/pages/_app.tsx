@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import { FiFileText, FiMail } from 'react-icons/fi';
+import { FaEnvelope, FaFileAlt, FaGithub, FaLinkedin } from 'react-icons/fa';
 import {
   SiC,
   SiCplusplus,
@@ -18,7 +18,6 @@ import {
   SiHeroku,
   SiHtml5,
   SiJavascript,
-  SiLinkedin,
   SiMobx,
   SiNextdotjs,
   SiPython,
@@ -46,22 +45,22 @@ import { LinkInfo, Skill } from '../types';
 function MyApp({ Component, pageProps, router }: AppProps) {
   const links: LinkInfo[] = [
     {
-      icon: <FiMail />,
+      icon: <FaEnvelope />,
       title: 'Email',
       href: `mailto:${email}`,
     },
     {
-      icon: <SiGithub />,
+      icon: <FaGithub />,
       title: 'GitHub',
       href: githubLink,
     },
     {
-      icon: <SiLinkedin />,
+      icon: <FaLinkedin />,
       title: 'LinkedIn',
       href: linkedInLink,
     },
     {
-      icon: <FiFileText />,
+      icon: <FaFileAlt />,
       title: 'Resume',
       href: '/resume.pdf',
     },

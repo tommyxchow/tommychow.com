@@ -2,7 +2,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { HiMoon, HiSun } from 'react-icons/hi';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 const NavBar = () => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const NavBar = () => {
             className='px-1'
             onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}
           >
-            {theme == 'dark' ? <HiSun /> : <HiMoon />}
+            {theme == 'dark' ? <FaSun /> : <FaMoon />}
           </button>
         </nav>
       </div>
