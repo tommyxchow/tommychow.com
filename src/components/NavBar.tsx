@@ -1,6 +1,7 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { FaMoon, FaSun } from 'react-icons/fa';
 
 const NavBar = () => {
@@ -9,6 +10,18 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'Blog', 'About'];
 
   const { resolvedTheme, setTheme } = useTheme();
+
+  // Wait until the component is mounted to set the theme.
+  // This prevents a hydration error.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur transition duration-500 dark:bg-neutral-900 dark:bg-opacity-80'>
