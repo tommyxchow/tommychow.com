@@ -19,8 +19,8 @@ const Project = ({ project, skills }: ProjectProps) => {
 
   return (
     <Layout
-      title='Project Name | Tommy Chow'
-      description='This is a project template.'
+      title={`${project.name} | Tommy Chow`}
+      description={project.shortDescription}
     >
       <section className='flex flex-col gap-8'>
         <div>
@@ -87,7 +87,7 @@ const Project = ({ project, skills }: ProjectProps) => {
             >
               <Image
                 src={screenshotLink}
-                alt='Project image'
+                alt={`Screenshot for ${project.name}.`}
                 layout='fill'
                 objectFit='cover'
               />

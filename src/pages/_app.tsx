@@ -217,6 +217,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <ThemeProvider attribute='class' disableTransitionOnChange>
       <div className='flex flex-col items-center'>
         <NavBar />
+
         <div className='flex min-h-screen w-full max-w-screen-md flex-col'>
           <AnimatePresence exitBeforeEnter>
             <motion.div
