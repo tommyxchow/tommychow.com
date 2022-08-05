@@ -9,6 +9,7 @@ import {
   SiDart,
   SiDjango,
   SiDocker,
+  SiFastlane,
   SiFigma,
   SiFlask,
   SiFlutter,
@@ -62,7 +63,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     {
       icon: <FaFileAlt />,
       title: 'Resume',
-      href: '/resume.pdf',
+      href: '/TommyChowResume.pdf',
     },
     {
       title: 'Source',
@@ -175,6 +176,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       icon: <SiFigma color='#F24E1E' />,
       name: 'Figma',
       color: 'bg-[#F24E1E]',
+    },
+    {
+      icon: <SiFastlane color='#00F200' />,
+      name: 'Fastlane',
+      color: 'bg-[#00F200]',
     },
     {
       icon: <SiGit color='#F05032' />,

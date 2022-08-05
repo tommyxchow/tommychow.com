@@ -37,6 +37,7 @@ const Skills = ({ skills }: SkillProps) => {
     [
       'Docker',
       'Figma',
+      'Fastlane',
       'Git',
       'GitHub',
       'GitHub Actions',
