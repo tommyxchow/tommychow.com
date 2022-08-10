@@ -31,7 +31,7 @@ const Home = ({ links, projects }: HomeProps) => {
           <br />
           I&apos;m a full-stack developer but lean more towards the front-end. I
           enjoy creating impactful mobile and web experiences with declarative
-          frameworks including Flutter, React, and SwiftUI.
+          frameworks including Flutter, Next.js, and SwiftUI.
         </p>
       </div>
 
