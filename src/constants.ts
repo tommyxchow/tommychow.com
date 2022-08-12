@@ -19,7 +19,14 @@ export const projects: ProjectInfo[] = [
       { title: 'Website', href: 'https://frostyapp.io' },
     ],
     id: 'frosty',
-    technologies: ['Dart', 'Figma', 'Flutter', 'GitHub Actions', 'MobX'],
+    technologies: [
+      'Dart',
+      'Fastlane',
+      'Figma',
+      'Flutter',
+      'GitHub Actions',
+      'MobX',
+    ],
   },
   {
     name: 'Frosty Website',
