@@ -82,11 +82,11 @@ const Home = ({ links, projects }: HomeProps) => {
           </ul>
 
           <div className='flex flex-col items-end justify-end gap-2 text-end'>
-            <Link href='/blog'>
+            {/* <Link href='/blog'>
               <a className='link transition hover:translate-x-2'>
                 Read my blog -&gt;
               </a>
-            </Link>
+            </Link> */}
 
             <Link href='/about'>
               <a className='link transition hover:translate-x-2'>

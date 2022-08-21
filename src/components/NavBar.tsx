@@ -7,7 +7,7 @@ import { FaMoon, FaSun } from 'react-icons/fa';
 const NavBar = () => {
   const router = useRouter();
 
-  const routes = ['Skills', 'Projects', 'Blog', 'About'];
+  const routes = ['Skills', 'Projects', 'About'];
 
   const { resolvedTheme, setTheme } = useTheme();
 
