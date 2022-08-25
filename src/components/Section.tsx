@@ -2,9 +2,11 @@ import React from 'react';
 
 const Section = ({ header, children }: HomeSectionProps) => {
   return (
-    <section className='grid sm:grid-cols-3 sm:gap-8'>
-      <h2 className='mb-2 text-lg font-semibold'>{header}</h2>
-      <div className='col-span-2'>{children}</div>
+    <section className='grid gap-2 sm:grid-cols-4 sm:gap-0'>
+      <h2 className='font-serif italic text-neutral-500 dark:text-neutral-400'>
+        {header}
+      </h2>
+      <div className='sm:col-span-3'>{children}</div>
     </section>
   );
 };

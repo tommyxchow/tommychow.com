@@ -224,8 +224,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <div className='flex flex-col items-center'>
         <NavBar />
 
-        <div className='flex min-h-screen w-full max-w-screen-md flex-col'>
-          <AnimatePresence exitBeforeEnter>
+        <div className='flex min-h-screen w-full max-w-screen-sm flex-col'>
+          <AnimatePresence mode='wait'>
             <motion.div
               key={router.route}
               initial={{ opacity: 0 }}

@@ -49,12 +49,16 @@ const Skills = ({ skills }: SkillProps) => {
   );
 
   return (
-    <Layout title='Skills | Tommy Chow' description={"Tommy Chow's skills."}>
-      <h1 className='text-2xl font-bold'>Skills</h1>
-
+    <Layout
+      title='Skills | Tommy Chow'
+      description={"Tommy Chow's skills."}
+      header='My Skills'
+    >
       <p>
-        Here&apos;s an ongoing list of notable technologies I&apos;ve worked
-        with ever since I began pursuing a computer science degree in 2019.
+        I&apos;m constantly exploring and learning both the new and old in the
+        full-stack world. Thanks to the experiences, concepts, and patterns
+        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
+        capable of adapting and transferring between technologies.
       </p>
 
       <Section header='Frameworks and Libraries'>
@@ -86,13 +90,6 @@ const Skills = ({ skills }: SkillProps) => {
           ))}
         </ul>
       </Section>
-
-      <p>
-        I&apos;m constantly exploring and learning both the new and old in the
-        full-stack world. Thanks to the experiences, concepts, and patterns
-        I&apos;ve obtained from utilizing all of these, I&apos;ve become very
-        capable of adapting and transferring between technologies.
-      </p>
     </Layout>
   );
 };

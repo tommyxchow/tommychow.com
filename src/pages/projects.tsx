@@ -9,9 +9,8 @@ const Projects = ({ projects }: ProjectsProps) => {
     <Layout
       title='Projects | Tommy Chow'
       description={"Tommy Chow's projects."}
+      header='Selected Projects'
     >
-      <h1 className='text-2xl font-bold'>Projects</h1>
-
       <p>
         I enjoy creating mobile and web experiences that are useful, solve
         meaningful problems, and motivate me to learn. The projects here are
@@ -30,7 +29,7 @@ const Projects = ({ projects }: ProjectsProps) => {
         <ExternalLink href={githubLink}>my GitHub profile</ExternalLink>!
       </p>
 
-      <ul className='mb-8 flex flex-col gap-4 md:mb-16 md:gap-8'>
+      <ul className='mb-8 flex flex-col gap-4 sm:mb-16 sm:gap-8'>
         {projects.map((project) => (
           <ProjectCard key={project.name} {...project} />
         ))}

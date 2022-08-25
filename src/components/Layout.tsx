@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
-const Layout = ({ children, title, description }: LayoutProps) => {
+const Layout = ({ title, description, header, children }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -10,7 +10,9 @@ const Layout = ({ children, title, description }: LayoutProps) => {
         <meta name='description' content={description} />
       </Head>
 
-      <main className='flex flex-col gap-16 px-4 py-16 sm:gap-32 sm:px-8 sm:py-32'>
+      <main className='flex flex-col gap-16 px-4 py-16 sm:gap-32 sm:py-32 md:px-0'>
+        {header && <h1 className='text-2xl font-semibold'>{header}</h1>}
+
         {children}
       </main>
     </>
@@ -18,9 +20,10 @@ const Layout = ({ children, title, description }: LayoutProps) => {
 };
 
 interface LayoutProps {
-  children: React.ReactNode;
   title: string;
   description: string;
+  header?: string;
+  children: React.ReactNode;
 }
 
 export default Layout;
