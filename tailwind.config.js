@@ -8,7 +8,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['Manrope', ...defaultTheme.fontFamily.sans],
+      sans: ['Figtree', ...defaultTheme.fontFamily.sans],
       mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
     },
     extend: {},
