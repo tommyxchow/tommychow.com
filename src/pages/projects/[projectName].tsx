@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
-import { FaExternalLinkAlt } from 'react-icons/fa';
+import { HiExternalLink } from 'react-icons/hi';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
 import SkillBadge from '../../components/SkillBadge';
@@ -22,10 +22,12 @@ const Project = ({ project, skills }: ProjectProps) => {
       title={`${project.name} | Tommy Chow`}
       description={project.shortDescription}
     >
-      <section className='flex flex-col gap-8'>
-        <div>
-          <h1 className='mb-2 text-2xl font-semibold'>{project.name}</h1>
-          <h2>{project.shortDescription}</h2>
+      <section className='space-y-8'>
+        <div className='space-y-2'>
+          <h1 className='text-2xl font-semibold'>{project.name}</h1>
+          <p className='text-neutral-500 dark:text-neutral-400'>
+            {project.shortDescription}
+          </p>
         </div>
 
         <div className='relative aspect-video shadow-lg'>
@@ -39,47 +41,61 @@ const Project = ({ project, skills }: ProjectProps) => {
         </div>
       </section>
 
-      <Section header='Status'>
-        {formattedDate === 'Ongoing'
-          ? formattedDate
-          : 'Completed ' + formattedDate}
-      </Section>
-
-      <Section header='Technologies'>
-        <ul className='flex flex-wrap gap-2'>
-          {project.technologies.map((tech) => (
-            <li key={tech}>
-              <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section header='Description'>
-        <p>{project.longDescription}</p>
-      </Section>
-
-      <Section header='Links'>
-        <ul className='flex flex-col gap-4'>
-          {project.links.map((link) => (
-            <li className='w-fit' key={link.title}>
-              <a
-                className='link flex w-fit items-center gap-2 hover:-translate-y-1'
-                href={link.href}
-                target='_blank'
-                rel='noreferrer'
+      <div className='space-y-16'>
+        <Section header='Highlights'>
+          <ul className='list-inside list-disc'>
+            <li>
+              <span
+                className={`font-medium ${
+                  formattedDate === 'Ongoing'
+                    ? 'animate-pulse text-yellow-500 dark:text-yellow-400'
+                    : 'text-green-500 dark:text-green-400'
+                }`}
               >
-                {link.title}
-                <FaExternalLinkAlt />
-              </a>
+                {formattedDate === 'Ongoing'
+                  ? formattedDate
+                  : 'Completed on ' + formattedDate}
+              </span>
             </li>
-          ))}
-        </ul>
-      </Section>
+            {project.highlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section header='Built with'>
+          <ul className='flex flex-wrap gap-2'>
+            {project.technologies.map((tech) => (
+              <li key={tech}>
+                <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+
+        <Section header='Links'>
+          <ul className='flex flex-wrap gap-4'>
+            {project.links.map((link) => (
+              <li key={link.title}>
+                <a
+                  className='link flex items-center gap-1 font-medium hover:-translate-y-1'
+                  href={link.href}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {link.title}
+                  <HiExternalLink />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </div>
+
+      <p>{project.longDescription}</p>
 
       {project.screenshotLinks && (
-        <section className='flex flex-col gap-4'>
-          <h2 className='text-lg font-semibold'>Screenshots</h2>
+        <section className='space-y-4'>
           {project.screenshotLinks?.map((screenshotLink) => (
             <div
               className='relative aspect-video shadow-lg'

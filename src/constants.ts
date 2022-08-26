@@ -7,13 +7,17 @@ export const source = 'https://github.com/tommyxchow/tommychow.com';
 
 export const projects: ProjectInfo[] = [
   {
-    name: 'Frosty for Twitch',
+    name: 'Frosty',
     thumbnailLink: '/projects/frosty/thumbnail.png',
     shortDescription:
-      'Twitch.tv client for iOS and Android with BTTV, FFZ, and 7TV support.',
+      'Twitch.tv client for iOS and Android with 7TV, BTTV, and FFZ support.',
     longDescription:
-      'Frosty is a mobile app built from the ground up aimed at enhancing the mobile Twitch.tv experience. It brings quality-of-life features and third-party emotes from BetterTTV (BTTV), FrankerFaceZ (FFZ), and 7TV — popular extensions for Twitch used by millions — to both iOS and Android.',
-    background: '',
+      'Frosty is a mobile app built from the ground up aimed at enhancing the mobile Twitch.tv experience. It brings quality-of-life features and third-party emotes from 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ) — popular extensions for Twitch used by millions — to both iOS and Android.',
+    highlights: [
+      'Designed and developed by myself',
+      'Completely free and open-source',
+      '25,000+ downloads',
+    ],
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/frosty' },
       { title: 'Website', href: 'https://frostyapp.io' },
@@ -29,13 +33,15 @@ export const projects: ProjectInfo[] = [
     ],
   },
   {
-    name: 'Frosty Website',
+    name: 'frostyapp.io',
     thumbnailLink: '/projects/frosty-website/thumbnail.png',
     shortDescription: 'Marketing website for the Frosty app.',
     longDescription:
-      'The homepage and marketing website for Frosty, a mobile Twitch.tv client for iOS and Android. Built with Next.js, styled with Tailwind CSS, and deployed with Vercel.',
-    background: '',
-
+      'The homepage and marketing website for Frosty, a mobile Twitch.tv client for iOS and Android.',
+    highlights: [
+      'Animated with Framer Motion',
+      'Designed and developed by myself',
+    ],
     links: [
       { title: 'Demo', href: 'https://frostyapp.io' },
       { title: 'Source', href: 'https://github.com/tommyxchow/frostyapp.io' },
@@ -47,12 +53,17 @@ export const projects: ProjectInfo[] = [
     name: 'Study Seeker',
     shortDescription:
       'Responsive social media platform aimed to help students find the best match for a potential study partner.',
-    background: '',
 
     thumbnailLink: '/projects/study-seeker/thumbnail.png',
     dateCompleted: '2022-05-06',
     longDescription:
       'Study Seeker is a web app that allows students to find the best match for a potential study partner. Instead of only being able to see a name and email like a typical Piazza post, Study Seeker allows you to view all the relevant info about a potential study partner at a glance. Students can customize their profile to have details like their major, classes taken, interests, and more in order to find the most compatible match for a study buddy. After their study session, students can also leave a detailed review to let others know how great or not-so-great they were as a study buddy. On the homepage, students can also see featured users that have the top rating across the site.',
+    highlights: [
+      'Part of a frontend UI/UX university course',
+      'Developed with an Agile team of 6',
+      'Utilized A/B and usability testing',
+      'Fully responsive',
+    ],
     links: [
       {
         title: 'Demo',
@@ -66,7 +77,6 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'study-seeker',
     screenshotLinks: [
-      '/projects/study-seeker/screenshots/landing.png',
       '/projects/study-seeker/screenshots/home.png',
       '/projects/study-seeker/screenshots/search.png',
       '/projects/study-seeker/screenshots/profile.png',
@@ -79,12 +89,17 @@ export const projects: ProjectInfo[] = [
     name: 'Zeal',
     shortDescription:
       'Social web app that streamlines creating, exploring, and joining events.',
-    background: '',
 
     thumbnailLink: '/projects/zeal/thumbnail.png',
     dateCompleted: '2021-12-04',
     longDescription:
       'Zeal is a web app that aims to help event organizers and participants easily discover, create, and join events. It was originally planned as a resource for helping students and hackathons find teammates through writing a prompt that OpenAI would analyze. Eventually, it was severely scaled down due to us recognizing that the work and scope would be far too large for a class project.',
+    highlights: [
+      'Part of a software engineering university course',
+      'Developed with an Agile team of 5',
+      'User stories and tasks organized on ZenHub',
+      'Responsible for deployment via Heroku and Docker',
+    ],
     links: [
       {
         title: 'Demo',
@@ -98,7 +113,6 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'zeal',
     screenshotLinks: [
-      '/projects/zeal/screenshots/landing.png',
       '/projects/zeal/screenshots/profile.png',
       '/projects/zeal/screenshots/create.png',
       '/projects/zeal/screenshots/events.png',
@@ -121,8 +135,7 @@ export const projects: ProjectInfo[] = [
       'The Gallery is a web app that features the ability to upload and share images, leave comments, and chat with other users. It was completed with minimal frameworks in an effort to learn the foundations and ins-and-outs of certain protocols and backend web development.',
     shortDescription:
       'Image sharing web app developed to learn internet protocols and full-stack web development.',
-    background: '',
-
+    highlights: [],
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/the-gallery' },
     ],
@@ -137,8 +150,7 @@ export const projects: ProjectInfo[] = [
       'This project was completed as part of an intro to computer science course during my freshman year at UB. It is a simple web app that allows you to enter any stock ticker and obtain the relevant price history and volume charts. There are also timeline options ranging from one day to five years.',
     shortDescription:
       'Web app that allows entering any stock ticker to see the relevant price history and volume charts.',
-    background: '',
-
+    highlights: [],
     links: [
       {
         title: 'Demo',

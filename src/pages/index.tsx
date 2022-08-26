@@ -29,9 +29,9 @@ const Home = ({ links, projects }: HomeProps) => {
           world.
           <br />
           <br />
-          I&apos;m a full-stack developer but lean more towards the front-end. I
-          enjoy creating impactful mobile and web experiences with declarative
-          frameworks including Flutter, Next.js, and SwiftUI.
+          I&apos;m a frontend-focused developer but occasionally dabble in
+          backend and DevOps. I enjoy making mobile and web apps with frameworks
+          like Flutter, Next.js, and SwiftUI.
         </p>
       </div>
 
@@ -40,7 +40,7 @@ const Home = ({ links, projects }: HomeProps) => {
           {links.slice(0, 4).map((link) => (
             <li key={link.title}>
               <a
-                className='link flex w-fit items-center gap-2 hover:-translate-y-1'
+                className='link flex items-center gap-2 hover:-translate-y-1'
                 href={link.href}
                 target='_blank'
                 rel='noreferrer'

@@ -10,8 +10,8 @@ export interface ProjectInfo {
   shortDescription: string;
   thumbnailLink: string;
   dateCompleted?: string;
+  highlights: string[];
   longDescription: string;
-  background: string;
   links: LinkInfo[];
   screenshotLinks?: string[];
   technologies: string[];
