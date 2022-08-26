@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import { FaEnvelope, FaFileAlt, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaFileAlt } from 'react-icons/fa';
 import {
   SiC,
   SiCplusplus,
@@ -19,6 +19,7 @@ import {
   SiHeroku,
   SiHtml5,
   SiJavascript,
+  SiLinkedin,
   SiMobx,
   SiNextdotjs,
   SiPython,
@@ -51,12 +52,12 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       href: `mailto:${email}`,
     },
     {
-      icon: <FaGithub />,
+      icon: <SiGithub />,
       title: 'GitHub',
       href: githubLink,
     },
     {
-      icon: <FaLinkedin />,
+      icon: <SiLinkedin />,
       title: 'LinkedIn',
       href: linkedInLink,
     },

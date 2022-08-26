@@ -3,7 +3,7 @@ import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { HiMoon, HiSun } from 'react-icons/hi';
 
 const NavBar = () => {
   const router = useRouter();
@@ -72,7 +72,7 @@ const NavBar = () => {
                 setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
               }
             >
-              {resolvedTheme === 'dark' ? <FaSun /> : <FaMoon />}
+              {resolvedTheme === 'dark' ? <HiSun /> : <HiMoon />}
             </button>
           )}
         </div>
