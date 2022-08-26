@@ -22,7 +22,7 @@ const NavBar = () => {
 
   const underline = (
     <motion.div
-      className='outline outline-1 outline-yellow-500 dark:outline-yellow-400'
+      className='outline outline-1 outline-lime-500 dark:outline-lime-400'
       layoutId='underline'
     />
   );

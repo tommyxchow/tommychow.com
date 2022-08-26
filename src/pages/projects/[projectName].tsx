@@ -48,8 +48,8 @@ const Project = ({ project, skills }: ProjectProps) => {
               <span
                 className={`font-medium ${
                   formattedDate === 'Ongoing'
-                    ? 'animate-pulse text-yellow-500 dark:text-yellow-400'
-                    : 'text-green-500 dark:text-green-400'
+                    ? 'animate-pulse text-yellow-600 dark:text-yellow-400'
+                    : 'text-lime-600 dark:text-lime-400'
                 }`}
               >
                 {formattedDate === 'Ongoing'
