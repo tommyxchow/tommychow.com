@@ -9,8 +9,7 @@ export const projects: ProjectInfo[] = [
   {
     name: 'Frosty',
     thumbnailLink: '/projects/frosty/thumbnail.png',
-    shortDescription:
-      'Twitch.tv client for iOS and Android with 7TV, BTTV, and FFZ support.',
+    shortDescription: 'Mobile Twitch client with 7TV, BTTV, and FFZ support.',
     longDescription:
       'Frosty is a mobile app built from the ground up aimed at enhancing the mobile Twitch.tv experience. It brings quality-of-life features and third-party emotes from 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ) — popular extensions for Twitch used by millions — to both iOS and Android.',
     highlights: [
@@ -52,7 +51,7 @@ export const projects: ProjectInfo[] = [
   {
     name: 'Study Seeker',
     shortDescription:
-      'Responsive social media platform aimed to help students find the best match for a potential study partner.',
+      'Social media platform aimed to help students find study partners.',
 
     thumbnailLink: '/projects/study-seeker/thumbnail.png',
     dateCompleted: '2022-05-06',
@@ -134,7 +133,7 @@ export const projects: ProjectInfo[] = [
     longDescription:
       'The Gallery is a web app that features the ability to upload and share images, leave comments, and chat with other users. It was completed with minimal frameworks in an effort to learn the foundations and ins-and-outs of certain protocols and backend web development.',
     shortDescription:
-      'Image sharing web app developed to learn internet protocols and full-stack web development.',
+      'Image-sharing web app developed to learn the foundations of web development.',
     highlights: [],
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/the-gallery' },
@@ -149,7 +148,7 @@ export const projects: ProjectInfo[] = [
     longDescription:
       'This project was completed as part of an intro to computer science course during my freshman year at UB. It is a simple web app that allows you to enter any stock ticker and obtain the relevant price history and volume charts. There are also timeline options ranging from one day to five years.',
     shortDescription:
-      'Web app that allows entering any stock ticker to see the relevant price history and volume charts.',
+      'Web app that renders the price history and volume charts of stocks.',
     highlights: [],
     links: [
       {
