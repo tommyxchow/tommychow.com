@@ -22,7 +22,7 @@ const NavBar = () => {
 
   const underline = (
     <motion.div
-      className='outline outline-1 outline-lime-500 dark:outline-lime-400'
+      className='outline outline-1 outline-lime-600 dark:outline-lime-400'
       layoutId='underline'
     />
   );
@@ -34,7 +34,8 @@ const NavBar = () => {
           <Link href='/'>
             <a
               className={`whitespace-nowrap transition ${
-                router.pathname !== '/' && 'opacity-60 hover:opacity-100'
+                router.pathname !== '/' &&
+                'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
               }`}
             >
               TC
@@ -51,7 +52,7 @@ const NavBar = () => {
                   <a
                     className={`transition ${
                       !router.pathname.includes(route.toLowerCase()) &&
-                      'opacity-60 hover:opacity-100'
+                      'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
                     }`}
                   >
                     {route}

@@ -25,10 +25,10 @@ const ProjectCard = ({
     >
       <Link href={'/projects/' + id}>
         <a className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-4 transition'>
-          <h2 className='text-xl font-semibold text-neutral-200 sm:text-2xl'>
+          <h2 className='text-xl font-semibold text-neutral-300 sm:text-2xl'>
             {name}
           </h2>
-          <p className='text-sm text-neutral-300 sm:text-base'>
+          <p className='text-sm text-neutral-400 sm:text-base'>
             {shortDescription}
           </p>
         </a>

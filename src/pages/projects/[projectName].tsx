@@ -25,7 +25,7 @@ const Project = ({ project, skills }: ProjectProps) => {
       <section className='space-y-8'>
         <div className='space-y-2'>
           <h1 className='text-2xl font-semibold'>{project.name}</h1>
-          <p className='text-neutral-500 dark:text-neutral-400'>
+          <p className='text-neutral-600 dark:text-neutral-400'>
             {project.shortDescription}
           </p>
         </div>

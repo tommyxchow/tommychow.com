@@ -31,7 +31,9 @@ const Projects = ({ projects }: ProjectsProps) => {
 
       <ul className='mb-8 flex flex-col gap-4 sm:mb-16 sm:gap-8'>
         {projects.map((project) => (
-          <ProjectCard key={project.name} {...project} />
+          <li key={project.name}>
+            <ProjectCard {...project} />
+          </li>
         ))}
       </ul>
     </Layout>
