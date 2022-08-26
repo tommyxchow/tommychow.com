@@ -243,7 +243,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           </AnimatePresence>
         </div>
 
-        <Footer links={links} />
+        <Footer />
       </div>
     </ThemeProvider>
   );
