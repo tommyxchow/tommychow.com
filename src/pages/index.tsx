@@ -1,10 +1,11 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import Section from '../components/Section';
+import { HiArrowRight } from 'react-icons/hi';
+import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
+import Section from '../components/Section';
 import { LinkInfo, ProjectInfo } from '../types';
-import Image from 'next/image';
-import ExternalLink from '../components/ExternalLink';
 
 const Home = ({ links, projects }: HomeProps) => {
   return (
@@ -78,6 +79,12 @@ const Home = ({ links, projects }: HomeProps) => {
               </li>
             ))}
           </ul>
+
+          <Link href='/projects'>
+            <a className='link flex w-fit items-center gap-1 self-end transition hover:translate-x-2'>
+              More projects <HiArrowRight />
+            </a>
+          </Link>
         </div>
       </Section>
     </Layout>
