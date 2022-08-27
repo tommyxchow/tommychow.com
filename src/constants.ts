@@ -14,7 +14,8 @@ export const projects: ProjectInfo[] = [
       'Frosty is a mobile app built from the ground up aimed at enhancing the mobile Twitch.tv experience. It brings quality-of-life features and third-party emotes from 7TV, BetterTTV (BTTV), and FrankerFaceZ (FFZ) — popular extensions for Twitch used by millions — to both iOS and Android.',
     highlights: [
       'Designed and developed by myself',
-      'Completely free and open-source',
+      'Available on both iOS and Android',
+      'Completely free and open-source (AGPLv3)',
       '25,000+ downloads',
     ],
     links: [
@@ -38,8 +39,8 @@ export const projects: ProjectInfo[] = [
     longDescription:
       'The homepage and marketing website for Frosty, a mobile Twitch.tv client for iOS and Android.',
     highlights: [
-      'Animated with Framer Motion',
       'Designed and developed by myself',
+      'Animated with Framer Motion',
     ],
     links: [
       { title: 'Demo', href: 'https://frostyapp.io' },
@@ -131,10 +132,15 @@ export const projects: ProjectInfo[] = [
     thumbnailLink: '/projects/the-gallery/thumbnail.png',
     dateCompleted: '2021-05-18',
     longDescription:
-      'The Gallery is a web app that features the ability to upload and share images, leave comments, and chat with other users. It was completed with minimal frameworks in an effort to learn the foundations and ins-and-outs of certain protocols and backend web development.',
+      'The Gallery is a web app that features the ability to upload and share images, leave comments, and chat with other users. It was completed with no web frameworks in an effort to learn the foundations and ins-and-outs of certain protocols and backend web development.',
     shortDescription:
       'Image-sharing web app developed to learn the foundations of web development.',
-    highlights: [],
+    highlights: [
+      'Part of a web apps university course',
+      'Developed by myself',
+      'Zero web frameworks used',
+      'HTTP, WebSockets, forms, auth, and SSR completed manually',
+    ],
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/the-gallery' },
     ],
@@ -149,7 +155,12 @@ export const projects: ProjectInfo[] = [
       'This project was completed as part of an intro to computer science course during my freshman year at UB. It is a simple web app that allows you to enter any stock ticker and obtain the relevant price history and volume charts. There are also timeline options ranging from one day to five years.',
     shortDescription:
       'Web app that renders the price history and volume charts of stocks.',
-    highlights: [],
+    highlights: [
+      'My first web app',
+      'Developed by myself',
+      'Utilized Replit as the IDE and bottle.py',
+      'Sourced data from the IEX Cloud API',
+    ],
     links: [
       {
         title: 'Demo',
