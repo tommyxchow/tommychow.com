@@ -3,12 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-  .link-colored {
-    @apply border-b border-lime-600 dark:border-lime-400
-  }
-
   .link {
-    @apply border-b-2 border-lime-600 border-opacity-0 hover:border-opacity-100 transition dark:border-lime-400 dark:border-opacity-0 dark:hover:border-opacity-100
+    @apply border-b-2 border-lime-600 border-opacity-0 transition hover:border-opacity-100 dark:border-lime-400 dark:border-opacity-0 dark:hover:border-opacity-100;
   }
 
+  .link-colored {
+    @apply link text-lime-600 dark:text-lime-400 border-b;
+  }
 }
