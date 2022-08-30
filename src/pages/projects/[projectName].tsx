@@ -1,5 +1,9 @@
+import { readFileSync } from 'fs';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import Image from 'next/image';
+import { join } from 'path';
 import { HiExternalLink } from 'react-icons/hi';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
@@ -7,7 +11,7 @@ import SkillBadge from '../../components/SkillBadge';
 import { projects } from '../../constants';
 import { ProjectInfo, Skill } from '../../types';
 
-const Project = ({ project, skills }: ProjectProps) => {
+const Project = ({ project, skills, mdxSource }: ProjectProps) => {
   let formattedDate = 'Ongoing';
   if (project.dateCompleted) {
     const projectDate = new Date(project.dateCompleted);
@@ -92,7 +96,11 @@ const Project = ({ project, skills }: ProjectProps) => {
         </Section>
       </div>
 
-      <p>{project.longDescription}</p>
+      {mdxSource && (
+        <article className='prose prose-neutral prose-lime dark:prose-invert'>
+          <MDXRemote {...mdxSource} />
+        </article>
+      )}
 
       {project.screenshotLinks && (
         <section className='space-y-4'>
@@ -115,14 +123,13 @@ const Project = ({ project, skills }: ProjectProps) => {
   );
 };
 
-interface ProjectProps {
+type ProjectProps = {
   project: ProjectInfo;
   skills: Skill[];
-}
+  mdxSource: MDXRemoteSerializeResult;
+};
 
-export default Project;
-
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = () => {
   const paths = projects.map((project) => ({
     params: { projectName: project.id },
   }));
@@ -131,6 +138,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  let mdxSource: MDXRemoteSerializeResult | null = null;
+
+  try {
+    const dataDirectory = join(process.cwd(), 'src/data/projects');
+    const mdxFile = join(dataDirectory, `${params?.projectName}.mdx`);
+    const mdxFileContent = readFileSync(mdxFile, 'utf8');
+
+    mdxSource = await serialize(mdxFileContent);
+  } catch (error) {
+    console.log('File not found.');
+  }
+
   const project = projects.find(
     (project) => project.id === params?.projectName
   );
@@ -138,6 +157,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       project,
+      mdxSource,
     },
   };
 };
+
+export default Project;

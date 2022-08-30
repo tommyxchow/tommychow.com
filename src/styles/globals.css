@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .prose h2, h3 {
+    @apply text-neutral-800 dark:text-neutral-200;
+  }
+}
+
 @layer components {
   .link {
     @apply border-b-2 border-lime-600 border-opacity-0 transition hover:border-opacity-100 dark:border-lime-400 dark:border-opacity-0 dark:hover:border-opacity-100;
   }
 
   .link-colored {
-    @apply link text-lime-600 dark:text-lime-400 border-b;
+    @apply link border-b text-lime-600 dark:text-lime-400;
   }
 }

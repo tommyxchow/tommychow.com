@@ -6,8 +6,9 @@ const Layout = ({ title, description, header, children }: LayoutProps) => {
     <>
       <Head>
         <title>{title}</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+
         <meta name='description' content={description} />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
 
       <main className='flex flex-col gap-16 px-4 py-16 sm:gap-32 sm:py-32 md:px-0'>
