@@ -60,7 +60,7 @@ export const projects: ProjectInfo[] = [
       'Study Seeker is a web app that allows students to find the best match for a potential study partner. Instead of only being able to see a name and email like a typical Piazza post, Study Seeker allows you to view all the relevant info about a potential study partner at a glance. Students can customize their profile to have details like their major, classes taken, interests, and more in order to find the most compatible match for a study buddy. After their study session, students can also leave a detailed review to let others know how great or not-so-great they were as a study buddy. On the homepage, students can also see featured users that have the top rating across the site.',
     highlights: [
       'Part of a frontend UI/UX university course',
-      'Developed with an Agile team of 6',
+      'Developed with an Agile team of six',
       'Utilized A/B and usability testing',
       'Fully responsive',
     ],
@@ -96,7 +96,7 @@ export const projects: ProjectInfo[] = [
       'Zeal is a web app that aims to help event organizers and participants easily discover, create, and join events. It was originally planned as a resource for helping students and hackathons find teammates through writing a prompt that OpenAI would analyze. Eventually, it was severely scaled down due to us recognizing that the work and scope would be far too large for a class project.',
     highlights: [
       'Part of a software engineering university course',
-      'Developed with an Agile team of 5',
+      'Developed with an Agile team of five',
       'User stories and tasks organized on ZenHub',
       'Responsible for deployment via Heroku and Docker',
     ],

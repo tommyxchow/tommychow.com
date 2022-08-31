@@ -24,15 +24,12 @@ const Home = ({ links, projects }: HomeProps) => {
         </div>
 
         <p className='col-span-3'>
-          Hello! I&apos;m Tommy Chow, a software developer and recent computer
-          science graduate born, raised, and living in NYC. I&apos;m always
-          eager to learn, collaborate, and make meaningful contributions to the
-          world.
+          Welcome! I&apos;m Tommy, a software developer and recent computer
+          science graduate based in NYC.
           <br />
-          <br />
-          I&apos;m a frontend-focused developer but occasionally dabble in
-          backend and DevOps. I enjoy making mobile and web apps with frameworks
-          like Flutter, Next.js, and SwiftUI.
+          <br />I focus on the frontend, but occasionally dabble in backend and
+          devops. I enjoy making mobile and web apps with frameworks like
+          Flutter, Next.js, and SwiftUI.
         </p>
       </div>
 
@@ -56,7 +53,7 @@ const Home = ({ links, projects }: HomeProps) => {
 
       <Section header='Now'>
         <p>
-          Working on{' '}
+          Building and maintaining{' '}
           <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>.
           <br />
           <br />
