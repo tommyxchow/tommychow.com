@@ -42,6 +42,7 @@ const Skills = ({ skills }: SkillProps) => {
       'GitHub',
       'GitHub Actions',
       'Heroku',
+      'Sentry',
       'Vercel',
       'VS Code',
       'Xcode',

@@ -25,6 +25,7 @@ import {
   SiPython,
   SiReact,
   SiScala,
+  SiSentry,
   SiSwift,
   SiTailwindcss,
   SiTypescript,
@@ -202,6 +203,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       icon: <SiHeroku />,
       name: 'Heroku',
       color: 'bg-[#430098]',
+    },
+    {
+      icon: <SiSentry />,
+      name: 'Sentry',
+      color: 'bg-[#362D59]',
     },
     {
       icon: <SiVercel />,
