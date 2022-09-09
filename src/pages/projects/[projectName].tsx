@@ -123,11 +123,11 @@ const Project = ({ project, skills, mdxSource }: ProjectProps) => {
   );
 };
 
-type ProjectProps = {
+interface ProjectProps {
   project: ProjectInfo;
   skills: Skill[];
   mdxSource: MDXRemoteSerializeResult;
-};
+}
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = projects.map((project) => ({

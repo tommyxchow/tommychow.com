@@ -29,7 +29,7 @@ const NavBar = () => {
 
   return (
     <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80'>
-      <nav className='flex w-full max-w-screen-sm justify-between gap-2 p-4 font-medium sm:gap-8 md:py-8 md:px-0'>
+      <nav className='flex w-full max-w-screen-sm justify-between gap-2 p-4 sm:gap-8 md:py-8 md:px-0'>
         <div className='flex flex-col'>
           <Link href='/'>
             <a

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { HiArrowRight } from 'react-icons/hi';
 import ExternalLink from '../components/ExternalLink';
@@ -13,58 +12,48 @@ const Home = ({ links, projects }: HomeProps) => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <div className='grid gap-8 sm:grid-cols-4 sm:gap-0'>
-        <div className='relative h-24 w-24 shrink-0 overflow-hidden rounded-full shadow-md'>
-          <Image
-            priority
-            src='/photos/me.jpg'
-            alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
-            layout='fill'
-          />
+      <Section header=''>
+        <div className='flex flex-col gap-8'>
+          <h1 className='text-2xl font-medium'>
+            I’m Tommy, a software developer focused on building beautiful,
+            responsive, and performant experiences.
+          </h1>
+
+          <ul className='flex flex-wrap gap-8'>
+            {links.slice(0, 4).map((link) => (
+              <li key={link.title}>
+                <a
+                  className='link flex items-center gap-2 opacity-60 hover:-translate-y-1 hover:opacity-100'
+                  href={link.href}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {link.icon}
+                  {link.title}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <p className='col-span-3'>
-          Welcome! I&apos;m Tommy, a software developer and recent computer
-          science graduate based in NYC.
-          <br />
-          <br />I focus on the frontend, but occasionally dabble in backend and
-          devops. I enjoy making mobile and web apps with frameworks like
-          Flutter, Next.js, and SwiftUI.
-        </p>
-      </div>
-
-      <Section header='Links'>
-        <ul className='flex flex-wrap gap-4 sm:justify-between'>
-          {links.slice(0, 4).map((link) => (
-            <li key={link.title}>
-              <a
-                className='link flex items-center gap-2 hover:-translate-y-1'
-                href={link.href}
-                target='_blank'
-                rel='noreferrer'
-              >
-                {link.icon}
-                {link.title}
-              </a>
-            </li>
-          ))}
-        </ul>
       </Section>
 
       <Section header='Now'>
-        <p>
-          Building and maintaining{' '}
-          <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>.
-          <br />
-          <br />
-          Improving my experience with web development through React and
-          Next.js.
-          <br />
-          <br />
-          Seeking a full-time position in software engineering (I&apos;m open to
-          all roles but my preference is frontend, mobile, and fullstack either
-          remote or in NYC).
-        </p>
+        <ul className='list-disc space-y-4 pl-6'>
+          <li>
+            Building and maintaining{' '}
+            <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
+            .
+          </li>
+          <li>
+            Improving my experience with web development through React and
+            Next.js.
+          </li>
+          <li>
+            Seeking a full-time position in software engineering (I&apos;m open
+            to all roles but my preference is frontend, mobile, and fullstack
+            either remote or in NYC).
+          </li>
+        </ul>
       </Section>
 
       <Section header='Featured'>
