@@ -1,9 +1,5 @@
-import { readFileSync } from 'fs';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
 import Image from 'next/image';
-import { join } from 'path';
 import { HiExternalLink } from 'react-icons/hi';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
@@ -11,7 +7,7 @@ import SkillBadge from '../../components/SkillBadge';
 import { projects } from '../../constants';
 import { ProjectInfo, Skill } from '../../types';
 
-const Project = ({ project, skills, mdxSource }: ProjectProps) => {
+const Project = ({ project, skills }: ProjectProps) => {
   let formattedDate = 'Ongoing';
   if (project.dateCompleted) {
     const projectDate = new Date(project.dateCompleted);
@@ -122,7 +118,6 @@ const Project = ({ project, skills, mdxSource }: ProjectProps) => {
 interface ProjectProps {
   project: ProjectInfo;
   skills: Skill[];
-  mdxSource: MDXRemoteSerializeResult;
 }
 
 export const getStaticPaths: GetStaticPaths = () => {
@@ -134,18 +129,6 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  let mdxSource: MDXRemoteSerializeResult | null = null;
-
-  try {
-    const dataDirectory = join(process.cwd(), 'src/data/projects');
-    const mdxFile = join(dataDirectory, `${params?.projectName}.mdx`);
-    const mdxFileContent = readFileSync(mdxFile, 'utf8');
-
-    mdxSource = await serialize(mdxFileContent);
-  } catch (error) {
-    console.log('File not found.');
-  }
-
   const project = projects.find(
     (project) => project.id === params?.projectName
   );
@@ -153,7 +136,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       project,
-      mdxSource,
     },
   };
 };
