@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React from 'react';
 
-const Layout = ({ title, description, header, children }: LayoutProps) => {
+const Layout = ({ title, description, children }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -11,9 +11,7 @@ const Layout = ({ title, description, header, children }: LayoutProps) => {
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
 
-      <main className='flex flex-col gap-16 px-4 py-16 sm:gap-32 sm:py-32 md:px-0'>
-        {header && <h1 className='text-2xl font-medium'>{header}</h1>}
-
+      <main className='flex flex-col gap-8 px-4 sm:py-32 md:px-0'>
         {children}
       </main>
     </>
@@ -23,7 +21,6 @@ const Layout = ({ title, description, header, children }: LayoutProps) => {
 interface LayoutProps {
   title: string;
   description: string;
-  header?: string;
   children: React.ReactNode;
 }
 

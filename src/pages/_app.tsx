@@ -1,7 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider, useTheme } from 'next-themes';
 import type { AppProps } from 'next/app';
+import { useState, useEffect } from 'react';
 import { FaEnvelope, FaFileAlt } from 'react-icons/fa';
+import { HiSun, HiMoon } from 'react-icons/hi';
 import {
   SiC,
   SiCplusplus,
@@ -34,7 +36,9 @@ import {
   SiXcode,
 } from 'react-icons/si';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 import NavBar from '../components/NavBar';
+import Time from '../components/Time';
 import {
   email,
   githubLink,
@@ -228,26 +232,30 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <ThemeProvider attribute='class' disableTransitionOnChange>
-      <div className='flex flex-col items-center'>
-        <NavBar />
+      <div className='m-auto flex w-full max-w-screen-sm flex-col'>
+        <Header />
 
-        <div className='flex min-h-screen w-full max-w-screen-sm flex-col'>
-          <AnimatePresence mode='wait'>
-            <motion.div
-              key={router.route}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              exit={{ opacity: 0 }}
-            >
-              <Component
-                {...pageProps}
-                links={links}
-                projects={projects}
-                skills={skills}
-              />
-            </motion.div>
-          </AnimatePresence>
+        <div className='flex min-h-screen grid-cols-4 flex-col sm:grid sm:gap-8'>
+          <NavBar />
+
+          <div className='col-span-full col-start-2'>
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={router.route}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0 }}
+              >
+                <Component
+                  {...pageProps}
+                  links={links}
+                  projects={projects}
+                  skills={skills}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
 
         <Footer />

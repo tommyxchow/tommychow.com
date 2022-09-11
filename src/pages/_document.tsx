@@ -11,7 +11,7 @@ export default function Document() {
           crossOrigin='anonymous'
         />
         <link
-          href='https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap'
           rel='stylesheet'
         />
 
@@ -46,7 +46,7 @@ export default function Document() {
         />
         <meta name='theme-color' content='#a3e635' />
       </Head>
-      <body className='bg-neutral-100 text-neutral-800 selection:bg-lime-600 dark:bg-neutral-900 dark:text-neutral-200 dark:selection:bg-lime-400 dark:selection:text-neutral-800'>
+      <body className='bg-neutral-100 text-neutral-700 selection:bg-lime-600 dark:bg-neutral-900 dark:text-neutral-300 dark:selection:bg-lime-400 dark:selection:text-neutral-800'>
         <Main />
         <NextScript />
       </body>

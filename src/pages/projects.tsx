@@ -9,23 +9,8 @@ const Projects = ({ projects }: ProjectsProps) => {
     <Layout
       title='Projects | Tommy Chow'
       description={"Tommy Chow's projects."}
-      header='Selected Projects'
     >
-      <div className='flex flex-col gap-8'>
-        <p>
-          I enjoy creating mobile and web experiences solve meaningful problems
-          and motivate me to learn. The projects here are meant to showcase my
-          growth, diversity, and versatility as a software developer.
-        </p>
-
-        <p>
-          All of my work is free and open-source by default. To see them all,
-          check out{' '}
-          <ExternalLink href={githubLink}>my GitHub profile</ExternalLink>!
-        </p>
-      </div>
-
-      <ul className='mb-8 flex flex-col gap-4 sm:mb-16'>
+      <ul className='flex flex-col gap-4'>
         {projects.map((project) => (
           <li key={project.name}>
             <ProjectCard {...project} />

@@ -4,11 +4,7 @@ import Layout from '../components/Layout';
 
 const About = () => {
   return (
-    <Layout
-      title='About | Tommy Chow'
-      description='About Tommy Chow.'
-      header='About Me'
-    >
+    <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
       <p>
         I was born, raised, and currently live in{' '}
         <ExternalLink href='https://en.wikipedia.org/wiki/Queens'>
