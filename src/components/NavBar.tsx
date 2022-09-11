@@ -1,84 +1,40 @@
-import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { HiMoon, HiSun } from 'react-icons/hi';
 
 const NavBar = () => {
   const router = useRouter();
 
-  const routes = ['Skills', 'Projects', 'About'];
-
-  const { resolvedTheme, setTheme } = useTheme();
-
-  // Wait until the component is mounted to set the theme.
-  // This prevents a hydration error.
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const underline = (
-    <motion.div
-      className='outline outline-1 outline-lime-600 dark:outline-lime-400'
-      layoutId='underline'
-    />
-  );
+  const routes = ['Projects', 'About'];
 
   return (
-    <header className='sticky inset-0 z-50 flex w-full justify-center overflow-auto bg-neutral-100 bg-opacity-80 backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80'>
-      <nav className='flex w-full max-w-screen-sm justify-between gap-2 p-4 sm:gap-8 md:py-8 md:px-0'>
-        <div className='flex flex-col'>
-          <Link href='/'>
-            <a
-              className={`whitespace-nowrap transition ${
-                router.pathname !== '/' &&
-                'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
-              }`}
-            >
-              TC
-            </a>
-          </Link>
-          {router.pathname === '/' && underline}
-        </div>
+    <nav className='px-4 py-8 font-medium uppercase tracking-wider sm:items-end sm:px-0 sm:py-32'>
+      <ul className='sticky top-16 flex gap-2 sm:flex-col sm:items-end '>
+        <Link href='/'>
+          <a
+            className={`whitespace-nowrap transition ${
+              router.pathname !== '/' && 'opacity-60 hover:opacity-100'
+            }`}
+          >
+            Intro
+          </a>
+        </Link>
 
-        <div className='flex gap-4'>
-          <ul className='flex gap-4'>
-            {routes.map((route) => (
-              <li key={route} className='flex flex-col'>
-                <Link href={'/' + route.toLowerCase()}>
-                  <a
-                    className={`transition ${
-                      !router.pathname.includes(route.toLowerCase()) &&
-                      'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
-                    }`}
-                  >
-                    {route}
-                  </a>
-                </Link>
-
-                {router.pathname.includes(route.toLowerCase()) && underline}
-              </li>
-            ))}
-          </ul>
-
-          {mounted && (
-            <button
-              title={`Toggle ${
-                resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
-              }`}
-              onClick={() =>
-                setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-              }
-            >
-              {resolvedTheme === 'dark' ? <HiSun /> : <HiMoon />}
-            </button>
-          )}
-        </div>
-      </nav>
-    </header>
+        {routes.map((route) => (
+          <li key={route} className='flex flex-col'>
+            <Link href={'/' + route.toLowerCase()}>
+              <a
+                className={`transition ${
+                  !router.pathname.includes(route.toLowerCase()) &&
+                  'opacity-60 hover:opacity-100'
+                }`}
+              >
+                {route}
+              </a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };
 

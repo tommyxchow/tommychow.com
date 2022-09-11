@@ -6,7 +6,6 @@ const ProjectCard = ({
   id,
   name,
   thumbnailLink,
-  shortDescription,
   dateCompleted,
 }: ProjectInfo) => {
   let formattedDate = 'Ongoing';
@@ -24,13 +23,8 @@ const ProjectCard = ({
       id={id}
     >
       <Link href={'/projects/' + id}>
-        <a className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-2 transition sm:p-4'>
-          <h2 className='text-xl font-semibold text-neutral-200 sm:text-2xl'>
-            {name}
-          </h2>
-          <p className='text-sm text-neutral-400 sm:text-base'>
-            {shortDescription}
-          </p>
+        <a className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-2 text-lg font-medium text-neutral-200 transition sm:p-4'>
+          {name}
         </a>
       </Link>
 

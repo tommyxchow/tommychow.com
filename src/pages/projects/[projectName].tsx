@@ -28,7 +28,7 @@ const Project = ({ project, skills, mdxSource }: ProjectProps) => {
     >
       <section className='space-y-8'>
         <div className='space-y-2'>
-          <h1 className='text-2xl font-semibold'>{project.name}</h1>
+          <h1 className='text-2xl font-medium'>{project.name}</h1>
           <p className='text-neutral-600 dark:text-neutral-400'>
             {project.shortDescription}
           </p>
@@ -96,28 +96,24 @@ const Project = ({ project, skills, mdxSource }: ProjectProps) => {
         </Section>
       </div>
 
-      {mdxSource && (
-        <article className='prose prose-neutral prose-lime dark:prose-invert'>
-          <MDXRemote {...mdxSource} />
-        </article>
-      )}
-
       {project.screenshotLinks && (
-        <section className='space-y-4'>
-          {project.screenshotLinks?.map((screenshotLink) => (
-            <div
-              className='relative aspect-video shadow-lg'
-              key={screenshotLink}
-            >
-              <Image
-                src={screenshotLink}
-                alt={`Screenshot for ${project.name}.`}
-                layout='fill'
-                objectFit='cover'
-              />
-            </div>
-          ))}
-        </section>
+        <Section header='Screenshots'>
+          <ul className='space-y-4'>
+            {project.screenshotLinks?.map((screenshotLink) => (
+              <li
+                className='relative aspect-video shadow-lg'
+                key={screenshotLink}
+              >
+                <Image
+                  src={screenshotLink}
+                  alt={`Screenshot for ${project.name}.`}
+                  layout='fill'
+                  objectFit='cover'
+                />
+              </li>
+            ))}
+          </ul>
+        </Section>
       )}
     </Layout>
   );
