@@ -1,9 +1,4 @@
-import { ProjectInfo } from './types';
-
-export const githubLink = 'https://github.com/tommyxchow';
-export const linkedInLink = 'https://www.linkedin.com/in/tommy-chow/';
-export const email = 'tommyxchow@gmail.com';
-export const source = 'https://github.com/tommyxchow/tommychow.com';
+import { LinkInfo } from './links';
 
 export const projects: ProjectInfo[] = [
   {
@@ -66,6 +61,10 @@ export const projects: ProjectInfo[] = [
     ],
     links: [
       {
+        title: 'Report',
+        href: 'https://tommychow.notion.site/Study-Seeker-c42f020c7e3e445a93db95c403cac63b',
+      },
+      {
         title: 'Demo',
         href: 'https://webdev.cse.buffalo.edu/hci/teams/commitment',
       },
@@ -101,6 +100,10 @@ export const projects: ProjectInfo[] = [
       'Responsible for deployment via Heroku and Docker',
     ],
     links: [
+      {
+        title: 'Report',
+        href: 'https://tommychow.notion.site/Zeal-b350a062459a40bc986ad29b9b092874',
+      },
       {
         title: 'Demo',
         href: 'https://zeal5.herokuapp.com/',
@@ -142,6 +145,10 @@ export const projects: ProjectInfo[] = [
       'HTTP, WebSockets, forms, auth, and SSR completed manually',
     ],
     links: [
+      {
+        title: 'Report',
+        href: 'https://tommychow.notion.site/The-Gallery-72976df57529498ea41737e3904462eb',
+      },
       { title: 'Source', href: 'https://github.com/tommyxchow/the-gallery' },
     ],
     id: 'the-gallery',
@@ -163,6 +170,10 @@ export const projects: ProjectInfo[] = [
     ],
     links: [
       {
+        title: 'Report',
+        href: 'https://tommychow.notion.site/Stock-Chart-Visualizer-d0e11594d5ee475cb5059dda4edc2a40',
+      },
+      {
         title: 'Demo',
         href: 'https://replit.com/@TommyChow/Stock-Chart-Visualizer',
       },
@@ -175,3 +186,16 @@ export const projects: ProjectInfo[] = [
     technologies: ['CSS', 'HTML', 'Python'],
   },
 ];
+
+export interface ProjectInfo {
+  id: string;
+  name: string;
+  shortDescription: string;
+  thumbnailLink: string;
+  dateCompleted?: string;
+  highlights: string[];
+  longDescription: string;
+  links: LinkInfo[];
+  screenshotLinks?: string[];
+  technologies: string[];
+}

@@ -1,13 +1,9 @@
 import Image from 'next/image';
-import Link from 'next/link';
-import { HiArrowRight } from 'react-icons/hi';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
-import ProjectCard from '../components/ProjectCard';
-import Section from '../components/Section';
-import { LinkInfo, ProjectInfo } from '../types';
+import { links } from '../data/links';
 
-const Home = ({ links, projects }: HomeProps) => {
+const Home = () => {
   return (
     <Layout
       title='Tommy Chow | Software Developer'
@@ -51,10 +47,5 @@ const Home = ({ links, projects }: HomeProps) => {
     </Layout>
   );
 };
-
-interface HomeProps {
-  links: LinkInfo[];
-  projects: ProjectInfo[];
-}
 
 export default Home;

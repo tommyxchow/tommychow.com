@@ -1,4 +1,4 @@
-import { Skill } from '../types';
+import { Skill } from '../data/skills';
 
 const SkillBadge = ({ icon, name, color }: Skill) => {
   return (
