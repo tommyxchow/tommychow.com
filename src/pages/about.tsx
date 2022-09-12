@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
 
@@ -69,7 +70,7 @@ const About = () => {
         .
       </p>
       <div className='relative aspect-[4/3] shadow-lg'>
-        <Image
+        <CustomImage
           src='/photos/keyboard.JPEG'
           alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'
           layout='fill'
