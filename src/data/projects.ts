@@ -172,7 +172,7 @@ export const projects: ProjectInfo[] = [
       },
     ],
     id: 'stock-chart-visualizer',
-    technologies: ['CSS', 'HTML', 'Python'],
+    technologies: ['CSS', 'HTML', 'Python', 'Replit'],
   },
 ];
 

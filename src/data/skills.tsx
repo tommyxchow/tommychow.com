@@ -27,6 +27,7 @@ import {
   SiVercel,
   SiVisualstudiocode,
   SiXcode,
+  SiReplit,
 } from 'react-icons/si';
 
 export const skills: Skill[] = [
@@ -133,6 +134,10 @@ export const skills: Skill[] = [
   {
     icon: <SiHeroku />,
     name: 'Heroku',
+  },
+  {
+    icon: <SiReplit color='#667881' />,
+    name: 'Replit',
   },
   {
     icon: <SiSentry />,
