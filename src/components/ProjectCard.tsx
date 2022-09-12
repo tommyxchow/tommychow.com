@@ -23,7 +23,7 @@ const ProjectCard = ({
       id={id}
     >
       <Link href={'/projects/' + id}>
-        <a className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-2 text-lg font-medium text-neutral-200 transition sm:p-4'>
+        <a className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-2 text-xl font-medium text-neutral-200 transition sm:p-4'>
           {name}
         </a>
       </Link>

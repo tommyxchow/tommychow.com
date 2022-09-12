@@ -6,101 +6,48 @@ const About = () => {
   return (
     <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
       <p>
-        I was born, raised, and currently live in{' '}
-        <ExternalLink href='https://en.wikipedia.org/wiki/Queens'>
-          Queens, NY
+        As a developer, I enjoy working with mobile and web frameworks including{' '}
+        <ExternalLink href='https://flutter.dev/'>Flutter</ExternalLink>,{' '}
+        <ExternalLink href='https://nextjs.org/'>Next.js</ExternalLink>, and{' '}
+        <ExternalLink href='https://developer.apple.com/xcode/swiftui/'>
+          SwiftUI
         </ExternalLink>
-        . During my youth, I&apos;d jailbreak and root smartphones, research and
-        build gaming computers, and of course play plenty of PC games (
-        <ExternalLink href='https://store.steampowered.com/app/240/CounterStrike_Source/'>
-          Counter-Strike: Source
-        </ExternalLink>
-        ,{' '}
-        <ExternalLink href='https://store.steampowered.com/app/730/CounterStrike_Global_Offensive/'>
-          Counter-Strike: Global Offensive
-        </ExternalLink>
-        , and{' '}
-        <ExternalLink href='https://store.steampowered.com/app/4000/Garrys_Mod/'>
-          Garry&apos;s Mod
-        </ExternalLink>{' '}
-        to name a few).
+        . I focus on the front end but often dabble in the back end and DevOps.
+        Occasionally, I’ll learn and research concepts in design, UI, and UX.
       </p>
 
-      <div className='space-y-8'>
-        <div className='relative aspect-video shadow-lg'>
-          <Image
-            priority
-            src='/photos/nyc.JPEG'
-            alt='Landscape shot from the airplane window seat of the New York City skyline during sunset.'
-            layout='fill'
-            objectFit='cover'
-          />
-        </div>
-
-        <div className='relative aspect-video shadow-lg'>
-          <Image
-            priority
-            src='/photos/flushing.JPEG'
-            alt='Night shot of main street in Flushing, NY.'
-            layout='fill'
-            objectFit='cover'
-          />
-        </div>
-      </div>
+      <p>
+        I was born, raised, and currently live in NYC (
+        <ExternalLink href='https://en.wikipedia.org/wiki/Queens'>
+          Queens
+        </ExternalLink>
+        ). Growing up, I’d spend my free time researching the latest tech and
+        playing video games (COD, League, MapleStory, every game made by Valve,
+        and most triple-A single-player games to name a few).
+      </p>
 
       <p>
-        After graduating from high school, I began to pursue a finance degree at{' '}
+        After one semester of pursuing a finance degree at{' '}
         <ExternalLink href='https://www.baruch.cuny.edu/'>
           Baruch College
-        </ExternalLink>{' '}
-        in Fall 2018. Midway through the semester, I realized that the business
-        and finance career probably wasn’t for me, so I decided to transfer to
-        the{' '}
+        </ExternalLink>
+        , in 2019 I spontaneously decided to transfer to the{' '}
         <ExternalLink href='https://www.buffalo.edu/'>
-          University at Buffalo (UB)
+          University at Buffalo
         </ExternalLink>{' '}
-        the following semester to pursue a computer science degree.
-        <br />
-        <br />
-        Despite spontaneously transferring to a field I had no prior experience
-        in, I soon realized how much I loved creatively building solutions to
-        solve real problems just by sitting at my computer. I already enjoy and
-        spend a lot of time sitting at my computer, so getting paid to do it as
-        a career sounded cool to me. Eventually, after taking a web apps course
-        (<ExternalLink href='https://cse312.com/'>CSE 312</ExternalLink>) at UB,
-        I discovered my strong passion for frontend and mobile development.
+        to pursue a computer science degree instead. Despite having no prior
+        experience in programming, I was able to learn quickly and discover my
+        passion for mobile and web development. In 2022, I graduated magna cum
+        laude with a Bachelor of Science in Computer Science.
       </p>
-
-      <div className='relative aspect-[3/4] shadow-lg'>
-        <Image
-          priority
-          src='/photos/ub.JPEG'
-          alt='Day shot of the South Campus at the University at Buffalo.'
-          layout='fill'
-          objectFit='cover'
-        />
-      </div>
 
       <p>
-        These days, I&apos;ll mostly be at my computer working on my side
-        projects, watching live streams on{' '}
+        These days, I spend my free time learning new frameworks, working on
+        side projects, watching streams on{' '}
         <ExternalLink href='https://www.twitch.tv/'>Twitch.tv</ExternalLink>,
         and playing video games with friends.
-        <br />
-        <br />
-        If you want to make me happy, your best bet is with some of my favorite
-        foods. My food palette is far from unique, but I do love eating Korean
-        BBQ and fried chicken, sushi, chicken over rice from halal carts, and of
-        course bubble tea.
       </p>
 
-      <div className='relative aspect-[3/4] shadow-lg'>
-        <Image
-          src='/photos/bbq.JPEG'
-          alt='POV of me eating Korean at Picnic Garden in Queens, NY. I am also watching xQc on Twitch on my phone.'
-          layout='fill'
-        />
-      </div>
       <p>
         A somewhat unusual hobby that I have is building and customizing
         mechanical keyboards (check out{' '}
