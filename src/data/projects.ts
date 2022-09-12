@@ -23,6 +23,7 @@ export const projects: ProjectInfo[] = [
       'Flutter',
       'GitHub Actions',
       'MobX',
+      'Sentry',
     ],
   },
   {
