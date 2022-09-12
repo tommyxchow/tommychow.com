@@ -9,7 +9,7 @@ const NavBar = () => {
   const routes = ['Projects', 'About'];
 
   return (
-    <nav className='px-4 py-8 font-medium uppercase tracking-wider sm:items-end sm:px-0 sm:py-32'>
+    <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 px-4 py-8 font-medium uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:px-0 sm:py-32'>
       <AnimatePresence mode='wait'>
         <motion.ul
           key={router.asPath.split('/')[2]}
@@ -17,7 +17,7 @@ const NavBar = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           exit={{ opacity: 0 }}
-          className='sticky top-16 flex gap-2 sm:flex-col sm:items-end '
+          className='flex gap-2 sm:flex-col sm:items-end'
         >
           {router.asPath.split('/')[2] ? (
             <li>
