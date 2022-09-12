@@ -10,7 +10,7 @@ const Home = () => {
       title='Tommy Chow | Software Developer'
       description='Software developer and recent computer science graduate based in New York City.'
     >
-      <div className='relative h-24 w-24 shrink-0 overflow-hidden rounded-full shadow-md'>
+      <div className='relative z-0 h-24 w-24 shrink-0 overflow-hidden rounded-full shadow-md'>
         <CustomImage
           priority
           src='/photos/me.jpg'
