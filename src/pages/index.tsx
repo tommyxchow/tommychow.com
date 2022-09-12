@@ -18,19 +18,7 @@ const Home = () => {
         />
       </div>
 
-      <p>
-        I&apos;m Tommy—a software developer, decent gamer, and enjoyer of
-        unhealthy foods. I focus on building beautiful, responsive, and
-        performant experiences for mobile and web.
-      </p>
-
-      <p>
-        Currently, I&apos;m developing and maintaining{' '}
-        <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>.
-        I&apos;m also looking for a full-time software engineering role.
-      </p>
-
-      <ul className='grid grid-cols-2 gap-8 sm:flex'>
+      <ul className='grid grid-cols-2 justify-between gap-8 sm:flex'>
         {links.slice(0, 4).map((link) => (
           <li key={link.title}>
             <a
@@ -45,6 +33,18 @@ const Home = () => {
           </li>
         ))}
       </ul>
+
+      <p>
+        I&apos;m Tommy—a software developer, decent gamer, and enjoyer of
+        unhealthy foods. I focus on building beautiful, responsive, and
+        performant experiences for mobile and web.
+      </p>
+
+      <p>
+        Currently, I&apos;m developing and maintaining{' '}
+        <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>.
+        I&apos;m also looking for a full-time software engineering role.
+      </p>
     </Layout>
   );
 };

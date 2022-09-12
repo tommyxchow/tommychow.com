@@ -74,7 +74,7 @@ const Project = ({ project }: ProjectProps) => {
         </Section>
 
         <Section header='Links'>
-          <ul className='flex flex-wrap gap-4'>
+          <ul className='flex flex-wrap gap-8'>
             {project.links.map((link) => (
               <li key={link.title}>
                 <a
