@@ -4,10 +4,10 @@ import { HiExternalLink } from 'react-icons/hi';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
 import SkillBadge from '../../components/SkillBadge';
-import { projects } from '../../constants';
-import { ProjectInfo, Skill } from '../../types';
+import { ProjectInfo, projects } from '../../data/projects';
+import { skills } from '../../data/skills';
 
-const Project = ({ project, skills }: ProjectProps) => {
+const Project = ({ project }: ProjectProps) => {
   let formattedDate = 'Ongoing';
   if (project.dateCompleted) {
     const projectDate = new Date(project.dateCompleted);
@@ -117,7 +117,6 @@ const Project = ({ project, skills }: ProjectProps) => {
 
 interface ProjectProps {
   project: ProjectInfo;
-  skills: Skill[];
 }
 
 export const getStaticPaths: GetStaticPaths = () => {

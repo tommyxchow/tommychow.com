@@ -1,10 +1,8 @@
-import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
 import ProjectCard from '../components/ProjectCard';
-import { githubLink } from '../constants';
-import { ProjectInfo } from '../types';
+import { projects } from '../data/projects';
 
-const Projects = ({ projects }: ProjectsProps) => {
+const Projects = () => {
   return (
     <Layout
       title='Projects | Tommy Chow'
@@ -20,9 +18,5 @@ const Projects = ({ projects }: ProjectsProps) => {
     </Layout>
   );
 };
-
-interface ProjectsProps {
-  projects: ProjectInfo[];
-}
 
 export default Projects;

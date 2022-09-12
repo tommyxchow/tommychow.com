@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ProjectInfo } from '../types';
+import { ProjectInfo } from '../data/projects';
 
 const ProjectCard = ({
   id,
