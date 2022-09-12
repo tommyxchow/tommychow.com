@@ -1,10 +1,8 @@
 import { Skill } from '../data/skills';
 
-const SkillBadge = ({ icon, name, color }: Skill) => {
+const SkillBadge = ({ icon, name }: Skill) => {
   return (
-    <div
-      className={`flex items-center gap-2 rounded-full bg-opacity-20 px-3 py-1 shadow ${color}`}
-    >
+    <div className='flex w-fit items-center gap-2 rounded-full bg-neutral-200 px-3 py-1 shadow dark:bg-neutral-800'>
       {icon}
       {name}
     </div>

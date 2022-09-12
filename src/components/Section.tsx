@@ -2,7 +2,7 @@ import React from 'react';
 
 const Section = ({ header, children }: HomeSectionProps) => {
   return (
-    <section className='flex flex-col gap-4'>
+    <section className='flex flex-col gap-2'>
       <h2 className='text-lg font-medium'>{header}</h2>
       <div className='sm:col-span-3'>{children}</div>
     </section>

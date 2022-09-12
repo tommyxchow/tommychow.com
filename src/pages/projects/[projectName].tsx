@@ -22,9 +22,9 @@ const Project = ({ project }: ProjectProps) => {
       title={`${project.name} | Tommy Chow`}
       description={project.shortDescription}
     >
-      <section className='space-y-8'>
+      <section className='space-y-4'>
         <div className='space-y-2'>
-          <h1 className='text-2xl font-medium'>{project.name}</h1>
+          <h1 className='text-xl font-medium'>{project.name}</h1>
           <p className='text-neutral-600 dark:text-neutral-400'>
             {project.shortDescription}
           </p>
@@ -42,8 +42,18 @@ const Project = ({ project }: ProjectProps) => {
       </section>
 
       <div className='space-y-16'>
+        <Section header='Built with'>
+          <ul className='flex flex-wrap gap-2'>
+            {project.technologies.map((tech) => (
+              <li key={tech}>
+                <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
+              </li>
+            ))}
+          </ul>
+        </Section>
+
         <Section header='Highlights'>
-          <ul className='list-inside list-disc'>
+          <ul className='ml-4 list-disc'>
             <li>
               <span
                 className={`font-medium ${
@@ -59,16 +69,6 @@ const Project = ({ project }: ProjectProps) => {
             </li>
             {project.highlights.map((highlight) => (
               <li key={highlight}>{highlight}</li>
-            ))}
-          </ul>
-        </Section>
-
-        <Section header='Built with'>
-          <ul className='flex flex-wrap gap-2'>
-            {project.technologies.map((tech) => (
-              <li key={tech}>
-                <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
-              </li>
             ))}
           </ul>
         </Section>
@@ -90,27 +90,27 @@ const Project = ({ project }: ProjectProps) => {
             ))}
           </ul>
         </Section>
-      </div>
 
-      {project.screenshotLinks && (
-        <Section header='Screenshots'>
-          <ul className='space-y-4'>
-            {project.screenshotLinks?.map((screenshotLink) => (
-              <li
-                className='relative aspect-video shadow-lg'
-                key={screenshotLink}
-              >
-                <Image
-                  src={screenshotLink}
-                  alt={`Screenshot for ${project.name}.`}
-                  layout='fill'
-                  objectFit='cover'
-                />
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
+        {project.screenshotLinks && (
+          <Section header='Screenshots'>
+            <ul className='space-y-4'>
+              {project.screenshotLinks?.map((screenshotLink) => (
+                <li
+                  className='relative aspect-video shadow-lg'
+                  key={screenshotLink}
+                >
+                  <Image
+                    src={screenshotLink}
+                    alt={`Screenshot for ${project.name}.`}
+                    layout='fill'
+                    objectFit='cover'
+                  />
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+      </div>
     </Layout>
   );
 };

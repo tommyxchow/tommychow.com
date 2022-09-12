@@ -19,12 +19,13 @@ const Home = () => {
       </div>
 
       <p>
-        I&apos;m Tommy, a software developer trying to build beautiful,
-        responsive, and performant experiences.
+        I&apos;m Tommy—a software developer, decent gamer, and enjoyer of
+        unhealthy foods. I focus on building beautiful, responsive, and
+        performant experiences for mobile and web.
       </p>
 
       <p>
-        Currently, I&apos;m building and maintaining{' '}
+        Currently, I&apos;m developing and maintaining{' '}
         <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>.
         I&apos;m also looking for a full-time software engineering role.
       </p>
@@ -33,7 +34,7 @@ const Home = () => {
         {links.slice(0, 4).map((link) => (
           <li key={link.title}>
             <a
-              className='flex items-center gap-2 transition hover:opacity-100 sm:opacity-60'
+              className='link flex w-fit items-center gap-2 opacity-60 hover:-translate-y-1 hover:opacity-100'
               href={link.href}
               target='_blank'
               rel='noreferrer'
