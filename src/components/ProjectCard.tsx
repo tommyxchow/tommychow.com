@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProjectInfo } from '../data/projects';
+import CustomImage from './CustomImage';
 
 const ProjectCard = ({
   id,
@@ -28,7 +29,7 @@ const ProjectCard = ({
         </a>
       </Link>
 
-      <Image
+      <CustomImage
         priority={id.startsWith('frosty')}
         src={thumbnailLink}
         alt={`Thumbnail for ${name}.`}

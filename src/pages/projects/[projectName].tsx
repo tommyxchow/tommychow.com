@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Image from 'next/image';
 import { HiExternalLink } from 'react-icons/hi';
+import CustomImage from '../../components/CustomImage';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
 import SkillBadge from '../../components/SkillBadge';
@@ -31,7 +32,7 @@ const Project = ({ project }: ProjectProps) => {
         </div>
 
         <div className='relative aspect-video shadow-lg'>
-          <Image
+          <CustomImage
             priority
             src={project.thumbnailLink}
             alt={`Thumbnail for ${project.name}.`}
@@ -99,7 +100,7 @@ const Project = ({ project }: ProjectProps) => {
                   className='relative aspect-video shadow-lg'
                   key={screenshotLink}
                 >
-                  <Image
+                  <CustomImage
                     src={screenshotLink}
                     alt={`Screenshot for ${project.name}.`}
                     layout='fill'

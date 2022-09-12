@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
 import { links } from '../data/links';
@@ -10,7 +11,7 @@ const Home = () => {
       description='Software developer and recent computer science graduate based in New York City.'
     >
       <div className='relative h-24 w-24 shrink-0 overflow-hidden rounded-full shadow-md'>
-        <Image
+        <CustomImage
           priority
           src='/photos/me.jpg'
           alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
