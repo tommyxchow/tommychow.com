@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';

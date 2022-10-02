@@ -7,8 +7,6 @@ export default function Time() {
   React.useEffect(() => {
     setMounted(true);
     setInterval(() => setTime(new Date()), 1000);
-
-    console.log('hello');
   }, []);
 
   if (!mounted) return null;

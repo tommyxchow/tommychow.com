@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
@@ -14,17 +13,18 @@ const About = () => {
           SwiftUI
         </ExternalLink>
         . I focus on the front end but often dabble in the back end and DevOps.
-        Occasionally, I’ll learn and research concepts in design, UI, and UX.
+        Occasionally, I&apos;ll learn and research concepts in design, UI, and
+        UX.
       </p>
 
       <p>
-        I was born, raised, and currently live in NYC (
+        I was born, raised, and currently live in NYC (
         <ExternalLink href='https://en.wikipedia.org/wiki/Queens'>
           Queens
         </ExternalLink>
-        ). Growing up, I’d spend my free time researching the latest tech and
-        playing video games (COD, League, MapleStory, every game made by Valve,
-        and most triple-A single-player games to name a few).
+        ). Growing up, I&apos;d spend my free time researching the latest tech
+        and playing video games (COD, League, MapleStory, every game made by
+        Valve, and most triple-A single-player games to name a few).
       </p>
 
       <p>

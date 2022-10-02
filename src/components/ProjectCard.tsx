@@ -1,23 +1,8 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { ProjectInfo } from '../data/projects';
 import CustomImage from './CustomImage';
 
-const ProjectCard = ({
-  id,
-  name,
-  thumbnailLink,
-  dateCompleted,
-}: ProjectInfo) => {
-  let formattedDate = 'Ongoing';
-  if (dateCompleted) {
-    const projectDate = new Date(dateCompleted);
-
-    formattedDate = `${projectDate.toLocaleString('default', {
-      month: 'long',
-    })} ${projectDate.getFullYear()}`;
-  }
-
+const ProjectCard = ({ id, name, thumbnailLink }: ProjectInfo) => {
   return (
     <div
       className='relative aspect-video overflow-clip shadow-lg transition duration-300 hover:scale-105 hover:shadow-xl active:scale-95 active:shadow-none'
