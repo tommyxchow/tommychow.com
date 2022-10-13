@@ -2,6 +2,28 @@ import { LinkInfo } from './links';
 
 export const projects: ProjectInfo[] = [
   {
+    id: 'stawks',
+    name: 'Stawks',
+    thumbnailLink: '/projects/stawks/thumbnail.png',
+    shortDescription:
+      'Web app that renders charts, details, and news for stocks.',
+    highlights: [
+      'Designed and developed by myself',
+      'Utilized Chart.js to generate price history charts in several time frames',
+      'Achieved high performance through incremental static regeneration with Next.js',
+      'Data sourced from the IEX Cloud API',
+    ],
+    links: [{ title: 'Demo', href: 'https://stawks.vercel.app/' }],
+    technologies: [
+      'Chart.js',
+      'React',
+      'Next.js',
+      'Tailwind CSS',
+      'TypeScript',
+      'Vercel',
+    ],
+  },
+  {
     name: 'Frosty',
     thumbnailLink: '/projects/frosty/thumbnail.png',
     shortDescription: 'Mobile Twitch client with 7TV, BTTV, and FFZ support.',
@@ -9,7 +31,7 @@ export const projects: ProjectInfo[] = [
       'Designed and developed by myself',
       'Available on both iOS and Android',
       'Completely free and open-source (AGPLv3)',
-      '35,000+ downloads',
+      '50,000+ downloads',
     ],
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/frosty' },

@@ -28,9 +28,14 @@ import {
   SiVisualstudiocode,
   SiXcode,
   SiReplit,
+  SiChartdotjs,
 } from 'react-icons/si';
 
 export const skills: Skill[] = [
+  {
+    icon: <SiChartdotjs color='#FF6384' />,
+    name: 'Chart.js',
+  },
   {
     icon: <SiDjango />,
     name: 'Django',
