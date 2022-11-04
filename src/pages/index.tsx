@@ -18,11 +18,11 @@ const Home = () => {
         />
       </div>
 
-      <ul className='grid grid-cols-2 justify-between gap-8 sm:flex'>
+      <ul className='grid grid-cols-2 gap-8 sm:flex'>
         {links.slice(0, 4).map((link) => (
           <li key={link.title}>
             <a
-              className='link flex w-fit items-center gap-2 opacity-60 hover:-translate-y-1 hover:opacity-100'
+              className='link flex w-fit items-center gap-2 text-sm uppercase tracking-wider opacity-60 hover:-translate-y-1 hover:opacity-100'
               href={link.href}
               target='_blank'
               rel='noreferrer'

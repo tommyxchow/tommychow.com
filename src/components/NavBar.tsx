@@ -6,7 +6,7 @@ import { HiArrowLeft } from 'react-icons/hi';
 const NavBar = () => {
   const router = useRouter();
 
-  const routes = ['Projects', 'About'];
+  const routes = ['Skills', 'Projects', 'About'];
 
   return (
     <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 p-4 font-medium uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:bg-opacity-100 sm:px-0 sm:py-32 dark:sm:bg-opacity-100'>
