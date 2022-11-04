@@ -31,7 +31,8 @@ export const projects: ProjectInfo[] = [
       'Designed and developed by myself',
       'Available on both iOS and Android',
       'Completely free and open-source (AGPLv3)',
-      '50,000+ downloads',
+      '70,000+ downloads',
+      '10,000+ daily active users',
     ],
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/frosty' },
