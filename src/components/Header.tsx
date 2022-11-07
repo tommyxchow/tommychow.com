@@ -15,7 +15,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='grid-cols-4 gap-8 py-8 px-4 font-medium uppercase tracking-wider sm:grid md:px-0'>
+    <header className='grid-cols-4 gap-8 py-8 px-4 uppercase tracking-wider sm:grid md:px-0'>
       <p className='place-self-end'>New York, NY</p>
 
       <div className='col-span-full col-start-2 flex justify-between'>
