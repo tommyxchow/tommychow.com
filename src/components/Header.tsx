@@ -16,7 +16,10 @@ export default function Header() {
 
   return (
     <header className='grid-cols-4 gap-8 py-8 px-4 uppercase tracking-wider sm:grid md:px-0'>
-      <p className='place-self-end'>New York, NY</p>
+      <p className='group flex items-center place-self-end'>
+        <span className='opacity-0 transition group-hover:opacity-100'>🗽</span>
+        NYC
+      </p>
 
       <div className='col-span-full col-start-2 flex justify-between'>
         <Time />
