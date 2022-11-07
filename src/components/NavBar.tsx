@@ -9,7 +9,7 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'About'];
 
   return (
-    <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 p-4 font-medium uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:bg-opacity-100 sm:px-0 sm:py-32 dark:sm:bg-opacity-100'>
+    <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 p-4 font-medium uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:bg-opacity-100 sm:px-0 sm:py-20 dark:sm:bg-opacity-100'>
       <AnimatePresence mode='wait'>
         <motion.ul
           key={router.asPath.split('/')[2]}
@@ -21,39 +21,35 @@ const NavBar = () => {
         >
           {router.asPath.split('/')[2] ? (
             <li>
-              <Link href='/projects'>
-                <a className='flex items-center gap-2'>
-                  <HiArrowLeft />
-                  Back
-                </a>
+              <Link className='flex items-center gap-2' href='/projects'>
+                <HiArrowLeft />
+                Back
               </Link>
             </li>
           ) : (
             <>
               <li>
-                <Link href='/'>
-                  <a
-                    className={`whitespace-nowrap transition duration-500 ${
-                      router.pathname !== '/' &&
-                      'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
-                    }`}
-                  >
-                    Intro
-                  </a>
+                <Link
+                  className={`whitespace-nowrap transition duration-500 ${
+                    router.pathname !== '/' &&
+                    'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
+                  }`}
+                  href='/'
+                >
+                  Intro
                 </Link>
               </li>
 
               {routes.map((route) => (
                 <li key={route}>
-                  <Link href={'/' + route.toLowerCase()}>
-                    <a
-                      className={`transition duration-500 ${
-                        !router.pathname.includes(route.toLowerCase()) &&
-                        'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
-                      }`}
-                    >
-                      {route}
-                    </a>
+                  <Link
+                    className={`transition duration-500 ${
+                      !router.pathname.includes(route.toLowerCase()) &&
+                      'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
+                    }`}
+                    href={'/' + route.toLowerCase()}
+                  >
+                    {route}
                   </Link>
                 </li>
               ))}

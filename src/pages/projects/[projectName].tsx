@@ -36,8 +36,6 @@ const Project = ({ project }: ProjectProps) => {
             priority
             src={project.thumbnailLink}
             alt={`Thumbnail for ${project.name}.`}
-            layout='fill'
-            objectFit='cover'
           />
         </div>
       </section>
@@ -103,8 +101,6 @@ const Project = ({ project }: ProjectProps) => {
                   <CustomImage
                     src={screenshotLink}
                     alt={`Screenshot for ${project.name}.`}
-                    layout='fill'
-                    objectFit='cover'
                   />
                 </li>
               ))}
