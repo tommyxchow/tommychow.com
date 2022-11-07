@@ -1,7 +1,8 @@
 import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
-import { links } from '../data/links';
+import Section from '../components/Section';
+import { email, links } from '../data/links';
 
 const Home = () => {
   return (
@@ -33,17 +34,45 @@ const Home = () => {
         ))}
       </ul>
 
-      <p>
-        I&apos;m Tommy—a software developer, decent gamer, and enjoyer of
-        unhealthy foods. I focus on building beautiful, responsive, and
-        performant experiences for mobile and web.
-      </p>
+      <Section header='Hello and welcome!'>
+        <div className='flex flex-col gap-4'>
+          <p>
+            I&apos;m Tommy, a software developer and recent CS graduate. I
+            specialize and focus on building beautiful, responsive, and
+            performant experiences for mobile and web.
+          </p>
 
-      <p>
-        Currently, I&apos;m developing and maintaining{' '}
-        <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>.
-        I&apos;m also looking for a full-time software engineering role.
-      </p>
+          <p>
+            My most successful work so far is{' '}
+            <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
+            , an open-source mobile app for Twitch. The name comes from my
+            childhood dog. I&apos;ve managed to get it 70,000+ downloads and
+            10,000+ DAU (daily active users).
+          </p>
+
+          <p>
+            In my off time, I play PC games with friends, build random mobile
+            and web apps, and browse Reddit/Twitter/Twitch for new ideas and
+            fun.
+          </p>
+        </div>
+      </Section>
+
+      <Section header='Now'>
+        <div className='flex flex-col gap-4'>
+          <p>
+            I&apos;m actively looking for a software engineering role, so
+            I&apos;m spending the majority of my time applying, studying, and
+            preparing for interviews.
+          </p>
+
+          <p>
+            If you&apos;re interested in working with me, please don&apos;t
+            hesitate to{' '}
+            <ExternalLink href={`mailto:${email}`}>contact me</ExternalLink>!
+          </p>
+        </div>
+      </Section>
     </Layout>
   );
 };
