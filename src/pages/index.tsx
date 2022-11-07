@@ -14,7 +14,6 @@ const Home = () => {
           priority
           src='/photos/me.jpg'
           alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
-          layout='fill'
         />
       </div>
 

@@ -19,8 +19,6 @@ const ProjectCard = ({ id, name, thumbnailLink }: ProjectInfo) => {
         priority={id.startsWith('frosty')}
         src={thumbnailLink}
         alt={`Thumbnail for ${name}.`}
-        layout='fill'
-        objectFit='cover'
       />
     </div>
   );

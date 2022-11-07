@@ -73,7 +73,6 @@ const About = () => {
         <CustomImage
           src='/photos/keyboard.JPEG'
           alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'
-          layout='fill'
         />
       </div>
     </Layout>
