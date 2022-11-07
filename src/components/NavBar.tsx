@@ -21,39 +21,35 @@ const NavBar = () => {
         >
           {router.asPath.split('/')[2] ? (
             <li>
-              <Link href='/projects'>
-                <a className='flex items-center gap-2'>
-                  <HiArrowLeft />
-                  Back
-                </a>
+              <Link className='flex items-center gap-2' href='/projects'>
+                <HiArrowLeft />
+                Back
               </Link>
             </li>
           ) : (
             <>
               <li>
-                <Link href='/'>
-                  <a
-                    className={`whitespace-nowrap transition duration-500 ${
-                      router.pathname !== '/' &&
-                      'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
-                    }`}
-                  >
-                    Intro
-                  </a>
+                <Link
+                  className={`whitespace-nowrap transition duration-500 ${
+                    router.pathname !== '/' &&
+                    'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
+                  }`}
+                  href='/'
+                >
+                  Intro
                 </Link>
               </li>
 
               {routes.map((route) => (
                 <li key={route}>
-                  <Link href={'/' + route.toLowerCase()}>
-                    <a
-                      className={`transition duration-500 ${
-                        !router.pathname.includes(route.toLowerCase()) &&
-                        'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
-                      }`}
-                    >
-                      {route}
-                    </a>
+                  <Link
+                    className={`transition duration-500 ${
+                      !router.pathname.includes(route.toLowerCase()) &&
+                      'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
+                    }`}
+                    href={'/' + route.toLowerCase()}
+                  >
+                    {route}
                   </Link>
                 </li>
               ))}
