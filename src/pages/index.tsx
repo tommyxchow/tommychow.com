@@ -46,8 +46,8 @@ const Home = () => {
             My most successful work so far is{' '}
             <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
             , an open-source mobile app for Twitch. The name comes from my
-            childhood dog. I&apos;ve managed to get it 70,000+ downloads and
-            10,000+ DAU (daily active users).
+            childhood dog. I&apos;ve managed to get it 80,000+ downloads and
+            12,000+ DAU (daily active users).
           </p>
 
           <p>

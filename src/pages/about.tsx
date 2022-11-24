@@ -35,7 +35,11 @@ const About = () => {
           As a developer, I enjoy working with mobile and web frameworks
           including{' '}
           <ExternalLink href='https://flutter.dev/'>Flutter</ExternalLink>,{' '}
-          <ExternalLink href='https://nextjs.org/'>Next.js</ExternalLink>, and{' '}
+          <ExternalLink href='https://nextjs.org/'>Next.js</ExternalLink>,{' '}
+          <ExternalLink href='https://reactnative.dev/'>
+            React Native
+          </ExternalLink>{' '}
+          and{' '}
           <ExternalLink href='https://developer.apple.com/xcode/swiftui/'>
             SwiftUI
           </ExternalLink>
