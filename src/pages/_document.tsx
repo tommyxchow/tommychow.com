@@ -5,35 +5,11 @@ export default function Document() {
     <Html lang='en' className='scroll-smooth'>
       <Head>
         <link
-          rel='apple-touch-icon'
-          sizes='180x180'
-          href='/favicons/apple-touch-icon.png'
-        />
-        <link
           rel='icon'
-          type='image/png'
-          sizes='32x32'
-          href='/favicons/favicon-32x32.png'
+          type='image/svg+xml'
+          href='/assets/images/favicon.svg'
         />
-        <link
-          rel='icon'
-          type='image/png'
-          sizes='16x16'
-          href='/favicons/favicon-16x16.png'
-        />
-        <link rel='manifest' href='/favicons/site.webmanifest' />
-        <link
-          rel='mask-icon'
-          href='/favicons/safari-pinned-tab.svg'
-          color='#a3e635'
-        />
-        <link rel='shortcut icon' href='/favicons/favicon.ico' />
-        <meta name='msapplication-TileColor' content='#a3e635' />
-        <meta
-          name='msapplication-config'
-          content='/favicons/browserconfig.xml'
-        />
-        <meta name='theme-color' content='#a3e635' />
+        <link rel='icon' type='image/png' href='/assets/images/favicon.png' />
       </Head>
       <body className='bg-neutral-100 text-neutral-700 selection:bg-sky-600 dark:bg-neutral-900 dark:text-neutral-300 dark:selection:bg-sky-400 dark:selection:text-neutral-800'>
         <Main />

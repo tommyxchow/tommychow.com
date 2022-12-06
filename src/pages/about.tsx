@@ -71,7 +71,7 @@ const About = () => {
 
         <div className='relative aspect-[4/3] shadow-lg'>
           <CustomImage
-            src='/photos/keyboard.JPEG'
+            src='/assets/images/keyboard.JPEG'
             alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'
           />
         </div>

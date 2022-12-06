@@ -4,7 +4,7 @@ export const projects: ProjectInfo[] = [
   {
     id: 'stawks',
     name: 'Stawks',
-    thumbnailLink: '/projects/stawks/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/stawks/thumbnail.png',
     shortDescription:
       'Web app that renders charts, details, and news for stocks.',
     highlights: [
@@ -25,7 +25,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'Frosty',
-    thumbnailLink: '/projects/frosty/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/frosty/thumbnail.png',
     shortDescription: 'Mobile Twitch client with 7TV, BTTV, and FFZ support.',
     highlights: [
       'Designed and developed by myself',
@@ -51,7 +51,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'frostyapp.io',
-    thumbnailLink: '/projects/frosty-website/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/frosty-website/thumbnail.png',
     shortDescription: 'Marketing website for the Frosty app.',
     highlights: [
       'Designed and developed by myself',
@@ -69,7 +69,7 @@ export const projects: ProjectInfo[] = [
     shortDescription:
       'Social media platform aimed to help students find study partners.',
 
-    thumbnailLink: '/projects/study-seeker/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/study-seeker/thumbnail.png',
     dateCompleted: '2022-05-06',
     highlights: [
       'Part of a frontend UI/UX university course',
@@ -94,11 +94,11 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'study-seeker',
     screenshotLinks: [
-      '/projects/study-seeker/screenshots/home.png',
-      '/projects/study-seeker/screenshots/search.png',
-      '/projects/study-seeker/screenshots/profile.png',
-      '/projects/study-seeker/screenshots/group.png',
-      '/projects/study-seeker/screenshots/class.png',
+      '/assets/images/projects/study-seeker/screenshots/home.png',
+      '/assets/images/projects/study-seeker/screenshots/search.png',
+      '/assets/images/projects/study-seeker/screenshots/profile.png',
+      '/assets/images/projects/study-seeker/screenshots/group.png',
+      '/assets/images/projects/study-seeker/screenshots/class.png',
     ],
     technologies: ['CSS', 'Figma', 'JavaScript', 'React'],
   },
@@ -107,7 +107,7 @@ export const projects: ProjectInfo[] = [
     shortDescription:
       'Social web app that streamlines creating, exploring, and joining events.',
 
-    thumbnailLink: '/projects/zeal/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/zeal/thumbnail.png',
     dateCompleted: '2021-12-04',
     highlights: [
       'Part of a software engineering university course',
@@ -132,9 +132,9 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'zeal',
     screenshotLinks: [
-      '/projects/zeal/screenshots/profile.png',
-      '/projects/zeal/screenshots/create.png',
-      '/projects/zeal/screenshots/events.png',
+      '/assets/images/projects/zeal/screenshots/profile.png',
+      '/assets/images/projects/zeal/screenshots/create.png',
+      '/assets/images/projects/zeal/screenshots/events.png',
     ],
     technologies: [
       'CSS',
@@ -148,7 +148,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'The Gallery',
-    thumbnailLink: '/projects/the-gallery/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/the-gallery/thumbnail.png',
     dateCompleted: '2021-05-18',
     shortDescription:
       'Image-sharing web app developed to learn the foundations of web development.',
@@ -170,7 +170,7 @@ export const projects: ProjectInfo[] = [
   },
   {
     name: 'Stock Chart Visualizer',
-    thumbnailLink: '/projects/stocks/thumbnail.png',
+    thumbnailLink: '/assets/images/projects/stocks/thumbnail.png',
     dateCompleted: '2019-05-18',
     shortDescription:
       'Web app that renders the price history and volume charts of stocks.',

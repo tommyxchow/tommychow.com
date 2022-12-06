@@ -13,7 +13,7 @@ const Home = () => {
       <div className='relative z-0 h-24 w-24 shrink-0 overflow-hidden rounded-full shadow-md'>
         <CustomImage
           priority
-          src='/photos/me.jpg'
+          src='/assets/images/me.jpg'
           alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
         />
       </div>
