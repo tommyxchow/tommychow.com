@@ -15,7 +15,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='grid-cols-4 gap-8 py-8 px-4 uppercase tracking-wider sm:grid md:px-0'>
+    <header className='grid-cols-4 gap-8 py-8 px-4 text-sm uppercase tracking-wider sm:grid md:px-0'>
       <p className='group flex items-center sm:place-self-end'>
         <span className='hidden opacity-0 transition group-hover:opacity-100 sm:inline'>
           🗽

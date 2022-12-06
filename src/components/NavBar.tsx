@@ -9,7 +9,7 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'About'];
 
   return (
-    <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 p-4 font-medium uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:bg-opacity-100 sm:px-0 sm:py-20 dark:sm:bg-opacity-100'>
+    <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 p-4 text-sm font-medium uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:bg-opacity-100 sm:px-0 sm:py-20 dark:sm:bg-opacity-100'>
       <AnimatePresence mode='wait'>
         <motion.ul
           key={router.asPath.split('/')[2]}
