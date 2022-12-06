@@ -58,7 +58,7 @@ const Project = ({ project }: ProjectProps) => {
                 className={`font-medium ${
                   formattedDate === 'Ongoing'
                     ? 'animate-pulse text-yellow-600 dark:text-yellow-400'
-                    : 'text-lime-600 dark:text-lime-400'
+                    : 'text-sky-600 dark:text-sky-400'
                 }`}
               >
                 {formattedDate === 'Ongoing'

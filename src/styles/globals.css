@@ -4,10 +4,10 @@
 
 @layer components {
   .link {
-    @apply border-b-2 border-lime-600 border-opacity-0 transition hover:border-opacity-100 dark:border-lime-400 dark:border-opacity-0 dark:hover:border-opacity-100;
+    @apply border-b-2 border-sky-600 border-opacity-0 transition hover:border-opacity-100 dark:border-sky-400 dark:border-opacity-0 dark:hover:border-opacity-100;
   }
 
   .link-colored {
-    @apply link border-b text-lime-600 dark:text-lime-400;
+    @apply link text-sky-600 dark:text-sky-400;
   }
 }
