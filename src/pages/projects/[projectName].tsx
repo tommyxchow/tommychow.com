@@ -25,7 +25,7 @@ const Project = ({ project }: ProjectProps) => {
     >
       <section className='space-y-4'>
         <div className='space-y-2'>
-          <h1 className='text-xl font-medium'>{project.name}</h1>
+          <h1 className='text-xl font-semibold'>{project.name}</h1>
           <p className='text-neutral-600 dark:text-neutral-400'>
             {project.shortDescription}
           </p>
@@ -55,11 +55,11 @@ const Project = ({ project }: ProjectProps) => {
           <ul className='ml-4 list-disc'>
             <li>
               <span
-                className={`font-medium ${
+                className={
                   formattedDate === 'Ongoing'
                     ? 'animate-pulse text-yellow-600 dark:text-yellow-400'
                     : 'text-sky-600 dark:text-sky-400'
-                }`}
+                }
               >
                 {formattedDate === 'Ongoing'
                   ? formattedDate

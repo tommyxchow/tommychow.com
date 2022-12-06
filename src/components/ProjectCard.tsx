@@ -9,7 +9,7 @@ const ProjectCard = ({ id, name, thumbnailLink }: ProjectInfo) => {
       id={id}
     >
       <Link
-        className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-2 text-xl font-medium text-neutral-200 transition sm:p-4'
+        className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-b from-transparent to-black p-2 text-xl font-semibold text-neutral-200 transition sm:p-4'
         href={'/projects/' + id}
       >
         {name}

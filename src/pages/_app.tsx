@@ -1,5 +1,5 @@
 import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
 import '@fontsource/jetbrains-mono';
 import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
