@@ -11,3 +11,8 @@
     @apply link text-sky-600 dark:text-sky-400;
   }
 }
+
+html {
+  --scroll-behavior: smooth !important;
+  scroll-behavior: smooth !important;
+}
