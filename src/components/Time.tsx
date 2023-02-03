@@ -1,10 +1,10 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Time() {
-  const [mounted, setMounted] = React.useState(false);
-  const [time, setTime] = React.useState(new Date());
+  const [mounted, setMounted] = useState(false);
+  const [time, setTime] = useState(new Date());
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
     setInterval(() => setTime(new Date()), 1000);
   }, []);
@@ -12,12 +12,12 @@ export default function Time() {
   if (!mounted) return null;
 
   return (
-    <div>
+    <p className='tabular-nums'>
       {time.toLocaleTimeString('en-US', {
         timeZone: 'America/New_York',
         hour: 'numeric',
         minute: 'numeric',
       })}
-    </div>
+    </p>
   );
 }

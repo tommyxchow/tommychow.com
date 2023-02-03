@@ -9,21 +9,20 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'About'];
 
   return (
-    <nav className='sticky inset-0 z-50 h-fit overflow-auto bg-neutral-100 bg-opacity-80 p-4 text-sm font-semibold uppercase tracking-wider backdrop-blur dark:bg-neutral-900 dark:bg-opacity-80 sm:items-end sm:bg-opacity-100 sm:px-0 sm:py-20 dark:sm:bg-opacity-100'>
+    <nav className='sticky inset-0 z-50 flex h-fit w-full justify-center overflow-auto bg-neutral-100 bg-opacity-50 py-4 font-medium backdrop-blur dark:bg-black dark:bg-opacity-50 sm:px-0'>
       <AnimatePresence mode='wait'>
         <motion.ul
           key={router.asPath.split('/')[2]}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }}
           exit={{ opacity: 0 }}
-          className='flex gap-4 sm:flex-col sm:items-end sm:gap-2'
+          className='flex w-full max-w-lg gap-4 px-4 sm:px-0'
         >
           {router.asPath.split('/')[2] ? (
             <li>
-              <Link className='flex items-center gap-2' href='/projects'>
+              <Link href='/projects'>
                 <HiArrowLeft />
-                Back
               </Link>
             </li>
           ) : (
@@ -36,8 +35,16 @@ const NavBar = () => {
                   }`}
                   href='/'
                 >
-                  Intro
+                  Home
                 </Link>
+
+                {router.pathname === '/' && (
+                  <motion.div
+                    layoutId='underline'
+                    layout
+                    className='border border-sky-600 dark:border-sky-400'
+                  />
+                )}
               </li>
 
               {routes.map((route) => (
@@ -51,6 +58,14 @@ const NavBar = () => {
                   >
                     {route}
                   </Link>
+
+                  {router.pathname.includes(route.toLowerCase()) && (
+                    <motion.div
+                      layoutId='underline'
+                      layout
+                      className='border border-sky-600 dark:border-sky-400'
+                    />
+                  )}
                 </li>
               ))}
             </>

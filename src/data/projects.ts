@@ -2,28 +2,6 @@ import { LinkInfo } from './links';
 
 export const projects: ProjectInfo[] = [
   {
-    id: 'stawks',
-    name: 'Stawks',
-    thumbnailLink: '/assets/images/projects/stawks/thumbnail.png',
-    shortDescription:
-      'Web app that renders charts, details, and news for stocks.',
-    highlights: [
-      'Designed and developed by myself',
-      'Utilized Chart.js to generate price history charts in several time frames',
-      'Achieved high performance through incremental static regeneration with Next.js',
-      'Data sourced from the IEX Cloud API',
-    ],
-    links: [{ title: 'Demo', href: 'https://stawks.vercel.app/' }],
-    technologies: [
-      'Chart.js',
-      'React',
-      'Next.js',
-      'Tailwind CSS',
-      'TypeScript',
-      'Vercel',
-    ],
-  },
-  {
     name: 'Frosty',
     thumbnailLink: '/assets/images/projects/frosty/thumbnail.png',
     shortDescription: 'Mobile Twitch client with 7TV, BTTV, and FFZ support.',
@@ -48,6 +26,7 @@ export const projects: ProjectInfo[] = [
       'MobX',
       'Sentry',
     ],
+    category: 'Personal',
   },
   {
     name: 'frostyapp.io',
@@ -63,6 +42,31 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'frosty-website',
     technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
+    category: 'Personal',
+  },
+  {
+    id: 'stawks',
+    name: 'Stawks',
+    thumbnailLink: '/assets/images/projects/stawks/thumbnail.png',
+    dateCompleted: '2022-11-15',
+    shortDescription:
+      'Web app that renders charts, details, and news for stocks.',
+    highlights: [
+      'Designed and developed by myself',
+      'Utilized Chart.js to generate price history charts in several time frames',
+      'Achieved high performance through incremental static regeneration with Next.js',
+      'Data sourced from the IEX Cloud API',
+    ],
+    links: [{ title: 'Demo', href: 'https://stawks.vercel.app/' }],
+    technologies: [
+      'Chart.js',
+      'React',
+      'Next.js',
+      'Tailwind CSS',
+      'TypeScript',
+      'Vercel',
+    ],
+    category: 'Personal',
   },
   {
     name: 'Study Seeker',
@@ -101,6 +105,7 @@ export const projects: ProjectInfo[] = [
       '/assets/images/projects/study-seeker/screenshots/class.png',
     ],
     technologies: ['CSS', 'Figma', 'JavaScript', 'React'],
+    category: 'School',
   },
   {
     name: 'Zeal',
@@ -145,6 +150,7 @@ export const projects: ProjectInfo[] = [
       'JavaScript',
       'React',
     ],
+    category: 'School',
   },
   {
     name: 'The Gallery',
@@ -167,6 +173,7 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'the-gallery',
     technologies: ['CSS', 'Docker', 'HTML', 'JavaScript', 'Python'],
+    category: 'School',
   },
   {
     name: 'Stock Chart Visualizer',
@@ -196,6 +203,7 @@ export const projects: ProjectInfo[] = [
     ],
     id: 'stock-chart-visualizer',
     technologies: ['CSS', 'HTML', 'Python', 'Replit'],
+    category: 'School',
   },
 ];
 
@@ -209,4 +217,5 @@ export interface ProjectInfo {
   links: LinkInfo[];
   screenshotLinks?: string[];
   technologies: string[];
+  category: string;
 }

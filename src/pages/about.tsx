@@ -1,72 +1,37 @@
 import CustomImage from '../components/CustomImage';
-import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
 
 const About = () => {
   return (
     <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-4 text-neutral-600 dark:text-neutral-400'>
         <p>
-          I was born, raised, and currently live in NYC (
-          <ExternalLink href='https://en.wikipedia.org/wiki/Queens'>
-            Queens
-          </ExternalLink>
-          ). Growing up, I&apos;d spend my free time researching the latest tech
-          and playing video games (COD, League, MapleStory, every game made by
-          Valve, and most triple-A single-player games to name a few).
+          I was born, raised, and currently live in NYC, specifically in Queens.
+          Growing up, I spent my leisure time playing the piano, being an avid
+          tech enthusiast, and playing an excessive amount of PC and console
+          games.
         </p>
 
         <p>
-          After one semester of pursuing a finance degree at{' '}
-          <ExternalLink href='https://www.baruch.cuny.edu/'>
-            Baruch College
-          </ExternalLink>
-          , in 2019 I spontaneously decided to transfer to the{' '}
-          <ExternalLink href='https://www.buffalo.edu/'>
-            University at Buffalo
-          </ExternalLink>{' '}
-          to pursue a computer science degree instead. Despite having no prior
-          experience in programming, I was able to learn quickly and discover my
-          passion for mobile and web development. In 2022, I graduated magna cum
-          laude with a Bachelor of Science in Computer Science.
+          In 2019, after completing one semester of studying finance at Baruch
+          College, I made an impulsive decision to transfer to the University at
+          Buffalo to pursue a computer science degree instead. Despite having no
+          prior programming experience, I was able to learn rapidly and
+          discovered my passion for mobile and web development. I graduated with
+          honors in 2022 with a Bachelor of Science in Computer Science.
         </p>
 
         <p>
-          As a developer, I enjoy working with mobile and web frameworks
-          including{' '}
-          <ExternalLink href='https://flutter.dev/'>Flutter</ExternalLink>,{' '}
-          <ExternalLink href='https://nextjs.org/'>Next.js</ExternalLink>,{' '}
-          <ExternalLink href='https://reactnative.dev/'>
-            React Native
-          </ExternalLink>{' '}
-          and{' '}
-          <ExternalLink href='https://developer.apple.com/xcode/swiftui/'>
-            SwiftUI
-          </ExternalLink>
-          . I focus on the front end but often work in the back end and DevOps.
-          Occasionally, I&apos;ll learn and research concepts in design, UI, and
-          UX.
+          As a developer, I am skilled in working with mobile and web frameworks
+          such as Flutter, Next.js, React Native, and SwiftUI. I concentrate on
+          the front-end, but I also have experience in back-end and DevOps. From
+          time to time, I delve into the concepts of design, UI, and UX.
         </p>
 
         <p>
-          One of my hobbies is building and customizing mechanical keyboards
-          (check out{' '}
-          <ExternalLink href='https://www.reddit.com/r/MechanicalKeyboards'>
-            /r/MechanicalKeyboards
-          </ExternalLink>{' '}
-          if you&apos;re curious!). My current keyboard is the{' '}
-          <ExternalLink href='https://rama.works/m65-b'>
-            RAMA WORKS M65-B
-          </ExternalLink>{' '}
-          with{' '}
-          <ExternalLink href='https://drop.com/buy/drop-oblotzky-gmk-oblivion-v2-custom-keycap-set'>
-            GMK Oblivion V2 keycaps
-          </ExternalLink>{' '}
-          and{' '}
-          <ExternalLink href='https://stupidbulletstech.com/products/gazzew-boba-u4-silent-tactile-with-clear-top'>
-            Boba U4 Silent switches
-          </ExternalLink>
-          .
+          One of my favorite hobbies is building and customizing mechanical
+          keyboards. My current keyboard is the RAMA WORKS M65-B with GMK
+          Oblivion V2 keycaps and Boba U4 Silent switches.
         </p>
 
         <div className='relative aspect-[4/3] shadow-lg'>

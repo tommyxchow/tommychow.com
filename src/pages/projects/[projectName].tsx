@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Image from 'next/image';
 import { HiExternalLink } from 'react-icons/hi';
+import { formatDateString } from '../../common';
 import CustomImage from '../../components/CustomImage';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
@@ -9,14 +9,9 @@ import { ProjectInfo, projects } from '../../data/projects';
 import { skills } from '../../data/skills';
 
 const Project = ({ project }: ProjectProps) => {
-  let formattedDate = 'Ongoing';
-  if (project.dateCompleted) {
-    const projectDate = new Date(project.dateCompleted);
-
-    formattedDate = `${projectDate.toLocaleString('default', {
-      month: 'long',
-    })} ${projectDate.getFullYear()}`;
-  }
+  let formattedDate = project.dateCompleted
+    ? formatDateString(project.dateCompleted)
+    : 'Ongoing';
 
   return (
     <Layout
@@ -24,8 +19,8 @@ const Project = ({ project }: ProjectProps) => {
       description={project.shortDescription}
     >
       <section className='space-y-4'>
-        <div className='space-y-2'>
-          <h1 className='text-xl font-semibold'>{project.name}</h1>
+        <div>
+          <h1 className='text-lg font-semibold'>{project.name}</h1>
           <p className='text-neutral-600 dark:text-neutral-400'>
             {project.shortDescription}
           </p>
@@ -40,8 +35,8 @@ const Project = ({ project }: ProjectProps) => {
         </div>
       </section>
 
-      <div className='space-y-16'>
-        <Section header='Built with'>
+      <div className='space-y-8'>
+        <Section header='Tech'>
           <ul className='flex flex-wrap gap-2'>
             {project.technologies.map((tech) => (
               <li key={tech}>
@@ -55,11 +50,11 @@ const Project = ({ project }: ProjectProps) => {
           <ul className='ml-4 list-disc'>
             <li>
               <span
-                className={
+                className={`font-medium ${
                   formattedDate === 'Ongoing'
                     ? 'animate-pulse text-yellow-600 dark:text-yellow-400'
                     : 'text-sky-600 dark:text-sky-400'
-                }
+                }`}
               >
                 {formattedDate === 'Ongoing'
                   ? formattedDate

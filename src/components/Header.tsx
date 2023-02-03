@@ -1,9 +1,13 @@
 import { useTheme } from 'next-themes';
-import React, { useEffect, useState } from 'react';
-import { HiSun, HiMoon } from 'react-icons/hi';
-import Time from './Time';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { HiMoon, HiSun } from 'react-icons/hi2';
+import CustomImage from './CustomImage';
 
 export default function Header() {
+  const router = useRouter();
+
   const { resolvedTheme, setTheme } = useTheme();
 
   // Wait until the component is mounted to set the theme.
@@ -15,16 +19,24 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='grid-cols-4 gap-8 py-8 px-4 text-sm uppercase tracking-wider sm:grid md:px-0'>
-      <p className='group flex items-center sm:place-self-end'>
-        <span className='hidden opacity-0 transition group-hover:opacity-100 sm:inline'>
-          🗽
-        </span>
-        NYC
-      </p>
-
+    <header
+      className={`w-full max-w-lg py-8 px-4 text-sm font-medium transition duration-500 sm:px-0 ${
+        router.pathname !== '/' &&
+        'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
+      }`}
+    >
       <div className='col-span-full col-start-2 flex justify-between'>
-        <Time />
+        <Link href='/' className='flex items-center gap-2'>
+          <div className='relative z-0 h-8 w-8 shrink-0 overflow-hidden rounded-full shadow-md'>
+            <CustomImage
+              priority
+              src='https://github.com/tommyxchow.png'
+              alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
+            />
+          </div>
+
+          <p>Tommy Chow</p>
+        </Link>
 
         {mounted && (
           <button
