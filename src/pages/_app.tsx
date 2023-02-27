@@ -1,7 +1,4 @@
-import '@fontsource/inter/400.css';
-import '@fontsource/inter/500.css';
-import '@fontsource/inter/600.css';
-import '@fontsource/jetbrains-mono';
+import { Inter } from '@next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
@@ -11,9 +8,14 @@ import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import '../styles/globals.css';
 
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+});
+
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    <>
+    <div className={`${inter.variable} font-sans`}>
       <ThemeProvider attribute='class' disableTransitionOnChange>
         <div className='flex flex-col items-center'>
           <Header />
@@ -39,7 +41,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </ThemeProvider>
 
       <Analytics />
-    </>
+    </div>
   );
 }
 

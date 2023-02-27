@@ -9,8 +9,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['Inter', ...defaultTheme.fontFamily.sans],
-      mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
+      sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
     },
     extend: {},
   },
