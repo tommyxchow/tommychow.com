@@ -20,7 +20,7 @@ export default function Header() {
 
   return (
     <header
-      className={`w-full max-w-lg py-8 px-4 text-sm font-medium transition duration-500 sm:px-0 ${
+      className={`w-full max-w-lg py-8 px-4 text-sm transition duration-500 sm:px-0 ${
         router.pathname !== '/' &&
         'opacity-80 hover:opacity-100 dark:opacity-60 dark:hover:opacity-100'
       }`}
@@ -40,7 +40,7 @@ export default function Header() {
 
         {mounted && (
           <button
-            title={`Toggle ${
+            aria-label={`Toggle ${
               resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
             }`}
             onClick={() =>

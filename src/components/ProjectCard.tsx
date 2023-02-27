@@ -19,7 +19,7 @@ const ProjectCard = ({
         className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-t from-black to-transparent p-2 text-neutral-200 transition sm:p-4'
         href={'/projects/' + id}
       >
-        <p className='font-medium'>{name}</p>
+        <h2 className='font-medium'>{name}</h2>
         <div className='flex justify-between gap-4'>
           <p className='opacity-50'>{category}</p>
           <p className='opacity-50'>

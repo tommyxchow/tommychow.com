@@ -22,7 +22,7 @@ const NavBar = () => {
           {router.asPath.split('/')[2] ? (
             <li>
               <Link href='/projects'>
-                <HiArrowLeft />
+                <HiArrowLeft aria-label='Go back to all projects' />
               </Link>
             </li>
           ) : (
@@ -35,7 +35,7 @@ const NavBar = () => {
                   }`}
                   href='/'
                 >
-                  Home
+                  <h1>Home</h1>
                 </Link>
 
                 {router.pathname === '/' && (
@@ -56,7 +56,7 @@ const NavBar = () => {
                     }`}
                     href={'/' + route.toLowerCase()}
                   >
-                    {route}
+                    <h1>{route}</h1>
                   </Link>
 
                   {router.pathname.includes(route.toLowerCase()) && (
