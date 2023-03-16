@@ -30,13 +30,14 @@ const About = () => {
 
         <p>
           One of my favorite hobbies is building and customizing mechanical
-          keyboards. My current keyboard is the RAMA WORKS M65-B with GMK
-          Oblivion V2 keycaps and Boba U4 Silent switches.
+          keyboards. My current keyboard is the QK75 with GMK Monokai Material
+          keycaps and Gateron Oil King switches. My previous keyboard was a RAMA
+          WORKS M65-B with GMK Oblivion V2 keycaps and Boba U4 Silent switches.
         </p>
 
         <div className='relative aspect-[4/3] shadow-lg'>
           <CustomImage
-            src='/assets/images/keyboard.JPEG'
+            src='/assets/images/about/keyboard-1.webp'
             alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'
           />
         </div>
