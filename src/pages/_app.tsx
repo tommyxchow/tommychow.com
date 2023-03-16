@@ -1,8 +1,8 @@
-import { Inter } from '@next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
+import { Inter } from 'next/font/google';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';

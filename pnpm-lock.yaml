@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@next/font': ^13.2.1
   '@tailwindcss/typography': ^0.5.4
   '@types/node': ^18.7.6
   '@types/react': ^18.0.7
@@ -24,7 +23,6 @@ specifiers:
   typescript: ^4.6.3
 
 dependencies:
-  '@next/font': 13.2.4
   '@vercel/analytics': 0.1.11_react@18.2.0
   framer-motion: 9.1.7_biqbaboplfbrettd7655fr4n2y
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
@@ -136,10 +134,6 @@ packages:
     dependencies:
       glob: 7.1.7
     dev: true
-
-  /@next/font/13.2.4:
-    resolution: {integrity: sha512-lMAnuOYjv5g22WhD00u0DQ9u2rTMJH0S64PKE4Sy8Y2q+FJTYs6ZHT2z3VRoI8+AOWSLK4FirpnygcjOienQ9A==}
-    dev: false
 
   /@next/swc-android-arm-eabi/13.2.4:
     resolution: {integrity: sha512-DWlalTSkLjDU11MY11jg17O1gGQzpRccM9Oes2yTqj2DpHndajrXHGxj9HGtJ+idq2k7ImUdJVWS2h2l/EDJOw==}
