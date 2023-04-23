@@ -1,7 +1,7 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -14,4 +14,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-};
+} satisfies Config;
