@@ -1,12 +1,16 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { HiExternalLink } from 'react-icons/hi';
+import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import { formatDateString } from '../../common';
 import CustomImage from '../../components/CustomImage';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
 import SkillBadge from '../../components/SkillBadge';
-import { ProjectInfo, projects } from '../../data/projects';
+import projects, { ProjectInfo } from '../../data/projects';
 import { skills } from '../../data/skills';
+
+interface ProjectProps {
+  project: ProjectInfo;
+}
 
 const Project = ({ project }: ProjectProps) => {
   let formattedDate = project.dateCompleted
@@ -20,23 +24,30 @@ const Project = ({ project }: ProjectProps) => {
     >
       <section className='space-y-4'>
         <div>
-          <h1 className='text-lg font-semibold'>{project.name}</h1>
-          <p className='text-neutral-600 dark:text-neutral-400'>
-            {project.shortDescription}
-          </p>
+          <h1 className='text-lg font-medium'>{project.name}</h1>
+
+          <div className='flex justify-between gap-4'>
+            <p className='text-neutral-600 dark:text-neutral-400'>
+              {project.category}
+            </p>
+            <time
+              dateTime={project.dateCompleted}
+              className='text-neutral-600 dark:text-neutral-400'
+            >
+              {formattedDate}
+            </time>
+          </div>
         </div>
 
-        <div className='relative aspect-video shadow-lg'>
-          <CustomImage
-            priority
-            src={project.thumbnailLink}
-            alt={`Thumbnail for ${project.name}.`}
-          />
-        </div>
+        <CustomImage
+          priority
+          src={project.thumbnail}
+          alt={`Thumbnail for ${project.name}.`}
+        />
       </section>
 
       <div className='space-y-8'>
-        <Section header='Tech'>
+        <Section>
           <ul className='flex flex-wrap gap-2'>
             {project.technologies.map((tech) => (
               <li key={tech}>
@@ -46,55 +57,43 @@ const Project = ({ project }: ProjectProps) => {
           </ul>
         </Section>
 
-        <Section header='Highlights'>
-          <ul className='ml-4 list-disc'>
-            <li>
-              <span
-                className={`font-medium ${
-                  formattedDate === 'Ongoing'
-                    ? 'animate-pulse text-yellow-600 dark:text-yellow-400'
-                    : 'text-sky-600 dark:text-sky-400'
-                }`}
-              >
-                {formattedDate === 'Ongoing'
-                  ? formattedDate
-                  : 'Completed on ' + formattedDate}
-              </span>
-            </li>
-            {project.highlights.map((highlight) => (
-              <li key={highlight}>{highlight}</li>
+        {project.links && (
+          <Section>
+            <ul className='flex flex-wrap gap-4'>
+              {project.links.map((link) => (
+                <li key={link.title}>
+                  <a
+                    className='link flex items-center gap-1 hover:-translate-y-1'
+                    href={link.href}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    {link.title}
+                    <HiArrowTopRightOnSquare />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Section>
+        )}
+
+        <Section>
+          <div className='space-y-4'>
+            {project.longDescription.split('\n').map((paragraph, index) => (
+              <p key={index} className='text-neutral-700 dark:text-neutral-300'>
+                {paragraph}
+              </p>
             ))}
-          </ul>
+          </div>
         </Section>
 
-        <Section header='Links'>
-          <ul className='flex flex-wrap gap-8'>
-            {project.links.map((link) => (
-              <li key={link.title}>
-                <a
-                  className='link flex items-center gap-1 hover:-translate-y-1'
-                  href={link.href}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  {link.title}
-                  <HiExternalLink />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Section>
-
-        {project.screenshotLinks && (
-          <Section header='Screenshots'>
+        {project.screenshots && (
+          <Section>
             <ul className='space-y-4'>
-              {project.screenshotLinks?.map((screenshotLink) => (
-                <li
-                  className='relative aspect-video shadow-lg'
-                  key={screenshotLink}
-                >
+              {project.screenshots.map((screenshot, index) => (
+                <li key={index}>
                   <CustomImage
-                    src={screenshotLink}
+                    src={screenshot}
                     alt={`Screenshot for ${project.name}.`}
                   />
                 </li>
@@ -106,10 +105,6 @@ const Project = ({ project }: ProjectProps) => {
     </Layout>
   );
 };
-
-interface ProjectProps {
-  project: ProjectInfo;
-}
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = projects.map((project) => ({

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { HiArrowLeft } from 'react-icons/hi';
+import { HiArrowLeft } from 'react-icons/hi2';
 
 const NavBar = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const NavBar = () => {
   const routes = ['Skills', 'Projects', 'About'];
 
   return (
-    <nav className='sticky inset-0 z-50 flex h-fit w-full justify-center overflow-auto bg-neutral-100 bg-opacity-50 py-4 font-medium backdrop-blur dark:bg-black dark:bg-opacity-50 sm:px-0'>
+    <nav className='sticky inset-0 z-50 flex h-fit w-full justify-center overflow-auto bg-neutral-100 bg-opacity-50 py-4 font-medium backdrop-blur dark:bg-neutral-950 dark:bg-opacity-50 sm:px-0'>
       <AnimatePresence mode='wait'>
         <motion.ul
           key={router.asPath.split('/')[2]}
@@ -21,8 +21,9 @@ const NavBar = () => {
         >
           {router.asPath.split('/')[2] ? (
             <li>
-              <Link href='/projects'>
+              <Link className='flex items-center gap-2' href='/projects'>
                 <HiArrowLeft aria-label='Go back to all projects' />
+                <p>Projects</p>
               </Link>
             </li>
           ) : (

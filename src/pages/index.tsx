@@ -6,7 +6,7 @@ import { links } from '../data/links';
 const Home = () => {
   return (
     <Layout title='Tommy Chow' description='You found me!'>
-      <Section header='Hello'>
+      <Section header='Hello!'>
         <div className='flex flex-col gap-4'>
           <p>
             I&apos;m Tommy, a software engineer based in NYC. I enjoy building
@@ -17,7 +17,7 @@ const Home = () => {
             During 2021-2022, I created{' '}
             <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
             , an open-source mobile app for Twitch named after my childhood dog.
-            It now has 100,000+ downloads and 30,000+ monthly active users.
+            It now has 200,000+ downloads and 50,000+ monthly active users.
           </p>
 
           <p>

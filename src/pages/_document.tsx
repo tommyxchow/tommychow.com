@@ -11,7 +11,7 @@ export default function Document() {
         />
         <link rel='icon' type='image/png' href='/assets/images/favicon.png' />
       </Head>
-      <body className='bg-neutral-100 text-neutral-900 selection:bg-sky-600 selection:text-neutral-100 dark:bg-black dark:text-neutral-100 dark:selection:bg-sky-400 dark:selection:text-neutral-900'>
+      <body className='bg-neutral-100 text-neutral-900 selection:bg-sky-600 selection:text-neutral-100 dark:bg-neutral-950 dark:text-neutral-100 dark:selection:bg-sky-400 dark:selection:text-neutral-900'>
         <Main />
         <NextScript />
       </body>

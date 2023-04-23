@@ -1,3 +1,4 @@
+import keyboardPic from '../../public/assets/images/about/keyboard-1.webp';
 import CustomImage from '../components/CustomImage';
 import Layout from '../components/Layout';
 
@@ -35,12 +36,10 @@ const About = () => {
           WORKS M65-B with GMK Oblivion V2 keycaps and Boba U4 Silent switches.
         </p>
 
-        <div className='relative aspect-[4/3] shadow-lg'>
-          <CustomImage
-            src='/assets/images/about/keyboard-1.webp'
-            alt='Photo of my keyboard, a custom build of the RAMA WORKS M65-B.'
-          />
-        </div>
+        <CustomImage
+          src={keyboardPic}
+          alt='Photo of my keyboard, a custom build of the QK75.'
+        />
       </div>
     </Layout>
   );

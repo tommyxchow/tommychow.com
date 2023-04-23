@@ -8,7 +8,7 @@ const ProjectCard = ({
   name,
   dateCompleted,
   category,
-  thumbnailLink,
+  thumbnail,
 }: ProjectInfo) => {
   return (
     <div
@@ -22,17 +22,13 @@ const ProjectCard = ({
         <h2 className='font-medium'>{name}</h2>
         <div className='flex justify-between gap-4'>
           <p className='opacity-50'>{category}</p>
-          <p className='opacity-50'>
+          <time dateTime={dateCompleted} className='opacity-50'>
             {dateCompleted ? formatDateString(dateCompleted) : 'Ongoing'}
-          </p>
+          </time>
         </div>
       </Link>
 
-      <CustomImage
-        priority={id.startsWith('frosty')}
-        src={thumbnailLink}
-        alt={`Thumbnail for ${name}.`}
-      />
+      <CustomImage priority src={thumbnail} alt={`Thumbnail for ${name}.`} />
     </div>
   );
 };
