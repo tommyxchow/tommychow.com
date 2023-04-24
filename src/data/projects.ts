@@ -63,7 +63,7 @@ export default [
       'TypeScript',
     ],
     category: 'Professional',
-    dateCompleted: '2023-3-20',
+    dateCompleted: '2023-03-20',
     screenshots: [detoxScreenshot1, detoxScreenshot2, detoxScreenshot3],
   },
   {
@@ -99,6 +99,6 @@ export default [
     id: 'frosty-website',
     technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
     category: 'Personal',
-    dateCompleted: '2022-8-20',
+    dateCompleted: '2022-08-20',
   },
 ] satisfies ProjectInfo[];
