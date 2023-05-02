@@ -12,11 +12,11 @@ const ProjectCard = ({
 }: ProjectInfo) => {
   return (
     <div
-      className='relative aspect-video overflow-clip shadow-lg transition duration-300 hover:opacity-50 active:scale-95 active:shadow-none'
+      className='relative aspect-video overflow-clip rounded-xl shadow-xl transition duration-300 hover:opacity-50 active:scale-95 active:shadow-none'
       id={id}
     >
       <Link
-        className='absolute z-10 flex h-full w-full flex-col justify-end bg-gradient-to-t from-black to-transparent p-2 text-neutral-200 transition sm:p-4'
+        className='absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black to-transparent p-2 text-neutral-200 transition sm:p-4'
         href={'/projects/' + id}
       >
         <h2 className='font-medium'>{name}</h2>

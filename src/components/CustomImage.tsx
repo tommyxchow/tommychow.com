@@ -6,7 +6,7 @@ export default function CustomImage({ priority, alt, src }: ImageProps) {
 
   return (
     <Image
-      className={`rounded-lg shadow-lg transition duration-500 ease-out ${
+      className={`rounded-xl shadow-xl transition duration-500 ease-out ${
         isLoading ? 'opacity-0' : 'opacity-100'
       }`}
       fill={typeof src === 'string' && true}
