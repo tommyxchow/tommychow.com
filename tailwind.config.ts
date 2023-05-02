@@ -9,7 +9,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+      sans: ['var(--font-default)', ...defaultTheme.fontFamily.sans],
     },
     extend: {},
   },

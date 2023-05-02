@@ -2,20 +2,20 @@ import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import { Inter } from 'next/font/google';
+import { Golos_Text } from 'next/font/google';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import '../styles/globals.css';
 
-const inter = Inter({
+const defaultFont = Golos_Text({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-default',
 });
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    <div className={`${inter.variable} font-sans`}>
+    <div className={`${defaultFont.variable} font-sans`}>
       <ThemeProvider attribute='class' disableTransitionOnChange>
         <div className='flex flex-col items-center'>
           <Header />
