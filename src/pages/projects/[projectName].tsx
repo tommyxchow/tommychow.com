@@ -63,7 +63,7 @@ const Project = ({ project }: ProjectProps) => {
               {project.links.map((link) => (
                 <li key={link.title}>
                   <a
-                    className='link flex items-center gap-1 hover:-translate-y-1'
+                    className='link flex items-center gap-1 font-medium hover:-translate-y-1'
                     href={link.href}
                     target='_blank'
                     rel='noreferrer'
