@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 const About = () => {
   return (
     <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
-      <div className='flex flex-col gap-4 text-neutral-800 dark:text-neutral-200'>
+      <div className='prose prose-neutral dark:prose-invert'>
         <p>
           I was born, raised, and currently live in NYC, specifically in Queens.
           Growing up, I spent my leisure time playing the piano, being an avid

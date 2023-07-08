@@ -51,7 +51,7 @@ const Home = () => {
       </div>
 
       <Section>
-        <div className='flex flex-col gap-4 sm:mt-8'>
+        <div className='prose prose-neutral dark:prose-invert prose-a:no-underline sm:mt-8'>
           <p>
             Hey! I&apos;m Tommy, a software engineer based in NYC. I enjoy
             building performant, usable, and beautiful experiences for mobile

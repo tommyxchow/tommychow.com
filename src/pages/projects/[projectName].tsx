@@ -43,62 +43,58 @@ const Project = ({ project }: ProjectProps) => {
         />
       </section>
 
-      <div className='space-y-8'>
+      <Section>
+        <ul className='flex flex-wrap gap-2'>
+          {project.technologies.map((tech) => (
+            <li key={tech}>
+              <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      {project.links && (
         <Section>
-          <ul className='flex flex-wrap gap-2'>
-            {project.technologies.map((tech) => (
-              <li key={tech}>
-                <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
+          <ul className='flex flex-wrap gap-4'>
+            {project.links.map((link) => (
+              <li key={link.title}>
+                <a
+                  className='link flex items-center gap-1 font-medium hover:-translate-y-1'
+                  href={link.href}
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  {link.title}
+                  <HiArrowTopRightOnSquare />
+                </a>
               </li>
             ))}
           </ul>
         </Section>
+      )}
 
-        {project.links && (
-          <Section>
-            <ul className='flex flex-wrap gap-4'>
-              {project.links.map((link) => (
-                <li key={link.title}>
-                  <a
-                    className='link flex items-center gap-1 font-medium hover:-translate-y-1'
-                    href={link.href}
-                    target='_blank'
-                    rel='noreferrer'
-                  >
-                    {link.title}
-                    <HiArrowTopRightOnSquare />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </Section>
-        )}
+      <Section>
+        <div className='prose prose-neutral dark:prose-invert'>
+          {project.longDescription.split('\n').map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
+      </Section>
 
+      {project.screenshots && (
         <Section>
-          <div className='space-y-4'>
-            {project.longDescription.split('\n').map((paragraph, index) => (
-              <p key={index} className='text-neutral-800 dark:text-neutral-200'>
-                {paragraph}
-              </p>
+          <ul className='space-y-4'>
+            {project.screenshots.map((screenshot, index) => (
+              <li key={index}>
+                <CustomImage
+                  src={screenshot}
+                  alt={`Screenshot for ${project.name}.`}
+                />
+              </li>
             ))}
-          </div>
+          </ul>
         </Section>
-
-        {project.screenshots && (
-          <Section>
-            <ul className='space-y-4'>
-              {project.screenshots.map((screenshot, index) => (
-                <li key={index}>
-                  <CustomImage
-                    src={screenshot}
-                    alt={`Screenshot for ${project.name}.`}
-                  />
-                </li>
-              ))}
-            </ul>
-          </Section>
-        )}
-      </div>
+      )}
     </Layout>
   );
 };
