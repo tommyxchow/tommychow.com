@@ -15,4 +15,7 @@ export default {
     extend: {},
   },
   plugins: [typography],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 } satisfies Config;
