@@ -4,7 +4,7 @@
 
 @layer components {
   .link {
-    @apply border-b-2 border-sky-600 border-opacity-0 transition hover:border-opacity-100 dark:border-sky-400 dark:border-opacity-0 dark:hover:border-opacity-100;
+    @apply border-b border-sky-600 border-opacity-0 transition hover:border-opacity-100 dark:border-sky-400 dark:border-opacity-0 dark:hover:border-opacity-100;
   }
 
   .link-colored {
@@ -15,4 +15,10 @@
 html {
   --scroll-behavior: smooth !important;
   scroll-behavior: smooth !important;
+}
+
+@media (min-width: 1024px) {
+html {
+    padding-left: calc(100vw - 100%);
+  }
 }

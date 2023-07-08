@@ -1,4 +1,4 @@
-import { StaticImageData } from 'next/dist/client/image';
+import { StaticImageData } from 'next/image';
 import detoxScreenshot1 from '../../public/assets/images/projects/detox/screenshot-1.webp';
 import detoxScreenshot2 from '../../public/assets/images/projects/detox/screenshot-2.webp';
 import detoxScreenshot3 from '../../public/assets/images/projects/detox/screenshot-3.webp';
@@ -18,7 +18,6 @@ export type ProjectInfo = {
   links?: LinkInfo[];
   screenshots?: StaticImageData[];
   technologies: string[];
-  category: 'Professional' | 'Personal';
 };
 
 export default [
@@ -43,7 +42,6 @@ export default [
       'GitHub Actions',
       'MobX',
     ],
-    category: 'Personal',
   },
   {
     name: 'Detox',
@@ -57,12 +55,10 @@ export default [
       'AWS',
       'Firebase',
       'React',
-      'React Query',
       'Next.js',
       'Tailwind CSS',
       'TypeScript',
     ],
-    category: 'Professional',
     dateCompleted: '2023-03-20',
     screenshots: [detoxScreenshot1, detoxScreenshot2, detoxScreenshot3],
   },
@@ -76,15 +72,7 @@ export default [
     longDescription:
       'In November 2022, I designed and developed Stawks, a responsive web application that provides price history charts, financial details, and relevant news for a given stock ticker.\nMy goal was to experiment with data visualization and build a successor to my first-ever web app in 2019 using a modern tech stack. To do so, I utilized Figma to design a prototype and Next.js, Typescript, Chart.js, and Tailwind CSS to build a clean and highly performant frontend. By utilizing Next.js, I was able to achieve high performance through Incremental Static Regeneration (ISR), resulting in exceptional scores on Lighthouse.',
     links: [{ title: 'Visit', href: 'https://stawks.vercel.app/' }],
-    technologies: [
-      'Chart.js',
-      'React',
-      'Next.js',
-      'Tailwind CSS',
-      'TypeScript',
-      'Vercel',
-    ],
-    category: 'Personal',
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
   },
   {
     name: 'frostyapp.io',
@@ -98,7 +86,6 @@ export default [
     ],
     id: 'frosty-website',
     technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
-    category: 'Personal',
     dateCompleted: '2022-08-20',
   },
 ] satisfies ProjectInfo[];

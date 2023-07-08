@@ -1,8 +1,5 @@
 import {
   SiAmazonaws,
-  SiC,
-  SiChartdotjs,
-  SiCplusplus,
   SiCss3,
   SiDart,
   SiDjango,
@@ -15,16 +12,13 @@ import {
   SiGit,
   SiGithub,
   SiGithubactions,
-  SiHeroku,
+  SiGraphql,
   SiHtml5,
   SiJavascript,
   SiMobx,
   SiNextdotjs,
   SiPython,
   SiReact,
-  SiReactquery,
-  SiReplit,
-  SiScala,
   SiSentry,
   SiSwift,
   SiTailwindcss,
@@ -35,11 +29,6 @@ import {
 } from 'react-icons/si';
 
 export const skills: Skill[] = [
-  {
-    type: 'Framework',
-    icon: <SiChartdotjs color='#FF6384' />,
-    name: 'Chart.js',
-  },
   {
     type: 'Framework',
     icon: <SiDjango />,
@@ -77,11 +66,6 @@ export const skills: Skill[] = [
   },
   {
     type: 'Framework',
-    icon: <SiReactquery color='#FF4154' />,
-    name: 'React Query',
-  },
-  {
-    type: 'Framework',
     icon: <SiSwift color='#F05138' />,
     name: 'SwiftUI',
   },
@@ -89,16 +73,6 @@ export const skills: Skill[] = [
     type: 'Framework',
     icon: <SiTailwindcss color='#06B6D4' />,
     name: 'Tailwind CSS',
-  },
-  {
-    type: 'Language',
-    icon: <SiC color='#A8B9CC' />,
-    name: 'C',
-  },
-  {
-    type: 'Language',
-    icon: <SiCplusplus color='#00599C' />,
-    name: 'C++',
   },
   {
     type: 'Language',
@@ -127,8 +101,8 @@ export const skills: Skill[] = [
   },
   {
     type: 'Language',
-    icon: <SiScala color='#DC322F' />,
-    name: 'Scala',
+    icon: <SiGraphql color='#E10098' />,
+    name: 'GraphQL',
   },
   {
     type: 'Language',
@@ -179,16 +153,6 @@ export const skills: Skill[] = [
     type: 'Tool',
     icon: <SiGithubactions color='#2088FF' />,
     name: 'GitHub Actions',
-  },
-  {
-    type: 'Tool',
-    icon: <SiHeroku />,
-    name: 'Heroku',
-  },
-  {
-    type: 'Tool',
-    icon: <SiReplit color='#667881' />,
-    name: 'Replit',
   },
   {
     type: 'Tool',

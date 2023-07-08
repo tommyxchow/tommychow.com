@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 const About = () => {
   return (
     <Layout title='About | Tommy Chow' description='About Tommy Chow.'>
-      <div className='flex flex-col gap-4 text-neutral-700 dark:text-neutral-300'>
+      <div className='flex flex-col gap-4 text-neutral-800 dark:text-neutral-200'>
         <p>
           I was born, raised, and currently live in NYC, specifically in Queens.
           Growing up, I spent my leisure time playing the piano, being an avid
@@ -33,13 +33,16 @@ const About = () => {
           One of my favorite hobbies is building and customizing mechanical
           keyboards. My current keyboard is the QK75 with GMK Monokai Material
           keycaps and Gateron Oil King switches. My previous keyboard was a RAMA
-          WORKS M65-B with GMK Oblivion V2 keycaps and Boba U4 Silent switches.
+          WORKS M65-B with GMK Oblivion V2 keycaps and Invokeys Black Sesame
+          switches.
         </p>
 
-        <CustomImage
-          src={keyboardPic}
-          alt='Photo of my keyboard, a custom build of the QK75.'
-        />
+        <div className='mt-4'>
+          <CustomImage
+            src={keyboardPic}
+            alt='Photo of my keyboard, a custom build of the QK75.'
+          />
+        </div>
       </div>
     </Layout>
   );

@@ -23,20 +23,17 @@ const Project = ({ project }: ProjectProps) => {
       description={project.shortDescription}
     >
       <section className='space-y-4'>
-        <div>
-          <h1 className='text-lg font-medium'>{project.name}</h1>
+        <div className='flex items-baseline justify-between'>
+          <h1 className='text-lg font-bold'>{project.name}</h1>
 
-          <div className='flex justify-between gap-4'>
-            <p className='text-neutral-600 dark:text-neutral-400'>
-              {project.category}
-            </p>
+          <p className='font-medium text-neutral-600 dark:text-neutral-400'>
             <time
               dateTime={project.dateCompleted}
               className='text-neutral-600 dark:text-neutral-400'
             >
               {formattedDate}
-            </time>
-          </div>
+            </time>{' '}
+          </p>
         </div>
 
         <CustomImage
@@ -80,7 +77,7 @@ const Project = ({ project }: ProjectProps) => {
         <Section>
           <div className='space-y-4'>
             {project.longDescription.split('\n').map((paragraph, index) => (
-              <p key={index} className='text-neutral-700 dark:text-neutral-300'>
+              <p key={index} className='text-neutral-800 dark:text-neutral-200'>
                 {paragraph}
               </p>
             ))}

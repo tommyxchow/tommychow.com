@@ -2,13 +2,12 @@ import { Analytics } from '@vercel/analytics/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import { Golos_Text } from 'next/font/google';
+import { Figtree } from 'next/font/google';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import NavBar from '../components/NavBar';
 import '../styles/globals.css';
 
-const defaultFont = Golos_Text({
+const defaultFont = Figtree({
   subsets: ['latin'],
   variable: '--font-default',
 });
@@ -17,12 +16,10 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <div className={`${defaultFont.variable} font-sans`}>
       <ThemeProvider attribute='class' disableTransitionOnChange>
-        <div className='flex flex-col items-center'>
+        <div className='m-auto flex min-h-screen max-w-lg flex-col px-4 sm:px-0'>
           <Header />
 
-          <NavBar />
-
-          <div className='flex min-h-screen w-full max-w-lg flex-col sm:gap-8'>
+          <div className='mt-8 grow flex-col sm:mt-16 sm:gap-8'>
             <AnimatePresence mode='wait'>
               <motion.div
                 key={router.route}

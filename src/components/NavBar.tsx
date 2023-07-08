@@ -6,10 +6,10 @@ import { HiArrowLeft } from 'react-icons/hi2';
 const NavBar = () => {
   const router = useRouter();
 
-  const routes = ['Skills', 'Projects', 'About'];
+  const routes = ['Projects', 'Skills', 'About'];
 
   return (
-    <nav className='sticky inset-0 z-50 flex h-fit w-full justify-center overflow-auto bg-neutral-100 bg-opacity-50 py-4 font-medium backdrop-blur dark:bg-neutral-950 dark:bg-opacity-50 sm:px-0'>
+    <nav className='font-semibold'>
       <AnimatePresence mode='wait'>
         <motion.ul
           key={router.asPath.split('/')[2]}
@@ -17,7 +17,7 @@ const NavBar = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
           exit={{ opacity: 0 }}
-          className='flex w-full max-w-lg gap-4 px-4 sm:px-0'
+          className='flex w-full max-w-lg gap-4'
         >
           {router.asPath.split('/')[2] ? (
             <li>
@@ -36,16 +36,8 @@ const NavBar = () => {
                   }`}
                   href='/'
                 >
-                  <h1>Home</h1>
+                  Home
                 </Link>
-
-                {router.pathname === '/' && (
-                  <motion.div
-                    layoutId='underline'
-                    layout
-                    className='border border-sky-600 dark:border-sky-400'
-                  />
-                )}
               </li>
 
               {routes.map((route) => (
@@ -57,16 +49,8 @@ const NavBar = () => {
                     }`}
                     href={'/' + route.toLowerCase()}
                   >
-                    <h1>{route}</h1>
+                    {route}
                   </Link>
-
-                  {router.pathname.includes(route.toLowerCase()) && (
-                    <motion.div
-                      layoutId='underline'
-                      layout
-                      className='border border-sky-600 dark:border-sky-400'
-                    />
-                  )}
                 </li>
               ))}
             </>

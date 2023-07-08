@@ -4,7 +4,7 @@ import SkillBadge from '../components/SkillBadge';
 import { skills } from '../data/skills';
 
 export default function Skills() {
-  const sections = ['Frameworks and libraries', 'Languages', 'Tools'];
+  const sections = ['Frameworks and Libraries', 'Languages', 'Tools'];
 
   return (
     <Layout title='Skills | Tommy Chow' description='My skills'>

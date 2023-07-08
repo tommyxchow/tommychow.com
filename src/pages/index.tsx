@@ -1,16 +1,60 @@
+import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
 import Section from '../components/Section';
-import { links } from '../data/links';
+import { currentJob, links } from '../data/links';
 
 const Home = () => {
   return (
     <Layout title='Tommy Chow' description='You found me!'>
-      <Section header='Hello!'>
-        <div className='flex flex-col gap-4'>
+      <div className='flex flex-col gap-8'>
+        <div className='flex items-center gap-2'>
+          <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md'>
+            <CustomImage
+              priority
+              src='https://github.com/tommyxchow.png'
+              alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
+            />
+          </div>
+          <hgroup>
+            <h1 className='text-xl font-bold'>Tommy Chow</h1>
+            <p className='font-medium text-neutral-600 dark:text-neutral-400'>
+              Software Engineer @{' '}
+              <a
+                className='underline decoration-neutral-600 underline-offset-4 dark:decoration-neutral-400'
+                href={currentJob}
+                target='_blank'
+                rel='noreferrer'
+              >
+                Wildr
+              </a>
+            </p>
+          </hgroup>
+        </div>
+
+        <ul className='flex flex-wrap gap-2'>
+          {links.slice(0, 4).map((link) => (
+            <li key={link.title}>
+              <a
+                className='flex w-fit items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 text-sm font-medium shadow transition hover:opacity-60 active:scale-95 active:shadow-none dark:bg-neutral-900'
+                href={link.href}
+                target='_blank'
+                rel='noreferrer'
+              >
+                {link.icon}
+                {link.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <Section>
+        <div className='flex flex-col gap-4 sm:mt-8'>
           <p>
-            I&apos;m Tommy, a software engineer based in NYC. I enjoy building
-            performant, usable, and beautiful experiences for mobile and web.
+            Hey! I&apos;m Tommy, a software engineer based in NYC. I enjoy
+            building performant, usable, and beautiful experiences for mobile
+            and web.
           </p>
 
           <p>
@@ -26,35 +70,6 @@ const Home = () => {
             ideas and fun.
           </p>
         </div>
-      </Section>
-
-      <Section header='Now'>
-        <div className='flex flex-col gap-4'>
-          <p>
-            Software engineering at{' '}
-            <ExternalLink href='https://wildr.com/'>Wildr</ExternalLink>.
-          </p>
-
-          <p></p>
-        </div>
-      </Section>
-
-      <Section header='More'>
-        <ul className='flex flex-wrap gap-8'>
-          {links.slice(0, 4).map((link) => (
-            <li key={link.title}>
-              <a
-                className='link flex w-fit items-center gap-2 hover:-translate-y-1'
-                href={link.href}
-                target='_blank'
-                rel='noreferrer'
-              >
-                {link.icon}
-                {link.title}
-              </a>
-            </li>
-          ))}
-        </ul>
       </Section>
     </Layout>
   );
