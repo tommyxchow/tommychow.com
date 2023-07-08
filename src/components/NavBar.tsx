@@ -17,7 +17,7 @@ const NavBar = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
           exit={{ opacity: 0 }}
-          className='flex w-full max-w-lg gap-4'
+          className='flex w-full gap-4'
         >
           {router.asPath.split('/')[2] ? (
             <li>
