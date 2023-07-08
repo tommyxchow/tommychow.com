@@ -1,3 +1,4 @@
+import profilePicture from '../../public/assets/images/me.jpg';
 import CustomImage from '../components/CustomImage';
 import ExternalLink from '../components/ExternalLink';
 import Layout from '../components/Layout';
@@ -12,7 +13,7 @@ const Home = () => {
           <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md'>
             <CustomImage
               priority
-              src='https://github.com/tommyxchow.png'
+              src={profilePicture}
               alt='Portrait photo of me wearing my graduation gown with a flowery backdrop.'
             />
           </div>
