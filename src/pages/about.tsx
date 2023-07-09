@@ -32,9 +32,7 @@ const About = () => {
         <p>
           One of my favorite hobbies is building and customizing mechanical
           keyboards. My current keyboard is the QK75 with GMK Monokai Material
-          keycaps and Gateron Oil King switches. My previous keyboard was a RAMA
-          WORKS M65-B with GMK Oblivion V2 keycaps and Invokeys Black Sesame
-          switches.
+          keycaps and Invokeys Black Sesame switches.
         </p>
 
         <div className='mt-4'>
