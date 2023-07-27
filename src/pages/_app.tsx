@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <div className={`${defaultFont.variable} font-sans`}>
       <ThemeProvider attribute='class' disableTransitionOnChange>
-        <div className='m-auto flex min-h-screen max-w-xl flex-col px-4 sm:px-0'>
+        <div className='m-auto flex min-h-screen max-w-screen-sm flex-col px-4 sm:px-0'>
           <Header />
 
           <div className='mt-8 grow flex-col sm:mt-16 sm:gap-8'>
