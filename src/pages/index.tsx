@@ -53,9 +53,9 @@ const Home = () => {
       <Section>
         <div className='prose prose-neutral dark:prose-invert prose-a:no-underline sm:mt-8'>
           <p>
-            Hey! I&apos;m Tommy, a software engineer based in NYC. I enjoy
-            building performant, usable, and beautiful experiences for mobile
-            and web.
+            Hey! I&apos;m Tommy, a software engineer based in NYC. I&apos;m
+            passionate about building performant, usable, and beautiful
+            experiences for mobile and web.
           </p>
 
           <p>
@@ -63,6 +63,13 @@ const Home = () => {
             <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
             , an open-source mobile app for Twitch named after my childhood dog.
             It now has 200,000+ downloads and 50,000+ monthly active users.
+          </p>
+
+          <p>
+            At the start of 2023. I joined the frontend engineering team at{' '}
+            <ExternalLink href={currentJob}>Wildr</ExternalLink>, a social media
+            startup based in San Francisco. We&apos;re rapidly building out the
+            mobile and web platforms and developing exciting new features.
           </p>
 
           <p>
