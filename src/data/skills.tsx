@@ -2,12 +2,11 @@ import {
   SiAmazonaws,
   SiCss3,
   SiDart,
-  SiDjango,
   SiDocker,
+  SiExpo,
   SiFastlane,
   SiFigma,
   SiFirebase,
-  SiFlask,
   SiFlutter,
   SiGit,
   SiGithub,
@@ -15,6 +14,7 @@ import {
   SiGraphql,
   SiHtml5,
   SiJavascript,
+  SiJira,
   SiMobx,
   SiNextdotjs,
   SiPython,
@@ -31,13 +31,8 @@ import {
 export const skills: Skill[] = [
   {
     type: 'Framework',
-    icon: <SiDjango />,
-    name: 'Django',
-  },
-  {
-    type: 'Framework',
-    icon: <SiFlask />,
-    name: 'Flask',
+    icon: <SiExpo />,
+    name: 'Expo',
   },
   {
     type: 'Framework',
@@ -126,13 +121,13 @@ export const skills: Skill[] = [
   },
   {
     type: 'Tool',
-    icon: <SiFigma color='#F24E1E' />,
-    name: 'Figma',
+    icon: <SiFastlane color='#00F200' />,
+    name: 'Fastlane',
   },
   {
     type: 'Tool',
-    icon: <SiFastlane color='#00F200' />,
-    name: 'Fastlane',
+    icon: <SiFigma color='#F24E1E' />,
+    name: 'Figma',
   },
   {
     type: 'Tool',
@@ -153,6 +148,11 @@ export const skills: Skill[] = [
     type: 'Tool',
     icon: <SiGithubactions color='#2088FF' />,
     name: 'GitHub Actions',
+  },
+  {
+    type: 'Tool',
+    icon: <SiJira color='#0052CC' />,
+    name: 'Jira',
   },
   {
     type: 'Tool',
