@@ -7,7 +7,7 @@ import { currentJob, links } from '../data/links';
 
 const Home = () => {
   return (
-    <Layout title='Tommy Chow' description='You found me!'>
+    <Layout title='Tommy Chow'>
       <div className='flex flex-col gap-8'>
         <div className='flex items-center gap-2'>
           <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md'>
@@ -59,17 +59,17 @@ const Home = () => {
           </p>
 
           <p>
+            At the start of 2023. I joined the frontend engineering team at{' '}
+            <ExternalLink href={currentJob}>Wildr</ExternalLink>, a social media
+            startup based in San Francisco. We&apos;re rapidly building out the
+            mobile and web platforms while developing exciting new features.
+          </p>
+
+          <p>
             During 2021-2022, I created{' '}
             <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
             , an open-source mobile app for Twitch named after my childhood dog.
             It now has 200,000+ downloads and 50,000+ monthly active users.
-          </p>
-
-          <p>
-            At the start of 2023. I joined the frontend engineering team at{' '}
-            <ExternalLink href={currentJob}>Wildr</ExternalLink>, a social media
-            startup based in San Francisco. We&apos;re rapidly building out the
-            mobile and web platforms and developing exciting new features.
           </p>
 
           <p>

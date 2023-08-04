@@ -6,7 +6,10 @@ const Layout = ({ title, description, children }: LayoutProps) => {
       <Head>
         <title>{title}</title>
 
-        <meta name='description' content={description} />
+        <meta
+          name='description'
+          content={description ?? 'Software engineer and fried food lover'}
+        />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
 
@@ -17,7 +20,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 
 interface LayoutProps {
   title: string;
-  description: string;
+  description?: string;
   children: React.ReactNode;
 }
 

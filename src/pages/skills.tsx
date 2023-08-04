@@ -7,7 +7,7 @@ export default function Skills() {
   const sections = ['Frameworks and Libraries', 'Languages', 'Tools'];
 
   return (
-    <Layout title='Skills | Tommy Chow' description='My skills'>
+    <Layout title='Skills | Tommy Chow'>
       {sections.map((section) => (
         <Section header={section} key={section}>
           <ul className='mt-2 flex flex-wrap gap-2'>
