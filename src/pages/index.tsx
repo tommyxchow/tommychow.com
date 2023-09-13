@@ -37,7 +37,7 @@ const Home = () => {
           </ul>
         </div>
 
-        <section className='prose prose-neutral dark:prose-invert prose-a:no-underline sm:mt-8'>
+        <section className='prose prose-neutral mt-8 dark:prose-invert prose-a:no-underline'>
           <h3>Hey!</h3>
           <p>
             I&apos;m Tommy, a software engineer based in NYC. I enjoy designing
@@ -60,7 +60,7 @@ const Home = () => {
           </p>
         </section>
 
-        <section className='prose prose-neutral dark:prose-invert prose-a:no-underline sm:mt-8'>
+        <section className='prose prose-neutral mt-8 dark:prose-invert prose-a:no-underline'>
           <h3>Featured</h3>
           <div className='flex flex-col gap-4'>
             <ProjectCard project={projects[0]} />

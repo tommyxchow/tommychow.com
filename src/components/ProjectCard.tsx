@@ -25,7 +25,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 ? formatDateString(project.dateCompleted)
                 : 'Ongoing'}
             </time>
-            <p>{project.shortDescription}</p>
+            <p className='hidden sm:block'>{project.shortDescription}</p>
           </div>
         </div>
       </Link>
