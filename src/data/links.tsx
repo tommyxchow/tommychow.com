@@ -11,7 +11,7 @@ export const links: LinkInfo[] = [
   {
     icon: <FaFileAlt />,
     title: 'Resume',
-    href: '/TommyChowResume.pdf',
+    href: '/Tommy_Chow_resume.pdf',
   },
   {
     icon: <SiLinkedin />,

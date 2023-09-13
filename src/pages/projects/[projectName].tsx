@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import { formatDateString } from '../../common';
+import Badge from '../../components/Badge';
 import CustomImage from '../../components/CustomImage';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
-import SkillBadge from '../../components/SkillBadge';
 import projects, { ProjectInfo } from '../../data/projects';
 import { skills } from '../../data/skills';
 
@@ -23,17 +23,30 @@ const Project = ({ project }: ProjectProps) => {
       description={project.shortDescription}
     >
       <section className='space-y-4'>
-        <div className='flex items-baseline justify-between'>
-          <h1 className='text-lg font-bold'>{project.name}</h1>
-
-          <p className='font-medium text-neutral-600 dark:text-neutral-400'>
+        <div className='flex items-end justify-between'>
+          <div className='flex flex-col'>
+            <h1 className='text-2xl font-bold'>{project.name}</h1>
             <time
               dateTime={project.dateCompleted}
               className='text-neutral-600 dark:text-neutral-400'
             >
               {formattedDate}
-            </time>{' '}
-          </p>
+            </time>
+          </div>
+
+          {project.links && (
+            <ul className='flex gap-2'>
+              {project.links.map((link) => (
+                <li key={link.title}>
+                  <Badge
+                    icon={<HiArrowTopRightOnSquare />}
+                    title={link.title}
+                    href={link.href}
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <CustomImage
@@ -43,37 +56,21 @@ const Project = ({ project }: ProjectProps) => {
         />
       </section>
 
-      <Section>
+      <Section header='Stack'>
         <ul className='flex flex-wrap gap-2'>
-          {project.technologies.map((tech) => (
-            <li key={tech}>
-              <SkillBadge {...skills.find((skill) => skill.name === tech)!} />
-            </li>
-          ))}
+          {project.technologies.map((tech) => {
+            const skill = skills.find((skill) => skill.name === tech)!;
+
+            return (
+              <li key={tech}>
+                <Badge icon={skill.icon} title={skill.name} />
+              </li>
+            );
+          })}
         </ul>
       </Section>
 
-      {project.links && (
-        <Section>
-          <ul className='flex flex-wrap gap-4'>
-            {project.links.map((link) => (
-              <li key={link.title}>
-                <a
-                  className='link flex items-center gap-1 font-medium hover:-translate-y-1'
-                  href={link.href}
-                  target='_blank'
-                  rel='noreferrer'
-                >
-                  {link.title}
-                  <HiArrowTopRightOnSquare />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
-
-      <Section>
+      <Section header='Overview'>
         <div className='prose prose-neutral dark:prose-invert'>
           {project.longDescription.split('\n').map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
@@ -82,7 +79,7 @@ const Project = ({ project }: ProjectProps) => {
       </Section>
 
       {project.screenshots && (
-        <Section>
+        <Section header='Screenshots'>
           <ul className='space-y-4'>
             {project.screenshots.map((screenshot, index) => (
               <li key={index}>
@@ -109,7 +106,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const project = projects.find(
-    (project) => project.id === params?.projectName
+    (project) => project.id === params?.projectName,
   );
 
   return {

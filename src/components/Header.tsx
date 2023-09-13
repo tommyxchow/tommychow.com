@@ -15,8 +15,8 @@ export default function Header() {
   }, []);
 
   return (
-    <header className='sticky inset-0 z-50 w-full rounded-b-lg bg-gradient-to-b from-neutral-100 dark:from-black'>
-      <div className='mt-4 w-full rounded-lg bg-neutral-200 p-4 shadow-md dark:bg-neutral-900 sm:mt-8'>
+    <header className='sticky inset-0 z-50 w-full rounded-b-xl bg-gradient-to-b from-neutral-100 dark:from-neutral-950'>
+      <div className='mt-4 w-full rounded-xl bg-neutral-200 p-4 shadow-lg dark:bg-neutral-900 sm:mt-8'>
         <div className='flex justify-between'>
           <NavBar />
           {mounted && (

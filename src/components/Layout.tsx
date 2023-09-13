@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-const Layout = ({ title, description, children }: LayoutProps) => {
+const Layout = ({ title, description, headline, children }: LayoutProps) => {
   return (
     <>
       <Head>
@@ -13,7 +13,11 @@ const Layout = ({ title, description, children }: LayoutProps) => {
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       </Head>
 
-      <main className='flex flex-col gap-8'>{children}</main>
+      <main className='flex flex-col gap-8'>
+        {headline && <h1 className='text-2xl font-bold'>{headline}</h1>}
+
+        {children}
+      </main>
     </>
   );
 };
@@ -21,6 +25,7 @@ const Layout = ({ title, description, children }: LayoutProps) => {
 interface LayoutProps {
   title: string;
   description?: string;
+  headline?: string;
   children: React.ReactNode;
 }
 

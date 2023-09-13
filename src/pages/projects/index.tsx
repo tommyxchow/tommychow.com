@@ -4,11 +4,11 @@ import projects from '../../data/projects';
 
 const Projects = () => {
   return (
-    <Layout title='Projects | Tommy Chow'>
+    <Layout headline='My Projects' title='Projects | Tommy Chow'>
       <ul className='flex flex-col gap-4'>
         {projects.map((project) => (
           <li key={project.name}>
-            <ProjectCard {...project} />
+            <ProjectCard project={project} />
           </li>
         ))}
       </ul>

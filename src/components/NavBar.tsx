@@ -23,7 +23,7 @@ const NavBar = () => {
             <li>
               <Link className='flex items-center gap-2' href='/projects'>
                 <HiArrowLeft aria-label='Go back to all projects' />
-                <p>Projects</p>
+                <p>All Projects</p>
               </Link>
             </li>
           ) : (

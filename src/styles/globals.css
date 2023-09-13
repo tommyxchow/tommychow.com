@@ -18,7 +18,7 @@ html {
 }
 
 @media (min-width: 1024px) {
-html {
+  html {
     padding-left: calc(100vw - 100%);
   }
 }

@@ -4,7 +4,7 @@ import Layout from '../components/Layout';
 
 const About = () => {
   return (
-    <Layout title='About | Tommy Chow'>
+    <Layout headline='About Me' title='About | Tommy Chow'>
       <div className='prose prose-neutral dark:prose-invert'>
         <p>
           I was born, raised, and currently live in NYC, specifically in Queens.
