@@ -10,7 +10,7 @@ import projects from '../data/projects';
 const Home = () => {
   return (
     <Layout title='Tommy Chow'>
-      <article>
+      <div>
         <div className='flex flex-col gap-8'>
           <div className='flex items-center gap-2'>
             <div className='relative h-12 w-12 shrink-0 overflow-hidden rounded-full shadow-md'>
@@ -29,7 +29,7 @@ const Home = () => {
           </div>
 
           <ul className='flex flex-wrap gap-2'>
-            {links.slice(0, 3).map((link) => (
+            {links.slice(0, 4).map((link) => (
               <li key={link.title}>
                 <Badge icon={link.icon} title={link.title} href={link.href} />
               </li>
@@ -67,7 +67,7 @@ const Home = () => {
             <ProjectCard project={projects[1]} />
           </div>
         </section>
-      </article>
+      </div>
     </Layout>
   );
 };
