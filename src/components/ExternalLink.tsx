@@ -1,11 +1,6 @@
 const ExternalLink = ({ href, children }: ExternalLinkProps) => {
   return (
-    <a
-      className='link-colored font-medium'
-      href={href}
-      target='_blank'
-      rel='noreferrer'
-    >
+    <a className='link-colored font-medium' href={href} target='_blank'>
       {children}
     </a>
   );

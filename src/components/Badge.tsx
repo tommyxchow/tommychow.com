@@ -19,7 +19,6 @@ export default function Badge({ icon, title, href }: BadgeProps) {
       className='flex w-fit items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 shadow-md transition hover:opacity-60 active:scale-95 active:shadow-none dark:bg-neutral-900'
       href={href}
       target='_blank'
-      rel='noreferrer'
     >
       {icon}
       <span className='text-sm font-semibold'>{title}</span>

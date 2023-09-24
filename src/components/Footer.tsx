@@ -8,7 +8,6 @@ const Footer = () => {
         className='underline-offset-2 hover:underline'
         href={source}
         target='_blank'
-        rel='noreferrer'
       >
         Last updated September 2023
       </a>
