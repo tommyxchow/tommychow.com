@@ -22,29 +22,6 @@ export type ProjectInfo = {
 
 export default [
   {
-    name: 'Frosty',
-    thumbnail: frostyThumbnail,
-    shortDescription:
-      'Watch and chat on Twitch with your favorite third-party emotes on mobile.',
-    longDescription:
-      "Between September 2021 and March 2022, I built and released Frosty, a cross-platform, open-source mobile app for Twitch featuring live streams and chat, custom emote support, customizable settings, and more.\nMy primary objective was to incorporate quality-of-life features from third-party web extensions that were lacking on Twitch's official mobile app. After unsuccessful attempts with SwiftUI and React Native, I switched to Flutter and began learning and building from scratch almost every day.\nWith some marketing through Reddit posts, a partnership with 7TV, and a successfully filled niche, Frosty gained over 200,000 downloads, 50,000 monthly active users, and a 4+ star rating on both app stores as of 2023.",
-
-    links: [
-      { title: 'Source', href: 'https://github.com/tommyxchow/frosty' },
-      { title: 'Visit', href: 'https://frostyapp.io' },
-    ],
-    id: 'frosty',
-    technologies: [
-      'Dart',
-      'Fastlane',
-      'Figma',
-      'Firebase',
-      'Flutter',
-      'GitHub Actions',
-      'MobX',
-    ],
-  },
-  {
     name: 'Wildr Detox',
     thumbnail: detoxThumbnail,
     shortDescription:
@@ -64,6 +41,29 @@ export default [
     screenshots: [detoxScreenshot1, detoxScreenshot2, detoxScreenshot3],
   },
   {
+    name: 'Frosty',
+    thumbnail: frostyThumbnail,
+    shortDescription:
+      'Watch and chat on Twitch with your favorite third-party emotes on mobile.',
+    longDescription:
+      "Between September 2021 and March 2022, I built and released Frosty, a cross-platform, open-source mobile app for Twitch featuring live streams and chat, custom emote support, customizable settings, and more.\nMy primary objective was to incorporate quality-of-life features from third-party web extensions that were lacking on Twitch's official mobile app. After unsuccessful attempts with SwiftUI and React Native, I switched to Flutter and began learning and building from scratch almost every day.\nWith some marketing through Reddit posts, a partnership with 7TV, and a successfully filled niche, Frosty gained over 250,000 downloads, 50,000 monthly users, and a 4+ star rating on both app stores as of 2023.",
+    links: [
+      { title: 'Source', href: 'https://github.com/tommyxchow/frosty' },
+      { title: 'Visit', href: 'https://frostyapp.io' },
+    ],
+    id: 'frosty',
+    technologies: [
+      'Dart',
+      'Fastlane',
+      'Figma',
+      'Firebase',
+      'Flutter',
+      'GitHub Actions',
+      'MobX',
+    ],
+    dateCompleted: '2023-01-15',
+  },
+  {
     id: 'stawks',
     name: 'Stawks',
     thumbnail: stawksThumbnail,
@@ -72,7 +72,10 @@ export default [
       'View price history charts, financial details, and relevant news for stocks.',
     longDescription:
       'In November 2022, I designed and developed Stawks, a responsive web application that provides price history charts, financial details, and relevant news for a given stock ticker.\nMy goal was to experiment with data visualization and build a successor to my first-ever web app in 2019 using a modern tech stack. To do so, I utilized Figma to design a prototype and Next.js, Typescript, Chart.js, and Tailwind CSS to build a clean and highly performant frontend. By utilizing Next.js, I was able to achieve high performance through Incremental Static Regeneration (ISR), resulting in exceptional scores on Lighthouse.',
-    links: [{ title: 'Visit', href: 'https://stawks.vercel.app/' }],
+    links: [
+      { title: 'Source', href: 'https://github.com/tommyxchow/stawks' },
+      { title: 'Visit', href: 'https://stawks.vercel.app/' },
+    ],
     technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
   },
   {
