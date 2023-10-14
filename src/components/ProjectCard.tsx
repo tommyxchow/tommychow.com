@@ -18,15 +18,18 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         href={'/projects/' + project.id}
       >
         <div className='flex flex-col text-neutral-200'>
-          <h2 className='text-lg font-bold'>{project.name}</h2>
-          <div className='font-medium opacity-60'>
-            <time dateTime={project.dateCompleted}>
+          <div className='flex items-baseline gap-2 text-lg'>
+            <h2 className='font-bold'>{project.name}</h2>
+            <time
+              className='font-medium opacity-60'
+              dateTime={project.dateCompleted}
+            >
               {project.dateCompleted
                 ? formatDateString(project.dateCompleted)
                 : 'Ongoing'}
             </time>
-            <p className='hidden sm:block'>{project.shortDescription}</p>
           </div>
+          <p className='font-medium opacity-60'>{project.shortDescription}</p>
         </div>
       </Link>
 

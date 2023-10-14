@@ -24,11 +24,11 @@ const Project = ({ project }: ProjectProps) => {
     >
       <section className='space-y-4'>
         <div className='flex items-end justify-between'>
-          <div className='flex flex-col'>
-            <h1 className='text-2xl font-bold'>{project.name}</h1>
+          <div className='flex items-baseline gap-2 text-2xl'>
+            <h1 className='font-bold'>{project.name}</h1>
             <time
+              className='font-medium text-neutral-600 dark:text-neutral-400'
               dateTime={project.dateCompleted}
-              className='text-neutral-600 dark:text-neutral-400'
             >
               {formattedDate}
             </time>
