@@ -29,7 +29,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 : 'Ongoing'}
             </time>
           </div>
-          <p className='font-medium opacity-60'>{project.shortDescription}</p>
+          <p className='hidden font-medium opacity-60 sm:block'>
+            {project.shortDescription}
+          </p>
         </div>
       </Link>
 
