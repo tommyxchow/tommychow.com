@@ -9,7 +9,7 @@ const Footer = () => {
         href={source}
         target='_blank'
       >
-        Last updated September 2023
+        Last updated Oct. 2023
       </a>
     </footer>
   );
