@@ -1,11 +1,11 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { type GetStaticPaths, type GetStaticProps } from 'next';
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 import { formatDateString } from '../../common';
 import Badge from '../../components/Badge';
 import CustomImage from '../../components/CustomImage';
 import Layout from '../../components/Layout';
 import Section from '../../components/Section';
-import projects, { ProjectInfo } from '../../data/projects';
+import projects, { type ProjectInfo } from '../../data/projects';
 import { skills } from '../../data/skills';
 
 interface ProjectProps {
@@ -13,7 +13,7 @@ interface ProjectProps {
 }
 
 const Project = ({ project }: ProjectProps) => {
-  let formattedDate = project.dateCompleted
+  const formattedDate = project.dateCompleted
     ? formatDateString(project.dateCompleted)
     : 'Ongoing';
 
@@ -104,7 +104,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = ({ params }) => {
   const project = projects.find(
     (project) => project.id === params?.projectName,
   );

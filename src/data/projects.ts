@@ -1,4 +1,4 @@
-import { StaticImageData } from 'next/image';
+import { type StaticImageData } from 'next/image';
 import detoxScreenshot1 from '../../public/assets/images/projects/detox/screenshot-1.webp';
 import detoxScreenshot2 from '../../public/assets/images/projects/detox/screenshot-2.webp';
 import detoxScreenshot3 from '../../public/assets/images/projects/detox/screenshot-3.webp';
@@ -6,9 +6,9 @@ import detoxThumbnail from '../../public/assets/images/projects/detox/thumbnail.
 import frostyWebsiteThumbnail from '../../public/assets/images/projects/frosty-website/thumbnail.webp';
 import frostyThumbnail from '../../public/assets/images/projects/frosty/thumbnail.webp';
 import stawksThumbnail from '../../public/assets/images/projects/stawks/thumbnail.webp';
-import { LinkInfo } from './links';
+import { type LinkInfo } from './links';
 
-export type ProjectInfo = {
+export interface ProjectInfo {
   id: string;
   name: string;
   shortDescription: string;
@@ -18,7 +18,7 @@ export type ProjectInfo = {
   links?: LinkInfo[];
   screenshots?: StaticImageData[];
   technologies: string[];
-};
+}
 
 export default [
   {

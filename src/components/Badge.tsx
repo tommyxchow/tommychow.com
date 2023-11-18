@@ -1,8 +1,8 @@
-type BadgeProps = {
+interface BadgeProps {
   icon: React.ReactNode;
   title: string;
   href?: string;
-};
+}
 
 export default function Badge({ icon, title, href }: BadgeProps) {
   if (href === undefined) {

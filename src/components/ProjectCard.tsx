@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import { formatDateString } from '../common';
-import { ProjectInfo } from '../data/projects';
+import { type ProjectInfo } from '../data/projects';
 import CustomImage from './CustomImage';
 
-type ProjectCardProps = {
+interface ProjectCardProps {
   project: ProjectInfo;
-};
+}
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <div
-      className='not-prose relative aspect-video overflow-clip rounded-xl shadow-xl transition duration-300 hover:opacity-60 active:scale-95 active:shadow-none'
+      className='not-prose relative aspect-video overflow-hidden rounded-xl shadow-xl transition duration-300 hover:opacity-60 active:scale-95 active:shadow-none'
       id={project.id}
     >
       <Link
