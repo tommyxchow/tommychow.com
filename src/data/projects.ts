@@ -5,7 +5,13 @@ import detoxScreenshot3 from '../../public/assets/images/projects/detox/screensh
 import detoxThumbnail from '../../public/assets/images/projects/detox/thumbnail.webp';
 import frostyWebsiteThumbnail from '../../public/assets/images/projects/frosty-website/thumbnail.webp';
 import frostyThumbnail from '../../public/assets/images/projects/frosty/thumbnail.webp';
+import hatchetScreenshot1 from '../../public/assets/images/projects/hatchet/screenshot-1.webp';
+import hatchetScreenshot2 from '../../public/assets/images/projects/hatchet/screenshot-2.webp';
+import hatchetThumbnail from '../../public/assets/images/projects/hatchet/thumbnail.webp';
 import stawksThumbnail from '../../public/assets/images/projects/stawks/thumbnail.webp';
+import vewdditScreenshot1 from '../../public/assets/images/projects/vewddit/screenshot-1.webp';
+import vewdditScreenshot2 from '../../public/assets/images/projects/vewddit/screenshot-2.webp';
+import vewdditThumbnail from '../../public/assets/images/projects/vewddit/thumbnail.webp';
 import { type LinkInfo } from './links';
 
 export interface ProjectInfo {
@@ -21,6 +27,34 @@ export interface ProjectInfo {
 }
 
 export default [
+  {
+    name: 'Hatchet',
+    thumbnail: hatchetThumbnail,
+    shortDescription: 'A fast, modern, and simple web client for Hacker News.',
+    longDescription: 'A fast, modern, and simple web client for Hacker News.',
+    id: 'hatchet',
+    links: [
+      { title: 'Source', href: 'https://github.com/tommyxchow/hatchet' },
+      { title: 'Visit', href: 'https://hatchetnews.vercel.app/' },
+    ],
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
+    dateCompleted: '2023-12-01',
+    screenshots: [hatchetScreenshot1, hatchetScreenshot2],
+  },
+  {
+    name: 'Vewddit',
+    thumbnail: vewdditThumbnail,
+    shortDescription: 'A web app for Reddit focused on browsing visual media.',
+    longDescription: 'A web app for Reddit focused on browsing visual media',
+    id: 'vewddit',
+    links: [
+      { title: 'Source', href: 'https://github.com/tommyxchow/vewddit' },
+      { title: 'Visit', href: 'https://vewddit.vercel.app/' },
+    ],
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
+    dateCompleted: '2023-11-01',
+    screenshots: [vewdditScreenshot1, vewdditScreenshot2],
+  },
   {
     name: 'Wildr Detox',
     thumbnail: detoxThumbnail,
@@ -46,7 +80,7 @@ export default [
     shortDescription:
       'Watch and chat on Twitch with your favorite third-party emotes on mobile.',
     longDescription:
-      "Between September 2021 and March 2022, I built and released Frosty, a cross-platform, open-source mobile app for Twitch featuring live streams and chat, custom emote support, customizable settings, and more.\nMy primary objective was to incorporate quality-of-life features from third-party web extensions that were lacking on Twitch's official mobile app. After unsuccessful attempts with SwiftUI and React Native, I switched to Flutter and began learning and building from scratch almost every day.\nWith some marketing through Reddit posts, a partnership with 7TV, and a successfully filled niche, Frosty gained over 250,000 downloads, 50,000 monthly users, and a 4+ star rating on both app stores as of 2023.",
+      "Between September 2021 and March 2022, I built and released Frosty, a cross-platform, open-source mobile app for Twitch featuring live streams and chat, custom emote support, customizable settings, and more.\nMy primary objective was to incorporate quality-of-life features from third-party web extensions that were lacking on Twitch's official mobile app. After unsuccessful attempts with SwiftUI and React Native, I switched to Flutter and began learning and building from scratch almost every day.\nWith some marketing through Reddit posts, a partnership with 7TV, and a successfully filled niche, Frosty gained over 300,000 downloads, 50,000 monthly users, and a 4+ star rating on both app stores as of 2023.",
     links: [
       { title: 'Source', href: 'https://github.com/tommyxchow/frosty' },
       { title: 'Visit', href: 'https://frostyapp.io' },
@@ -64,6 +98,20 @@ export default [
     dateCompleted: '2023-01-15',
   },
   {
+    name: 'frostyapp.io',
+    thumbnail: frostyWebsiteThumbnail,
+    shortDescription: 'Interactive marketing website for the Frosty app.',
+    longDescription:
+      'In August 2022, I completed a complete redesign of frostyapp.io, the landing and marketing page for the Frosty app.\nDuring the preceding months, I researched other popular and flashy landing pages, inspiring me to bring more clarity, animation, and interaction in a redesign. Ultimately, I used Next.js, Tailwind CSS, and Framer Motion to create an interactive showcase of the Frosty app that allows you to preview it and browse screenshots of specific features.\nAs of 2023, frostyapp.io has 200,000+ impressions and 15,000+ views per month.',
+    links: [
+      { title: 'Source', href: 'https://github.com/tommyxchow/frostyapp.io' },
+      { title: 'Visit', href: 'https://frostyapp.io' },
+    ],
+    id: 'frosty-website',
+    technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
+    dateCompleted: '2022-08-20',
+  },
+  {
     id: 'stawks',
     name: 'Stawks',
     thumbnail: stawksThumbnail,
@@ -77,19 +125,5 @@ export default [
       { title: 'Visit', href: 'https://stawks.vercel.app/' },
     ],
     technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
-  },
-  {
-    name: 'frostyapp.io',
-    thumbnail: frostyWebsiteThumbnail,
-    shortDescription: 'Interactive marketing website for the Frosty app.',
-    longDescription:
-      'In August 2022, I completed a complete redesign of frostyapp.io, the landing and marketing page for the Frosty app.\nDuring the preceding months, I researched other popular and flashy landing pages, inspiring me to bring more clarity, animation, and interaction in a redesign. Ultimately, I used Next.js, Tailwind CSS, and Framer Motion to create an interactive showcase of the Frosty app that allows you to preview it and browse screenshots of specific features.\nAs of 2023, frostyapp.io has 200,000+ impressions and 15,000+ views per month.',
-    links: [
-      { title: 'Source', href: 'https://github.com/tommyxchow/frostyapp.io' },
-      { title: 'Visit', href: 'https://frostyapp.io' },
-    ],
-    id: 'frosty-website',
-    technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Vercel'],
-    dateCompleted: '2022-08-20',
   },
 ] satisfies ProjectInfo[];

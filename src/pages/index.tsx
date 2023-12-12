@@ -47,15 +47,16 @@ const Home = () => {
 
           <p>
             During 2023, I was part of the frontend software engineering team at{' '}
-            <ExternalLink href={currentJob}>Wildr</ExternalLink>, a social media
-            startup based in San Francisco. I built a variety of new products
-            and features including &quot;Challenges&quot; and &quot;Detox&quot;.
+            <ExternalLink href={currentJob}>Wildr</ExternalLink>, an AI social
+            media startup based in San Francisco. I built a variety of new
+            products and features including &quot;Challenges&quot; and
+            &quot;Detox&quot;.
           </p>
 
           <p>
-            Between 2021-2022, I designed, developed, and launched{' '}
+            Between 2021-2023, I designed, developed, and launched{' '}
             <ExternalLink href='https://www.frostyapp.io/'>Frosty</ExternalLink>
-            , an open-source mobile app for Twitch. It now has 250,000+
+            , an open-source mobile app for Twitch. It now has 300,000+
             downloads and 50,000+ monthly users.
           </p>
         </section>
