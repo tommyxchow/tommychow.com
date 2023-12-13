@@ -1,4 +1,4 @@
-import { source } from '../data/links';
+import { source } from '@/data/links';
 
 const Footer = () => {
   return (

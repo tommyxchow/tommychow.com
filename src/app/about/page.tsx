@@ -1,6 +1,6 @@
+import CustomImage from '@/components/CustomImage';
+import { Prose } from '@/components/Prose';
 import keyboardPic from '../../../public/assets/images/about/keyboard-1.webp';
-import CustomImage from '../../components/CustomImage';
-import { Prose } from '../../components/Prose';
 
 export default function AboutPage() {
   return (

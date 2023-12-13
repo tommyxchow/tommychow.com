@@ -24,8 +24,6 @@ export default function CustomImage({
       onLoad={() => setIsLoading(false)}
       alt={alt}
       src={src}
-      quality={100}
-      sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw'
     />
   );
 }

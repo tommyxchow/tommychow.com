@@ -1,6 +1,6 @@
-import ProjectCard from '../components/ProjectCard';
-import { Prose } from '../components/Prose';
-import projects from '../data/projects';
+import ProjectCard from '@/components/ProjectCard';
+import { Prose } from '@/components/Prose';
+import projects from '@/data/projects';
 
 export default function HomePage() {
   return (

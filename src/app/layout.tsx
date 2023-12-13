@@ -1,9 +1,9 @@
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { Providers } from '@/components/Providers';
 import { type Metadata } from 'next';
 import { Archivo, JetBrains_Mono } from 'next/font/google';
 import { twJoin } from 'tailwind-merge';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import { Providers } from '../components/Providers';
 import './globals.css';
 
 const fontSans = Archivo({
