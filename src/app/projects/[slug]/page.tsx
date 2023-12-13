@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
-import { formatDateString } from '../../../common';
 import Badge from '../../../components/Badge';
 import CustomImage from '../../../components/CustomImage';
 import Section from '../../../components/Section';
 import projects from '../../../data/projects';
 import { skills } from '../../../data/skills';
+import { formatDateString } from '../../../lib/utils';
 
 export function generateStaticParams() {
   return projects.map((project) => ({

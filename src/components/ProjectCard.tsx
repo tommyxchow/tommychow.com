@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { formatDateString } from '../common';
 import { type ProjectInfo } from '../data/projects';
+import { formatDateString } from '../lib/utils';
 import CustomImage from './CustomImage';
 
 interface ProjectCardProps {
