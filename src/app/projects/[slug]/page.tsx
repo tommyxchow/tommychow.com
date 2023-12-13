@@ -1,27 +1,29 @@
-import { type GetStaticPaths, type GetStaticProps } from 'next';
+import { notFound } from 'next/navigation';
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
-import { formatDateString } from '../../common';
-import Badge from '../../components/Badge';
-import CustomImage from '../../components/CustomImage';
-import Layout from '../../components/Layout';
-import Section from '../../components/Section';
-import projects, { type ProjectInfo } from '../../data/projects';
-import { skills } from '../../data/skills';
+import { formatDateString } from '../../../common';
+import Badge from '../../../components/Badge';
+import CustomImage from '../../../components/CustomImage';
+import Section from '../../../components/Section';
+import projects from '../../../data/projects';
+import { skills } from '../../../data/skills';
 
-interface ProjectProps {
-  project: ProjectInfo;
+export function generateStaticParams() {
+  return projects.map((project) => ({
+    slug: project.id,
+  }));
 }
 
-const Project = ({ project }: ProjectProps) => {
+export default function ProjectPage({ params }: { params: { slug: string } }) {
+  const project = projects.find((project) => project.id === params?.slug);
+
+  if (!project) notFound();
+
   const formattedDate = project.dateCompleted
     ? formatDateString(project.dateCompleted)
     : 'Ongoing';
 
   return (
-    <Layout
-      title={`${project.name} | Tommy Chow`}
-      description={project.shortDescription}
-    >
+    <div className='flex flex-col gap-8'>
       <section className='space-y-4'>
         <div className='flex items-end justify-between'>
           <div className='flex items-baseline gap-2 text-2xl'>
@@ -92,28 +94,6 @@ const Project = ({ project }: ProjectProps) => {
           </ul>
         </Section>
       )}
-    </Layout>
+    </div>
   );
-};
-
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths = projects.map((project) => ({
-    params: { projectName: project.id },
-  }));
-
-  return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps = ({ params }) => {
-  const project = projects.find(
-    (project) => project.id === params?.projectName,
-  );
-
-  return {
-    props: {
-      project,
-    },
-  };
-};
-
-export default Project;
+}

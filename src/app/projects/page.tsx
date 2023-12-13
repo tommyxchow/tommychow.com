@@ -1,19 +1,19 @@
-import Layout from '../../components/Layout';
 import ProjectCard from '../../components/ProjectCard';
+import { Prose } from '../../components/Prose';
 import projects from '../../data/projects';
 
-const Projects = () => {
+export default function ProjectsPage() {
   return (
-    <Layout headline='My Projects' title='Projects | Tommy Chow'>
-      <ul className='flex flex-col gap-4'>
+    <Prose>
+      <h2>Projects</h2>
+
+      <ul className='not-prose flex flex-col gap-8'>
         {projects.map((project) => (
           <li key={project.name}>
             <ProjectCard project={project} />
           </li>
         ))}
       </ul>
-    </Layout>
+    </Prose>
   );
-};
-
-export default Projects;
+}

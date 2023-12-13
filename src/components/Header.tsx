@@ -1,38 +1,39 @@
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { HiMoon, HiSun } from 'react-icons/hi2';
-import NavBar from './NavBar';
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { twJoin } from 'tailwind-merge';
+import { ThemeToggle } from './ThemeToggle';
 
 export default function Header() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const path = usePathname();
 
-  // Wait until the component is mounted to set the theme.
-  // This prevents a hydration error.
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const routes = ['Projects', 'Blog', 'About'];
 
   return (
-    <header className='sticky inset-0 z-50 w-full rounded-b-xl bg-gradient-to-b from-neutral-100 dark:from-neutral-950'>
-      <div className='mt-4 w-full rounded-xl bg-neutral-200 p-4 shadow-lg dark:bg-neutral-900 sm:mt-8'>
-        <div className='flex justify-between'>
-          <NavBar />
-          {mounted && (
-            <button
-              aria-label={`Toggle ${
-                resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
-              }`}
-              onClick={() =>
-                setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-              }
-            >
-              {resolvedTheme === 'dark' ? <HiSun /> : <HiMoon />}
-            </button>
-          )}
-        </div>
-      </div>
+    <header className='sticky inset-0 z-50 mt-8 flex justify-between gap-4 bg-gradient-to-b from-neutral-950 py-4'>
+      <nav className='flex grow justify-between gap-4 font-medium'>
+        <Link href='/'>
+          <h1>Tommy Chow</h1>
+        </Link>
+
+        <ul className='flex gap-4'>
+          {routes.map((route) => (
+            <li key={route}>
+              <Link
+                className={twJoin(
+                  path?.includes(route.toLowerCase()) && 'underline',
+                )}
+                href={'/' + route.toLowerCase()}
+              >
+                {route}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <ThemeToggle />
     </header>
   );
 }
