@@ -1,4 +1,4 @@
-import { type ProjectInfo } from '@/data/projects';
+import { type ProjectInfo } from '@/lib/projects';
 import { formatDateString } from '@/lib/utils';
 import Link from 'next/link';
 import { CustomImage } from './CustomImage';

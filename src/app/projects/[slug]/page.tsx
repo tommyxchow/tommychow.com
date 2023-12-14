@@ -1,7 +1,7 @@
 import { Badge } from '@/components/Badge';
 import { CustomImage } from '@/components/CustomImage';
-import projects from '@/data/projects';
-import { skills } from '@/data/skills';
+import { projects } from '@/lib/projects';
+import { skills } from '@/lib/skills';
 import { formatDateString } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 import { HiArrowTopRightOnSquare } from 'react-icons/hi2';

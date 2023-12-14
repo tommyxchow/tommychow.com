@@ -26,7 +26,7 @@ export interface ProjectInfo {
   technologies: string[];
 }
 
-export default [
+export const projects = [
   {
     name: 'Hatchet',
     thumbnail: hatchetThumbnail,
