@@ -1,10 +1,10 @@
 import { Badge } from '@/components/Badge';
 import { CustomImage } from '@/components/CustomImage';
+import { Prose } from '@/components/Prose';
 import { projects } from '@/lib/projects';
 import { skills } from '@/lib/skills';
 import { formatDateString } from '@/lib/utils';
 import { notFound } from 'next/navigation';
-import { HiArrowTopRightOnSquare } from 'react-icons/hi2';
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -22,70 +22,40 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
     : 'Ongoing';
 
   return (
-    <div className='flex flex-col gap-8'>
-      <section className='space-y-4'>
-        <div className='flex items-end justify-between'>
-          <div className='flex items-baseline gap-2 text-2xl'>
-            <h1 className='font-bold'>{project.name}</h1>
-            <time
-              className='font-medium text-neutral-600 dark:text-neutral-400'
-              dateTime={project.dateCompleted}
-            >
-              {formattedDate}
-            </time>
-          </div>
-
-          {project.links && (
-            <ul className='flex gap-2'>
-              {project.links.map((link) => (
-                <li key={link.title}>
-                  <Badge
-                    icon={<HiArrowTopRightOnSquare />}
-                    title={link.title}
-                    href={link.href}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+    <Prose>
+      <article>
+        <h2>
+          {project.name} ({formattedDate})
+        </h2>
 
         <CustomImage
           priority
           src={project.thumbnail}
           alt={`Thumbnail for ${project.name}.`}
         />
-      </section>
 
-      <section>
-        <h2>Stack</h2>
-        <ul className='flex flex-wrap gap-2'>
-          {project.technologies.map((tech) => {
-            const skill = skills.find((skill) => skill.name === tech)!;
+        {project.longDescription.split('\n').map((paragraph, index) => (
+          <p key={index}>{paragraph}</p>
+        ))}
 
-            return (
-              <li key={tech}>
-                <Badge icon={skill.icon} title={skill.name} />
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      <section>
-        <h2>Overview</h2>
-        <div className='prose prose-neutral dark:prose-invert'>
-          {project.longDescription.split('\n').map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
-      </section>
-
-      {project.screenshots && (
         <section>
-          <h2>Screenshots</h2>
-          <ul className='space-y-4'>
-            {project.screenshots.map((screenshot, index) => (
+          <h3>Stack</h3>
+          <ul className='not-prose flex flex-wrap gap-2'>
+            {project.technologies.map((tech) => {
+              const skill = skills.find((skill) => skill.name === tech)!;
+              return (
+                <li key={tech}>
+                  <Badge icon={skill.icon} title={skill.name} />
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <section>
+          <h3>Screenshots</h3>
+          <ul className='not-prose space-y-4'>
+            {project.screenshots?.map((screenshot, index) => (
               <li key={index}>
                 <CustomImage
                   src={screenshot}
@@ -95,7 +65,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             ))}
           </ul>
         </section>
-      )}
-    </div>
+      </article>
+    </Prose>
   );
 }
