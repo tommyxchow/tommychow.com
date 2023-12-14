@@ -1,4 +1,4 @@
-import CustomImage from '@/components/CustomImage';
+import { CustomImage } from '@/components/CustomImage';
 import { Prose } from '@/components/Prose';
 import keyboardPic from '../../../public/assets/images/about/keyboard-1.webp';
 

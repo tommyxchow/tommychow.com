@@ -4,7 +4,7 @@ interface BadgeProps {
   href?: string;
 }
 
-export default function Badge({ icon, title, href }: BadgeProps) {
+export function Badge({ icon, title, href }: BadgeProps) {
   if (href === undefined) {
     return (
       <div className='flex w-fit items-center gap-2 rounded-full bg-neutral-200 px-4 py-2 dark:bg-neutral-900'>

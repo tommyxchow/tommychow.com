@@ -4,12 +4,7 @@ import Image, { type ImageProps } from 'next/image';
 import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export default function CustomImage({
-  className,
-  priority,
-  alt,
-  src,
-}: ImageProps) {
+export function CustomImage({ className, priority, alt, src }: ImageProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (

@@ -1,6 +1,6 @@
 import { source } from '@/data/links';
 
-const Footer = () => {
+export function Footer() {
   return (
     <footer className='flex justify-between py-8 text-sm text-neutral-600 dark:text-neutral-400 md:px-0'>
       <p>Thanks for stopping by ❤️</p>
@@ -13,6 +13,4 @@ const Footer = () => {
       </a>
     </footer>
   );
-};
-
-export default Footer;
+}

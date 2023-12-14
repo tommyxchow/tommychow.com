@@ -1,6 +1,5 @@
-import Badge from '@/components/Badge';
-import CustomImage from '@/components/CustomImage';
-import Section from '@/components/Section';
+import { Badge } from '@/components/Badge';
+import { CustomImage } from '@/components/CustomImage';
 import projects from '@/data/projects';
 import { skills } from '@/data/skills';
 import { formatDateString } from '@/lib/utils';
@@ -58,7 +57,8 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         />
       </section>
 
-      <Section header='Stack'>
+      <section>
+        <h2>Stack</h2>
         <ul className='flex flex-wrap gap-2'>
           {project.technologies.map((tech) => {
             const skill = skills.find((skill) => skill.name === tech)!;
@@ -70,18 +70,20 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             );
           })}
         </ul>
-      </Section>
+      </section>
 
-      <Section header='Overview'>
+      <section>
+        <h2>Overview</h2>
         <div className='prose prose-neutral dark:prose-invert'>
           {project.longDescription.split('\n').map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}
         </div>
-      </Section>
+      </section>
 
       {project.screenshots && (
-        <Section header='Screenshots'>
+        <section>
+          <h2>Screenshots</h2>
           <ul className='space-y-4'>
             {project.screenshots.map((screenshot, index) => (
               <li key={index}>
@@ -92,7 +94,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               </li>
             ))}
           </ul>
-        </Section>
+        </section>
       )}
     </div>
   );

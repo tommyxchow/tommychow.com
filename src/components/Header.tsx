@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { twJoin } from 'tailwind-merge';
 import { ThemeToggle } from './ThemeToggle';
 
-export default function Header() {
+export function Header() {
   const path = usePathname();
 
   const routes = ['Projects', 'Blog', 'About'];
