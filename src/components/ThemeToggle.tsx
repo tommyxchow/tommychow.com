@@ -15,9 +15,7 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
-
-  return (
+  return mounted ? (
     <button
       aria-label={`Toggle ${
         resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
@@ -26,5 +24,7 @@ export function ThemeToggle() {
     >
       {resolvedTheme === 'dark' ? <HiSun /> : <HiMoon />}
     </button>
+  ) : (
+    <div className='w-4' />
   );
 }

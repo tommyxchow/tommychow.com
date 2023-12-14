@@ -27,21 +27,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body
-        className={twJoin(
-          'mx-auto flex min-h-screen max-w-screen-sm flex-col bg-neutral-50 px-4 font-sans text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 lg:px-0',
-          fontSans.variable,
-          fontMono.variable,
-        )}
-      >
-        <Header />
+      <Providers>
+        <body
+          className={twJoin(
+            'mx-auto flex min-h-screen max-w-screen-sm flex-col bg-neutral-50 px-4 font-sans text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 lg:px-0',
+            fontSans.variable,
+            fontMono.variable,
+          )}
+        >
+          <Header />
 
-        <div className='mt-16 grow'>
-          <Providers>{children}</Providers>
-        </div>
+          <div className='mt-16 grow'>{children}</div>
 
-        <Footer />
-      </body>
+          <Footer />
+        </body>
+      </Providers>
     </html>
   );
 }

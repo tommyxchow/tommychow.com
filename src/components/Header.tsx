@@ -11,7 +11,7 @@ export function Header() {
   const routes = ['Projects', 'Blog', 'About'];
 
   return (
-    <header className='sticky inset-0 z-50 mt-8 flex justify-between gap-4 bg-gradient-to-b from-neutral-950 py-4'>
+    <header className='sticky inset-0 z-50 mt-8 flex justify-between gap-4 bg-gradient-to-b from-neutral-50 py-4 dark:from-neutral-950'>
       <nav className='flex grow justify-between gap-4 font-medium'>
         <Link href='/'>
           <h1>Tommy Chow</h1>
