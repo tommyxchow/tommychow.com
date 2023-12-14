@@ -37,7 +37,7 @@ export default function RootLayout({
         >
           <Header />
 
-          <div className='mt-16 grow'>{children}</div>
+          <div className='grow'>{children}</div>
 
           <Footer />
         </body>

@@ -5,15 +5,16 @@ import { projects } from '@/lib/projects';
 export default function ProjectsPage() {
   return (
     <Prose>
-      <h2>Projects</h2>
-
-      <ul className='not-prose flex flex-col gap-8'>
-        {projects.map((project) => (
-          <li key={project.name}>
-            <ProjectCard project={project} />
-          </li>
-        ))}
-      </ul>
+      <article>
+        <h2>Projects</h2>
+        <ul className='not-prose flex flex-col gap-8'>
+          {projects.map((project) => (
+            <li key={project.name}>
+              <ProjectCard project={project} />
+            </li>
+          ))}
+        </ul>
+      </article>
     </Prose>
   );
 }
