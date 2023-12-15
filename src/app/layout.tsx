@@ -1,4 +1,3 @@
-import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Prose } from '@/components/Prose';
 import { Providers } from '@/components/Providers';
@@ -32,7 +31,7 @@ export default function RootLayout({
       <Providers>
         <body
           className={twJoin(
-            'mx-auto flex min-h-screen max-w-screen-sm flex-col bg-neutral-50 px-4 font-sans text-neutral-900 underline-offset-4 dark:bg-neutral-950 dark:text-neutral-100 sm:px-0',
+            'mx-auto flex min-h-screen max-w-screen-sm flex-col bg-neutral-50 px-4 pb-8 font-sans text-neutral-900 underline-offset-4 dark:bg-neutral-950 dark:text-neutral-100 sm:px-0',
             fontSans.variable,
             fontMono.variable,
           )}
@@ -44,8 +43,6 @@ export default function RootLayout({
               <article>{children}</article>
             </Prose>
           </div>
-
-          <Footer />
         </body>
       </Providers>
     </html>
