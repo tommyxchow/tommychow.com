@@ -1,5 +1,6 @@
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
+import { Prose } from '@/components/Prose';
 import { Providers } from '@/components/Providers';
 import { type Metadata } from 'next';
 import { Archivo, JetBrains_Mono } from 'next/font/google';
@@ -38,7 +39,11 @@ export default function RootLayout({
         >
           <Header />
 
-          <div className='grow'>{children}</div>
+          <div className='grow'>
+            <Prose>
+              <article>{children}</article>
+            </Prose>
+          </div>
 
           <Footer />
         </body>
