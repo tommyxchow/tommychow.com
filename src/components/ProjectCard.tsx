@@ -1,6 +1,5 @@
-import { type ProjectInfo } from '@/lib/projects';
+import { type ProjectInfo } from '@/app/projects/projects';
 import { formatDateString } from '@/lib/utils';
-import Link from 'next/link';
 import { CustomImage } from './CustomImage';
 
 interface ProjectCardProps {
@@ -10,19 +9,22 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className='not-prose flex flex-col gap-2'>
-      <Link
+      <a
         className='transition-opacity hover:opacity-50'
-        href={'/projects/' + project.id}
+        href={project.url}
+        target='_blank'
       >
         <CustomImage
           priority
           src={project.thumbnail}
           alt={`Thumbnail for ${project.name}.`}
         />
-      </Link>
+      </a>
 
       <div className='flex justify-between gap-2 text-lg font-medium'>
-        <h3>{project.name}</h3>
+        <a className='hover:underline' href={project.githubUrl} target='_blank'>
+          <h3>{project.name}</h3>
+        </a>
         <time dateTime={project.dateCompleted}>
           {project.dateCompleted
             ? formatDateString(project.dateCompleted)

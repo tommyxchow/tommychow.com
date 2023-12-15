@@ -1,6 +1,6 @@
+import { projects } from '@/app/projects/projects';
 import ProjectCard from '@/components/ProjectCard';
 import { Prose } from '@/components/Prose';
-import { projects } from '@/lib/projects';
 
 export default function ProjectsPage() {
   return (

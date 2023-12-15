@@ -1,7 +1,7 @@
+import { projects } from '@/app/projects/projects';
 import ProjectCard from '@/components/ProjectCard';
 import { Prose } from '@/components/Prose';
 import { links } from '@/lib/links';
-import { projects } from '@/lib/projects';
 
 export default function HomePage() {
   return (

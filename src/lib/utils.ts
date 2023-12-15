@@ -1,5 +1,9 @@
 export function formatDateString(date: string): string {
   const parsedDate = new Date(date);
 
-  return parsedDate.getFullYear().toString();
+  const formattedDate = `${parsedDate.toLocaleString('default', {
+    month: 'long',
+  })} ${parsedDate.getFullYear()}`;
+
+  return formattedDate;
 }
