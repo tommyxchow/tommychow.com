@@ -39,7 +39,7 @@ export const projects = [
       'Watch and chat on Twitch with your favorite third-party emotes on mobile.',
     thumbnail: frostyThumbnail,
     dateCompleted: '2023-01-15',
-    url: 'https://www.frostyapp.io/',
+    url: 'https://frostyapp.io/',
     githubUrl: 'https://github.com/tommyxchow/frosty',
     technologies: [
       'Dart',
