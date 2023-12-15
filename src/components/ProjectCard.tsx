@@ -21,8 +21,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         />
       </Link>
 
-      <div className='flex justify-between gap-2 text-lg'>
-        <h3 className='font-semibold'>{project.name}</h3>
+      <div className='flex justify-between gap-2 text-lg font-medium'>
+        <h3>{project.name}</h3>
         <time dateTime={project.dateCompleted}>
           {project.dateCompleted
             ? formatDateString(project.dateCompleted)
