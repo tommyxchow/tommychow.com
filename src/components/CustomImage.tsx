@@ -1,16 +1,15 @@
 'use client';
 
 import Image, { type ImageProps } from 'next/image';
+import { twMerge } from 'tailwind-merge';
 
-export function CustomImage({ priority, alt, src }: ImageProps) {
+export function CustomImage({ className, alt, ...rest }: ImageProps) {
   return (
     <Image
-      className='shadow-lg'
-      fill={typeof src === 'string' && true}
-      priority={priority}
+      className={twMerge('shadow-lg', className)}
       alt={alt}
-      src={src}
       placeholder='blur'
+      {...rest}
     />
   );
 }
