@@ -1,8 +1,8 @@
-import { formatDateString, getAllBlogPosts } from '@/lib/utils';
+import { formatDate, getAllBlogPosts } from '@/lib/utils';
 import Link from 'next/link';
 
-export default function BlogPage() {
-  const blogPosts = getAllBlogPosts();
+export default async function BlogPage() {
+  const blogPosts = await getAllBlogPosts();
 
   return (
     <>
@@ -13,7 +13,7 @@ export default function BlogPage() {
           <Link href={`/blog/${post.id}`}>
             <h3>{post.title}</h3>
           </Link>
-          <time>{formatDateString(post.date, true)}</time>
+          <time>{formatDate(post.date, true)}</time>
         </article>
       ))}
     </>

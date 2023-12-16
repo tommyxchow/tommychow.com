@@ -1,5 +1,5 @@
 import { type ProjectInfo } from '@/app/projects/projects';
-import { formatDateString } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import { CustomImage } from './CustomImage';
 
 interface ProjectCardProps {
@@ -27,7 +27,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </a>
         <time dateTime={project.dateCompleted}>
           {project.dateCompleted
-            ? formatDateString(project.dateCompleted)
+            ? formatDate(project.dateCompleted)
             : 'Ongoing'}
         </time>
       </div>

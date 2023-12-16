@@ -1,25 +1,26 @@
-import { formatDateString, getAllBlogPosts, getBlogPost } from '@/lib/utils';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import { formatDate, getAllBlogPosts, getBlogPost } from '@/lib/utils';
 
-export function generateStaticParams() {
-  const blogPosts = getAllBlogPosts();
+export async function generateStaticParams() {
+  const blogPosts = await getAllBlogPosts();
 
   return blogPosts.map((post) => ({
     id: post.id,
   }));
 }
 
-export default function BlogPostPage({ params }: { params: { id: string } }) {
-  const { id } = params;
-
-  const blogPost = getBlogPost(id);
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const blogPost = await getBlogPost(params.id);
 
   return (
     <>
       <h2>{blogPost.title}</h2>
-      <time>{formatDateString(blogPost.date, true)}</time>
+      <time>{formatDate(blogPost.date, true)}</time>
 
-      <MDXRemote source={blogPost.content} />
+      {blogPost.content}
     </>
   );
 }

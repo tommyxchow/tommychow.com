@@ -1,8 +1,8 @@
 import fs from 'fs';
-import matter from 'gray-matter';
+import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 
-export function formatDateString(date: string, showDays = false): string {
+export function formatDate(date: string | Date, showDays = false): string {
   const parsedDate = new Date(date);
 
   const options: Intl.DateTimeFormatOptions = {
@@ -14,35 +14,41 @@ export function formatDateString(date: string, showDays = false): string {
   return parsedDate.toLocaleDateString('default', options);
 }
 
-interface BlogPost {
-  id: string;
+interface BlogPostMetadata {
   title: string;
-  date: string;
-  content: string;
+  date: Date;
+}
+
+interface BlogPost extends BlogPostMetadata {
+  id: string;
+  content: React.ReactNode;
 }
 
 const blogPostsDirectory = path.resolve('src/app/blog/posts');
 
-export function getBlogPost(id: string): BlogPost {
-  const postFilePath = path.resolve(blogPostsDirectory, `${id}.mdx`);
+export async function getBlogPost(id: string): Promise<BlogPost> {
+  const postFilePath = path.join(blogPostsDirectory, `${id}.mdx`);
+  const source = fs.readFileSync(postFilePath, 'utf8');
 
-  const { data, content: markdownContent } = matter.read(postFilePath);
+  const { content, frontmatter } = await compileMDX<BlogPostMetadata>({
+    source,
+    options: { parseFrontmatter: true },
+  });
 
-  return {
-    id,
-    ...data,
-    content: markdownContent,
-  } as BlogPost;
+  return { id, ...frontmatter, content };
 }
 
-export function getAllBlogPosts(): BlogPost[] {
-  const postsDirectory = path.resolve(blogPostsDirectory);
+export async function getAllBlogPosts(): Promise<BlogPost[]> {
+  const postFileNames = fs.readdirSync(blogPostsDirectory);
 
-  const posts = fs.readdirSync(postsDirectory).map((post) => {
-    const id = post.replace(/\.mdx$/, '');
+  const posts = postFileNames.map((fileName) => {
+    const id = fileName.replace(/\.mdx$/, '');
 
     return getBlogPost(id);
   });
 
-  return posts;
+  const allPosts = await Promise.all(posts);
+
+  // Sort by newest.
+  return allPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
 }
