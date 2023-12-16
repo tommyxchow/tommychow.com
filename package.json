@@ -11,7 +11,9 @@
   "dependencies": {
     "@vercel/analytics": "^1.1.1",
     "framer-motion": "^10.16.5",
+    "gray-matter": "^4.0.3",
     "next": "^14.0.4",
+    "next-mdx-remote": "^4.4.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
