@@ -13,7 +13,9 @@ export default async function BlogPage() {
           <Link href={`/blog/${post.id}`}>
             <h3>{post.title}</h3>
           </Link>
-          <time>{formatDate(post.date, true)}</time>
+          <time dateTime={post.date.toISOString()}>
+            {formatDate(post.date, true)}
+          </time>
         </article>
       ))}
     </>
