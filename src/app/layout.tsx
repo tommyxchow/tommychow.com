@@ -1,6 +1,8 @@
 import { Header } from '@/components/Header';
 import { Prose } from '@/components/Prose';
 import { Providers } from '@/components/Providers';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { type Metadata } from 'next';
 import { Archivo, JetBrains_Mono } from 'next/font/google';
 import { twJoin } from 'tailwind-merge';
@@ -43,6 +45,9 @@ export default function RootLayout({
               <article>{children}</article>
             </Prose>
           </div>
+
+          <Analytics />
+          <SpeedInsights />
         </body>
       </Providers>
     </html>
