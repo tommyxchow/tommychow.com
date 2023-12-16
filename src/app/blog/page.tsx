@@ -10,8 +10,11 @@ export default async function BlogPage() {
 
       {blogPosts.map((post) => (
         <article key={post.id}>
-          <Link href={`/blog/${post.id}`}>
-            <h3>{post.title}</h3>
+          <Link
+            className='no-underline hover:underline'
+            href={`/blog/${post.id}`}
+          >
+            <h3 className='mb-2'>{post.title}</h3>
           </Link>
           <time dateTime={post.date.toISOString()}>
             {formatDate(post.date, true)}

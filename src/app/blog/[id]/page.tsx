@@ -17,7 +17,7 @@ export default async function BlogPostPage({
 
   return (
     <>
-      <h2>{blogPost.title}</h2>
+      <h2 className='mb-2'>{blogPost.title}</h2>
       <time dateTime={blogPost.date.toISOString()}>
         {formatDate(blogPost.date, true)}
       </time>
