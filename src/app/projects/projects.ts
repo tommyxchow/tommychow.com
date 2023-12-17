@@ -1,8 +1,8 @@
 import { type StaticImageData } from 'next/image';
-import frostyThumbnail from './thumbnails/frosty.webp';
-import hatchetThumbnail from './thumbnails/hatchet.webp';
-import stawksThumbnail from './thumbnails/stawks.webp';
-import vewdditThumbnail from './thumbnails/vewddit.webp';
+import frostyThumbnail from './images/frosty.webp';
+import hatchetThumbnail from './images/hatchet.webp';
+import stawksThumbnail from './images/stawks.webp';
+import vewdditThumbnail from './images/vewddit.webp';
 
 export interface ProjectInfo {
   name: string;
