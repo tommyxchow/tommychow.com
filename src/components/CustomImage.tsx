@@ -1,13 +1,26 @@
 import Image, { type ImageProps } from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
-export function CustomImage({ className, alt, ...rest }: ImageProps) {
+interface CustomImageProps extends ImageProps {
+  caption?: string;
+}
+
+export function CustomImage({
+  className,
+  alt,
+  caption,
+  ...rest
+}: CustomImageProps) {
   return (
-    <Image
-      className={twMerge('shadow-lg', className)}
-      alt={alt}
-      placeholder='blur'
-      {...rest}
-    />
+    <figure>
+      <Image
+        className={twMerge('shadow-lg', className)}
+        alt={alt}
+        placeholder='blur'
+        {...rest}
+      />
+
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
   );
 }
