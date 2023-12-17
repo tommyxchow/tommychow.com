@@ -39,7 +39,9 @@ export async function getBlogPost(id: string): Promise<BlogPost> {
 }
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const postFileNames = fs.readdirSync(blogPostsDirectory);
+  const postFileNames = fs
+    .readdirSync(blogPostsDirectory)
+    .filter((fileName) => fileName.endsWith('.mdx'));
 
   const posts = postFileNames.map((fileName) => {
     const id = fileName.replace(/\.mdx$/, '');
