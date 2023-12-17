@@ -30,14 +30,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <Providers>
-        <body
-          className={twJoin(
-            'mx-auto flex min-h-screen max-w-screen-sm flex-col bg-neutral-50 px-4 pb-8 font-sans text-neutral-900 underline-offset-4 dark:bg-neutral-950 dark:text-neutral-100 sm:px-0',
-            fontSans.variable,
-            fontMono.variable,
-          )}
-        >
+      <body
+        className={twJoin(
+          'mx-auto flex min-h-screen max-w-screen-sm flex-col bg-neutral-50 px-4 pb-8 font-sans text-neutral-900 underline-offset-4 dark:bg-neutral-950 dark:text-neutral-100 sm:px-0',
+          fontSans.variable,
+          fontMono.variable,
+        )}
+      >
+        <Providers>
           <Header />
 
           <div className='grow'>
@@ -45,11 +45,11 @@ export default function RootLayout({
               <article>{children}</article>
             </Prose>
           </div>
+        </Providers>
 
-          <Analytics />
-          <SpeedInsights />
-        </body>
-      </Providers>
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
