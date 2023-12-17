@@ -1,13 +1,17 @@
-import { formatDate, getBlogPostFrontMatter } from '@/lib/utils';
+import {
+  formatDate,
+  getAllBlogPostsFrontmatter,
+  getBlogPostFrontMatter,
+} from '@/lib/utils';
 import dynamic from 'next/dynamic';
 
-// export async function generateStaticParams() {
-//   const blogPosts = await getAllBlogPosts();
+export function generateStaticParams() {
+  const allFrontmatter = getAllBlogPostsFrontmatter();
 
-//   return blogPosts.map((post) => ({
-//     id: post.id,
-//   }));
-// }
+  return allFrontmatter.map((frontmatter) => ({
+    id: frontmatter.id,
+  }));
+}
 
 export default function BlogPost({ params }: { params: { id: string } }) {
   const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`));
