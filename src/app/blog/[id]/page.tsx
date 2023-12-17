@@ -1,19 +1,18 @@
-import { formatDate, getAllBlogPosts, getBlogPost } from '@/lib/utils';
+import { formatDate, getBlogPostFrontMatter } from '@/lib/utils';
+import dynamic from 'next/dynamic';
 
-export async function generateStaticParams() {
-  const blogPosts = await getAllBlogPosts();
+// export async function generateStaticParams() {
+//   const blogPosts = await getAllBlogPosts();
 
-  return blogPosts.map((post) => ({
-    id: post.id,
-  }));
-}
+//   return blogPosts.map((post) => ({
+//     id: post.id,
+//   }));
+// }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const blogPost = await getBlogPost(params.id);
+export default function BlogPost({ params }: { params: { id: string } }) {
+  const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`));
+
+  const blogPost = getBlogPostFrontMatter(params.id);
 
   return (
     <>
@@ -22,7 +21,7 @@ export default async function BlogPostPage({
         {formatDate(blogPost.date, true)}
       </time>
 
-      {blogPost.content}
+      <MDXPost />
     </>
   );
 }

@@ -1,8 +1,8 @@
-import { formatDate, getAllBlogPosts } from '@/lib/utils';
+import { formatDate, getAllBlogPostsFrontmatter } from '@/lib/utils';
 import Link from 'next/link';
 
-export default async function BlogPage() {
-  const blogPosts = await getAllBlogPosts();
+export default function BlogPage() {
+  const blogPosts = getAllBlogPostsFrontmatter();
 
   return (
     <>

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { compileMDX } from 'next-mdx-remote/rsc';
+import matter from 'gray-matter';
 import path from 'path';
 
 export function formatDate(date: string | Date, showDays = false): string {
@@ -14,43 +14,32 @@ export function formatDate(date: string | Date, showDays = false): string {
   return parsedDate.toLocaleDateString('default', options);
 }
 
-interface BlogPostMetadata {
+interface BlogPostFrontmatter {
   title: string;
   date: Date;
 }
 
-interface BlogPost extends BlogPostMetadata {
+interface BlogPost extends BlogPostFrontmatter {
   id: string;
-  content: React.ReactNode;
 }
 
-const blogPostsDirectory = path.resolve('src/app/blog/posts');
+const blogPostsDirectory = path.resolve('src/app/blog/_posts');
 
-export async function getBlogPost(id: string): Promise<BlogPost> {
-  const postFilePath = path.join(blogPostsDirectory, `${id}.mdx`);
-  const source = fs.readFileSync(postFilePath, 'utf8');
+export function getBlogPostFrontMatter(id: string): BlogPost {
+  const mdxFilePath = path.resolve(blogPostsDirectory, id, 'page.mdx');
 
-  const { content, frontmatter } = await compileMDX<BlogPostMetadata>({
-    source,
-    options: { parseFrontmatter: true },
-  });
+  const { data } = matter.read(mdxFilePath);
 
-  return { id, ...frontmatter, content };
+  return { id, ...(data as BlogPostFrontmatter) };
 }
 
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const postFileNames = fs
-    .readdirSync(blogPostsDirectory)
-    .filter((fileName) => fileName.endsWith('.mdx'));
+export function getAllBlogPostsFrontmatter(): BlogPost[] {
+  const postFolders = fs.readdirSync(blogPostsDirectory);
 
-  const posts = postFileNames.map((fileName) => {
-    const id = fileName.replace(/\.mdx$/, '');
-
-    return getBlogPost(id);
-  });
-
-  const allPosts = await Promise.all(posts);
+  const allFrontmatter = postFolders.map((folderName) =>
+    getBlogPostFrontMatter(folderName),
+  );
 
   // Sort by newest.
-  return allPosts.sort((a, b) => b.date.getTime() - a.date.getTime());
+  return allFrontmatter.sort((a, b) => b.date.getTime() - a.date.getTime());
 }
