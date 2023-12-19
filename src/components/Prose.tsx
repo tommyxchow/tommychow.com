@@ -7,7 +7,7 @@ export function Prose({
   return (
     <div
       className={twMerge(
-        'prose prose-neutral max-w-none dark:prose-invert prose-headings:text-neutral-900 prose-a:text-neutral-900 dark:prose-headings:text-neutral-100 dark:prose-a:text-neutral-100',
+        'prose prose-zinc max-w-none dark:prose-invert prose-headings:text-zinc-900 prose-a:text-zinc-900 dark:prose-headings:text-zinc-100 dark:prose-a:text-zinc-100',
         className,
       )}
     >
