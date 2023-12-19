@@ -10,10 +10,12 @@ import './globals.css';
 
 const fontSans = Archivo({
   subsets: ['latin'],
+  style: ['normal', 'italic'],
   variable: '--font-sans',
 });
 const fontMono = JetBrains_Mono({
   subsets: ['latin'],
+  style: ['normal', 'italic'],
   variable: '--font-mono',
 });
 
