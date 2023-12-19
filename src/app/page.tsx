@@ -15,7 +15,7 @@ export default function HomePage() {
       <p>
         I&apos;m currently actively seeking a software engineering role, ideally
         frontend-focused and hybrid/in-person within NYC. If you&apos;re hiring
-        and think I&apos;d be a good fit, please reach out!
+        and think I&apos;d be a great fit, please reach out!
       </p>
       <div className='flex flex-wrap gap-4'>
         {links.map((link) => (
