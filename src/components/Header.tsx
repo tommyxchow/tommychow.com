@@ -13,7 +13,7 @@ export function Header() {
   return (
     <header className='sticky inset-0 z-50 flex justify-between gap-4 bg-gradient-to-b from-zinc-50 py-8 dark:from-zinc-950'>
       <nav className='flex grow justify-between gap-4 font-medium uppercase'>
-        <Link href='/'>
+        <Link className='hover:underline' href='/'>
           <h1>Tommy Chow</h1>
         </Link>
 
@@ -23,7 +23,9 @@ export function Header() {
               <li key={route}>
                 <Link
                   className={twJoin(
-                    path?.includes(route.toLowerCase()) && 'underline',
+                    path?.includes(route.toLowerCase())
+                      ? 'underline'
+                      : 'hover:underline',
                   )}
                   href={'/' + route.toLowerCase()}
                 >
