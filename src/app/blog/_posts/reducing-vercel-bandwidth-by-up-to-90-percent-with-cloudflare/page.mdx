@@ -1,0 +1,23 @@
+---
+title: Reducing Vercel bandwidth by up to 90% with Cloudflare
+date: 2023-10-06
+---
+
+import bandwidthScreenshot from './bandwidth.webp';
+
+When [Google Domains was acquired by Squarespace](https://support.google.com/domains/answer/13689670) and effectively shut down, I decided to move my domains to [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/). I ultimately chose Cloudflare because of its reputation, feature parity, and cheaper costs (a blessing in disguise!).
+
+One feature I encountered when transferring my domains was the [proxy](https://developers.cloudflare.com/dns/manage-dns-records/reference/proxied-dns-records/). If enabled, Cloudflare essentially acts as a middleman, with traffic first going through their servers before hitting the origin. This lets Cloudflare provide some pretty useful features including analytics, DDoS protection, caching, and more.
+
+When I finished migrating, my average bandwidth decreased from around 500 MB per day to around 50 MB, a 90% reduction. Of course, this can vary based on traffic and other factors, but the results are very promising so far.
+
+So if you're reaching the bandwidth limit on Vercel (or any other provider) and don't want to overpay, enabling the proxy can yield some pretty massive savings. Large assets like videos or images will be cached on their CDN, **all for free with no bandwidth limits**.
+
+**Bonus**: another setting that's included in the free plan is the [tiered cache](https://developers.cloudflare.com/cache/how-to/tiered-cache/). When enabled, instead of hitting your origin immediately on a cache miss, Cloudflare will first look through tiers of their data centers for a cache hit, further reducing requests to your origin.
+
+<CustomImage
+  src={bandwidthScreenshot}
+  alt='A screenshot of the bandwidth usage chart on the Vercel Dashboard.'
+  caption='My results from the Vercel dashboard. I migrated to Cloudflare on September 20 and enabled multi-tiered caching on September 23.'
+  priority
+/>

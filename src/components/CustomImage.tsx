@@ -1,21 +1,26 @@
 import Image, { type ImageProps } from 'next/image';
-import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-export default function CustomImage({ priority, alt, src }: ImageProps) {
-  const [isLoading, setIsLoading] = useState(true);
+interface CustomImageProps extends ImageProps {
+  caption?: string;
+}
 
+export function CustomImage({
+  className,
+  alt,
+  caption,
+  ...rest
+}: CustomImageProps) {
   return (
-    <Image
-      className={`rounded-xl shadow-xl transition duration-500 ease-out ${
-        isLoading ? 'opacity-0' : 'opacity-100'
-      }`}
-      fill={typeof src === 'string' && true}
-      priority={priority}
-      onLoadingComplete={() => setIsLoading(false)}
-      alt={alt}
-      src={src}
-      quality={100}
-      sizes='(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw'
-    />
+    <figure>
+      <Image
+        className={twMerge('shadow-lg', className)}
+        alt={alt}
+        placeholder='blur'
+        {...rest}
+      />
+
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
   );
 }

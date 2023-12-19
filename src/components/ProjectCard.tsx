@@ -1,7 +1,6 @@
-import Link from 'next/link';
-import { formatDateString } from '../common';
-import { type ProjectInfo } from '../data/projects';
-import CustomImage from './CustomImage';
+import { type ProjectInfo } from '@/app/projects/projects';
+import { formatDate } from '@/lib/utils';
+import { CustomImage } from './CustomImage';
 
 interface ProjectCardProps {
   project: ProjectInfo;
@@ -9,37 +8,29 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <div
-      className='not-prose relative aspect-video overflow-hidden rounded-xl shadow-xl transition duration-300 hover:opacity-60 active:scale-95 active:shadow-none'
-      id={project.id}
-    >
-      <Link
-        className='absolute inset-0 z-10 flex flex-col justify-end bg-gradient-to-t from-black to-50% p-4 transition'
-        href={'/projects/' + project.id}
+    <article className='not-prose flex flex-col gap-2'>
+      <a
+        className='transition-opacity hover:opacity-50'
+        href={project.url}
+        target='_blank'
       >
-        <div className='flex flex-col text-neutral-200'>
-          <div className='flex items-baseline gap-2 text-lg'>
-            <h2 className='font-bold'>{project.name}</h2>
-            <time
-              className='font-medium opacity-60'
-              dateTime={project.dateCompleted}
-            >
-              {project.dateCompleted
-                ? formatDateString(project.dateCompleted)
-                : 'Ongoing'}
-            </time>
-          </div>
-          <p className='hidden font-medium opacity-60 sm:block'>
-            {project.shortDescription}
-          </p>
-        </div>
-      </Link>
+        <CustomImage
+          priority
+          src={project.thumbnail}
+          alt={`Thumbnail for ${project.name}.`}
+        />
+      </a>
 
-      <CustomImage
-        priority
-        src={project.thumbnail}
-        alt={`Thumbnail for ${project.name}.`}
-      />
-    </div>
+      <div className='flex justify-between gap-2 font-medium'>
+        <a className='hover:underline' href={project.githubUrl} target='_blank'>
+          <h3>{project.name}</h3>
+        </a>
+        <time dateTime={project.dateCompleted}>
+          {project.dateCompleted
+            ? formatDate(project.dateCompleted)
+            : 'Ongoing'}
+        </time>
+      </div>
+    </article>
   );
 }

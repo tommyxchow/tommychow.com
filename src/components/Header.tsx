@@ -1,38 +1,43 @@
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { HiMoon, HiSun } from 'react-icons/hi2';
-import NavBar from './NavBar';
+'use client';
 
-export default function Header() {
-  const { resolvedTheme, setTheme } = useTheme();
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { twJoin } from 'tailwind-merge';
+import { ThemeToggle } from './ThemeToggle';
 
-  // Wait until the component is mounted to set the theme.
-  // This prevents a hydration error.
-  const [mounted, setMounted] = useState(false);
+export function Header() {
+  const path = usePathname();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const routes = ['Projects', 'Blog', 'About'];
 
   return (
-    <header className='sticky inset-0 z-50 w-full rounded-b-xl bg-gradient-to-b from-neutral-100 dark:from-neutral-950'>
-      <div className='mt-4 w-full rounded-xl bg-neutral-200 p-4 shadow-lg dark:bg-neutral-900 sm:mt-8'>
-        <div className='flex justify-between'>
-          <NavBar />
-          {mounted && (
-            <button
-              aria-label={`Toggle ${
-                resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
-              }`}
-              onClick={() =>
-                setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
-              }
-            >
-              {resolvedTheme === 'dark' ? <HiSun /> : <HiMoon />}
-            </button>
-          )}
+    <header className='sticky inset-0 z-50 flex justify-between gap-4 bg-gradient-to-b from-zinc-50 py-8 dark:from-zinc-950'>
+      <nav className='flex grow justify-between gap-4 font-medium uppercase'>
+        <Link className='hover:underline' href='/'>
+          <h1>Tommy Chow</h1>
+        </Link>
+
+        <div className='flex items-center gap-4 self-start'>
+          <ul className='flex gap-4'>
+            {routes.map((route) => (
+              <li key={route}>
+                <Link
+                  className={twJoin(
+                    path?.includes(route.toLowerCase())
+                      ? 'underline'
+                      : 'hover:underline',
+                  )}
+                  href={'/' + route.toLowerCase()}
+                >
+                  {route}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <ThemeToggle />
         </div>
-      </div>
+      </nav>
     </header>
   );
 }
