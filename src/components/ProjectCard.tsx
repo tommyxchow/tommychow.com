@@ -21,7 +21,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         />
       </a>
 
-      <div className='flex justify-between gap-2 text-lg font-medium'>
+      <div className='flex justify-between gap-2'>
         <a className='hover:underline' href={project.githubUrl} target='_blank'>
           <h3>{project.name}</h3>
         </a>

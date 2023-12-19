@@ -6,17 +6,17 @@ export default function HomePage() {
   return (
     <>
       <h2>I&apos;m Tommy, a software engineer based in NYC.</h2>
-
       <p>
-        I focus on the frontend and specialize in mobile, web, and
-        cross-platform development.
+        I specialize in building performant, polished, user-friendly mobile and
+        web apps. I generally work with Flutter, Next.js, React Native, and
+        SwiftUI, but am always researching and learning new tech stacks. I also
+        enjoy exploring UI/UX design principles and patterns.
       </p>
-
       <p>
-        I&apos;m currently looking for a frontend-focused software engineering
-        role, prefably hybrid or in-person within New York City.
+        I&apos;m currently actively seeking a software engineering role, ideally
+        frontend-focused and hybrid/in-person within NYC. If you&apos;re hiring
+        and think I&apos;d be a good fit, please reach out!
       </p>
-
       <div className='flex flex-wrap gap-4'>
         {links.map((link) => (
           <a
@@ -35,7 +35,7 @@ export default function HomePage() {
         <h3>Featured</h3>
         <div className='flex flex-col gap-8'>
           <ProjectCard project={projects[0]} />
-          <ProjectCard project={projects[3]} />
+          <ProjectCard project={projects[2]} />
         </div>
       </section>
     </>
