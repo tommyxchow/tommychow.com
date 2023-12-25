@@ -1,3 +1,4 @@
+import { remarkCodeHike } from '@code-hike/mdx';
 import createMDX from '@next/mdx';
 import remarkFrontmatter from 'remark-frontmatter';
 
@@ -8,7 +9,17 @@ const nextConfig = {
 
 const withMDX = createMDX({
   options: {
-    remarkPlugins: [remarkFrontmatter],
+    remarkPlugins: [
+      remarkFrontmatter,
+      [
+        remarkCodeHike,
+        {
+          theme: 'github-from-css',
+          lineNumbers: true,
+          showCopyButton: true,
+        },
+      ],
+    ],
   },
 });
 

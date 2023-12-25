@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header';
 import { Prose } from '@/components/Prose';
 import { Providers } from '@/components/Providers';
+import '@code-hike/mdx/dist/index.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { type Metadata } from 'next';
