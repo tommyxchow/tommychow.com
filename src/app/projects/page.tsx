@@ -1,5 +1,10 @@
 import { projects } from '@/app/projects/projects';
 import ProjectCard from '@/components/ProjectCard';
+import { type Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Projects | Tommy Chow',
+};
 
 export default function ProjectsPage() {
   return (

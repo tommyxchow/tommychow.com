@@ -1,5 +1,10 @@
 import { formatDate, getAllBlogPostsFrontmatter } from '@/lib/utils';
+import { type Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Blog | Tommy Chow',
+};
 
 export default function BlogPage() {
   const blogPosts = getAllBlogPostsFrontmatter();
