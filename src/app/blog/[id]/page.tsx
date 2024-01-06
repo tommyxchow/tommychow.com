@@ -5,6 +5,7 @@ import {
 } from '@/lib/utils';
 import { type Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
 
 interface PageParams {
   params: { id: string };
@@ -29,18 +30,22 @@ export function generateMetadata({ params }: PageParams): Metadata {
 }
 
 export default function BlogPost({ params }: PageParams) {
-  const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`));
+  try {
+    const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`));
 
-  const blogPost = getBlogPostFrontMatter(params.id);
+    const blogPost = getBlogPostFrontMatter(params.id);
 
-  return (
-    <>
-      <h2 className='mb-2'>{blogPost.title}</h2>
-      <time dateTime={blogPost.date.toISOString()}>
-        {formatDate(blogPost.date, true)}
-      </time>
+    return (
+      <>
+        <h2 className='mb-2'>{blogPost.title}</h2>
+        <time dateTime={blogPost.date.toISOString()}>
+          {formatDate(blogPost.date, true)}
+        </time>
 
-      <MDXPost />
-    </>
-  );
+        <MDXPost />
+      </>
+    );
+  } catch {
+    notFound();
+  }
 }
