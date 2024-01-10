@@ -47,6 +47,9 @@ dependencies:
   remark-frontmatter:
     specifier: ^5.0.0
     version: 5.0.0
+  server-only:
+    specifier: ^0.0.1
+    version: 0.0.1
   tailwind-merge:
     specifier: ^2.2.0
     version: 2.2.0

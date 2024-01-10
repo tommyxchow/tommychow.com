@@ -1,8 +1,8 @@
 import {
-  formatDate,
   getAllBlogPostsFrontmatter,
   getBlogPostFrontMatter,
-} from '@/lib/utils';
+} from '@/lib/server-utils';
+import { formatDate } from '@/lib/utils';
 import { type Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';

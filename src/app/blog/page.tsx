@@ -1,4 +1,5 @@
-import { formatDate, getAllBlogPostsFrontmatter } from '@/lib/utils';
+import { getAllBlogPostsFrontmatter } from '@/lib/server-utils';
+import { formatDate } from '@/lib/utils';
 import { type Metadata } from 'next';
 import Link from 'next/link';
 
