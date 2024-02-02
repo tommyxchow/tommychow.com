@@ -17,6 +17,7 @@ export function ThemeToggle() {
 
   return mounted ? (
     <button
+      className='transition animate-in fade-in hover:opacity-50'
       aria-label={`Toggle ${
         resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
       }`}
