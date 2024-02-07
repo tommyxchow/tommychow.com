@@ -1,11 +1,14 @@
 import { twJoin } from 'tailwind-merge';
 
-interface UnderlineProps {
+interface HoverUnderlineProps {
   showUnderline?: boolean;
   children: React.ReactNode;
 }
 
-export function HoverUnderline({ showUnderline, children }: UnderlineProps) {
+export function HoverUnderline({
+  showUnderline,
+  children,
+}: HoverUnderlineProps) {
   return (
     <div
       className={twJoin(
