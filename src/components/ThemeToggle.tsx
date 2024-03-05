@@ -7,25 +7,23 @@ import { HiMoon, HiSun } from 'react-icons/hi2';
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
 
-  // Wait until the component is mounted to set the theme.
-  // This prevents a hydration error.
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  return mounted ? (
+  if (!mounted) return <div className='w-4' />;
+
+  const isDarkMode = resolvedTheme === 'dark';
+
+  return (
     <button
-      className='transition animate-in fade-in hover:opacity-50'
-      aria-label={`Toggle ${
-        resolvedTheme === 'dark' ? 'light mode' : 'dark mode'
-      }`}
-      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className='transition-opacity animate-in fade-in hover:opacity-50'
+      aria-label={`Toggle ${isDarkMode ? 'light mode' : 'dark mode'}`}
+      onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
     >
-      {resolvedTheme === 'dark' ? <HiSun /> : <HiMoon />}
+      {isDarkMode ? <HiSun /> : <HiMoon />}
     </button>
-  ) : (
-    <div className='w-4' />
   );
 }
