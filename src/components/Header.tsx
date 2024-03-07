@@ -12,7 +12,7 @@ export function Header() {
 
   return (
     <header className='sticky inset-0 z-50 flex justify-between gap-4 bg-gradient-to-b from-zinc-50 py-8 dark:from-zinc-950'>
-      <nav className='flex grow justify-between gap-4 font-medium [font-variation-settings:"wdth"_112.5]'>
+      <nav className='flex grow justify-between gap-4 font-medium [font-variation-settings:"wdth"_125]'>
         <Link href='/'>
           <HoverUnderline>
             <h1>Tommy Chow</h1>

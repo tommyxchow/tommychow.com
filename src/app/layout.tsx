@@ -5,19 +5,17 @@ import '@code-hike/mdx/dist/index.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { type Metadata } from 'next';
-import { Archivo, JetBrains_Mono } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { twJoin } from 'tailwind-merge';
 import './globals.css';
 
-const fontSans = Archivo({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  axes: ['wdth'],
+const fontSans = localFont({
+  src: './Mona-Sans.woff2',
   variable: '--font-sans',
 });
 const fontMono = JetBrains_Mono({
   subsets: ['latin'],
-  style: ['normal', 'italic'],
   variable: '--font-mono',
 });
 
