@@ -5,13 +5,21 @@ import { links } from '@/lib/links';
 export default function HomePage() {
   return (
     <>
-      <h2>I&apos;m Tommy, a software engineer at Tesla</h2>
+      <h2>Hello! I&apos;m Tommy, a frontend software engineer</h2>
       <p>
         I specialize in building performant, polished, user-friendly mobile and
-        web apps. I generally work with Flutter, Next.js, React Native, and
-        SwiftUI, but am always researching and learning new tech stacks. I also
-        enjoy exploring UI/UX design principles and patterns.
+        web apps. I generally work with Flutter, Next.js, React/React Native,
+        and SwiftUI, but am always researching and learning new tech stacks. I
+        also enjoy exploring UI/UX design principles and patterns.
       </p>
+      <p>
+        Currently, I&apos;m a software engineer at{' '}
+        <a href='https://www.tesla.com/about' target='_blank'>
+          Tesla
+        </a>{' '}
+        on the Vehicle Engineering team.
+      </p>
+
       <div className='flex flex-wrap gap-4'>
         {links.map((link) => (
           <a
