@@ -10,7 +10,7 @@ export function HoverUnderline({
   children,
 }: HoverUnderlineProps) {
   return (
-    <div
+    <span
       className={twJoin(
         'border-b border-zinc-900 transition-colors hover:border-opacity-100 dark:border-zinc-50 dark:hover:border-opacity-100',
         showUnderline
@@ -19,6 +19,6 @@ export function HoverUnderline({
       )}
     >
       {children}
-    </div>
+    </span>
   );
 }
