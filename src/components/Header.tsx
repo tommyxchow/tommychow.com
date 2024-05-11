@@ -8,7 +8,7 @@ import { ThemeToggle } from './ThemeToggle';
 export function Header() {
   const path = usePathname();
 
-  const routes = ['Projects', 'Blog', 'About'];
+  const routes = ['Blog', 'About'];
 
   return (
     <header className='sticky inset-0 z-50 flex justify-between gap-4 bg-gradient-to-b from-zinc-50 py-8 dark:from-zinc-950'>
