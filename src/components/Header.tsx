@@ -8,34 +8,26 @@ import { ThemeToggle } from './ThemeToggle';
 export function Header() {
   const path = usePathname();
 
-  const routes = ['Blog', 'About'];
+  const routes = ['Home', 'Projects', 'Blog'] as const;
 
   return (
     <header className='sticky inset-0 z-50 flex justify-between gap-4 bg-gradient-to-b from-zinc-50 py-8 dark:from-zinc-950'>
       <nav className='flex grow justify-between gap-4 font-medium'>
-        <Link href='/'>
-          <HoverUnderline>
-            <h1>Tommy Chow</h1>
-          </HoverUnderline>
-        </Link>
+        <ul className='flex gap-4'>
+          {routes.map((route) => (
+            <li key={route}>
+              <Link href={`/${route === 'Home' ? '' : route.toLowerCase()}`}>
+                <HoverUnderline
+                  showUnderline={path?.includes(route.toLowerCase())}
+                >
+                  {route}
+                </HoverUnderline>
+              </Link>
+            </li>
+          ))}
+        </ul>
 
-        <div className='flex items-center gap-4 self-start'>
-          <ul className='flex gap-4'>
-            {routes.map((route) => (
-              <li key={route}>
-                <Link href={'/' + route.toLowerCase()}>
-                  <HoverUnderline
-                    showUnderline={path?.includes(route.toLowerCase())}
-                  >
-                    {route}
-                  </HoverUnderline>
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <ThemeToggle />
-        </div>
+        <ThemeToggle />
       </nav>
     </header>
   );
