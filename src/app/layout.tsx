@@ -5,13 +5,12 @@ import '@code-hike/mdx/dist/index.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { type Metadata } from 'next';
-import { JetBrains_Mono } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Figtree, JetBrains_Mono } from 'next/font/google';
 import { twJoin } from 'tailwind-merge';
 import './globals.css';
 
-const fontSans = localFont({
-  src: './Mona-Sans.woff2',
+const fontSans = Figtree({
+  subsets: ['latin'],
   variable: '--font-sans',
 });
 const fontMono = JetBrains_Mono({
@@ -42,11 +41,11 @@ export default function RootLayout({
         <Providers>
           <Header />
 
-          <div className='grow'>
+          <main className='grow'>
             <Prose>
               <article>{children}</article>
             </Prose>
-          </div>
+          </main>
         </Providers>
 
         <Analytics />

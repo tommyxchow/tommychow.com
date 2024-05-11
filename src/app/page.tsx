@@ -5,7 +5,7 @@ import { links } from '@/lib/links';
 export default function HomePage() {
   return (
     <>
-      <h2>Hello! I&apos;m Tommy, a frontend software engineer</h2>
+      <h2>Hello! I&apos;m Tommy, a frontend software engineer.</h2>
       <p>
         I specialize in building performant, polished, user-friendly mobile and
         web apps. I generally work with Flutter, Next.js, React/React Native,
