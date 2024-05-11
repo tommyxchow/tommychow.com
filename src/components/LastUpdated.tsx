@@ -10,7 +10,7 @@ export function LastUpdated() {
   });
 
   return (
-    <p className='text-sm opacity-60'>
+    <p>
       Last updated on{' '}
       <HoverUnderline>
         <a href={githubLink} target='_blank'>
