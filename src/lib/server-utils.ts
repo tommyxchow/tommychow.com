@@ -9,7 +9,7 @@ interface BlogPostFrontmatter {
   date: Date;
 }
 
-interface BlogPost extends BlogPostFrontmatter {
+export interface BlogPost extends BlogPostFrontmatter {
   id: string;
 }
 
