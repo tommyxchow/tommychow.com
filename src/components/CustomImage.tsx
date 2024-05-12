@@ -8,7 +8,7 @@ export function CustomImage({ alt, caption, ...rest }: CustomImageProps) {
   return (
     <figure>
       <Image
-        className='rounded-md shadow-lg'
+        className='rounded shadow-lg'
         alt={alt}
         placeholder='blur'
         {...rest}

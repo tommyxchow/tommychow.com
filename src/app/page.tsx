@@ -1,46 +1,55 @@
 import { projects } from '@/app/projects/projects';
+import BlogPostCard from '@/components/BlogPostCard';
+import { HoverUnderline } from '@/components/HoverUnderline';
 import ProjectCard from '@/components/ProjectCard';
-import { links } from '@/lib/links';
+import { Prose } from '@/components/Prose';
+import { getAllBlogPostsFrontmatter } from '@/lib/server-utils';
 
 export default function HomePage() {
+  const blogPosts = getAllBlogPostsFrontmatter();
+
   return (
-    <>
-      <h2>Hello! I&apos;m Tommy, a frontend software engineer.</h2>
-      <p>
-        I specialize in building performant, polished, user-friendly mobile and
-        web apps. I generally work with Flutter, Next.js, React/React Native,
-        and SwiftUI, but am always researching and learning new tech stacks. I
-        also enjoy exploring UI/UX design principles and patterns.
-      </p>
-      <p>
-        Currently, I&apos;m a software engineer at{' '}
-        <a href='https://www.tesla.com/about' target='_blank'>
-          Tesla
-        </a>{' '}
-        on the Vehicle Engineering team.
-      </p>
-
-      <div className='flex flex-wrap gap-4'>
-        {links.map((link) => (
-          <a
-            className='flex items-center gap-2'
-            key={link.title}
-            href={link.href}
-            target='_blank'
-          >
-            {link.icon}
-            {link.title}
+    <div className='mt-8 flex flex-col gap-16'>
+      <hgroup className='flex flex-col items-baseline gap-2'>
+        <h1 className='text-xl font-bold'>Tommy Chow</h1>
+        <p className='text-lg font-medium text-zinc-500 dark:text-zinc-400'>
+          Software engineer at{' '}
+          <a href='https://www.tesla.com/about' target='_blank'>
+            <HoverUnderline>Tesla</HoverUnderline>
           </a>
-        ))}
-      </div>
+        </p>
+      </hgroup>
 
-      <section>
-        <h3>Featured</h3>
-        <div className='flex flex-col gap-8'>
-          <ProjectCard project={projects[0]} />
-          <ProjectCard project={projects[2]} />
-        </div>
+      <Prose>
+        <p>
+          I design and engineer mobile and web apps. I lean towards building
+          modern, minimalistic, and practical user interfaces with performance,
+          semantics, and accessibility always in mind. I&apos;m also a
+          mechanical keyboard enthusiast and Counter-Strike 2 skins enjoyer.
+        </p>
+      </Prose>
+
+      <section className='flex flex-col gap-4'>
+        <h2 className='text-xl font-semibold'>Blog</h2>
+        <ul>
+          {blogPosts.map((post) => (
+            <li key={post.id}>
+              <BlogPostCard {...post} />
+            </li>
+          ))}
+        </ul>
       </section>
-    </>
+
+      <section className='flex flex-col gap-4'>
+        <h2 className='text-xl font-semibold'>Projects</h2>
+        <ul>
+          {projects.map((project) => (
+            <li key={project.name}>
+              <ProjectCard {...project} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 }

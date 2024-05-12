@@ -13,13 +13,13 @@ export function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className='w-4' />;
+  if (!mounted) return <div className='size-4' />;
 
   const isDarkMode = resolvedTheme === 'dark';
 
   return (
     <button
-      className='pb-0.5 transition-opacity animate-in fade-in hover:opacity-50'
+      className='transition-opacity duration-300 ease-out animate-in fade-in hover:opacity-50'
       aria-label={`Toggle ${isDarkMode ? 'light mode' : 'dark mode'}`}
       onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
     >

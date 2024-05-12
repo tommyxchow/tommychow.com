@@ -1,4 +1,4 @@
-import { githubLink } from '@/lib/links';
+import { repoLink } from '@/lib/links';
 import { HoverUnderline } from './HoverUnderline';
 
 export function LastUpdated() {
@@ -13,7 +13,7 @@ export function LastUpdated() {
     <p>
       Last updated on{' '}
       <HoverUnderline>
-        <a href={githubLink} target='_blank'>
+        <a href={repoLink} target='_blank'>
           {formattedDate}
         </a>
       </HoverUnderline>

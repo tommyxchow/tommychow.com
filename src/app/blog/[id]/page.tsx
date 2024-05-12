@@ -1,3 +1,4 @@
+import { Prose } from '@/components/Prose';
 import {
   getAllBlogPostsFrontmatter,
   getBlogPostFrontMatter,
@@ -36,14 +37,19 @@ export default function BlogPost({ params }: PageParams) {
     const blogPost = getBlogPostFrontMatter(params.id);
 
     return (
-      <>
-        <h2 className='mb-2'>{blogPost.title}</h2>
-        <time dateTime={blogPost.date.toISOString()}>
+      <Prose>
+        <h1 className='mb-2 mt-8'>{blogPost.title}</h1>
+        <time
+          className='text-lg font-medium text-zinc-500 dark:text-zinc-400'
+          dateTime={blogPost.date.toISOString()}
+        >
           {formatDate(blogPost.date, true)}
         </time>
 
-        <MDXPost />
-      </>
+        <div className='mt-16'>
+          <MDXPost />
+        </div>
+      </Prose>
     );
   } catch {
     notFound();

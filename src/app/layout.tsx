@@ -1,6 +1,5 @@
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { Prose } from '@/components/Prose';
 import { Providers } from '@/components/Providers';
 import '@code-hike/mdx/dist/index.css';
 import { Analytics } from '@vercel/analytics/react';
@@ -43,9 +42,7 @@ export default function RootLayout({
           <Header />
 
           <main className='grow'>
-            <Prose>
-              <article>{children}</article>
-            </Prose>
+            <article>{children}</article>
           </main>
 
           <Footer />

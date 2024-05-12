@@ -16,24 +16,6 @@ export interface ProjectInfo {
 
 export const projects = [
   {
-    name: 'Hatchet',
-    description: 'A fast, modern, and simple web client for Hacker News.',
-    thumbnail: hatchetThumbnail,
-    dateCompleted: '2023-12-01',
-    url: 'https://hatchetnews.vercel.app/',
-    githubUrl: 'https://github.com/tommyxchow/hatchet',
-    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
-  },
-  {
-    name: 'Vewddit',
-    description: 'A web app for Reddit focused on browsing visual media.',
-    thumbnail: vewdditThumbnail,
-    dateCompleted: '2023-11-01',
-    url: 'https://vewddit.vercel.app/',
-    githubUrl: 'https://github.com/tommyxchow/vewddit',
-    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
-  },
-  {
     name: 'Frosty',
     description:
       'Watch and chat on Twitch with your favorite third-party emotes on mobile.',
@@ -50,6 +32,24 @@ export const projects = [
       'GitHub Actions',
       'MobX',
     ],
+  },
+  {
+    name: 'Hatchet',
+    description: 'A fast, modern, and simple web client for Hacker News.',
+    thumbnail: hatchetThumbnail,
+    dateCompleted: '2023-12-01',
+    url: 'https://hatchetnews.vercel.app/',
+    githubUrl: 'https://github.com/tommyxchow/hatchet',
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
+  },
+  {
+    name: 'Vewddit',
+    description: 'A web app for Reddit focused on browsing visual media.',
+    thumbnail: vewdditThumbnail,
+    dateCompleted: '2023-11-01',
+    url: 'https://vewddit.vercel.app/',
+    githubUrl: 'https://github.com/tommyxchow/vewddit',
+    technologies: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
   },
   {
     name: 'Stawks',

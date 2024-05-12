@@ -1,15 +1,16 @@
 import { FaEnvelope } from 'react-icons/fa';
 import { SiGithub, SiLinkedin } from 'react-icons/si';
 
+export const repoLink = 'https://github.com/tommyxchow/tommychow.com';
 export const githubLink = 'https://github.com/tommyxchow';
 export const linkedInLink = 'https://linkedin.com/in/tommy-chow/';
 export const email = 'tommyxchow@gmail.com';
 
 export const links: LinkInfo[] = [
   {
-    icon: <SiLinkedin />,
-    title: 'LinkedIn',
-    href: linkedInLink,
+    icon: <FaEnvelope />,
+    title: 'Email',
+    href: `mailto:${email}`,
   },
   {
     icon: <SiGithub />,
@@ -17,9 +18,9 @@ export const links: LinkInfo[] = [
     href: githubLink,
   },
   {
-    icon: <FaEnvelope />,
-    title: 'Email',
-    href: `mailto:${email}`,
+    icon: <SiLinkedin />,
+    title: 'LinkedIn',
+    href: linkedInLink,
   },
 ];
 

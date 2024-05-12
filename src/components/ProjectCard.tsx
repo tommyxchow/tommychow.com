@@ -1,36 +1,31 @@
 import { type ProjectInfo } from '@/app/projects/projects';
-import { formatDate } from '@/lib/utils';
 import { CustomImage } from './CustomImage';
 
-interface ProjectCardProps {
-  project: ProjectInfo;
-}
-
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({
+  name,
+  description,
+  thumbnail,
+  url,
+}: ProjectInfo) {
   return (
-    <article className='not-prose flex flex-col gap-2'>
-      <a
-        className='transition-opacity hover:opacity-50'
-        href={project.url}
-        target='_blank'
-      >
-        <CustomImage
-          priority
-          src={project.thumbnail}
-          alt={`Thumbnail for ${project.name}.`}
-        />
-      </a>
+    <a aria-labelledby={name} href={url} target='_blank'>
+      <article className='-mx-4 flex flex-col gap-4 rounded-lg p-4 transition-[background] hover:bg-zinc-100 hover:dark:bg-zinc-900 sm:flex-row sm:items-center'>
+        <div className='sm:w-1/3 sm:shrink-0'>
+          <CustomImage
+            priority
+            src={thumbnail}
+            alt={`Thumbnail for ${name}.`}
+          />
+        </div>
 
-      <div className='flex justify-between gap-2 font-medium'>
-        <a className='hover:underline' href={project.githubUrl} target='_blank'>
-          <h3>{project.name}</h3>
-        </a>
-        <time dateTime={project.dateCompleted}>
-          {project.dateCompleted
-            ? formatDate(project.dateCompleted)
-            : 'Ongoing'}
-        </time>
-      </div>
-    </article>
+        <div className='flex flex-col gap-2 sm:justify-evenly'>
+          <h3 id={name} className='font-semibold'>
+            {name}
+          </h3>
+
+          <p className='text-zinc-500 dark:text-zinc-400'>{description}</p>
+        </div>
+      </article>
+    </a>
   );
 }
