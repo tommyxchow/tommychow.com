@@ -16,7 +16,7 @@ export const projects = [
   {
     name: 'Frosty',
     description:
-      'Watch Twitch streams on iOS and Android with third-party emote support.',
+      'Watch Twitch streams and chat with third-party emotes on iOS and Android.',
     thumbnail: frostyThumbnail,
     url: 'https://frostyapp.io/',
     githubUrl: 'https://github.com/tommyxchow/frosty',
