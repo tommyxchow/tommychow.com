@@ -14,9 +14,11 @@ export default function HomePage() {
         <h1 className='text-xl font-bold'>Tommy Chow</h1>
         <p className='text-lg font-medium text-zinc-500 dark:text-zinc-400'>
           Software engineer at{' '}
-          <a href='https://www.tesla.com/about' target='_blank'>
-            <HoverUnderline>Tesla</HoverUnderline>
-          </a>
+          <HoverUnderline>
+            <a href='https://www.tesla.com/about' target='_blank'>
+              Tesla
+            </a>
+          </HoverUnderline>
         </p>
       </hgroup>
 

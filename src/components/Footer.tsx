@@ -8,9 +8,11 @@ export function Footer() {
       <ul className='flex gap-4'>
         {links.map((link) => (
           <li key={link.title}>
-            <a href={link.href} target='_blank'>
-              <HoverUnderline>{link.title}</HoverUnderline>
-            </a>
+            <HoverUnderline>
+              <a href={link.href} target='_blank'>
+                {link.title}
+              </a>
+            </HoverUnderline>
           </li>
         ))}
       </ul>
