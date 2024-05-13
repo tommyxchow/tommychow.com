@@ -21,7 +21,7 @@ const fontMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://tommychow.com'),
   title: 'Tommy Chow',
-  description: "Hello! I'm Tommy, a frontend software engineer.",
+  description: 'Mobile & web engineer.',
 };
 
 export default function RootLayout({

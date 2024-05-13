@@ -6,6 +6,7 @@ import path from 'path';
 
 interface BlogPostFrontmatter {
   title: string;
+  summary: string;
   date: Date;
 }
 

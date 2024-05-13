@@ -26,7 +26,7 @@ export function generateMetadata({ params }: PageParams): Metadata {
 
   return {
     title: `${frontmatter?.title} | Tommy Chow`,
-    description: null,
+    description: frontmatter?.summary,
   };
 }
 
