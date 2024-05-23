@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://tommychow.com'),
   title: 'Tommy Chow',
   description: 'Mobile & web engineer.',
+  openGraph: {
+    url: 'https://tommychow.com',
+  },
 };
 
 export default function RootLayout({
