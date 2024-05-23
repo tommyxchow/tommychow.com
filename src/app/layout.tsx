@@ -19,11 +19,11 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://tommychow.com'),
+  metadataBase: new URL('https://www.tommychow.com'),
   title: 'Tommy Chow',
   description: 'Mobile & web engineer.',
   openGraph: {
-    url: 'https://tommychow.com',
+    url: 'https://www.tommychow.com',
   },
 };
 

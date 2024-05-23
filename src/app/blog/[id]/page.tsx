@@ -28,7 +28,7 @@ export function generateMetadata({ params }: PageParams): Metadata {
     title: `${frontmatter?.title} | Tommy Chow`,
     description: frontmatter?.summary,
     openGraph: {
-      url: `https://tommychow.com/blog/${params.id}`,
+      url: `https://www.tommychow.com/blog/${params.id}`,
     },
   };
 }
