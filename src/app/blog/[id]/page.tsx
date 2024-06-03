@@ -43,7 +43,7 @@ export default function BlogPost({ params }: PageParams) {
       <Prose>
         <h1 className='mb-2 mt-8'>{blogPost.title}</h1>
         <time
-          className='text-lg font-medium text-zinc-500 dark:text-zinc-400'
+          className='text-zinc-500 dark:text-zinc-400'
           dateTime={blogPost.date.toISOString()}
         >
           {formatDate(blogPost.date, true)}

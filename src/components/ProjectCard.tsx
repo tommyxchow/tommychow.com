@@ -19,7 +19,7 @@ export default function ProjectCard({
         </div>
 
         <div className='flex flex-col gap-2 sm:justify-evenly'>
-          <h3 id={name} className='font-semibold'>
+          <h3 id={name} className='text-lg font-semibold'>
             {name}
           </h3>
 

@@ -12,7 +12,7 @@ export default function HomePage() {
     <div className='mt-8 flex flex-col gap-16'>
       <hgroup className='flex flex-col items-baseline gap-2'>
         <h1 className='text-xl font-bold'>Tommy Chow</h1>
-        <p className='text-lg font-medium text-zinc-500 dark:text-zinc-400'>
+        <p className='text-zinc-500 dark:text-zinc-400'>
           Software engineer at{' '}
           <HoverUnderline>
             <a href='https://www.tesla.com/about' target='_blank'>
