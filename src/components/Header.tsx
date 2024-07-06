@@ -11,7 +11,7 @@ export function Header() {
   const isBlogPath = path.includes('/blog');
 
   return (
-    <header className='sticky inset-0 z-50 flex justify-between bg-gradient-to-b from-zinc-50 py-8 dark:from-zinc-950'>
+    <header className='sticky inset-0 z-50 flex justify-between bg-gradient-to-b from-zinc-100 py-8 dark:from-zinc-950'>
       <Link
         aria-label='Go back to home page'
         className={twJoin(
