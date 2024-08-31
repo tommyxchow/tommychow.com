@@ -8,20 +8,12 @@ export default function ProjectCard({
   url,
 }: ProjectInfo) {
   return (
-    <a aria-labelledby={name} href={url} target='_blank'>
-      <article className='-mx-4 flex flex-col gap-4 p-4 transition-[background] hover:bg-zinc-200 dark:hover:bg-zinc-900 sm:flex-row sm:items-center sm:rounded-lg'>
-        <div className='sm:w-1/3 sm:shrink-0'>
-          <CustomImage
-            priority
-            src={thumbnail}
-            alt={`Thumbnail for ${name}.`}
-          />
-        </div>
+    <a href={url} target='_blank'>
+      <article className='-mx-4 flex flex-col gap-4 p-4 transition-[background] hover:bg-zinc-200 dark:hover:bg-zinc-900 sm:rounded-lg'>
+        <CustomImage priority src={thumbnail} alt={`Thumbnail for ${name}.`} />
 
-        <div className='flex flex-col gap-2 sm:justify-evenly'>
-          <h3 id={name} className='text-lg font-semibold'>
-            {name}
-          </h3>
+        <div className='flex justify-between gap-4'>
+          <h3 className='font-medium'>{name}</h3>
 
           <p className='text-zinc-500 dark:text-zinc-400'>{description}</p>
         </div>

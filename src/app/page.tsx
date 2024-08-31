@@ -9,9 +9,9 @@ export default function HomePage() {
   const blogPosts = getAllBlogPostsFrontmatter();
 
   return (
-    <div className='mt-8 flex flex-col gap-16'>
+    <div className='mt-4 flex flex-col gap-16'>
       <hgroup className='flex flex-col items-baseline gap-2'>
-        <h1 className='text-xl font-bold'>Tommy Chow</h1>
+        <h1 className='text-xl font-semibold'>Tommy Chow</h1>
         <p className='text-zinc-500 dark:text-zinc-400'>
           Software engineer at{' '}
           <HoverUnderline>
@@ -31,8 +31,8 @@ export default function HomePage() {
         </p>
       </Prose>
 
-      <section className='flex flex-col gap-4'>
-        <h2 className='text-xl font-semibold'>Blog</h2>
+      <section className='flex flex-col gap-2'>
+        <h2 className='text-lg font-semibold'>Blog</h2>
         <ul>
           {blogPosts.map((post) => (
             <li key={post.id}>
@@ -42,8 +42,8 @@ export default function HomePage() {
         </ul>
       </section>
 
-      <section className='flex flex-col gap-4'>
-        <h2 className='text-xl font-semibold'>Projects</h2>
+      <section className='flex flex-col gap-2'>
+        <h2 className='text-lg font-semibold'>Projects</h2>
         <ul>
           {projects.map((project) => (
             <li key={project.name}>
