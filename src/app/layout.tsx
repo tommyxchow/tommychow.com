@@ -5,12 +5,13 @@ import '@code-hike/mdx/dist/index.css';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { type Metadata } from 'next';
-import { Figtree, JetBrains_Mono } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { twJoin } from 'tailwind-merge';
 import './globals.css';
 
-const fontSans = Figtree({
-  subsets: ['latin'],
+const fontSans = localFont({
+  src: './OverusedGrotesk-VF.woff2',
   variable: '--font-sans',
 });
 const fontMono = JetBrains_Mono({
