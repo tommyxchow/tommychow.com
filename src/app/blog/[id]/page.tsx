@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic';
 export const dynamicParams = false;
 
 interface PageParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export function generateStaticParams() {
@@ -19,7 +19,8 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: PageParams): Metadata {
+export async function generateMetadata(props: PageParams): Promise<Metadata> {
+  const params = await props.params;
   const frontmatter = getAllBlogPostsFrontmatter().find(
     (frontmatter) => frontmatter.id === params.id,
   );
@@ -33,7 +34,8 @@ export function generateMetadata({ params }: PageParams): Metadata {
   };
 }
 
-export default function BlogPost({ params }: PageParams) {
+export default async function BlogPost(props: PageParams) {
+  const params = await props.params;
   const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`));
 
   const blogPost = getBlogPostFrontMatter(params.id);
