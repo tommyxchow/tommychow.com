@@ -8,7 +8,7 @@ import { ThemeToggle } from './ThemeToggle';
 
 export function Header() {
   const path = usePathname();
-  const isBlogPath = path.includes('/blog');
+  const showBackButton = path.includes('/blog') || path.includes('/gallery');
 
   return (
     <header className='sticky inset-0 z-50 flex justify-between bg-gradient-to-b from-zinc-100 py-8 dark:from-zinc-950'>
@@ -16,9 +16,9 @@ export function Header() {
         aria-label='Go back to home page'
         className={twJoin(
           'transition-opacity hover:opacity-50',
-          !isBlogPath
-            ? 'invisible'
-            : 'duration-300 ease-out animate-in fade-in',
+          showBackButton
+            ? 'duration-300 ease-out animate-in fade-in'
+            : 'invisible',
         )}
         href='/'
       >

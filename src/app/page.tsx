@@ -4,6 +4,7 @@ import { HoverUnderline } from '@/components/HoverUnderline';
 import ProjectCard from '@/components/ProjectCard';
 import { Prose } from '@/components/Prose';
 import { getAllBlogPostsFrontmatter } from '@/lib/server-utils';
+import Link from 'next/link';
 
 export default function HomePage() {
   const blogPosts = getAllBlogPostsFrontmatter();
@@ -30,6 +31,11 @@ export default function HomePage() {
           mechanical keyboard enthusiast and Counter-Strike 2 skins enjoyer.
         </p>
       </Prose>
+
+      <section className='flex flex-col gap-2'>
+        <h2 className='text-lg font-semibold'>Gallery</h2>
+        <Link href='/gallery'>Gallery</Link>
+      </section>
 
       <section className='flex flex-col gap-2'>
         <h2 className='text-lg font-semibold'>Blog</h2>
