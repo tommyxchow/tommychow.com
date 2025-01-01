@@ -9,7 +9,7 @@ export default function ProjectCard({
 }: ProjectInfo) {
   return (
     <a href={url} target='_blank'>
-      <article className='-mx-4 flex flex-col gap-4 p-4 transition-[background] hover:bg-zinc-200 dark:hover:bg-zinc-900 sm:rounded-lg'>
+      <article className='-mx-4 flex flex-col gap-4 p-4 transition-[background] hover:bg-zinc-200 sm:rounded-lg dark:hover:bg-zinc-900'>
         <CustomImage priority src={thumbnail} alt={`Thumbnail for ${name}.`} />
 
         <div className='flex justify-between gap-4'>
