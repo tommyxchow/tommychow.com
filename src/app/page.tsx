@@ -6,8 +6,8 @@ import { Prose } from '@/components/Prose';
 import { getAllBlogPostsFrontmatter } from '@/lib/server-utils';
 import Link from 'next/link';
 
-export default function HomePage() {
-  const blogPosts = getAllBlogPostsFrontmatter();
+export default async function HomePage() {
+  const blogPosts = await getAllBlogPostsFrontmatter();
 
   return (
     <div className='mt-4 flex flex-col gap-16'>
