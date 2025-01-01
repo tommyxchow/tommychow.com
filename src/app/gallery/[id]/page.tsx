@@ -59,6 +59,12 @@ async function getSortedImagesByDate() {
   }
 }
 
+export async function generateStaticParams() {
+  const allImages = await getSortedImagesByDate();
+
+  return allImages.map(({ file }) => ({ params: { id: file } }));
+}
+
 export default async function GalleryPage({
   params,
 }: {
