@@ -40,7 +40,7 @@ export default async function HomePage() {
       <section className='flex flex-col gap-2'>
         <h2 className='text-lg font-semibold'>Gallery</h2>
         <ul className='grid grid-cols-3 gap-4'>
-          {allImages.map(({ file }) => (
+          {allImages.slice(0, 6).map(({ file }) => (
             <li
               key={file}
               className='relative aspect-square transition-opacity hover:opacity-50'
