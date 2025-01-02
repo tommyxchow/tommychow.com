@@ -13,7 +13,7 @@ export function CustomImage({
 }: CustomImageProps) {
   const image = (
     <Image
-      className={twMerge('rounded object-cover shadow-lg', className)}
+      className={twMerge('object-cover shadow-lg', className)}
       alt={alt}
       placeholder={typeof rest.src === 'string' ? 'empty' : 'blur'}
       {...rest}

@@ -16,21 +16,21 @@ export const projects = [
   {
     name: 'Frosty',
     description:
-      'Watch Twitch streams and chat with third-party emotes on iOS and Android.',
+      'Watch Twitch streams and chat with third-party emotes on iOS and Android',
     thumbnail: frostyThumbnail,
     url: 'https://frostyapp.io/',
     githubUrl: 'https://github.com/tommyxchow/frosty',
   },
   {
     name: 'Hatchet',
-    description: 'A more modern way to browse and read Hacker News.',
+    description: 'A more modern way to browse and read Hacker News',
     thumbnail: hatchetThumbnail,
     url: 'https://hatchetnews.vercel.app/',
     githubUrl: 'https://github.com/tommyxchow/hatchet',
   },
   {
     name: 'Vewddit',
-    description: 'Explore media on Reddit with AI comment summaries.',
+    description: 'Explore media on Reddit with AI comment summaries',
     thumbnail: vewdditThumbnail,
     url: 'https://vewddit.vercel.app/',
     githubUrl: 'https://github.com/tommyxchow/vewddit',
@@ -38,7 +38,7 @@ export const projects = [
   {
     name: 'Stawks',
     description:
-      'View price history charts, financial details, and relevant news for stocks.',
+      'View price history charts, financial details, and relevant news for stocks',
     thumbnail: stawksThumbnail,
     url: 'https://stawks.vercel.app/',
     githubUrl: 'https://github.com/tommyxchow/stawks',

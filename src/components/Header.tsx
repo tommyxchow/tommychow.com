@@ -6,15 +6,25 @@ import { HiArrowLeft } from 'react-icons/hi2';
 import { twJoin } from 'tailwind-merge';
 import { ThemeToggle } from './ThemeToggle';
 
+const routeToHeader: Record<string, string> = {
+  '/gallery': 'Gallery',
+  '/blog': 'Blog',
+  '/projects': 'Projects',
+};
+
 export function Header() {
   const path = usePathname();
   const isGalleryPage = path.includes('/gallery');
-  const showBackButton = path.includes('/blog') || isGalleryPage;
+  const showBackButton = path !== '/';
+
+  const header = Object.entries(routeToHeader).find(([route]) =>
+    path.startsWith(route),
+  )?.[1];
 
   return (
     <header
       className={twJoin(
-        'sticky inset-0 z-50 flex justify-between py-8',
+        'sticky inset-0 z-50 flex items-center justify-between py-8',
         isGalleryPage
           ? 'bg-zinc-100 dark:bg-zinc-950'
           : 'bg-gradient-to-b from-zinc-100 dark:from-zinc-950',
@@ -32,6 +42,8 @@ export function Header() {
       >
         <HiArrowLeft />
       </Link>
+
+      {header && <h2 className='text-lg font-medium'>{header}</h2>}
 
       <ThemeToggle />
     </header>

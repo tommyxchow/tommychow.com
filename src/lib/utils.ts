@@ -13,5 +13,5 @@ export function formatDate(
     minute: showTime ? '2-digit' : undefined,
   };
 
-  return parsedDate.toLocaleDateString('default', options);
+  return parsedDate.toLocaleDateString(undefined, options);
 }

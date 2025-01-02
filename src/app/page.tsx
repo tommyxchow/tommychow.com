@@ -9,6 +9,7 @@ import {
   getSortedImagesByDate,
 } from '@/lib/server-utils';
 import Link from 'next/link';
+import { HiArrowRight } from 'react-icons/hi2';
 
 export default async function HomePage() {
   const allImages = await getSortedImagesByDate();
@@ -19,7 +20,7 @@ export default async function HomePage() {
       <hgroup className='flex flex-col items-baseline gap-2'>
         <h1 className='text-xl font-semibold'>Tommy Chow</h1>
         <p className='text-zinc-500 dark:text-zinc-400'>
-          Software engineer at{' '}
+          Software Engineer at{' '}
           <HoverUnderline>
             <a href='https://www.tesla.com/about' target='_blank'>
               Tesla
@@ -37,8 +38,14 @@ export default async function HomePage() {
         </p>
       </Prose>
 
-      <section className='flex flex-col gap-6'>
-        <h2 className='text-lg font-semibold'>Gallery</h2>
+      <section className='flex flex-col gap-4'>
+        <Link
+          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
+          href='/gallery'
+        >
+          <h2 className='text-lg font-semibold'>Gallery</h2>
+          <HiArrowRight />
+        </Link>
         <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
           {allImages.slice(0, 4).map(({ file }) => (
             <li key={file}>
@@ -59,8 +66,14 @@ export default async function HomePage() {
         </ul>
       </section>
 
-      <section className='flex flex-col gap-2'>
-        <h2 className='text-lg font-semibold'>Blog</h2>
+      <section className='flex flex-col'>
+        <Link
+          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
+          href='/blog'
+        >
+          <h2 className='text-lg font-semibold'>Blog</h2>
+          <HiArrowRight />
+        </Link>
         <ul>
           {blogPosts.map((post) => (
             <li key={post.id}>
@@ -70,8 +83,14 @@ export default async function HomePage() {
         </ul>
       </section>
 
-      <section className='flex flex-col gap-2'>
-        <h2 className='text-lg font-semibold'>Projects</h2>
+      <section className='flex flex-col'>
+        <Link
+          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
+          href='/projects'
+        >
+          <h2 className='text-lg font-semibold'>Projects</h2>
+          <HiArrowRight />
+        </Link>
         <ul>
           {projects.map((project) => (
             <li key={project.name}>
