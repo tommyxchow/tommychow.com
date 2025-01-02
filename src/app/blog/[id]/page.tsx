@@ -13,15 +13,15 @@ interface PageParams {
   params: Promise<{ id: string }>;
 }
 
-export function generateStaticParams() {
-  return getAllBlogPostsFrontmatter().map((frontmatter) => ({
+export async function generateStaticParams() {
+  return (await getAllBlogPostsFrontmatter()).map((frontmatter) => ({
     id: frontmatter.id,
   }));
 }
 
 export async function generateMetadata(props: PageParams): Promise<Metadata> {
   const params = await props.params;
-  const frontmatter = getAllBlogPostsFrontmatter().find(
+  const frontmatter = (await getAllBlogPostsFrontmatter()).find(
     (frontmatter) => frontmatter.id === params.id,
   );
 

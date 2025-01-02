@@ -77,3 +77,7 @@ html.light {
 .ch-preview {
   @apply shadow-lg;
 }
+
+.custom-zoom [data-rmiz-modal-overlay='visible'] {
+  @apply bg-zinc-100 bg-opacity-50 dark:bg-zinc-950 dark:bg-opacity-50;
+}

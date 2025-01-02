@@ -1,12 +1,18 @@
 import { projects } from '@/app/projects/projects';
 import BlogPostCard from '@/components/BlogPostCard';
+import { CustomImage } from '@/components/CustomImage';
 import { HoverUnderline } from '@/components/HoverUnderline';
 import ProjectCard from '@/components/ProjectCard';
 import { Prose } from '@/components/Prose';
-import { getAllBlogPostsFrontmatter } from '@/lib/server-utils';
+import {
+  getAllBlogPostsFrontmatter,
+  getSortedImagesByDate,
+} from '@/lib/server-utils';
+import Link from 'next/link';
 
-export default function HomePage() {
-  const blogPosts = getAllBlogPostsFrontmatter();
+export default async function HomePage() {
+  const allImages = await getSortedImagesByDate();
+  const blogPosts = await getAllBlogPostsFrontmatter();
 
   return (
     <div className='mt-4 flex flex-col gap-16'>
@@ -30,6 +36,28 @@ export default function HomePage() {
           mechanical keyboard enthusiast and Counter-Strike 2 skins enjoyer.
         </p>
       </Prose>
+
+      <section className='flex flex-col gap-6'>
+        <h2 className='text-lg font-semibold'>Gallery</h2>
+        <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
+          {allImages.slice(0, 4).map(({ file }) => (
+            <li key={file}>
+              <Link
+                href={`/gallery/${file}`}
+                className='relative block aspect-[4/3] transition-opacity hover:opacity-50'
+              >
+                <CustomImage
+                  src={`/gallery/images/${file}`}
+                  alt='Gallery image'
+                  sizes='(max-width: 640px) 50vw, 25vw'
+                  fill
+                  priority
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className='flex flex-col gap-2'>
         <h2 className='text-lg font-semibold'>Blog</h2>
