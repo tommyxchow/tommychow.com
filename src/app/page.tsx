@@ -34,8 +34,14 @@ export default async function HomePage() {
         <p>
           I design and engineer mobile and web apps. I lean towards building
           modern, minimalistic, and practical user interfaces with performance,
-          semantics, and accessibility always in mind. I&apos;m also a
-          mechanical keyboard enthusiast and Counter-Strike 2 skins enjoyer.
+          semantics, and accessibility in mind.
+        </p>
+
+        <p>
+          I grew up in Queens, NY and studied computer science at the Univeristy
+          at Buffalo. I currently live and work in the SF Bay Area. My latest
+          hobbies include collecting CS2 skins and building mechanical
+          keyboards.
         </p>
 
         <ul className='not-prose flex gap-4'>
