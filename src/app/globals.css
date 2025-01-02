@@ -79,5 +79,5 @@ html.light {
 }
 
 .custom-zoom [data-rmiz-modal-overlay='visible'] {
-  @apply bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50;
+  @apply bg-zinc-100 bg-opacity-50 dark:bg-zinc-950 dark:bg-opacity-50;
 }
