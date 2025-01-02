@@ -26,8 +26,8 @@ export default async function GalleryPage({
   return (
     <section className='flex flex-col'>
       <figure className='sticky top-20 z-10 -mx-4 flex flex-col gap-4 bg-zinc-100 px-4 pb-4 dark:bg-zinc-950'>
-        <div className='relative aspect-[4/3]'>
-          <Zoom classDialog='custom-zoom'>
+        <Zoom classDialog='custom-zoom'>
+          <div className='relative aspect-[4/3]'>
             <CustomImage
               className='mx-auto mt-auto !size-auto max-h-full max-w-full'
               src={`/gallery/images/${file}`}
@@ -36,8 +36,8 @@ export default async function GalleryPage({
               fill
               priority
             />
-          </Zoom>
-        </div>
+          </div>
+        </Zoom>
 
         <figcaption className='flex justify-between gap-2 font-mono text-xs text-zinc-500 sm:text-sm dark:text-zinc-400'>
           <p>{exifData.Model}</p>
