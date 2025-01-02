@@ -26,10 +26,10 @@ export default async function GalleryPage({
   return (
     <section className='flex flex-col gap-4'>
       <figure className='sticky top-20 z-10 -mx-4 flex flex-col gap-4 bg-zinc-100 p-4 dark:bg-zinc-950'>
-        <div className='relative aspect-square size-full'>
+        <div className='relative aspect-square'>
           <Zoom classDialog='custom-zoom'>
             <CustomImage
-              className='object-contain shadow-none'
+              className='m-auto !size-auto max-h-full max-w-full'
               src={`/gallery/images/${file}`}
               alt={`Gallery image ${file}`}
               sizes='100vw'
