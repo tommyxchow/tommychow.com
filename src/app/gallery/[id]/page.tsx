@@ -35,6 +35,7 @@ export default async function GalleryPage({
               sizes='100vw'
               fill
               priority
+              quality={100}
             />
           </div>
         </Zoom>
