@@ -50,7 +50,7 @@ export default async function GalleryPage({
       </figure>
 
       <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3'>
-        {allImages.map(({ file }, index) => (
+        {allImages.map(({ file }) => (
           <li key={file}>
             <Link
               href={`/gallery/${file}`}
@@ -62,7 +62,7 @@ export default async function GalleryPage({
                 alt={`Gallery image ${file}`}
                 sizes='(max-width: 640px) 50vw, 33vw'
                 fill
-                priority={index < 4}
+                priority
               />
             </Link>
           </li>
