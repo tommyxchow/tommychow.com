@@ -1,20 +1,14 @@
 import { repoLink } from '@/lib/links';
+import { formatDate } from '@/lib/utils';
 import { HoverUnderline } from './HoverUnderline';
 
 export function LastUpdated() {
-  const formattedDate = new Date().toLocaleDateString('en-US', {
-    timeZone: 'America/Los_Angeles',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
   return (
     <p>
       Last updated on{' '}
       <HoverUnderline>
         <a href={repoLink} target='_blank'>
-          {formattedDate}
+          {formatDate(new Date(), true)}
         </a>
       </HoverUnderline>
     </p>

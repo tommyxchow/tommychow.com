@@ -4,6 +4,7 @@ import { CustomImage } from '@/components/CustomImage';
 import { HoverUnderline } from '@/components/HoverUnderline';
 import ProjectCard from '@/components/ProjectCard';
 import { Prose } from '@/components/Prose';
+import { links } from '@/lib/links';
 import {
   getAllBlogPostsFrontmatter,
   getSortedImagesByDate,
@@ -36,6 +37,18 @@ export default async function HomePage() {
           semantics, and accessibility always in mind. I&apos;m also a
           mechanical keyboard enthusiast and Counter-Strike 2 skins enjoyer.
         </p>
+
+        <ul className='not-prose flex gap-4'>
+          {links.map((link) => (
+            <li key={link.title}>
+              <HoverUnderline>
+                <a href={link.href} target='_blank'>
+                  {link.title}
+                </a>
+              </HoverUnderline>
+            </li>
+          ))}
+        </ul>
       </Prose>
 
       <section className='flex flex-col gap-4'>
