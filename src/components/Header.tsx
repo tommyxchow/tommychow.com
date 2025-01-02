@@ -8,10 +8,18 @@ import { ThemeToggle } from './ThemeToggle';
 
 export function Header() {
   const path = usePathname();
-  const showBackButton = path.includes('/blog') || path.includes('/gallery');
+  const isGalleryPage = path.includes('/gallery');
+  const showBackButton = path.includes('/blog') || isGalleryPage;
 
   return (
-    <header className='sticky inset-0 z-50 flex justify-between bg-gradient-to-b from-zinc-100 py-8 dark:from-zinc-950'>
+    <header
+      className={twJoin(
+        'sticky inset-0 z-50 flex justify-between py-8',
+        isGalleryPage
+          ? 'bg-zinc-100 dark:bg-zinc-950'
+          : 'bg-gradient-to-b from-zinc-100 dark:from-zinc-950',
+      )}
+    >
       <Link
         aria-label='Go back to home page'
         className={twJoin(

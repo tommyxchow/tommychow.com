@@ -37,19 +37,19 @@ export default async function HomePage() {
         </p>
       </Prose>
 
-      <section className='flex flex-col gap-2'>
+      <section className='flex flex-col gap-6'>
         <h2 className='text-lg font-semibold'>Gallery</h2>
-        <ul className='grid grid-cols-3 gap-4'>
-          {allImages.slice(0, 6).map(({ file }) => (
+        <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
+          {allImages.slice(0, 4).map(({ file }) => (
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
-                className='relative block aspect-square transition-opacity hover:opacity-50'
+                className='relative block aspect-[4/3] transition-opacity hover:opacity-50'
               >
                 <CustomImage
                   src={`/gallery/images/${file}`}
                   alt='Gallery image'
-                  sizes='33vw'
+                  sizes='(max-width: 640px) 50vw, 25vw'
                   fill
                 />
               </Link>

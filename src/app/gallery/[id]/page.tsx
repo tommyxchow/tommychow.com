@@ -38,25 +38,27 @@ export default async function GalleryPage({
           </Zoom>
         </div>
 
-        <figcaption className='flex justify-between gap-4 font-mono text-sm text-zinc-500 dark:text-zinc-400'>
+        <figcaption className='flex justify-between gap-2 font-mono text-xs text-zinc-500 sm:text-sm dark:text-zinc-400'>
           <p>{exifData.Model}</p>
 
-          <p>{formatDate(exifData.DateTimeOriginal, true, true)}</p>
+          <p className='text-right'>
+            {formatDate(exifData.DateTimeOriginal, true, true)}
+          </p>
         </figcaption>
       </figure>
 
-      <ul className='grid grid-cols-3 gap-4'>
+      <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3'>
         {allImages.map(({ file }) => (
           <li key={file}>
             <Link
               href={`/gallery/${file}`}
               scroll={false}
-              className='relative block aspect-square transition-opacity hover:opacity-50'
+              className='relative block aspect-[4/3] transition-opacity hover:opacity-50'
             >
               <CustomImage
                 src={`/gallery/images/${file}`}
                 alt={`Gallery image ${file}`}
-                sizes='33vw'
+                sizes='(max-width: 640px) 50vw, 33vw'
                 fill
               />
             </Link>
