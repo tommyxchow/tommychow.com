@@ -41,14 +41,15 @@ export default async function HomePage() {
         <h2 className='text-lg font-semibold'>Gallery</h2>
         <ul className='grid grid-cols-3 gap-4'>
           {allImages.slice(0, 6).map(({ file }) => (
-            <li
-              key={file}
-              className='relative aspect-square transition-opacity hover:opacity-50'
-            >
-              <Link href={`/gallery/${file}`}>
+            <li key={file}>
+              <Link
+                href={`/gallery/${file}`}
+                className='relative block aspect-square transition-opacity hover:opacity-50'
+              >
                 <CustomImage
                   src={`/gallery/images/${file}`}
                   alt='Gallery image'
+                  sizes='33vw'
                   fill
                 />
               </Link>

@@ -24,13 +24,14 @@ export default async function GalleryPage({
 
   return (
     <section className='flex flex-col gap-4'>
-      <figure className='flex flex-col items-center gap-4 rounded bg-zinc-200 p-8 pb-4 dark:bg-zinc-900'>
+      <figure className='sticky top-20 z-10 -mx-4 flex flex-col items-center gap-4 bg-zinc-100 p-4 dark:bg-zinc-950'>
         <div className='relative aspect-square size-full'>
           <Zoom classDialog='custom-zoom'>
             <CustomImage
               className='object-contain shadow-none'
               src={`/gallery/images/${selectedImage}`}
               alt={`Gallery image ${selectedImage}`}
+              sizes='100vw'
               fill
             />
           </Zoom>
@@ -38,16 +39,19 @@ export default async function GalleryPage({
 
         <figcaption className='font-mono text-sm'>{selectedImage}</figcaption>
       </figure>
+
       <ul className='grid grid-cols-3 gap-4'>
         {allImages.map(({ file }) => (
-          <li
-            key={file}
-            className='relative aspect-square transition-opacity hover:opacity-50'
-          >
-            <Link href={`/gallery/${file}`}>
+          <li key={file}>
+            <Link
+              href={`/gallery/${file}`}
+              scroll={false}
+              className='relative block aspect-square transition-opacity hover:opacity-50'
+            >
               <CustomImage
                 src={`/gallery/images/${file}`}
                 alt={`Gallery image ${file}`}
+                sizes='33vw'
                 fill
               />
             </Link>

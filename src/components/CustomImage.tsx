@@ -11,16 +11,24 @@ export function CustomImage({
   className,
   ...rest
 }: CustomImageProps) {
-  return (
-    <figure>
-      <Image
-        className={twMerge('rounded object-cover shadow-lg', className)}
-        alt={alt}
-        placeholder={typeof rest.src === 'string' ? 'empty' : 'blur'}
-        {...rest}
-      />
-
-      {caption && <figcaption>{caption}</figcaption>}
-    </figure>
+  const image = (
+    <Image
+      className={twMerge('rounded object-cover shadow-lg', className)}
+      alt={alt}
+      placeholder={typeof rest.src === 'string' ? 'empty' : 'blur'}
+      {...rest}
+    />
   );
+
+  if (caption) {
+    return (
+      <figure>
+        {image}
+
+        {caption && <figcaption>{caption}</figcaption>}
+      </figure>
+    );
+  }
+
+  return image;
 }
