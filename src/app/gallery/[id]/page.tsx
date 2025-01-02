@@ -34,6 +34,7 @@ export default async function GalleryPage({
               alt={`Gallery image ${file}`}
               sizes='100vw'
               fill
+              priority
             />
           </Zoom>
         </div>
@@ -60,6 +61,7 @@ export default async function GalleryPage({
                 alt={`Gallery image ${file}`}
                 sizes='(max-width: 640px) 50vw, 33vw'
                 fill
+                priority
               />
             </Link>
           </li>

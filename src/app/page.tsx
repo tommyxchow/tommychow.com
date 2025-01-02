@@ -51,6 +51,7 @@ export default async function HomePage() {
                   alt='Gallery image'
                   sizes='(max-width: 640px) 50vw, 25vw'
                   fill
+                  priority
                 />
               </Link>
             </li>
