@@ -78,7 +78,7 @@ export async function getSortedImagesByDate() {
 
         const { data, info } = await sharp(imagePath)
           .rotate()
-          .resize(100, 100)
+          .resize({ width: 100 })
           .ensureAlpha()
           .raw()
           .toBuffer({ resolveWithObject: true });
