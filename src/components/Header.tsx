@@ -17,9 +17,12 @@ export function Header() {
   const isGalleryPage = path.includes('/gallery');
   const showBackButton = path !== '/';
 
-  const header = Object.entries(routeToHeader).find(([route]) =>
-    path.startsWith(route),
-  )?.[1];
+  const header = Object.entries(routeToHeader).find(([route, _]) => {
+    if (route === '/gallery') {
+      return path.startsWith(route);
+    }
+    return path === route;
+  })?.[1];
 
   return (
     <header
