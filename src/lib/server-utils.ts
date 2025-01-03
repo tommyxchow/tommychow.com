@@ -46,7 +46,7 @@ export interface ExifData {
   ExifImageHeight: number; // Image height in pixels
 
   // Camera and Lens Metadata
-  FocalLength: number; // Focal length
+  FocalLengthIn35mmFormat: number; // Focal length
   LensModel: string; // Lens model, e.g., 'iPhone 15 Pro back triple camera'
 
   // Exposure Settings
