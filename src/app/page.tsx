@@ -19,7 +19,7 @@ export default async function HomePage() {
   return (
     <div className='mt-4 flex flex-col gap-16'>
       <hgroup className='flex flex-col items-baseline gap-2'>
-        <h1 className='text-xl font-semibold'>Tommy Chow</h1>
+        <h1 className='text-xl font-bold'>Tommy Chow</h1>
         <p className='text-zinc-500 dark:text-zinc-400'>
           Software Engineer at{' '}
           <HoverUnderline>

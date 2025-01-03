@@ -47,7 +47,7 @@ export function Header() {
       </Link>
 
       {header && (
-        <h2 className='flex h-0 items-center text-lg font-medium duration-300 ease-out animate-in fade-in'>
+        <h2 className='flex h-0 items-center text-lg font-semibold duration-300 ease-out animate-in fade-in'>
           {header}
         </h2>
       )}
