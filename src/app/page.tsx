@@ -70,7 +70,7 @@ export default async function HomePage() {
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
-                className='relative block aspect-[4/3] transition-opacity hover:opacity-50'
+                className='relative block aspect-square transition-opacity hover:opacity-50'
               >
                 <CustomImage
                   src={`/gallery/images/${file}`}

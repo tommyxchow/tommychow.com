@@ -57,7 +57,7 @@ export default async function GalleryPage({
             <Link
               href={`/gallery/${file}`}
               scroll={false}
-              className='relative block aspect-[4/3] transition-opacity hover:opacity-50'
+              className='relative block aspect-square transition-opacity hover:opacity-50'
               replace
             >
               <CustomImage
