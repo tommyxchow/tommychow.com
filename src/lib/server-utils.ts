@@ -77,6 +77,7 @@ export async function getSortedImagesByDate() {
         const exifData = (await exifr.parse(imagePath)) as ExifData;
 
         const { data, info } = await sharp(imagePath)
+          .rotate()
           .resize(100, 100)
           .ensureAlpha()
           .raw()
