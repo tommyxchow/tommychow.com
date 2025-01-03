@@ -20,7 +20,7 @@ export default async function GalleryPage({
 
   const allImages = await getSortedImagesByDate();
 
-  const { file, exifData } =
+  const { file, exifData, thumbHashDataURL } =
     allImages.find(({ file }) => file === id) ?? allImages[0];
 
   return (
@@ -36,6 +36,8 @@ export default async function GalleryPage({
               fill
               priority
               quality={100}
+              placeholder='blur'
+              blurDataURL={thumbHashDataURL}
             />
           </div>
         </Zoom>
@@ -50,7 +52,7 @@ export default async function GalleryPage({
       </figure>
 
       <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3'>
-        {allImages.map(({ file }) => (
+        {allImages.map(({ file, thumbHashDataURL }) => (
           <li key={file}>
             <Link
               href={`/gallery/${file}`}
@@ -64,6 +66,8 @@ export default async function GalleryPage({
                 sizes='(max-width: 640px) 50vw, 33vw'
                 fill
                 priority
+                placeholder='blur'
+                blurDataURL={thumbHashDataURL}
               />
             </Link>
           </li>

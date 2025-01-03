@@ -27,7 +27,8 @@
     "remark-frontmatter": "^5.0.0",
     "server-only": "^0.0.1",
     "sharp": "^0.33.5",
-    "tailwind-merge": "^2.6.0"
+    "tailwind-merge": "^2.6.0",
+    "thumbhash": "^0.1.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.15",

@@ -66,7 +66,7 @@ export default async function HomePage() {
           <HiArrowRight />
         </Link>
         <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
-          {allImages.slice(0, 4).map(({ file }) => (
+          {allImages.slice(0, 4).map(({ file, thumbHashDataURL }) => (
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
@@ -78,6 +78,8 @@ export default async function HomePage() {
                   sizes='(max-width: 640px) 50vw, 25vw'
                   fill
                   priority
+                  placeholder='blur'
+                  blurDataURL={thumbHashDataURL}
                 />
               </Link>
             </li>

@@ -4,6 +4,8 @@ import exifr from 'exifr';
 import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
+import sharp from 'sharp';
+import { rgbaToDataURL } from 'thumbhash';
 
 interface BlogPostFrontmatter {
   title: string;
@@ -73,7 +75,15 @@ export async function getSortedImagesByDate() {
       imageFiles.map(async (file) => {
         const imagePath = path.join(directory, file);
         const exifData = (await exifr.parse(imagePath)) as ExifData;
-        return { file, exifData };
+
+        const { data, info } = await sharp(imagePath)
+          .resize(100, 100)
+          .ensureAlpha()
+          .raw()
+          .toBuffer({ resolveWithObject: true });
+        const thumbHashDataURL = rgbaToDataURL(info.width, info.height, data);
+
+        return { file, exifData, thumbHashDataURL };
       }),
     );
 
