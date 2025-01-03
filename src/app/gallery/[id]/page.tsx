@@ -25,7 +25,7 @@ export default async function GalleryPage({
 
   return (
     <section className='flex flex-col gap-4'>
-      <figure className='sticky top-[92px] z-10 -mx-4 flex flex-col gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
+      <figure className='sticky top-20 z-10 -mx-4 flex flex-col gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
         <Zoom classDialog='custom-zoom'>
           <div className='relative aspect-[4/3]'>
             <CustomImage

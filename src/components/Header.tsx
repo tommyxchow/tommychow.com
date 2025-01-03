@@ -43,7 +43,11 @@ export function Header() {
         <HiArrowLeft />
       </Link>
 
-      {header && <h2 className='text-lg font-medium'>{header}</h2>}
+      {header && (
+        <h2 className='flex h-0 items-center text-lg font-medium duration-300 ease-out animate-in fade-in'>
+          {header}
+        </h2>
+      )}
 
       <ThemeToggle />
     </header>
