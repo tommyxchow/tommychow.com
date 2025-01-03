@@ -8,7 +8,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)'],
+        sans: [
+          'var(--font-sans)',
+          {
+            fontFeatureSettings: '"ss01", "ss02", "ss05", "ss06", "ss08"',
+          },
+        ],
         mono: ['var(--font-mono)'],
       },
     },

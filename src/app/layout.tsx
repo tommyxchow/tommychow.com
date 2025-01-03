@@ -11,7 +11,7 @@ import { twJoin } from 'tailwind-merge';
 import './globals.css';
 
 const fontSans = localFont({
-  src: './OverusedGrotesk-VF.woff2',
+  src: './UncutSans-Variable.woff2',
   variable: '--font-sans',
 });
 const fontMono = JetBrains_Mono({
