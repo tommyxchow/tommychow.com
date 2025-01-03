@@ -65,7 +65,7 @@ export default async function HomePage() {
           <h2 className='text-lg font-semibold'>Gallery</h2>
           <HiArrowRight />
         </Link>
-        <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
+        <ul className='grid grid-cols-2 gap-1 sm:grid-cols-4'>
           {allImages.slice(0, 4).map(({ file, thumbHashDataURL }) => (
             <li key={file}>
               <Link
