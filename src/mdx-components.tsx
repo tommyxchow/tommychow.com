@@ -10,7 +10,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <a target='_blank' {...props} />
       </HoverUnderline>
     ),
-    CustomImage,
+    CustomImage: (props) => <CustomImage canZoom {...props} />,
     ...components,
   };
 }

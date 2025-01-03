@@ -2,7 +2,6 @@ import { CustomImage } from '@/components/CustomImage';
 import { getSortedImagesByDate } from '@/lib/server-utils';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 export async function generateStaticParams() {
@@ -26,21 +25,20 @@ export default async function GalleryPage({
   return (
     <section className='flex flex-col gap-4'>
       <figure className='sticky top-20 z-10 -mx-4 flex flex-col gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
-        <Zoom classDialog='custom-zoom'>
-          <div className='relative aspect-[4/3]'>
-            <CustomImage
-              className='mx-auto mt-auto !size-auto max-h-full max-w-full'
-              src={`/gallery/images/${file}`}
-              alt={`Gallery image ${file}`}
-              sizes='100vw'
-              fill
-              priority
-              quality={100}
-              placeholder='blur'
-              blurDataURL={thumbHashDataURL}
-            />
-          </div>
-        </Zoom>
+        <div className='relative aspect-[4/3]'>
+          <CustomImage
+            className='mx-auto mt-auto !size-auto max-h-full max-w-full'
+            src={`/gallery/images/${file}`}
+            alt={`Gallery image ${file}`}
+            sizes='100vw'
+            fill
+            priority
+            quality={100}
+            placeholder='blur'
+            blurDataURL={thumbHashDataURL}
+            canZoom
+          />
+        </div>
 
         <figcaption className='flex justify-between gap-2 font-mono text-xs text-zinc-500 sm:text-sm dark:text-zinc-400'>
           <p>{exifData.Model}</p>
