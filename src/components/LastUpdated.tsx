@@ -8,7 +8,7 @@ export function LastUpdated() {
       Last updated on{' '}
       <HoverUnderline>
         <a href={repoLink} target='_blank'>
-          {formatDate(new Date(), true, true)}
+          {formatDate(new Date(), true)}
         </a>
       </HoverUnderline>
     </p>
