@@ -83,7 +83,7 @@ export default async function HomePage() {
           <HiArrowRight />
         </Link>
         <ul className='grid grid-cols-3 gap-1'>
-          {allImages.slice(0, 6).map(({ file, thumbHashDataURL }) => (
+          {allImages.slice(0, 3).map(({ file, thumbHashDataURL }) => (
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
@@ -91,7 +91,7 @@ export default async function HomePage() {
               >
                 <CustomImage
                   src={`/gallery/images/${file}`}
-                  alt='Gallery image'
+                  alt={`Gallery image ${file}`}
                   sizes='(max-width: 640px) 50vw, 25vw'
                   fill
                   priority
