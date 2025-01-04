@@ -63,7 +63,6 @@ export default async function GalleryPage({
                 alt={`Gallery image ${file}`}
                 sizes='(max-width: 640px) 50vw, 33vw'
                 fill
-                priority
                 placeholder='blur'
                 blurDataURL={thumbHashDataURL}
               />
