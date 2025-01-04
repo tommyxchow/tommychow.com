@@ -27,7 +27,7 @@ export default async function GalleryPage({
       <figure className='sticky top-20 z-10 -mx-4 flex flex-col gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
         <div className='relative aspect-[4/3]'>
           <CustomImage
-            className='mx-auto mt-auto !size-auto max-h-full max-w-full'
+            className='mx-auto mt-auto !size-auto max-h-full max-w-full duration-300 animate-in fade-in'
             src={`/gallery/images/${file}`}
             alt={`Gallery image ${file}`}
             sizes='100vw'
