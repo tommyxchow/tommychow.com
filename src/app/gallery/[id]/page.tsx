@@ -50,7 +50,7 @@ export default async function GalleryPage({
       </figure>
 
       <ul className='grid grid-cols-2 gap-1 sm:grid-cols-3'>
-        {allImages.map(({ file, thumbHashDataURL }) => (
+        {allImages.map(({ file, thumbHashDataURL }, index) => (
           <li key={file}>
             <Link
               href={`/gallery/${file}`}
@@ -63,6 +63,7 @@ export default async function GalleryPage({
                 alt={`Gallery image ${file}`}
                 sizes='(max-width: 640px) 50vw, 33vw'
                 fill
+                priority={index < 24}
                 placeholder='blur'
                 blurDataURL={thumbHashDataURL}
               />
