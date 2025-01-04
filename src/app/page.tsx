@@ -57,23 +57,6 @@ export default async function HomePage() {
         </ul>
       </Prose>
 
-      <section className='flex flex-col'>
-        <Link
-          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
-          href='/blog'
-        >
-          <h2 className='text-lg font-semibold'>Blog</h2>
-          <HiArrowRight />
-        </Link>
-        <ul>
-          {blogPosts.map((post) => (
-            <li key={post.id}>
-              <BlogPostCard {...post} />
-            </li>
-          ))}
-        </ul>
-      </section>
-
       <section className='flex flex-col gap-4'>
         <Link
           className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
@@ -99,6 +82,23 @@ export default async function HomePage() {
                   blurDataURL={thumbHashDataURL}
                 />
               </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className='flex flex-col'>
+        <Link
+          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
+          href='/blog'
+        >
+          <h2 className='text-lg font-semibold'>Blog</h2>
+          <HiArrowRight />
+        </Link>
+        <ul>
+          {blogPosts.map((post) => (
+            <li key={post.id}>
+              <BlogPostCard {...post} />
             </li>
           ))}
         </ul>
