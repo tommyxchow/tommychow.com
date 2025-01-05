@@ -24,8 +24,8 @@ export default async function GalleryPage({
 
   return (
     <section className='flex flex-col gap-4'>
-      <figure className='sticky top-20 z-10 -mx-4 flex flex-col gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
-        <div className='relative aspect-[4/3] duration-300 animate-in fade-in'>
+      <figure className='sticky top-20 z-10 -mx-4 flex flex-col items-center gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
+        <div className='relative aspect-[4/3] size-full duration-300 animate-in fade-in'>
           <CustomImage
             className='mx-auto mt-auto !size-auto max-h-full max-w-full'
             src={`/gallery/images/${file}`}
@@ -40,12 +40,9 @@ export default async function GalleryPage({
           />
         </div>
 
-        <figcaption className='flex justify-between gap-2 font-mono text-xs text-zinc-500 sm:text-sm dark:text-zinc-400'>
+        <figcaption className='flex flex-col items-center font-mono text-sm text-zinc-500 dark:text-zinc-400'>
+          <p>{formatDate(exifData.DateTimeOriginal, true, true)}</p>
           <p>{exifData.Model}</p>
-
-          <p className='text-right'>
-            {formatDate(exifData.DateTimeOriginal, true, true)}
-          </p>
         </figcaption>
       </figure>
 
