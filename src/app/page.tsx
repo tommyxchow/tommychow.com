@@ -4,13 +4,13 @@ import { CustomImage } from '@/components/CustomImage';
 import { HoverUnderline } from '@/components/HoverUnderline';
 import ProjectCard from '@/components/ProjectCard';
 import { Prose } from '@/components/Prose';
+import Section from '@/components/Section';
 import { links } from '@/lib/links';
 import {
   getAllBlogPostsFrontmatter,
   getSortedImagesByDate,
 } from '@/lib/server-utils';
 import Link from 'next/link';
-import { HiArrowRight } from 'react-icons/hi2';
 
 export default async function HomePage() {
   const allImages = await getSortedImagesByDate();
@@ -29,7 +29,6 @@ export default async function HomePage() {
           </HoverUnderline>
         </p>
       </hgroup>
-
       <Prose>
         <p>
           I design and engineer mobile and web apps. I lean towards building
@@ -57,14 +56,7 @@ export default async function HomePage() {
         </ul>
       </Prose>
 
-      <section className='flex flex-col gap-4'>
-        <Link
-          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
-          href='/gallery'
-        >
-          <h2 className='text-lg font-semibold'>Gallery</h2>
-          <HiArrowRight />
-        </Link>
+      <Section title='Gallery' href='/gallery'>
         <ul className='grid grid-cols-3 gap-1'>
           {allImages.slice(0, 3).map(({ file, thumbHashDataURL }) => (
             <li key={file}>
@@ -85,16 +77,9 @@ export default async function HomePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
-      <section className='flex flex-col'>
-        <Link
-          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
-          href='/blog'
-        >
-          <h2 className='text-lg font-semibold'>Blog</h2>
-          <HiArrowRight />
-        </Link>
+      <Section title='Blog' href='/blog'>
         <ul>
           {blogPosts.map((post) => (
             <li key={post.id}>
@@ -102,16 +87,9 @@ export default async function HomePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
 
-      <section className='flex flex-col'>
-        <Link
-          className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
-          href='/projects'
-        >
-          <h2 className='text-lg font-semibold'>Projects</h2>
-          <HiArrowRight />
-        </Link>
+      <Section title='Projects' href='/projects'>
         <ul>
           {projects.map((project) => (
             <li key={project.name}>
@@ -119,7 +97,7 @@ export default async function HomePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </Section>
     </div>
   );
 }
