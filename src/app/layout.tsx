@@ -1,4 +1,3 @@
-import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Providers } from '@/components/Providers';
 import '@code-hike/mdx/dist/index.css';
@@ -48,8 +47,6 @@ export default function RootLayout({
           <main className='grow'>
             <article>{children}</article>
           </main>
-
-          <Footer />
         </Providers>
 
         <Analytics />
