@@ -9,7 +9,7 @@ interface SectionProps {
 
 export default function Section({ title, href, children }: SectionProps) {
   return (
-    <section className='flex flex-col gap-4'>
+    <section className='flex flex-col'>
       <Link
         className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
         href={href}

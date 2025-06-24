@@ -57,7 +57,7 @@ export default async function HomePage() {
       </Prose>
 
       <Section title='Gallery' href='/gallery'>
-        <ul className='grid grid-cols-3 gap-1'>
+        <ul className='mt-4 grid grid-cols-3 gap-1'>
           {allImages.slice(0, 3).map(({ file, thumbHashDataURL }) => (
             <li key={file}>
               <Link
