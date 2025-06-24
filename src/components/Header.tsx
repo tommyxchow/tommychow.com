@@ -30,7 +30,7 @@ export function Header() {
         'sticky inset-0 z-50 -mx-4 flex items-center justify-between px-4 py-8',
         isGalleryPage
           ? 'bg-zinc-100 dark:bg-zinc-950'
-          : 'bg-gradient-to-b from-zinc-100 dark:from-zinc-950',
+          : 'bg-linear-to-b from-zinc-100 dark:from-zinc-950',
       )}
     >
       <Link

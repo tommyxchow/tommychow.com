@@ -1,8 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+@import 'tw-animate-css';
 
-@media screen(sm) {
+@theme {
+  --font-sans: var(--font-sans);
+  --font-sans--font-feature-settings: 'ss01', 'ss02', 'ss05', 'ss06', 'ss08';
+  --font-mono: var(--font-mono);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@media (width >= theme(--breakpoint-sm)) {
   html {
     padding-left: calc(100vw - 100%);
   }
@@ -79,5 +87,5 @@ html.light {
 }
 
 .custom-zoom [data-rmiz-modal-overlay='visible'] {
-  @apply bg-zinc-100 bg-opacity-50 dark:bg-zinc-950 dark:bg-opacity-50;
+  @apply bg-zinc-100/50 dark:bg-zinc-950/50;
 }

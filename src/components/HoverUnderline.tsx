@@ -4,7 +4,7 @@ interface HoverUnderlineProps {
 
 export function HoverUnderline({ children }: HoverUnderlineProps) {
   return (
-    <span className='border-b border-zinc-500 border-opacity-50 transition-[border] hover:border-opacity-100 dark:border-zinc-400 dark:border-opacity-50 dark:hover:border-opacity-100'>
+    <span className='border-b border-zinc-500/50 transition-colors hover:border-zinc-500 dark:border-zinc-400/50 dark:hover:border-zinc-400'>
       {children}
     </span>
   );
