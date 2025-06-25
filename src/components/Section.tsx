@@ -11,7 +11,7 @@ export default function Section({ title, href, children }: SectionProps) {
   return (
     <section className='flex flex-col'>
       <Link
-        className='flex items-center justify-between py-4 text-zinc-500 transition-opacity hover:opacity-60 dark:text-zinc-400'
+        className='flex items-center justify-between py-2 text-zinc-500 transition-opacity hover:opacity-60 dark:text-zinc-400'
         href={href}
       >
         <h2 className='text-sm font-semibold tracking-wider uppercase'>
