@@ -19,7 +19,7 @@ export function ThemeToggle() {
 
   return (
     <button
-      className='transition-opacity duration-300 ease-out animate-in fade-in hover:opacity-50'
+      className='animate-in fade-in transition-opacity duration-300 ease-out hover:opacity-60'
       aria-label={`Toggle ${isDarkMode ? 'light mode' : 'dark mode'}`}
       onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
     >

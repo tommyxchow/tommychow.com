@@ -21,9 +21,9 @@ export default async function GalleryPage({
     allImages.find(({ file }) => file === id) ?? allImages[0];
 
   return (
-    <section className='flex flex-col gap-4'>
-      <figure className='sticky top-20 z-10 -mx-4 flex flex-col items-center gap-4 border-b border-zinc-300 bg-zinc-100 px-4 pb-4 dark:border-zinc-800 dark:bg-zinc-950'>
-        <div className='relative aspect-4/3 size-full duration-300 animate-in fade-in'>
+    <section className='flex flex-col'>
+      <figure className='sticky top-20 z-10 flex flex-col items-center gap-4 bg-zinc-100 px-4 pb-4 dark:bg-zinc-950'>
+        <div className='animate-in fade-in relative aspect-4/3 size-full duration-300'>
           <CustomImage
             className='mx-auto mt-auto size-auto! max-h-full max-w-full'
             src={`/gallery/images/${file}`}
@@ -50,10 +50,11 @@ export default async function GalleryPage({
             <Link
               href={`/gallery/${file}`}
               scroll={false}
-              className='relative block aspect-square transition-opacity hover:opacity-50'
+              className='relative block aspect-square transition-opacity hover:opacity-60'
               replace
             >
               <CustomImage
+                className='shadow-none'
                 src={`/gallery/images/${file}`}
                 alt={`Gallery image ${file}`}
                 sizes='(max-width: 640px) 50vw, 33vw'

@@ -42,9 +42,9 @@ export default async function BlogPost(props: PageParams) {
 
   return (
     <Prose>
-      <h1 className='mb-2 mt-4'>{blogPost.title}</h1>
+      <h1 className='mt-4 mb-0'>{blogPost.title}</h1>
       <time
-        className='text-zinc-500 dark:text-zinc-400'
+        className='text-sm font-medium text-zinc-500 dark:text-zinc-400'
         dateTime={blogPost.date.toISOString()}
       >
         {formatDate(blogPost.date, true)}

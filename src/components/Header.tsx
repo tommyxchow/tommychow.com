@@ -36,9 +36,9 @@ export function Header() {
       <Link
         aria-label='Go back to home page'
         className={twJoin(
-          'transition-opacity hover:opacity-50',
+          'transition-opacity hover:opacity-60',
           showBackButton
-            ? 'duration-300 ease-out animate-in fade-in'
+            ? 'animate-in fade-in duration-300 ease-out'
             : 'invisible',
         )}
         href='/'
@@ -47,9 +47,9 @@ export function Header() {
       </Link>
 
       {header && (
-        <h2 className='flex h-0 items-center text-lg font-semibold duration-300 ease-out animate-in fade-in'>
+        <span className='animate-in fade-in flex h-0 items-center font-semibold tracking-wide uppercase duration-300 ease-out'>
           {header}
-        </h2>
+        </span>
       )}
 
       <ThemeToggle />

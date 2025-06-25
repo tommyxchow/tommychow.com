@@ -18,9 +18,9 @@ export default async function HomePage() {
 
   return (
     <div className='mt-4 flex flex-col gap-16'>
-      <hgroup className='flex flex-col items-baseline gap-2'>
-        <h1 className='text-xl font-bold'>Tommy Chow</h1>
-        <p className='text-zinc-500 dark:text-zinc-400'>
+      <hgroup className='flex flex-col items-baseline gap-1'>
+        <h1 className='text-lg font-semibold'>Tommy Chow</h1>
+        <p className='text-sm font-medium text-zinc-500 dark:text-zinc-400'>
           Software Engineer at{' '}
           <HoverUnderline>
             <a href='https://www.tesla.com/about' target='_blank'>
@@ -29,21 +29,23 @@ export default async function HomePage() {
           </HoverUnderline>
         </p>
       </hgroup>
+
       <Prose>
         <p>
-          I design and engineer mobile and web apps. I lean towards building
-          modern, minimalistic, and practical user interfaces with performance,
-          semantics, and accessibility in mind.
+          I build mobile and web apps with a focus on clean, performant, and
+          intuitive interfaces. Lately, I&apos;ve been working on internal
+          dashboards that help teams visualize large datasets and streamline
+          their processes.
         </p>
 
         <p>
-          I grew up in Queens, NY and studied computer science at the Univeristy
-          at Buffalo. I currently live and work in the SF Bay Area. My latest
-          hobbies include collecting CS2 skins and building mechanical
+          Originally from Queens, NY, I studied CS at University at Buffalo and
+          now live in the SF Bay Area. Outside of work, I&apos;m probably
+          watching Twitch, gaming with friends, or tweaking my mechanical
           keyboards.
         </p>
 
-        <ul className='not-prose flex gap-4'>
+        <ul className='not-prose flex gap-2'>
           {links.map((link) => (
             <li key={link.title}>
               <HoverUnderline>
@@ -57,12 +59,12 @@ export default async function HomePage() {
       </Prose>
 
       <Section title='Gallery' href='/gallery'>
-        <ul className='mt-4 grid grid-cols-3 gap-1'>
+        <ul className='grid grid-cols-3 gap-1'>
           {allImages.slice(0, 3).map(({ file, thumbHashDataURL }) => (
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
-                className='relative block aspect-square transition-opacity hover:opacity-50'
+                className='relative block aspect-square transition-opacity hover:opacity-60'
               >
                 <CustomImage
                   src={`/gallery/images/${file}`}

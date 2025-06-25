@@ -11,10 +11,12 @@ export default function Section({ title, href, children }: SectionProps) {
   return (
     <section className='flex flex-col'>
       <Link
-        className='-mx-4 flex items-center justify-between border-b border-zinc-300 p-4 transition-[background] hover:bg-zinc-200 dark:border-zinc-800 dark:hover:bg-zinc-900'
+        className='flex items-center justify-between py-4 text-zinc-500 transition-opacity hover:opacity-60 dark:text-zinc-400'
         href={href}
       >
-        <h2 className='text-lg font-semibold'>{title}</h2>
+        <h2 className='text-sm font-semibold tracking-wider uppercase'>
+          {title}
+        </h2>
         <HiArrowRight />
       </Link>
       {children}
