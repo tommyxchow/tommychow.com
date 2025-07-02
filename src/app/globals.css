@@ -10,10 +10,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@media (width >= theme(--breakpoint-sm)) {
-  html {
-    padding-left: calc(100vw - 100%);
-  }
+html {
+  scrollbar-gutter: stable;
 }
 
 :root {
