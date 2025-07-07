@@ -1,5 +1,4 @@
 // @ts-check
-import eslintReact from '@eslint-react/eslint-plugin'
 import { FlatCompat } from '@eslint/eslintrc'
 import eslintJs from '@eslint/js'
 import prettier from 'eslint-config-prettier/flat'
@@ -18,7 +17,6 @@ export default tseslint.config(
   eslintJs.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
-  eslintReact.configs['recommended-type-checked'],
   ...compat.extends('next/core-web-vitals', 'plugin:jsx-a11y/recommended'),
   {
     languageOptions: {
