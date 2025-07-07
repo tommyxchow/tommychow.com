@@ -3,7 +3,7 @@ export function formatDate(
   showDays = false,
   showTime = false,
 ): string {
-  const parsedDate = new Date(date);
+  const parsedDate = new Date(date)
 
   const options: Intl.DateTimeFormatOptions = {
     month: 'long',
@@ -11,7 +11,7 @@ export function formatDate(
     day: showDays ? 'numeric' : undefined,
     hour: showTime ? 'numeric' : undefined,
     minute: showTime ? '2-digit' : undefined,
-  };
+  }
 
-  return parsedDate.toLocaleDateString(undefined, options);
+  return parsedDate.toLocaleDateString(undefined, options)
 }

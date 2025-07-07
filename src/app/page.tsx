@@ -1,20 +1,20 @@
-import { projects } from '@/app/projects/projects';
-import BlogPostCard from '@/components/BlogPostCard';
-import { CustomImage } from '@/components/CustomImage';
-import { HoverUnderline } from '@/components/HoverUnderline';
-import ProjectCard from '@/components/ProjectCard';
-import { Prose } from '@/components/Prose';
-import Section from '@/components/Section';
-import { links } from '@/lib/links';
+import { projects } from '@/app/projects/projects'
+import BlogPostCard from '@/components/BlogPostCard'
+import { CustomImage } from '@/components/CustomImage'
+import { HoverUnderline } from '@/components/HoverUnderline'
+import ProjectCard from '@/components/ProjectCard'
+import { Prose } from '@/components/Prose'
+import Section from '@/components/Section'
+import { links } from '@/lib/links'
 import {
   getAllBlogPostsFrontmatter,
   getSortedImagesByDate,
-} from '@/lib/server-utils';
-import Link from 'next/link';
+} from '@/lib/server-utils'
+import Link from 'next/link'
 
 export default async function HomePage() {
-  const allImages = await getSortedImagesByDate();
-  const blogPosts = await getAllBlogPostsFrontmatter();
+  const allImages = await getSortedImagesByDate()
+  const blogPosts = await getAllBlogPostsFrontmatter()
 
   return (
     <div className='mt-4 flex flex-col gap-16'>
@@ -101,5 +101,5 @@ export default async function HomePage() {
         </ul>
       </Section>
     </div>
-  );
+  )
 }

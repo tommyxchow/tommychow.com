@@ -1,24 +1,24 @@
-import { CustomImage } from '@/components/CustomImage';
-import { getSortedImagesByDate } from '@/lib/server-utils';
-import { formatDate } from '@/lib/utils';
-import Link from 'next/link';
-import 'react-medium-image-zoom/dist/styles.css';
+import { CustomImage } from '@/components/CustomImage'
+import { getSortedImagesByDate } from '@/lib/server-utils'
+import { formatDate } from '@/lib/utils'
+import Link from 'next/link'
+import 'react-medium-image-zoom/dist/styles.css'
 
-const allImages = await getSortedImagesByDate();
+const allImages = await getSortedImagesByDate()
 
 export function generateStaticParams() {
-  return allImages.map(({ file }) => ({ id: file }));
+  return allImages.map(({ file }) => ({ id: file }))
 }
 
 export default async function GalleryPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }) {
-  const { id } = await params;
+  const { id } = await params
 
   const { file, exifData, thumbHashDataURL } =
-    allImages.find(({ file }) => file === id) ?? allImages[0];
+    allImages.find(({ file }) => file === id) ?? allImages[0]
 
   return (
     <section className='flex flex-col'>
@@ -68,5 +68,5 @@ export default async function GalleryPage({
         ))}
       </ul>
     </section>
-  );
+  )
 }

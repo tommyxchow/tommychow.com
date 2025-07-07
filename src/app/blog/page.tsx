@@ -1,8 +1,8 @@
-import BlogPostCard from '@/components/BlogPostCard';
-import { getAllBlogPostsFrontmatter } from '@/lib/server-utils';
+import BlogPostCard from '@/components/BlogPostCard'
+import { getAllBlogPostsFrontmatter } from '@/lib/server-utils'
 
 export default async function BlogPage() {
-  const blogPosts = await getAllBlogPostsFrontmatter();
+  const blogPosts = await getAllBlogPostsFrontmatter()
 
   return (
     <ul>
@@ -12,5 +12,5 @@ export default async function BlogPage() {
         </li>
       ))}
     </ul>
-  );
+  )
 }

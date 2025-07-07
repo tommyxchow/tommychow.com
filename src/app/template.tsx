@@ -1,3 +1,3 @@
-import { FadeAndSlideIn } from '@/components/FadeAndSlideIn';
+import { FadeAndSlideIn } from '@/components/FadeAndSlideIn'
 
-export default FadeAndSlideIn;
+export default FadeAndSlideIn

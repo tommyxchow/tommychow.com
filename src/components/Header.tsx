@@ -1,28 +1,28 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { HiArrowLeft } from 'react-icons/hi2';
-import { twJoin } from 'tailwind-merge';
-import { ThemeToggle } from './ThemeToggle';
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { HiArrowLeft } from 'react-icons/hi2'
+import { twJoin } from 'tailwind-merge'
+import { ThemeToggle } from './ThemeToggle'
 
 const routeToHeader: Record<string, string> = {
   '/gallery': 'Gallery',
   '/blog': 'Blog',
   '/projects': 'Projects',
-};
+}
 
 export function Header() {
-  const path = usePathname();
-  const isGalleryPage = path.includes('/gallery');
-  const showBackButton = path !== '/';
+  const path = usePathname()
+  const isGalleryPage = path.includes('/gallery')
+  const showBackButton = path !== '/'
 
   const header = Object.entries(routeToHeader).find(([route, _]) => {
     if (route === '/gallery') {
-      return path.startsWith(route);
+      return path.startsWith(route)
     }
-    return path === route;
-  })?.[1];
+    return path === route
+  })?.[1]
 
   return (
     <header
@@ -54,5 +54,5 @@ export function Header() {
 
       <ThemeToggle />
     </header>
-  );
+  )
 }

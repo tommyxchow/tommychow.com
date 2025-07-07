@@ -1,5 +1,5 @@
-import ProjectCard from '@/components/ProjectCard';
-import { projects } from './projects';
+import ProjectCard from '@/components/ProjectCard'
+import { projects } from './projects'
 
 export default function ProjectsPage() {
   return (
@@ -10,5 +10,5 @@ export default function ProjectsPage() {
         </li>
       ))}
     </ul>
-  );
+  )
 }

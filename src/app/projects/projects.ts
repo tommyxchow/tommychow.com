@@ -1,15 +1,15 @@
-import { type StaticImageData } from 'next/image';
-import frostyThumbnail from './images/frosty.webp';
-import hatchetThumbnail from './images/hatchet.webp';
-import stawksThumbnail from './images/stawks.webp';
-import vewdditThumbnail from './images/vewddit.webp';
+import { type StaticImageData } from 'next/image'
+import frostyThumbnail from './images/frosty.webp'
+import hatchetThumbnail from './images/hatchet.webp'
+import stawksThumbnail from './images/stawks.webp'
+import vewdditThumbnail from './images/vewddit.webp'
 
 export interface ProjectInfo {
-  name: string;
-  description: string;
-  thumbnail: StaticImageData;
-  url: string;
-  githubUrl: string;
+  name: string
+  description: string
+  thumbnail: StaticImageData
+  url: string
+  githubUrl: string
 }
 
 export const projects = [
@@ -41,4 +41,4 @@ export const projects = [
     url: 'https://stawks.vercel.app/',
     githubUrl: 'https://github.com/tommyxchow/stawks',
   },
-] satisfies ProjectInfo[];
+] satisfies ProjectInfo[]

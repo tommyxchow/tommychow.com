@@ -1,8 +1,8 @@
-import { type ProjectInfo } from '@/app/projects/projects';
-import { CustomImage } from './CustomImage';
+import { type ProjectInfo } from '@/app/projects/projects'
+import { CustomImage } from './CustomImage'
 
 interface ProjectCardProps extends ProjectInfo {
-  showThumbnail?: boolean;
+  showThumbnail?: boolean
 }
 
 export default function ProjectCard({
@@ -31,5 +31,5 @@ export default function ProjectCard({
         </div>
       </article>
     </a>
-  );
+  )
 }

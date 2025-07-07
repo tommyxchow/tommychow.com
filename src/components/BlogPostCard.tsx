@@ -1,6 +1,6 @@
-import type { BlogPost } from '@/lib/server-utils';
-import { formatDate } from '@/lib/utils';
-import Link from 'next/link';
+import type { BlogPost } from '@/lib/server-utils'
+import { formatDate } from '@/lib/utils'
+import Link from 'next/link'
 
 export default function BlogPostCard({ id, title, date }: BlogPost) {
   return (
@@ -15,5 +15,5 @@ export default function BlogPostCard({ id, title, date }: BlogPost) {
         </time>
       </article>
     </Link>
-  );
+  )
 }

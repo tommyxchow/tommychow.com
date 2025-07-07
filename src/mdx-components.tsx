@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-import { type MDXComponents } from 'mdx/types';
-import { CustomImage } from './components/CustomImage';
-import { HoverUnderline } from './components/HoverUnderline';
+import { type MDXComponents } from 'mdx/types'
+import { CustomImage } from './components/CustomImage'
+import { HoverUnderline } from './components/HoverUnderline'
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -12,5 +12,5 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     CustomImage: (props) => <CustomImage canZoom {...props} />,
     ...components,
-  };
+  }
 }

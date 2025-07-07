@@ -1,29 +1,29 @@
-import { Prose } from '@/components/Prose';
+import { Prose } from '@/components/Prose'
 import {
   getAllBlogPostsFrontmatter,
   getBlogPostFrontMatter,
-} from '@/lib/server-utils';
-import { formatDate } from '@/lib/utils';
-import { type Metadata } from 'next';
-import dynamic from 'next/dynamic';
+} from '@/lib/server-utils'
+import { formatDate } from '@/lib/utils'
+import { type Metadata } from 'next'
+import dynamic from 'next/dynamic'
 
-export const dynamicParams = false;
+export const dynamicParams = false
 
 interface PageParams {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>
 }
 
 export async function generateStaticParams() {
   return (await getAllBlogPostsFrontmatter()).map((frontmatter) => ({
     id: frontmatter.id,
-  }));
+  }))
 }
 
 export async function generateMetadata(props: PageParams): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const frontmatter = (await getAllBlogPostsFrontmatter()).find(
     (frontmatter) => frontmatter.id === params.id,
-  );
+  )
 
   return {
     title: `${frontmatter?.title} | Tommy Chow`,
@@ -31,14 +31,14 @@ export async function generateMetadata(props: PageParams): Promise<Metadata> {
     openGraph: {
       url: `https://www.tommychow.com/blog/${params.id}`,
     },
-  };
+  }
 }
 
 export default async function BlogPost(props: PageParams) {
-  const params = await props.params;
-  const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`));
+  const params = await props.params
+  const MDXPost = dynamic(() => import(`../_posts/${params.id}/page.mdx`))
 
-  const blogPost = getBlogPostFrontMatter(params.id);
+  const blogPost = getBlogPostFrontMatter(params.id)
 
   return (
     <Prose>
@@ -54,5 +54,5 @@ export default async function BlogPost(props: PageParams) {
         <MDXPost />
       </div>
     </Prose>
-  );
+  )
 }

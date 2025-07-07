@@ -1,11 +1,11 @@
-import { remarkCodeHike } from '@code-hike/mdx';
-import createMDX from '@next/mdx';
-import type { NextConfig } from 'next';
-import remarkFrontmatter from 'remark-frontmatter';
+import { remarkCodeHike } from '@code-hike/mdx'
+import createMDX from '@next/mdx'
+import type { NextConfig } from 'next'
+import remarkFrontmatter from 'remark-frontmatter'
 
 const nextConfig: NextConfig = {
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-};
+}
 
 const withMDX = createMDX({
   options: {
@@ -21,6 +21,6 @@ const withMDX = createMDX({
       ],
     ],
   },
-});
+})
 
-export default withMDX(nextConfig);
+export default withMDX(nextConfig)

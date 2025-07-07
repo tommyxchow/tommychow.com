@@ -1,3 +1,3 @@
-import GalleryPage from './[id]/page';
+import GalleryPage from './[id]/page'
 
-export default GalleryPage;
+export default GalleryPage

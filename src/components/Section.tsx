@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import { HiArrowRight } from 'react-icons/hi2';
+import Link from 'next/link'
+import { HiArrowRight } from 'react-icons/hi2'
 
 interface SectionProps {
-  title: string;
-  href: string;
-  children: React.ReactNode;
+  title: string
+  href: string
+  children: React.ReactNode
 }
 
 export default function Section({ title, href, children }: SectionProps) {
@@ -21,5 +21,5 @@ export default function Section({ title, href, children }: SectionProps) {
       </Link>
       {children}
     </section>
-  );
+  )
 }

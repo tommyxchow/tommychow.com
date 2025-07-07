@@ -1,21 +1,21 @@
-'use client';
+'use client'
 
-import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { HiMoon, HiSun } from 'react-icons/hi2';
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
+import { HiMoon, HiSun } from 'react-icons/hi2'
 
 export function ThemeToggle() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme()
 
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
-  if (!mounted) return <div className='size-4' />;
+  if (!mounted) return <div className='size-4' />
 
-  const isDarkMode = resolvedTheme === 'dark';
+  const isDarkMode = resolvedTheme === 'dark'
 
   return (
     <button
@@ -25,5 +25,5 @@ export function ThemeToggle() {
     >
       {isDarkMode ? <HiSun /> : <HiMoon />}
     </button>
-  );
+  )
 }
