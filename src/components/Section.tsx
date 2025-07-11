@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { HiArrowRight } from 'react-icons/hi2'
+import { SectionHeadline } from './SectionHeadline'
 
 interface SectionProps {
   title: string
@@ -11,13 +12,11 @@ export default function Section({ title, href, children }: SectionProps) {
   return (
     <section className='flex flex-col'>
       <Link
-        className='flex items-center justify-between py-2 text-zinc-500 transition-opacity hover:opacity-60 dark:text-zinc-400'
+        className='flex items-center justify-between py-2 transition-opacity hover:opacity-60'
         href={href}
       >
-        <h2 className='text-sm font-semibold tracking-wider uppercase'>
-          {title}
-        </h2>
-        <HiArrowRight />
+        <SectionHeadline>{title}</SectionHeadline>
+        <HiArrowRight className='text-zinc-500 dark:text-zinc-400' />
       </Link>
       {children}
     </section>
