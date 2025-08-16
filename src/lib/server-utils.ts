@@ -71,8 +71,13 @@ export async function getSortedImagesByDate() {
 
     const imageFiles = await fs.readdir(directory)
 
+    // Limit to 9 images in development for faster hot reloads
+    const filesToProcess = process.env.NODE_ENV === 'development' 
+      ? imageFiles.slice(0, 9) 
+      : imageFiles
+
     const fileStats = await Promise.all(
-      imageFiles.map(async (file) => {
+      filesToProcess.map(async (file) => {
         const imagePath = path.join(directory, file)
 
         const buffer = await fs.readFile(imagePath)
