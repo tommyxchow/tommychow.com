@@ -22,8 +22,8 @@ export default async function GalleryPage({
 
   return (
     <section className='flex flex-col'>
-      <figure className='bg-background sticky top-20 z-10 flex flex-col items-center gap-4 px-4 pb-4'>
-        <div className='animate-in fade-in relative aspect-4/3 size-full duration-300'>
+      <figure className='bg-background border-border sticky top-25 z-10 flex flex-col items-center gap-4 border-b px-4 pb-4'>
+        <div className='animate-in fade-in relative h-[60vh] max-h-[500px] w-full duration-300'>
           <CustomImage
             className='mx-auto mt-auto size-auto! max-h-full max-w-full'
             src={`/gallery/images/${file}`}
@@ -44,7 +44,7 @@ export default async function GalleryPage({
         </figcaption>
       </figure>
 
-      <ul className='grid grid-cols-3 gap-1'>
+      <ul className='grid grid-cols-4 gap-1'>
         {allImages.map(({ file, thumbHashDataURL }) => (
           <li key={file}>
             <Link
