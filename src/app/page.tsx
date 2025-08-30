@@ -10,6 +10,7 @@ import {
   getAllBlogPostsFrontmatter,
   getSortedImagesByDate,
 } from '@/lib/server-utils'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function HomePage() {
@@ -20,7 +21,7 @@ export default async function HomePage() {
     <div className='mt-4 flex flex-col gap-16'>
       <hgroup className='flex flex-col items-baseline gap-1'>
         <h1 className='text-lg font-semibold'>Tommy Chow</h1>
-        <p className='text-sm font-medium text-zinc-500 dark:text-zinc-400'>
+        <p className='text-muted-foreground font-medium'>
           Software Engineer at{' '}
           <HoverUnderline>
             <a href='https://www.tesla.com/about' target='_blank'>
@@ -59,12 +60,14 @@ export default async function HomePage() {
       </Prose>
 
       <Section title='Gallery' href='/gallery'>
-        <ul className='grid grid-cols-3 gap-1'>
-          {allImages.slice(0, 3).map(({ file, thumbHashDataURL }) => (
+        <ul className='grid grid-cols-4 gap-1'>
+          {allImages.slice(0, 3).map(({ file, thumbHashDataURL }, index) => (
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
-                className='relative block aspect-square transition-opacity hover:opacity-60'
+                className={`relative block aspect-square overflow-hidden transition-opacity hover:opacity-60 ${
+                  index === 0 ? 'rounded-l-lg' : ''
+                }`}
               >
                 <CustomImage
                   src={`/gallery/images/${file}`}
@@ -78,11 +81,40 @@ export default async function HomePage() {
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href='/gallery'
+              className='group relative block aspect-square overflow-hidden rounded-r-lg'
+            >
+              {allImages[3] && (
+                <CustomImage
+                  src={`/gallery/images/${allImages[3].file}`}
+                  alt={`Gallery image ${allImages[3].file}`}
+                  sizes='(max-width: 640px) 50vw, 25vw'
+                  fill
+                  priority
+                  placeholder='blur'
+                  blurDataURL={allImages[3].thumbHashDataURL}
+                />
+              )}
+              <div className='absolute inset-0 bg-black/20 transition-all group-hover:bg-black/40'>
+                <div className='absolute inset-0 backdrop-blur-md'></div>
+                <div className='relative flex h-full items-center justify-center'>
+                  <div className='text-foreground flex items-center gap-2 text-center'>
+                    <span className='text-sm font-semibold'>
+                      {allImages.length - 3} more
+                    </span>
+                    <ArrowRight className='h-4 w-4' />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </li>
         </ul>
       </Section>
 
       <Section title='Blog' href='/blog'>
-        <ul>
+        <ul className='flex flex-col gap-2'>
           {blogPosts.map((post) => (
             <li key={post.id}>
               <BlogPostCard {...post} />
@@ -92,7 +124,7 @@ export default async function HomePage() {
       </Section>
 
       <Section title='Projects' href='/projects'>
-        <ul>
+        <ul className='flex flex-col gap-4 md:grid md:grid-cols-2'>
           {projects.map((project) => (
             <li key={project.name}>
               <ProjectCard {...project} />

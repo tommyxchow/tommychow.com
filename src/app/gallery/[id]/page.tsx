@@ -22,7 +22,7 @@ export default async function GalleryPage({
 
   return (
     <section className='flex flex-col'>
-      <figure className='sticky top-20 z-10 flex flex-col items-center gap-4 bg-zinc-100 px-4 pb-4 dark:bg-zinc-950'>
+      <figure className='bg-background sticky top-20 z-10 flex flex-col items-center gap-4 px-4 pb-4'>
         <div className='animate-in fade-in relative aspect-4/3 size-full duration-300'>
           <CustomImage
             className='mx-auto mt-auto size-auto! max-h-full max-w-full'
@@ -38,7 +38,7 @@ export default async function GalleryPage({
           />
         </div>
 
-        <figcaption className='flex flex-col items-center font-mono text-sm text-zinc-500 dark:text-zinc-400'>
+        <figcaption className='text-muted-foreground flex flex-col items-center font-mono text-sm'>
           <p>{formatDate(exifData.DateTimeOriginal, true, true)}</p>
           <p>{exifData.Model}</p>
         </figcaption>
