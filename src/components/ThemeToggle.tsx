@@ -1,9 +1,9 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { HiMoon, HiSun } from 'react-icons/hi2'
-import { Button } from '@/components/ui/button'
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
@@ -20,8 +20,8 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="ghost"
-      size="icon"
+      variant='ghost'
+      size='icon'
       className='animate-in fade-in duration-300 ease-out'
       aria-label={`Toggle ${isDarkMode ? 'light mode' : 'dark mode'}`}
       onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}

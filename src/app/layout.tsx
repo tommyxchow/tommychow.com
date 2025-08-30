@@ -36,7 +36,7 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body
         className={twJoin(
-          'mx-auto flex min-h-dvh max-w-(--breakpoint-md) flex-col bg-background px-4 pb-8 font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background md:px-0',
+          'bg-background text-foreground selection:bg-foreground selection:text-background mx-auto flex min-h-dvh max-w-(--breakpoint-md) flex-col px-4 pb-8 font-sans underline-offset-4 md:px-0',
           fontSans.variable,
           fontMono.variable,
         )}

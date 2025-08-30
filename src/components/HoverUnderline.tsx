@@ -4,7 +4,7 @@ interface HoverUnderlineProps {
 
 export function HoverUnderline({ children }: HoverUnderlineProps) {
   return (
-    <span className='border-b border-muted-foreground/50 transition-colors hover:border-muted-foreground'>
+    <span className='border-muted-foreground/50 hover:border-muted-foreground border-b transition-colors'>
       {children}
     </span>
   )
