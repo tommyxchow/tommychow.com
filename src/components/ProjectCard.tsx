@@ -77,7 +77,12 @@ export default function ProjectCard({
         <div className='hidden md:block'>
           <Tooltip>
             <TooltipTrigger asChild>{cardContent}</TooltipTrigger>
-            <TooltipContent side='top' align='center' className='p-0'>
+            <TooltipContent
+              side='top'
+              align='center'
+              className='p-0'
+              sideOffset={12}
+            >
               <div className='aspect-video w-[var(--radix-tooltip-trigger-width)] overflow-hidden rounded-md'>
                 <CustomImage
                   src={thumbnail}
