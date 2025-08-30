@@ -24,34 +24,30 @@ export default function ProjectCard({
       <div className='flex h-full flex-row gap-4 md:flex-col md:gap-0'>
         {/* Thumbnail - shows on mobile on left, hidden on desktop unless showThumbnail */}
         <div className='flex-shrink-0 md:hidden'>
-          <div className='bg-muted h-full w-20 overflow-hidden rounded-md'>
-            <CustomImage
-              priority
-              src={thumbnail}
-              alt={`Thumbnail for ${name}.`}
-              className='h-full w-full object-cover'
-            />
-          </div>
+          <div
+            className='bg-muted h-full w-20 rounded-md bg-cover bg-center'
+            style={{ backgroundImage: `url(${thumbnail.src})` }}
+            role='img'
+            aria-label={`Thumbnail for ${name}`}
+          />
         </div>
 
         {/* Desktop thumbnail - only shows if showThumbnail is true */}
         {showThumbnail && (
           <div className='mb-3 hidden flex-shrink-0 md:block'>
-            <div className='bg-muted aspect-video overflow-hidden rounded-md'>
-              <CustomImage
-                priority
-                src={thumbnail}
-                alt={`Thumbnail for ${name}.`}
-                className='h-full w-full object-cover'
-              />
-            </div>
+            <div
+              className='bg-muted aspect-video rounded-md bg-cover bg-center'
+              style={{ backgroundImage: `url(${thumbnail.src})` }}
+              role='img'
+              aria-label={`Thumbnail for ${name}`}
+            />
           </div>
         )}
 
         {/* Content */}
         <div className='flex min-w-0 flex-1 flex-col justify-center md:h-full md:justify-start'>
           {/* Header */}
-          <div className='mb-1 md:mb-3'>
+          <div className={`${showThumbnail ? 'mb-3' : 'mb-1'}`}>
             <h3 className='text-card-foreground font-semibold'>{name}</h3>
           </div>
 
