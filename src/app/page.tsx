@@ -60,8 +60,8 @@ export default async function HomePage() {
       </Prose>
 
       <Section title='Gallery' href='/gallery'>
-        <ul className='grid grid-cols-4 gap-1'>
-          {allImages.slice(0, 3).map(({ file, thumbHashDataURL }, index) => (
+        <ul className='grid grid-cols-3 gap-1 sm:grid-cols-4'>
+          {allImages.slice(0, 2).map(({ file, thumbHashDataURL }, index) => (
             <li key={file}>
               <Link
                 href={`/gallery/${file}`}
@@ -81,11 +81,41 @@ export default async function HomePage() {
               </Link>
             </li>
           ))}
+          {allImages[2] && (
+            <li className='hidden sm:block'>
+              <Link
+                href={`/gallery/${allImages[2].file}`}
+                className='relative block aspect-square overflow-hidden transition-opacity hover:opacity-60'
+              >
+                <CustomImage
+                  src={`/gallery/images/${allImages[2].file}`}
+                  alt={`Gallery image ${allImages[2].file}`}
+                  sizes='(max-width: 640px) 50vw, 25vw'
+                  fill
+                  priority
+                  placeholder='blur'
+                  blurDataURL={allImages[2].thumbHashDataURL}
+                />
+              </Link>
+            </li>
+          )}
           <li>
             <Link
               href='/gallery'
               className='group relative block aspect-square overflow-hidden rounded-r-lg'
             >
+              {allImages[2] && (
+                <CustomImage
+                  src={`/gallery/images/${allImages[2].file}`}
+                  alt={`Gallery image ${allImages[2].file}`}
+                  sizes='(max-width: 640px) 50vw, 25vw'
+                  fill
+                  priority
+                  placeholder='blur'
+                  blurDataURL={allImages[2].thumbHashDataURL}
+                  className='sm:hidden'
+                />
+              )}
               {allImages[3] && (
                 <CustomImage
                   src={`/gallery/images/${allImages[3].file}`}
@@ -95,13 +125,14 @@ export default async function HomePage() {
                   priority
                   placeholder='blur'
                   blurDataURL={allImages[3].thumbHashDataURL}
+                  className='hidden sm:block'
                 />
               )}
               <div className='absolute inset-0 bg-black/20 transition-all group-hover:bg-black/40'>
                 <div className='absolute inset-0 backdrop-blur-md'></div>
                 <div className='relative flex h-full items-center justify-center'>
                   <div className='text-foreground flex items-center gap-2 text-center'>
-                    <span className='text-sm font-semibold'>
+                    <span className='text-sm font-medium'>
                       {allImages.length - 3} more
                     </span>
                     <ArrowRight className='h-4 w-4' />

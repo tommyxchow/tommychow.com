@@ -44,7 +44,7 @@ export default async function GalleryPage({
         </figcaption>
       </figure>
 
-      <ul className='grid grid-cols-4 gap-1'>
+      <ul className='grid grid-cols-3 gap-1 sm:grid-cols-4'>
         {allImages.map(({ file, thumbHashDataURL }) => (
           <li key={file}>
             <Link
