@@ -1,9 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { HiMoon, HiSun } from 'react-icons/hi2'
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
@@ -26,7 +26,7 @@ export function ThemeToggle() {
       aria-label={`Toggle ${isDarkMode ? 'light mode' : 'dark mode'}`}
       onClick={() => setTheme(isDarkMode ? 'light' : 'dark')}
     >
-      {isDarkMode ? <HiSun /> : <HiMoon />}
+      {isDarkMode ? <Sun /> : <Moon />}
     </Button>
   )
 }

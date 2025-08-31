@@ -1,4 +1,4 @@
-import { FaEnvelope } from 'react-icons/fa'
+import { Mail } from 'lucide-react'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
 
 export const repoLink = 'https://github.com/tommyxchow/tommychow.com'
@@ -8,7 +8,7 @@ export const email = 'tommyxchow@gmail.com'
 
 export const links: LinkInfo[] = [
   {
-    icon: <FaEnvelope />,
+    icon: <Mail />,
     title: 'Email',
     href: `mailto:${email}`,
   },

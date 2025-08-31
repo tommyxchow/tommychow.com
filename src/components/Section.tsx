@@ -1,5 +1,5 @@
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { HiArrowRight } from 'react-icons/hi2'
 import { SectionHeadline } from './SectionHeadline'
 
 interface SectionProps {
@@ -16,7 +16,7 @@ export default function Section({ title, href, children }: SectionProps) {
         href={href}
       >
         <SectionHeadline>{title}</SectionHeadline>
-        <HiArrowRight className='text-muted-foreground' />
+        <ArrowRight className='text-muted-foreground h-4 w-4' />
       </Link>
       {children}
     </section>

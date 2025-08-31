@@ -1,8 +1,8 @@
 'use client'
 
+import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { HiArrowLeft } from 'react-icons/hi2'
 import { twJoin } from 'tailwind-merge'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -41,7 +41,7 @@ export function Header() {
         )}
         href='/'
       >
-        <HiArrowLeft />
+        <ArrowLeft className='h-4 w-4' />
       </Link>
 
       {header && (
