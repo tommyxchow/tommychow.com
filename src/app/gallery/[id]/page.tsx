@@ -23,9 +23,9 @@ export default async function GalleryPage({
   return (
     <section className='flex flex-col'>
       <figure className='bg-background border-border sticky top-25 z-10 flex flex-col items-center gap-4 border-b px-4 pb-4'>
-        <div className='animate-in fade-in relative h-[60vh] max-h-[500px] w-full duration-300'>
+        <div className='animate-in fade-in relative h-[50dvh] min-h-80 w-full duration-300 sm:h-[45dvh] lg:h-[40dvh]'>
           <CustomImage
-            className='mx-auto mt-auto size-auto! max-h-full max-w-full'
+            className='object-contain'
             src={`/gallery/images/${file}`}
             alt={`Gallery image ${file}`}
             sizes='100vw'
