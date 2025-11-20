@@ -131,7 +131,7 @@ export default async function HomePage() {
               <div className='absolute inset-0 bg-black/20 transition-all group-hover:bg-black/40'>
                 <div className='absolute inset-0 backdrop-blur-md'></div>
                 <div className='relative flex h-full items-center justify-center'>
-                  <div className='text-foreground flex items-center gap-2 text-center'>
+                  <div className='text-foreground flex items-center gap-2 text-center text-white'>
                     <span className='text-sm font-medium'>
                       {allImages.length - 3} more
                     </span>
