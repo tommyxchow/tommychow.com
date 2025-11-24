@@ -71,28 +71,35 @@ export async function getSortedImagesByDate() {
 
     const imageFiles = await fs.readdir(directory)
 
-    // Limit to 9 images in development for faster hot reloads
+    // Limit to 20 images in development for faster hot reloads
     const filesToProcess =
       process.env.NODE_ENV === 'development'
-        ? imageFiles.slice(0, 9)
+        ? imageFiles.slice(0, 20)
         : imageFiles
 
     const fileStats = await Promise.all(
       filesToProcess.map(async (file) => {
         const imagePath = path.join(directory, file)
 
-        const buffer = await fs.readFile(imagePath)
-        const exifData = (await exifr.parse(buffer)) as ExifData
+        const exifData = (await exifr.parse(imagePath)) as ExifData
 
-        const { data, info } = await sharp(imagePath)
-          .rotate()
+        const imagePipeline = sharp(imagePath).rotate()
+        const metadata = await imagePipeline.metadata()
+
+        const { data, info } = await imagePipeline
           .resize(100, 100, { fit: 'inside' })
           .ensureAlpha()
           .raw()
           .toBuffer({ resolveWithObject: true })
         const thumbHashDataURL = rgbaToDataURL(info.width, info.height, data)
 
-        return { file, exifData, thumbHashDataURL }
+        return {
+          file,
+          exifData,
+          thumbHashDataURL,
+          width: metadata.width ?? 0,
+          height: metadata.height ?? 0,
+        }
       }),
     )
 
