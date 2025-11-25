@@ -38,17 +38,9 @@ export function PixelatedBackground() {
     let h = 64
 
     const updateSize = () => {
-      // Calculate aspect ratio of the full document
-      const docHeight = Math.max(
-        document.body.scrollHeight,
-        document.documentElement.scrollHeight,
-      )
-      const docWidth = document.documentElement.clientWidth
-
       // Calculate canvas dimensions based on fixed pixel scale
-      // This ensures the pattern size remains constant regardless of screen width
-      w = Math.ceil(docWidth / CONFIG.pixelScale)
-      h = Math.ceil(docHeight / CONFIG.pixelScale)
+      w = Math.ceil(window.innerWidth / CONFIG.pixelScale)
+      h = Math.ceil(window.innerHeight / CONFIG.pixelScale)
 
       // Ensure minimums
       if (w < 1) w = 1
@@ -173,7 +165,7 @@ export function PixelatedBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className='pointer-events-none absolute inset-0 -z-50 h-full w-full opacity-15'
+      className='pointer-events-none fixed inset-0 -z-50 h-full w-full opacity-15'
       style={{
         imageRendering: 'pixelated',
       }}
