@@ -21,21 +21,25 @@ export default async function GalleryPage() {
       <div className='flex gap-2'>
         {columns.map((columnImages, columnIndex) => (
           <ul key={columnIndex} className='flex flex-1 flex-col gap-2'>
-            {columnImages.map(({ file, thumbHashDataURL, width, height }) => (
-              <li key={file}>
-                <CustomImage
-                  className='shadow-none'
-                  src={`/gallery/images/${file}`}
-                  alt={`Gallery image ${file}`}
-                  width={width}
-                  height={height}
-                  priority
-                  placeholder='blur'
-                  blurDataURL={thumbHashDataURL}
-                  canZoom
-                />
-              </li>
-            ))}
+            {columnImages.map(
+              ({ file, thumbHashDataURL, width, height }, imageIndex) => (
+                <li key={file}>
+                  <CustomImage
+                    className='shadow-none'
+                    src={`/gallery/images/${file}`}
+                    alt={`Gallery image ${file}`}
+                    width={width}
+                    height={height}
+                    // Only prioritize first 3 images per column (9 total above the fold)
+                    priority={imageIndex < 3}
+                    loading={imageIndex < 3 ? 'eager' : 'lazy'}
+                    placeholder='blur'
+                    blurDataURL={thumbHashDataURL}
+                    canZoom
+                  />
+                </li>
+              ),
+            )}
           </ul>
         ))}
       </div>
