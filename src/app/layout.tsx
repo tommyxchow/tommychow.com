@@ -1,5 +1,4 @@
 import { Header } from '@/components/Header'
-import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
 import '@code-hike/mdx/dist/index.css'
 import { Analytics } from '@vercel/analytics/react'
@@ -37,20 +36,17 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body
         className={twJoin(
-          'bg-background/80 text-foreground selection:bg-foreground selection:text-background relative min-h-dvh font-sans underline-offset-4',
+          'bg-background text-foreground selection:bg-foreground selection:text-background mx-auto flex min-h-dvh max-w-(--breakpoint-md) flex-col px-4 pb-8 font-sans underline-offset-4 md:px-0',
           fontSans.variable,
           fontMono.variable,
         )}
       >
         <Providers>
-          <PixelatedBackground />
-          <div className='mx-auto flex min-h-dvh max-w-(--breakpoint-md) flex-col px-4 pb-8 md:px-0'>
-            <Header />
+          <Header />
 
-            <main className='grow'>
-              <article>{children}</article>
-            </main>
-          </div>
+          <main className='grow'>
+            <article>{children}</article>
+          </main>
         </Providers>
 
         <Analytics />

@@ -13,7 +13,6 @@ export function CustomImage({
   canZoom,
   alt,
   className,
-  placeholder,
   ...rest
 }: CustomImageProps) {
   const image = (
@@ -21,9 +20,7 @@ export function CustomImage({
       <Image
         className={twMerge('object-cover shadow-lg', className)}
         alt={alt}
-        placeholder={
-          placeholder ?? (typeof rest.src === 'string' ? 'empty' : 'blur')
-        }
+        placeholder={typeof rest.src === 'string' ? 'empty' : 'blur'}
         {...rest}
       />
 

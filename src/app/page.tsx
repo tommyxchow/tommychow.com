@@ -64,7 +64,7 @@ export default async function HomePage() {
           {allImages.slice(0, 2).map(({ file, thumbHashDataURL }, index) => (
             <li key={file}>
               <Link
-                href='/gallery'
+                href={`/gallery/${file}`}
                 className={`relative block aspect-square overflow-hidden transition-opacity hover:opacity-60 ${
                   index === 0 ? 'rounded-l-lg' : ''
                 }`}
@@ -84,7 +84,7 @@ export default async function HomePage() {
           {allImages[2] && (
             <li className='hidden sm:block'>
               <Link
-                href='/gallery'
+                href={`/gallery/${allImages[2].file}`}
                 className='relative block aspect-square overflow-hidden transition-opacity hover:opacity-60'
               >
                 <CustomImage
