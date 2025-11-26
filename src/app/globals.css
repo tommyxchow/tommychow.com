@@ -10,8 +10,8 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html {
-  scrollbar-gutter: stable;
+body {
+  padding-left: calc(100vw - 100%);
 }
 
 :root {
