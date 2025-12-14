@@ -1,21 +1,16 @@
 import { projects } from '@/app/projects/projects'
-import BlogPostCard from '@/components/BlogPostCard'
 import { CustomImage } from '@/components/CustomImage'
 import { HoverUnderline } from '@/components/HoverUnderline'
 import ProjectCard from '@/components/ProjectCard'
 import { Prose } from '@/components/Prose'
 import Section from '@/components/Section'
 import { links } from '@/lib/links'
-import {
-  getAllBlogPostsFrontmatter,
-  getSortedImagesByDate,
-} from '@/lib/server-utils'
+import { getSortedImagesByDate } from '@/lib/server-utils'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function HomePage() {
   const allImages = await getSortedImagesByDate()
-  const blogPosts = await getAllBlogPostsFrontmatter()
 
   return (
     <div className='mt-4 flex flex-col gap-16'>
@@ -141,16 +136,6 @@ export default async function HomePage() {
               </div>
             </Link>
           </li>
-        </ul>
-      </Section>
-
-      <Section title='Blog' href='/blog'>
-        <ul className='flex flex-col gap-2'>
-          {blogPosts.map((post) => (
-            <li key={post.id}>
-              <BlogPostCard {...post} />
-            </li>
-          ))}
         </ul>
       </Section>
 

@@ -72,7 +72,7 @@ export default function ProjectCard({
       {!showThumbnail && (
         <div className='hidden md:block'>
           <Tooltip>
-            <TooltipTrigger asChild>{cardContent}</TooltipTrigger>
+            <TooltipTrigger render={<div />}>{cardContent}</TooltipTrigger>
             <TooltipContent
               side='top'
               align='center'

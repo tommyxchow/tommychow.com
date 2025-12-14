@@ -9,7 +9,6 @@ import { ThemeToggle } from './ThemeToggle'
 
 const routeToHeader: Record<string, string> = {
   '/gallery': 'Gallery',
-  '/blog': 'Blog',
   '/projects': 'Projects',
 }
 
@@ -29,16 +28,14 @@ export function Header() {
       <Button
         variant='ghost'
         size='icon'
-        asChild
+        render={<Link aria-label='Go back to home page' href='/' />}
         className={twJoin(
           showBackButton
             ? 'animate-in fade-in duration-300 ease-out'
             : 'invisible',
         )}
       >
-        <Link aria-label='Go back to home page' href='/'>
-          <ArrowLeft />
-        </Link>
+        <ArrowLeft />
       </Button>
 
       {header && (
