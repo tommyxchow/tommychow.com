@@ -1,10 +1,10 @@
 import { type ProjectInfo } from '@/app/projects/projects'
 import { Card } from '@/components/ui/card'
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card'
 import { CustomImage } from './CustomImage'
 
 interface ProjectCardProps extends ProjectInfo {
@@ -23,7 +23,7 @@ export default function ProjectCard({
       {/* Mobile layout: horizontal with thumbnail on left */}
       <div className='flex h-full flex-row gap-4 md:flex-col md:gap-0'>
         {/* Thumbnail - shows on mobile on left, hidden on desktop unless showThumbnail */}
-        <div className='flex-shrink-0 md:hidden'>
+        <div className='shrink-0 md:hidden'>
           <div
             className='bg-muted h-full w-20 rounded-md bg-cover bg-center'
             style={{ backgroundImage: `url(${thumbnail.src})` }}
@@ -34,7 +34,7 @@ export default function ProjectCard({
 
         {/* Desktop thumbnail - only shows if showThumbnail is true */}
         {showThumbnail && (
-          <div className='mb-3 hidden flex-shrink-0 md:block'>
+          <div className='mb-3 hidden shrink-0 md:block'>
             <div
               className='bg-muted aspect-video rounded-md bg-cover bg-center'
               style={{ backgroundImage: `url(${thumbnail.src})` }}
@@ -71,23 +71,23 @@ export default function ProjectCard({
       )}
       {!showThumbnail && (
         <div className='hidden md:block'>
-          <Tooltip>
-            <TooltipTrigger render={<div />}>{cardContent}</TooltipTrigger>
-            <TooltipContent
+          <HoverCard>
+            <HoverCardTrigger render={<div />}>{cardContent}</HoverCardTrigger>
+            <HoverCardContent
               side='top'
-              align='center'
+              align='start'
               className='p-0'
               sideOffset={12}
             >
-              <div className='aspect-video w-[var(--radix-tooltip-trigger-width)] overflow-hidden rounded-md'>
+              <div className='aspect-video w-(--anchor-width) overflow-hidden rounded-md'>
                 <CustomImage
                   src={thumbnail}
                   alt={`Thumbnail for ${name}.`}
                   className='h-full w-full object-cover'
                 />
               </div>
-            </TooltipContent>
-          </Tooltip>
+            </HoverCardContent>
+          </HoverCard>
         </div>
       )}
     </a>
