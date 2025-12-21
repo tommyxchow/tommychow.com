@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "format": "prettier . --write",
-    "clean": "rimraf .next node_modules",
-    "nuke": "rimraf .next node_modules pnpm-lock.yaml"
+    "clean": "node -e \"['.next','node_modules'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
+    "nuke": "node -e \"['.next','node_modules','pnpm-lock.yaml'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\""
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
