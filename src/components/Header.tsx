@@ -24,7 +24,7 @@ export function Header() {
   })?.[1]
 
   return (
-    <header className='sticky inset-0 z-50 -mx-4 flex items-center justify-between px-4 py-8'>
+    <header className='fixed inset-x-0 top-0 z-50 flex items-center justify-between p-4'>
       <Button
         variant='ghost'
         size='icon'
