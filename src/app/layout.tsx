@@ -44,7 +44,7 @@ export default function RootLayout({
         <Providers>
           <PixelatedBackground />
           <Header />
-          <div className='mx-auto flex min-h-dvh max-w-(--breakpoint-md) flex-col px-4 md:px-0'>
+          <div className='mx-auto flex min-h-dvh max-w-(--breakpoint-sm) flex-col px-4 md:px-0'>
             <main className='grid grow'>{children}</main>
           </div>
         </Providers>

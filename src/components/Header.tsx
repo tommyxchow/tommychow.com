@@ -5,7 +5,6 @@ import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { twJoin } from 'tailwind-merge'
-import { ThemeToggle } from './ThemeToggle'
 
 const routeToHeader: Record<string, string> = {
   '/gallery': 'Gallery',
@@ -43,8 +42,6 @@ export function Header() {
           {header}
         </span>
       )}
-
-      <ThemeToggle />
     </header>
   )
 }

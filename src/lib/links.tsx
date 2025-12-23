@@ -8,17 +8,17 @@ export const email = 'tommyxchow@gmail.com'
 
 export const links: LinkInfo[] = [
   {
-    icon: <Mail />,
+    icon: <Mail size={18} />,
     title: 'Email',
     href: `mailto:${email}`,
   },
   {
-    icon: <SiGithub />,
+    icon: <SiGithub size={16} />,
     title: 'GitHub',
     href: githubLink,
   },
   {
-    icon: <SiLinkedin />,
+    icon: <SiLinkedin size={16} />,
     title: 'LinkedIn',
     href: linkedInLink,
   },

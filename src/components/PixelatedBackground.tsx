@@ -16,14 +16,14 @@ const PALETTE = new Uint8Array(PALETTE_SIZE * 3)
 
 const createGradient = () => {
   // Define keyframes: [position, r, g, b]
-  // "Thermal/Infrared" inspired but smoother
+  // Black and white thermal scope style
   const stops = [
-    [0.0, 10, 0, 20], // Deep dark purple/black
-    [0.2, 40, 0, 80], // Rich purple
-    [0.4, 80, 0, 180], // Blue-purple
-    [0.6, 200, 0, 100], // Red-pink
-    [0.8, 255, 180, 0], // Orange-gold
-    [1.0, 255, 255, 200], // White-yellow
+    [0.0, 0, 0, 0], // Black
+    [0.3, 20, 20, 20], // Very dark grey
+    [0.5, 60, 60, 60], // Dark grey
+    [0.7, 140, 140, 140], // Grey
+    [0.9, 220, 220, 220], // Light grey
+    [1.0, 255, 255, 255], // White
   ]
 
   for (let i = 0; i < PALETTE_SIZE; i++) {
