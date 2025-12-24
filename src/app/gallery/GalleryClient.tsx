@@ -2,10 +2,15 @@
 
 import { CustomImage } from '@/components/CustomImage'
 import { Button } from '@/components/ui/button'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
 import { animate, type AnimationPlaybackControls } from 'motion'
 import { motion, type PanInfo } from 'motion/react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 // Shared spring config for consistent animations across the gallery
 const SPRING_CONFIG = {
@@ -36,6 +41,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const prefetchedRef = useRef<Set<number>>(new Set())
   const [displayIndex, setDisplayIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
+  const [gridOpen, setGridOpen] = useState(false)
 
   // Mark image as loaded
   const handleImageLoad = useCallback((index: number) => {
@@ -44,6 +50,8 @@ export function GalleryClient({ images }: GalleryClientProps) {
 
   // Prefetch upcoming images using link prefetch (better browser integration)
   useEffect(() => {
+    const linksAdded: HTMLLinkElement[] = []
+
     for (let i = 1; i <= PREFETCH_COUNT; i++) {
       const indices = [displayIndex + i, displayIndex - i]
       for (const idx of indices) {
@@ -58,8 +66,13 @@ export function GalleryClient({ images }: GalleryClientProps) {
           link.as = 'image'
           link.href = `/gallery/images/${images[idx].file}`
           document.head.appendChild(link)
+          linksAdded.push(link)
         }
       }
+    }
+
+    return () => {
+      linksAdded.forEach((link) => link.remove())
     }
   }, [displayIndex, images])
 
@@ -161,6 +174,56 @@ export function GalleryClient({ images }: GalleryClientProps) {
     }
   }, [scrollToIndex])
 
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault()
+        scrollToIndex(targetIndexRef.current + 1)
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault()
+        scrollToIndex(targetIndexRef.current - 1)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [scrollToIndex])
+
+  // Memoize thumbnail grid to avoid re-renders when popover state changes
+  const thumbnailGrid = useMemo(
+    () => (
+      <div className='grid grid-cols-2 gap-1.5 sm:grid-cols-3'>
+        {images.map(({ file, thumbHashDataURL }, index) => (
+          <button
+            key={file}
+            onClick={() => {
+              scrollToIndex(index)
+              setGridOpen(false)
+            }}
+            className={`hover:ring-foreground/50 focus:ring-foreground relative aspect-square overflow-hidden rounded transition-all hover:ring-2 focus:ring-2 focus:outline-none ${
+              index === displayIndex
+                ? 'ring-foreground ring-2'
+                : 'opacity-70 hover:opacity-100'
+            }`}
+            aria-label={`Go to image ${index + 1}`}
+          >
+            <CustomImage
+              src={`/gallery/images/${file}`}
+              alt={`Thumbnail ${index + 1}`}
+              fill
+              sizes='(min-width: 640px) 120px, 150px'
+              className='object-cover shadow-none'
+              placeholder='blur'
+              blurDataURL={thumbHashDataURL}
+            />
+          </button>
+        ))}
+      </div>
+    ),
+    [images, displayIndex, scrollToIndex],
+  )
+
   return (
     <div className='relative h-dvh w-full overflow-hidden'>
       <motion.div
@@ -231,9 +294,22 @@ export function GalleryClient({ images }: GalleryClientProps) {
           >
             <ChevronUp className='h-6 w-6' />
           </Button>
-          <span className='text-muted-foreground min-w-16 text-center font-mono text-sm'>
-            {displayIndex + 1} / {images.length}
-          </span>
+          <Popover open={gridOpen} onOpenChange={setGridOpen}>
+            <PopoverTrigger
+              className='bg-background/20 hover:bg-background/40 text-muted-foreground hover:text-foreground pointer-events-auto flex min-w-20 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-sm backdrop-blur-md transition-all active:scale-95'
+              aria-label='Open image gallery grid'
+            >
+              <Grid className='h-3.5 w-3.5' />
+              {displayIndex + 1} / {images.length}
+            </PopoverTrigger>
+            <PopoverContent
+              side='top'
+              sideOffset={12}
+              className='max-h-80 w-[calc(100vw-2rem)] max-w-sm overflow-y-auto p-2 sm:w-96 sm:max-w-none'
+            >
+              {thumbnailGrid}
+            </PopoverContent>
+          </Popover>
           <Button
             variant='ghost'
             size='icon'
