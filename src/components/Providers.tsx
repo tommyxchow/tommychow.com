@@ -5,5 +5,13 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
-  return <ThemeProvider attribute='class'>{children}</ThemeProvider>
+  return (
+    <ThemeProvider
+      attribute='class'
+      forcedTheme='dark'
+      disableTransitionOnChange
+    >
+      {children}
+    </ThemeProvider>
+  )
 }
