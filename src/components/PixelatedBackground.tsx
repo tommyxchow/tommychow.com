@@ -74,8 +74,12 @@ export function PixelatedBackground() {
     let data: Uint8ClampedArray
 
     const updateSize = () => {
-      w = Math.ceil(window.innerWidth / CONFIG.pixelScale)
-      h = Math.ceil(window.innerHeight / CONFIG.pixelScale)
+      const isMobile = window.innerWidth < 768
+      // Use a smaller scale on mobile to show more detail in the pattern
+      const pixelScale = isMobile ? 18 : CONFIG.pixelScale
+
+      w = Math.ceil(window.innerWidth / pixelScale)
+      h = Math.ceil(window.innerHeight / pixelScale)
 
       if (w < 1) w = 1
       if (h < 1) h = 1
@@ -122,8 +126,6 @@ export function PixelatedBackground() {
       mouseY += (targetMouseY - mouseY) * 0.05
 
       // Pre-calculate constants for the frame
-      const cx = w * mouseX
-      const cy = h * mouseY
       const width = w
       const height = h
       const contrast = CONFIG.contrast
@@ -132,19 +134,24 @@ export function PixelatedBackground() {
       let index = 0
 
       for (let y = 0; y < height; y++) {
-        // Optimization: Pre-calculate y-dependent values outside the inner loop
-        const ySin = Math.sin(y * 0.09 - time * 0.8)
-        const ySq = (y - cy) ** 2
+        // Use normalized coordinates (0 to 1) so the pattern scales with screen size
+        const ny = y / height
+        const ySin = Math.sin(ny * 6 - time * 0.8)
+        const dy = ny - mouseY
+        const dySq = dy * dy
 
         for (let x = 0; x < width; x++) {
-          // Wave interference pattern
-          const v1 = Math.sin(x * 0.06 + time)
-          const v2 = ySin
-          const v3 = Math.sin((x + y) * 0.08 + time * 1.2)
+          const nx = x / width
 
-          // Radial component follows mouse
-          const dist = Math.sqrt((x - cx) ** 2 + ySq)
-          const v4 = Math.sin(dist * 0.12 - time)
+          // Wave interference pattern using normalized coordinates
+          const v1 = Math.sin(nx * 4 + time)
+          const v2 = ySin
+          const v3 = Math.sin((nx + ny) * 5 + time * 1.2)
+
+          // Radial component follows mouse (using normalized distance)
+          const dx = nx - mouseX
+          const dist = Math.sqrt(dx * dx + dySq)
+          const v4 = Math.sin(dist * 8 - time)
 
           let value = (v1 + v2 + v3 + v4) / 4.0
 
@@ -188,7 +195,9 @@ export function PixelatedBackground() {
       ref={canvasRef}
       className={cn(
         'pointer-events-none fixed inset-0 -z-50 h-full w-full transition-all duration-1000 ease-out',
-        isMounted ? 'scale-100 opacity-15' : 'scale-105 opacity-0',
+        isMounted
+          ? 'scale-100 opacity-25 md:opacity-15'
+          : 'scale-105 opacity-0',
       )}
       style={{
         imageRendering: 'pixelated',
