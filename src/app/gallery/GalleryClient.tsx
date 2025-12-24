@@ -19,6 +19,9 @@ const SCROLL_THRESHOLD = 0.15
 // Number of images to prefetch ahead
 const PREFETCH_COUNT = 2
 
+// Virtual scrolling: render window around current index for performance
+const RENDER_WINDOW = 3
+
 interface GalleryClientProps {
   images: {
     file: string
@@ -167,6 +170,20 @@ export function GalleryClient({ images }: GalleryClientProps) {
         style={{ touchAction: 'none' }}
       >
         {images.map(({ file }, index) => {
+          // Virtual scrolling: only render images within window of current index
+          const shouldRender = Math.abs(index - displayIndex) <= RENDER_WINDOW
+
+          if (!shouldRender) {
+            // Render empty placeholder to maintain scroll position
+            return (
+              <div
+                key={file}
+                className='h-dvh w-full shrink-0'
+                aria-hidden='true'
+              />
+            )
+          }
+
           const isLoaded = loadedImages.has(index)
           return (
             <motion.div
