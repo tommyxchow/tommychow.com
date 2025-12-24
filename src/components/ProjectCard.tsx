@@ -72,7 +72,9 @@ export default function ProjectCard({
       {!showThumbnail && (
         <div className='hidden md:block'>
           <HoverCard>
-            <HoverCardTrigger render={<div />}>{cardContent}</HoverCardTrigger>
+            <HoverCardTrigger asChild>
+              <div>{cardContent}</div>
+            </HoverCardTrigger>
             <HoverCardContent
               side='top'
               align='start'
