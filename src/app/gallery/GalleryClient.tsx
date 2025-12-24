@@ -261,7 +261,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 type: 'spring',
                 ...SPRING_CONFIG,
               }}
-              className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-4 pb-24 md:px-12 md:pt-12 md:pb-28'
+              className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
             >
               <div className='relative h-full w-full'>
                 <CustomImage
@@ -279,7 +279,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
         })}
       </motion.div>
 
-      <div className='pointer-events-none absolute inset-x-0 bottom-8 flex flex-col items-center gap-3'>
+      <div className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-6'>
         <span className='text-muted-foreground truncate px-4 text-center font-mono text-xs'>
           {images[displayIndex]?.file}
         </span>
