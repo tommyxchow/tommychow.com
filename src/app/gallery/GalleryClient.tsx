@@ -135,7 +135,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
         onPanEnd={handlePanEnd}
         style={{ touchAction: 'none' }}
       >
-        {images.map(({ file, thumbHashDataURL }, index) => (
+        {images.map(({ file }, index) => (
           <motion.div
             key={file}
             initial={{ opacity: 0, scale: 0.95 }}
@@ -155,8 +155,6 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 preload={index < 2}
                 sizes='100vw'
                 className='object-contain shadow-none'
-                placeholder='blur'
-                blurDataURL={thumbHashDataURL}
               />
             </div>
           </motion.div>

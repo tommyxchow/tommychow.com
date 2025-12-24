@@ -59,7 +59,7 @@ export default async function HomePage() {
                   src={`/gallery/images/${file}`}
                   alt='Gallery preview'
                   fill
-                  sizes='(max-width: 640px) 33vw, 200px'
+                  sizes='(max-width: 640px) 50vw, 400px'
                   className='object-cover shadow-none transition-transform duration-500 group-hover:scale-105'
                   placeholder='blur'
                   blurDataURL={thumbHashDataURL}
