@@ -16,6 +16,9 @@ const SPRING_CONFIG = {
 // Scroll threshold: 15% of viewport height to trigger snap to next/prev
 const SCROLL_THRESHOLD = 0.15
 
+// Number of images to prefetch ahead
+const PREFETCH_COUNT = 2
+
 interface GalleryClientProps {
   images: {
     file: string
@@ -27,7 +30,35 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<AnimationPlaybackControls | null>(null)
   const targetIndexRef = useRef(0)
+  const prefetchedRef = useRef<Set<number>>(new Set())
   const [displayIndex, setDisplayIndex] = useState(0)
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
+
+  // Mark image as loaded
+  const handleImageLoad = useCallback((index: number) => {
+    setLoadedImages((prev) => new Set(prev).add(index))
+  }, [])
+
+  // Prefetch upcoming images using link prefetch (better browser integration)
+  useEffect(() => {
+    for (let i = 1; i <= PREFETCH_COUNT; i++) {
+      const indices = [displayIndex + i, displayIndex - i]
+      for (const idx of indices) {
+        if (
+          idx >= 0 &&
+          idx < images.length &&
+          !prefetchedRef.current.has(idx)
+        ) {
+          prefetchedRef.current.add(idx)
+          const link = document.createElement('link')
+          link.rel = 'prefetch'
+          link.as = 'image'
+          link.href = `/gallery/images/${images[idx].file}`
+          document.head.appendChild(link)
+        }
+      }
+    }
+  }, [displayIndex, images])
 
   const scrollToIndex = useCallback(
     (index: number) => {
@@ -135,30 +166,37 @@ export function GalleryClient({ images }: GalleryClientProps) {
         onPanEnd={handlePanEnd}
         style={{ touchAction: 'none' }}
       >
-        {images.map(({ file }, index) => (
-          <motion.div
-            key={file}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ margin: '-20%' }}
-            transition={{
-              type: 'spring',
-              ...SPRING_CONFIG,
-            }}
-            className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-4 pb-24 md:px-12 md:pt-12 md:pb-28'
-          >
-            <div className='relative h-full w-full'>
-              <CustomImage
-                src={`/gallery/images/${file}`}
-                alt={`Gallery image ${file}`}
-                fill
-                preload={index < 2}
-                sizes='100vw'
-                className='object-contain shadow-none'
-              />
-            </div>
-          </motion.div>
-        ))}
+        {images.map(({ file }, index) => {
+          const isLoaded = loadedImages.has(index)
+          return (
+            <motion.div
+              key={file}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={
+                isLoaded
+                  ? { opacity: 1, scale: 1 }
+                  : { opacity: 0, scale: 0.95 }
+              }
+              transition={{
+                type: 'spring',
+                ...SPRING_CONFIG,
+              }}
+              className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-4 pb-24 md:px-12 md:pt-12 md:pb-28'
+            >
+              <div className='relative h-full w-full'>
+                <CustomImage
+                  src={`/gallery/images/${file}`}
+                  alt={`Gallery image ${file}`}
+                  fill
+                  preload={index < 2}
+                  sizes='100vw'
+                  className='object-contain shadow-none'
+                  onLoad={() => handleImageLoad(index)}
+                />
+              </div>
+            </motion.div>
+          )
+        })}
       </motion.div>
 
       <div className='pointer-events-none absolute inset-x-0 bottom-8 flex flex-col items-center gap-3'>
