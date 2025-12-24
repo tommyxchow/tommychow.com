@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { cn } from '@/lib/utils'
+import { useEffect, useRef, useState } from 'react'
 
 // Configuration for the pixelated background effect
 const CONFIG = {
@@ -55,8 +56,10 @@ createGradient()
 
 export function PixelatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    requestAnimationFrame(() => setIsMounted(true))
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -104,9 +107,15 @@ export function PixelatedBackground() {
     window.addEventListener('mousemove', handleMouseMove)
 
     let animationId: number
+    let startTime: number | null = null
 
-    const animate = () => {
-      time += CONFIG.animationSpeed
+    const animate = (now: number) => {
+      startTime ??= now
+      const elapsed = now - startTime
+      const introProgress = Math.min(elapsed / 2000, 1)
+      const easedProgress = 1 - Math.pow(1 - introProgress, 3)
+
+      time += CONFIG.animationSpeed * easedProgress
 
       // Smooth mouse movement (lerp)
       mouseX += (targetMouseX - mouseX) * 0.05
@@ -165,7 +174,7 @@ export function PixelatedBackground() {
       animationId = requestAnimationFrame(animate)
     }
 
-    animate()
+    animationId = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener('resize', updateSize)
@@ -177,7 +186,10 @@ export function PixelatedBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className='pointer-events-none fixed inset-0 -z-50 h-full w-full opacity-15'
+      className={cn(
+        'pointer-events-none fixed inset-0 -z-50 h-full w-full transition-all duration-1000 ease-out',
+        isMounted ? 'scale-100 opacity-15' : 'scale-105 opacity-0',
+      )}
       style={{
         imageRendering: 'pixelated',
       }}
