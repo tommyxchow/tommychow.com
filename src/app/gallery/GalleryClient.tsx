@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { formatDate } from '@/lib/utils'
 import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
 import { animate, type AnimationPlaybackControls } from 'motion'
 import { motion, type PanInfo } from 'motion/react'
@@ -31,6 +32,7 @@ interface GalleryClientProps {
   images: {
     file: string
     thumbHashDataURL: string
+    dateTime: string
   }[]
 }
 
@@ -279,10 +281,14 @@ export function GalleryClient({ images }: GalleryClientProps) {
         })}
       </motion.div>
 
-      <div className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-6'>
-        <span className='text-muted-foreground truncate px-4 text-center font-mono text-xs'>
-          {images[displayIndex]?.file}
-        </span>
+      <div className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-4'>
+        <div className='text-muted-foreground flex flex-col items-center gap-1 px-4 font-mono text-xs'>
+          <span className='truncate'>{images[displayIndex]?.file}</span>
+          <span>
+            {images[displayIndex]?.dateTime &&
+              formatDate(images[displayIndex].dateTime, true, true)}
+          </span>
+        </div>
         <div className='flex items-center gap-4'>
           <Button
             variant='ghost'

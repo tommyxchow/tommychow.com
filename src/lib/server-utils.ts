@@ -78,7 +78,11 @@ export async function getSortedImagesByDate() {
         a.exifData.DateTimeOriginal.getTime(),
     )
 
-    return sortedFiles
+    return sortedFiles.map(({ file, thumbHashDataURL, exifData }) => ({
+      file,
+      thumbHashDataURL,
+      dateTime: exifData.DateTimeOriginal.toISOString(),
+    }))
   } catch (error) {
     console.error('Error reading or sorting images:', error)
     throw error
