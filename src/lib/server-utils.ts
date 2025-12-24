@@ -2,41 +2,9 @@ import 'server-only'
 
 import exifr from 'exifr'
 import fs from 'fs/promises'
-import matter from 'gray-matter'
 import path from 'path'
 import sharp from 'sharp'
 import { rgbaToDataURL } from 'thumbhash'
-
-interface BlogPostFrontmatter {
-  title: string
-  summary: string
-  date: Date
-}
-
-export interface BlogPost extends BlogPostFrontmatter {
-  id: string
-}
-
-const blogPostsDirectory = path.resolve('src/app/blog/_posts')
-
-export function getBlogPostFrontMatter(id: string): BlogPost {
-  const mdxFilePath = path.resolve(blogPostsDirectory, id, 'page.mdx')
-
-  const { data } = matter.read(mdxFilePath)
-
-  return { id, ...(data as BlogPostFrontmatter) }
-}
-
-export async function getAllBlogPostsFrontmatter(): Promise<BlogPost[]> {
-  const postFolders = await fs.readdir(blogPostsDirectory)
-
-  const allFrontmatter = postFolders.map((folderName) =>
-    getBlogPostFrontMatter(folderName),
-  )
-
-  // Sort by newest.
-  return allFrontmatter.sort((a, b) => b.date.getTime() - a.date.getTime())
-}
 
 export interface ExifData {
   // Basic Image Information
@@ -71,28 +39,35 @@ export async function getSortedImagesByDate() {
 
     const imageFiles = await fs.readdir(directory)
 
-    // Limit to 9 images in development for faster hot reloads
+    // Limit to 20 images in development for faster hot reloads
     const filesToProcess =
       process.env.NODE_ENV === 'development'
-        ? imageFiles.slice(0, 9)
+        ? imageFiles.slice(0, 20)
         : imageFiles
 
     const fileStats = await Promise.all(
       filesToProcess.map(async (file) => {
         const imagePath = path.join(directory, file)
 
-        const buffer = await fs.readFile(imagePath)
-        const exifData = (await exifr.parse(buffer)) as ExifData
+        const exifData = (await exifr.parse(imagePath)) as ExifData
 
-        const { data, info } = await sharp(imagePath)
-          .rotate()
+        const imagePipeline = sharp(imagePath).rotate()
+        const metadata = await imagePipeline.metadata()
+
+        const { data, info } = await imagePipeline
           .resize(100, 100, { fit: 'inside' })
           .ensureAlpha()
           .raw()
           .toBuffer({ resolveWithObject: true })
         const thumbHashDataURL = rgbaToDataURL(info.width, info.height, data)
 
-        return { file, exifData, thumbHashDataURL }
+        return {
+          file,
+          exifData,
+          thumbHashDataURL,
+          width: metadata.width ?? 0,
+          height: metadata.height ?? 0,
+        }
       }),
     )
 
@@ -103,7 +78,11 @@ export async function getSortedImagesByDate() {
         a.exifData.DateTimeOriginal.getTime(),
     )
 
-    return sortedFiles
+    return sortedFiles.map(({ file, thumbHashDataURL, exifData }) => ({
+      file,
+      thumbHashDataURL,
+      dateTime: exifData.DateTimeOriginal.toISOString(),
+    }))
   } catch (error) {
     console.error('Error reading or sorting images:', error)
     throw error

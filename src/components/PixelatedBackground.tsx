@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { cn } from '@/lib/utils'
+import { useEffect, useRef, useState } from 'react'
 
 // Configuration for the pixelated background effect
 const CONFIG = {
@@ -16,14 +17,14 @@ const PALETTE = new Uint8Array(PALETTE_SIZE * 3)
 
 const createGradient = () => {
   // Define keyframes: [position, r, g, b]
-  // "Thermal/Infrared" inspired but smoother
+  // Black and white thermal scope style
   const stops = [
-    [0.0, 10, 0, 20], // Deep dark purple/black
-    [0.2, 40, 0, 80], // Rich purple
-    [0.4, 80, 0, 180], // Blue-purple
-    [0.6, 200, 0, 100], // Red-pink
-    [0.8, 255, 180, 0], // Orange-gold
-    [1.0, 255, 255, 200], // White-yellow
+    [0.0, 0, 0, 0], // Black
+    [0.3, 20, 20, 20], // Very dark grey
+    [0.5, 60, 60, 60], // Dark grey
+    [0.7, 140, 140, 140], // Grey
+    [0.9, 220, 220, 220], // Light grey
+    [1.0, 255, 255, 255], // White
   ]
 
   for (let i = 0; i < PALETTE_SIZE; i++) {
@@ -55,8 +56,10 @@ createGradient()
 
 export function PixelatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
+    requestAnimationFrame(() => setIsMounted(true))
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -71,8 +74,12 @@ export function PixelatedBackground() {
     let data: Uint8ClampedArray
 
     const updateSize = () => {
-      w = Math.ceil(window.innerWidth / CONFIG.pixelScale)
-      h = Math.ceil(window.innerHeight / CONFIG.pixelScale)
+      const isMobile = window.innerWidth < 768
+      // Use a smaller scale on mobile to show more detail in the pattern
+      const pixelScale = isMobile ? 18 : CONFIG.pixelScale
+
+      w = Math.ceil(window.innerWidth / pixelScale)
+      h = Math.ceil(window.innerHeight / pixelScale)
 
       if (w < 1) w = 1
       if (h < 1) h = 1
@@ -104,17 +111,21 @@ export function PixelatedBackground() {
     window.addEventListener('mousemove', handleMouseMove)
 
     let animationId: number
+    let startTime: number | null = null
 
-    const animate = () => {
-      time += CONFIG.animationSpeed
+    const animate = (now: number) => {
+      startTime ??= now
+      const elapsed = now - startTime
+      const introProgress = Math.min(elapsed / 2000, 1)
+      const easedProgress = 1 - Math.pow(1 - introProgress, 3)
+
+      time += CONFIG.animationSpeed * easedProgress
 
       // Smooth mouse movement (lerp)
       mouseX += (targetMouseX - mouseX) * 0.05
       mouseY += (targetMouseY - mouseY) * 0.05
 
       // Pre-calculate constants for the frame
-      const cx = w * mouseX
-      const cy = h * mouseY
       const width = w
       const height = h
       const contrast = CONFIG.contrast
@@ -123,19 +134,24 @@ export function PixelatedBackground() {
       let index = 0
 
       for (let y = 0; y < height; y++) {
-        // Optimization: Pre-calculate y-dependent values outside the inner loop
-        const ySin = Math.sin(y * 0.09 - time * 0.8)
-        const ySq = (y - cy) ** 2
+        // Use normalized coordinates (0 to 1) so the pattern scales with screen size
+        const ny = y / height
+        const ySin = Math.sin(ny * 6 - time * 0.8)
+        const dy = ny - mouseY
+        const dySq = dy * dy
 
         for (let x = 0; x < width; x++) {
-          // Wave interference pattern
-          const v1 = Math.sin(x * 0.06 + time)
-          const v2 = ySin
-          const v3 = Math.sin((x + y) * 0.08 + time * 1.2)
+          const nx = x / width
 
-          // Radial component follows mouse
-          const dist = Math.sqrt((x - cx) ** 2 + ySq)
-          const v4 = Math.sin(dist * 0.12 - time)
+          // Wave interference pattern using normalized coordinates
+          const v1 = Math.sin(nx * 4 + time)
+          const v2 = ySin
+          const v3 = Math.sin((nx + ny) * 5 + time * 1.2)
+
+          // Radial component follows mouse (using normalized distance)
+          const dx = nx - mouseX
+          const dist = Math.sqrt(dx * dx + dySq)
+          const v4 = Math.sin(dist * 8 - time)
 
           let value = (v1 + v2 + v3 + v4) / 4.0
 
@@ -165,7 +181,7 @@ export function PixelatedBackground() {
       animationId = requestAnimationFrame(animate)
     }
 
-    animate()
+    animationId = requestAnimationFrame(animate)
 
     return () => {
       window.removeEventListener('resize', updateSize)
@@ -177,7 +193,12 @@ export function PixelatedBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className='pointer-events-none fixed inset-0 -z-50 h-full w-full opacity-15'
+      className={cn(
+        'pointer-events-none fixed inset-0 -z-50 h-full w-full transition-all duration-1000 ease-out',
+        isMounted
+          ? 'scale-100 opacity-25 md:opacity-15'
+          : 'scale-105 opacity-0',
+      )}
       style={{
         imageRendering: 'pixelated',
       }}
