@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 export default async function HomePage() {
   const allImages = await getSortedImagesByDate()
-  const previewImages = allImages.slice(0, 4)
+  const previewImages = allImages.slice(0, 3)
 
   return (
     <div className='mx-auto flex max-w-(--breakpoint-sm) flex-col gap-12 place-self-center px-4 py-20 md:px-0'>
@@ -53,7 +53,7 @@ export default async function HomePage() {
       <section className='flex flex-col gap-4'>
         <Link href='/gallery' className='group block'>
           <div className='grid grid-cols-3 gap-1 overflow-hidden rounded-sm'>
-            {previewImages.slice(0, 3).map(({ file, thumbHashDataURL }) => (
+            {previewImages.map(({ file, thumbHashDataURL }) => (
               <div key={file} className='relative aspect-3/4 overflow-hidden'>
                 <CustomImage
                   src={`/gallery/images/${file}`}

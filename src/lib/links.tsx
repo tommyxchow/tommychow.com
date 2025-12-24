@@ -1,31 +1,26 @@
 import { Mail } from 'lucide-react'
 import { SiGithub, SiLinkedin } from 'react-icons/si'
 
-export const repoLink = 'https://github.com/tommyxchow/tommychow.com'
-export const githubLink = 'https://github.com/tommyxchow'
-export const linkedInLink = 'https://linkedin.com/in/tommy-chow/'
-export const email = 'tommyxchow@gmail.com'
-
-export const links: LinkInfo[] = [
-  {
-    icon: <Mail size={18} />,
-    title: 'Email',
-    href: `mailto:${email}`,
-  },
-  {
-    icon: <SiGithub size={16} />,
-    title: 'GitHub',
-    href: githubLink,
-  },
-  {
-    icon: <SiLinkedin size={16} />,
-    title: 'LinkedIn',
-    href: linkedInLink,
-  },
-]
-
 export interface LinkInfo {
   icon?: React.ReactNode
   title: string
   href: string
 }
+
+export const links: LinkInfo[] = [
+  {
+    icon: <Mail size={18} />,
+    title: 'Email',
+    href: 'mailto:tommyxchow@gmail.com',
+  },
+  {
+    icon: <SiGithub size={16} />,
+    title: 'GitHub',
+    href: 'https://github.com/tommyxchow',
+  },
+  {
+    icon: <SiLinkedin size={16} />,
+    title: 'LinkedIn',
+    href: 'https://linkedin.com/in/tommy-chow/',
+  },
+]

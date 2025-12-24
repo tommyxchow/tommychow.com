@@ -25,6 +25,9 @@ const SCROLL_THRESHOLD = 0.15
 // Number of images to prefetch ahead
 const PREFETCH_COUNT = 2
 
+// Maximum number of prefetched images to track (prevents unbounded memory growth)
+const MAX_PREFETCH_CACHE = 20
+
 // Virtual scrolling: render window around current index for performance
 const RENDER_WINDOW = 3
 
@@ -53,6 +56,11 @@ export function GalleryClient({ images }: GalleryClientProps) {
   // Prefetch upcoming images using link prefetch (better browser integration)
   useEffect(() => {
     const linksAdded: HTMLLinkElement[] = []
+
+    // Clear cache if it grows too large to prevent unbounded memory growth
+    if (prefetchedRef.current.size > MAX_PREFETCH_CACHE) {
+      prefetchedRef.current.clear()
+    }
 
     for (let i = 1; i <= PREFETCH_COUNT; i++) {
       const indices = [displayIndex + i, displayIndex - i]
