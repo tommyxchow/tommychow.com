@@ -110,16 +110,46 @@ export function PixelatedBackground() {
     }
     window.addEventListener('mousemove', handleMouseMove)
 
+    // Pulse interaction state
+    const pulses: { x: number; y: number; startTime: number }[] = []
+    let lastPulseTime = 0
+    const handlePointerDown = (e: PointerEvent) => {
+      const now = performance.now()
+      // Cooldown to prevent spam from overloading the visuals (150ms)
+      if (now - lastPulseTime < 150) return
+
+      // Don't trigger pulses on buttons/links to avoid cluttering interactions
+      if ((e.target as HTMLElement)?.closest('button, a')) return
+
+      lastPulseTime = now
+      pulses.push({
+        x: e.clientX / window.innerWidth,
+        y: e.clientY / window.innerHeight,
+        startTime: now,
+      })
+      // Limit number of active pulses for performance
+      if (pulses.length > 8) pulses.shift()
+    }
+    window.addEventListener('pointerdown', handlePointerDown)
+
     let animationId: number
     let startTime: number | null = null
 
     const animate = (now: number) => {
       startTime ??= now
       const elapsed = now - startTime
-      const introProgress = Math.min(elapsed / 2000, 1)
-      const easedProgress = 1 - Math.pow(1 - introProgress, 3)
 
-      time += CONFIG.animationSpeed * easedProgress
+      // Cleanup expired pulses (older than 2 seconds)
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        if (now - pulses[i].startTime > 2000) {
+          pulses.splice(i, 1)
+        }
+      }
+
+      const easedProgress = Math.min(elapsed / 2000, 1)
+      const introProgress = 1 - Math.pow(1 - easedProgress, 3)
+
+      time += CONFIG.animationSpeed * introProgress
 
       // Smooth mouse movement (lerp)
       mouseX += (targetMouseX - mouseX) * 0.05
@@ -153,14 +183,32 @@ export function PixelatedBackground() {
           const dist = Math.sqrt(dx * dx + dySq)
           const v4 = Math.sin(dist * 8 - time)
 
-          let value = (v1 + v2 + v3 + v4) / 4.0
+          // Add click/tap pulses
+          let pulseVal = 0
+          for (const p of pulses) {
+            const age = (now - p.startTime) / 1000 // seconds
+            const dxP = nx - p.x
+            const dyP = ny - p.y
+            const pDist = Math.sqrt(dxP * dxP + dyP * dyP)
+            const radius = age * 0.8 // Speed of the pulse wave
+            const pulseWidth = 0.15
+            // Gaussian-like pulse that expands and fades
+            const wave = Math.exp(
+              -Math.pow(pDist - radius, 2) / (pulseWidth * pulseWidth),
+            )
+            pulseVal += wave * (1 - age / 2) // Linearly fade intensity over 2s
+          }
+
+          // Cap the total pulse value to avoid "blinding" white artifacts during overlaps
+          pulseVal = Math.min(pulseVal, 1.0)
+
+          let value = (v1 + v2 + v3 + v4) / 4.0 + pulseVal * 0.4
 
           // Normalize and apply contrast
           value = (value + 1.0) / 2.0
           value = Math.pow(value, contrast)
 
           // Dithering to reduce banding artifacts
-          // Adds subtle noise to break up hard edges between palette colors
           value += (Math.random() - 0.5) * (1 / 128)
 
           // Clamp
@@ -186,6 +234,7 @@ export function PixelatedBackground() {
     return () => {
       window.removeEventListener('resize', updateSize)
       window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('pointerdown', handlePointerDown)
       cancelAnimationFrame(animationId)
     }
   }, [])
