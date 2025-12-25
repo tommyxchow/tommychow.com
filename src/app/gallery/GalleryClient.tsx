@@ -8,8 +8,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
-import { animate, type AnimationPlaybackControls } from 'motion'
-import { motion, type PanInfo } from 'motion/react'
+import { motion, useMotionValue, useSpring, type PanInfo } from 'motion/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 // Shared spring config for consistent animations across the gallery
@@ -40,13 +39,16 @@ interface GalleryClientProps {
 
 export function GalleryClient({ images }: GalleryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const animationRef = useRef<AnimationPlaybackControls | null>(null)
   const targetIndexRef = useRef(0)
   const prefetchedRef = useRef<Set<number>>(new Set())
   const shouldScrollToSelectedRef = useRef(false)
   const [displayIndex, setDisplayIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [gridOpen, setGridOpen] = useState(false)
+
+  // Transform-based animation for 120fps on ProMotion displays
+  const yOffset = useMotionValue(0)
+  const springY = useSpring(yOffset, SPRING_CONFIG)
 
   // Mark image as loaded
   const handleImageLoad = useCallback((index: number) => {
@@ -89,35 +91,19 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const scrollToIndex = useCallback(
     (index: number) => {
       if (!containerRef.current) return
-      const container = containerRef.current
       const clampedIndex = Math.max(0, Math.min(index, images.length - 1))
 
       // Skip if already at target
-      if (clampedIndex === targetIndexRef.current && animationRef.current)
-        return
-
-      // Cancel any ongoing animation immediately
-      if (animationRef.current) {
-        animationRef.current.stop()
-      }
+      if (clampedIndex === targetIndexRef.current) return
 
       targetIndexRef.current = clampedIndex
       setDisplayIndex(clampedIndex)
-      const scrollStep = container.clientHeight
-      const targetScroll = clampedIndex * scrollStep
 
-      animationRef.current = animate(container.scrollTop, targetScroll, {
-        type: 'spring',
-        ...SPRING_CONFIG,
-        onUpdate: (latest) => {
-          container.scrollTop = latest
-        },
-        onComplete: () => {
-          animationRef.current = null
-        },
-      })
+      // Update motion value - spring handles the animation on compositor thread
+      const viewportHeight = containerRef.current.clientHeight
+      yOffset.set(-clampedIndex * viewportHeight)
     },
-    [images.length],
+    [images.length, yOffset],
   )
 
   const handleScroll = useCallback(
@@ -256,55 +242,60 @@ export function GalleryClient({ images }: GalleryClientProps) {
     <div className='relative h-dvh w-full overflow-hidden'>
       <motion.div
         ref={containerRef}
-        className='h-full w-full overflow-hidden'
+        className='h-full w-full'
         onPanEnd={handlePanEnd}
         style={{ touchAction: 'none' }}
       >
-        {images.map(({ file }, index) => {
-          // Virtual scrolling: only render images within window of current index
-          const shouldRender = Math.abs(index - displayIndex) <= RENDER_WINDOW
+        <motion.div
+          className='will-change-transform'
+          style={{ y: springY }}
+        >
+          {images.map(({ file }, index) => {
+            // Virtual scrolling: only render images within window of current index
+            const shouldRender = Math.abs(index - displayIndex) <= RENDER_WINDOW
 
-          if (!shouldRender) {
-            // Render empty placeholder to maintain scroll position
-            return (
-              <div
-                key={file}
-                className='h-dvh w-full shrink-0'
-                aria-hidden='true'
-              />
-            )
-          }
-
-          const isLoaded = loadedImages.has(index)
-          return (
-            <motion.div
-              key={file}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={
-                isLoaded
-                  ? { opacity: 1, scale: 1 }
-                  : { opacity: 0, scale: 0.95 }
-              }
-              transition={{
-                type: 'spring',
-                ...SPRING_CONFIG,
-              }}
-              className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
-            >
-              <div className='relative h-full w-full'>
-                <CustomImage
-                  src={`/gallery/images/${file}`}
-                  alt={`Gallery image ${file}`}
-                  fill
-                  preload={index < 2}
-                  sizes='100vw'
-                  className='object-contain shadow-none'
-                  onLoad={() => handleImageLoad(index)}
+            if (!shouldRender) {
+              // Render empty placeholder to maintain layout
+              return (
+                <div
+                  key={file}
+                  className='h-dvh w-full shrink-0'
+                  aria-hidden='true'
                 />
-              </div>
-            </motion.div>
-          )
-        })}
+              )
+            }
+
+            const isLoaded = loadedImages.has(index)
+            return (
+              <motion.div
+                key={file}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={
+                  isLoaded
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.95 }
+                }
+                transition={{
+                  type: 'spring',
+                  ...SPRING_CONFIG,
+                }}
+                className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
+              >
+                <div className='relative h-full w-full'>
+                  <CustomImage
+                    src={`/gallery/images/${file}`}
+                    alt={`Gallery image ${file}`}
+                    fill
+                    preload={index < 2}
+                    sizes='100vw'
+                    className='object-contain shadow-none'
+                    onLoad={() => handleImageLoad(index)}
+                  />
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
       </motion.div>
 
       <div className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-4'>
