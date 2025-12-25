@@ -218,7 +218,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
             className={`relative aspect-square overflow-hidden rounded transition-all focus:outline-none ${
               index === displayIndex
                 ? 'ring-foreground ring-2'
-                : 'opacity-70 hover:opacity-100 hover:ring-foreground/50 hover:ring-2'
+                : 'hover:ring-foreground/50 opacity-70 hover:opacity-100 hover:ring-2'
             }`}
             aria-label={`Go to image ${index + 1}`}
           >
@@ -246,10 +246,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
         onPanEnd={handlePanEnd}
         style={{ touchAction: 'none' }}
       >
-        <motion.div
-          className='will-change-transform'
-          style={{ y: springY }}
-        >
+        <motion.div className='will-change-transform' style={{ y: springY }}>
           {images.map(({ file }, index) => {
             // Virtual scrolling: only render images within window of current index
             const shouldRender = Math.abs(index - displayIndex) <= RENDER_WINDOW
@@ -316,11 +313,18 @@ export function GalleryClient({ images }: GalleryClientProps) {
           </Button>
           <Popover open={gridOpen} onOpenChange={setGridOpen}>
             <PopoverTrigger
-              className='bg-background/20 hover:bg-background/40 text-muted-foreground hover:text-foreground pointer-events-auto flex min-w-20 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-sm backdrop-blur-md transition-all active:scale-95'
+              className='bg-background/20 hover:bg-background/40 text-muted-foreground hover:text-foreground pointer-events-auto flex min-w-20 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-sm tabular-nums backdrop-blur-md transition-all active:scale-95'
               aria-label='Open image gallery grid'
             >
               <Grid className='h-3.5 w-3.5' />
-              {displayIndex + 1} / {images.length}
+              <span
+                className='inline-block text-right'
+                style={{ minWidth: `${String(images.length).length}ch` }}
+              >
+                {displayIndex + 1}
+              </span>
+              {' / '}
+              {images.length}
             </PopoverTrigger>
             <PopoverContent
               side='top'
