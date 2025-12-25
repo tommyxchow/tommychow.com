@@ -4,7 +4,6 @@ import { Providers } from '@/components/Providers'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
 import localFont from 'next/font/local'
 import { twJoin } from 'tailwind-merge'
 import './globals.css'
@@ -13,8 +12,8 @@ const fontSans = localFont({
   src: './UncutSans-Variable.woff2',
   variable: '--font-sans',
 })
-const fontMono = JetBrains_Mono({
-  subsets: ['latin'],
+const fontMono = localFont({
+  src: './DepartureMono-Regular.woff2',
   variable: '--font-mono',
 })
 
