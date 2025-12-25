@@ -43,6 +43,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const animationRef = useRef<AnimationPlaybackControls | null>(null)
   const targetIndexRef = useRef(0)
   const prefetchedRef = useRef<Set<number>>(new Set())
+  const shouldScrollToSelectedRef = useRef(false)
   const [displayIndex, setDisplayIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [gridOpen, setGridOpen] = useState(false)
@@ -183,6 +184,23 @@ export function GalleryClient({ images }: GalleryClientProps) {
     }
   }, [scrollToIndex])
 
+  // Set flag to scroll when grid opens
+  useEffect(() => {
+    if (gridOpen) {
+      shouldScrollToSelectedRef.current = true
+    }
+  }, [gridOpen])
+
+  // Callback ref that scrolls selected thumbnail into view when it mounts
+  const selectedThumbnailRef = useCallback((node: HTMLButtonElement | null) => {
+    if (node && shouldScrollToSelectedRef.current) {
+      shouldScrollToSelectedRef.current = false
+      setTimeout(() => {
+        node.scrollIntoView({ block: 'center', behavior: 'instant' })
+      }, 0)
+    }
+  }, [])
+
   // Handle keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -206,14 +224,15 @@ export function GalleryClient({ images }: GalleryClientProps) {
         {images.map(({ file, thumbHashDataURL }, index) => (
           <button
             key={file}
+            ref={index === displayIndex ? selectedThumbnailRef : null}
             onClick={() => {
               scrollToIndex(index)
               setGridOpen(false)
             }}
-            className={`hover:ring-foreground/50 focus:ring-foreground relative aspect-square overflow-hidden rounded transition-all hover:ring-2 focus:ring-2 focus:outline-none ${
+            className={`relative aspect-square overflow-hidden rounded transition-all focus:outline-none ${
               index === displayIndex
                 ? 'ring-foreground ring-2'
-                : 'opacity-70 hover:opacity-100'
+                : 'opacity-70 hover:opacity-100 hover:ring-foreground/50 hover:ring-2'
             }`}
             aria-label={`Go to image ${index + 1}`}
           >
@@ -230,7 +249,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
         ))}
       </div>
     ),
-    [images, displayIndex, scrollToIndex],
+    [images, displayIndex, scrollToIndex, selectedThumbnailRef],
   )
 
   return (
