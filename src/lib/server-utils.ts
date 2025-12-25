@@ -78,11 +78,23 @@ export async function getSortedImagesByDate() {
         a.exifData.DateTimeOriginal.getTime(),
     )
 
-    return sortedFiles.map(({ file, thumbHashDataURL, exifData }) => ({
-      file,
-      thumbHashDataURL,
-      dateTime: exifData.DateTimeOriginal.toISOString(),
-    }))
+    return sortedFiles.map(({ file, thumbHashDataURL, exifData }) => {
+      const date = exifData.DateTimeOriginal
+      const formattedDate = date
+        .toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+        })
+        .toUpperCase()
+      return {
+        file,
+        thumbHashDataURL,
+        dateTime: formattedDate,
+      }
+    })
   } catch (error) {
     console.error('Error reading or sorting images:', error)
     throw error
