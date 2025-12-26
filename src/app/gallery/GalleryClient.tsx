@@ -18,8 +18,8 @@ const GALLERY_CONFIG = {
   SCROLL_COOLDOWN: 500, // ms between scrolls
   WHEEL_THRESHOLD: 60, // delta sum to trigger scroll
   SILENCE_TIMEOUT: 150, // ms of no events to reset inertia
-  RENDER_WINDOW: 3,
-  PREFETCH_COUNT: 2,
+  RENDER_WINDOW: 5,
+  PREFETCH_COUNT: 3,
 }
 
 interface GalleryClientProps {
@@ -58,7 +58,8 @@ export function GalleryClient({ images }: GalleryClientProps) {
       prefetchedRef.current.clear()
     }
 
-    for (let i = 1; i <= GALLERY_CONFIG.PREFETCH_COUNT; i++) {
+    // Start from 2 because index ±1 is already handled by high-priority 'preload' prop
+    for (let i = 2; i <= GALLERY_CONFIG.PREFETCH_COUNT; i++) {
       const indices = [displayIndex + i, displayIndex - i]
       for (const idx of indices) {
         if (
@@ -319,7 +320,8 @@ export function GalleryClient({ images }: GalleryClientProps) {
                     src={`/gallery/images/${file}`}
                     alt={`Gallery image ${file}`}
                     fill
-                    preload={index < 2}
+                    // Preload the first two images for LCP, and the immediate neighbors for smooth transitions
+                    preload={index < 2 || Math.abs(index - displayIndex) <= 1}
                     sizes='100vw'
                     className='object-contain shadow-none'
                     onLoad={() => handleImageLoad(index)}
