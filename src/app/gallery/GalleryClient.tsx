@@ -279,6 +279,12 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
               >
                 <div className='relative h-full w-full'>
+                  {/* Loading spinner */}
+                  {!isLoaded && (
+                    <div className='absolute inset-0 flex items-center justify-center'>
+                      <div className='border-muted-foreground/30 border-t-muted-foreground size-8 animate-spin rounded-full border-2' />
+                    </div>
+                  )}
                   <CustomImage
                     src={`/gallery/images/${file}`}
                     alt={`Gallery image ${file}`}
