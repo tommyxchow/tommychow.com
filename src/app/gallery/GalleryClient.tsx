@@ -298,11 +298,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
               <motion.div
                 key={file}
                 initial={{ opacity: 0, scale: 0.95 }}
-                animate={
-                  isLoaded
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.95 }
-                }
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{
                   type: 'spring',
                   ...GALLERY_CONFIG.SPRING,
@@ -316,16 +312,22 @@ export function GalleryClient({ images }: GalleryClientProps) {
                       <div className='border-muted-foreground/30 border-t-muted-foreground size-8 animate-spin rounded-full border-2' />
                     </div>
                   )}
-                  <CustomImage
-                    src={`/gallery/images/${file}`}
-                    alt={`Gallery image ${file}`}
-                    fill
-                    // Preload the first two images for LCP, and the immediate neighbors for smooth transitions
-                    preload={index < 2 || Math.abs(index - displayIndex) <= 1}
-                    sizes='100vw'
-                    className='object-contain shadow-none'
-                    onLoad={() => handleImageLoad(index)}
-                  />
+                  <div
+                    className={`h-full w-full transition-opacity duration-500 ${
+                      isLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <CustomImage
+                      src={`/gallery/images/${file}`}
+                      alt={`Gallery image ${file}`}
+                      fill
+                      // Preload the first two images for LCP, and the immediate neighbors for smooth transitions
+                      preload={index < 2 || Math.abs(index - displayIndex) <= 1}
+                      sizes='100vw'
+                      className='object-contain shadow-none'
+                      onLoad={() => handleImageLoad(index)}
+                    />
+                  </div>
                 </div>
               </motion.div>
             )
