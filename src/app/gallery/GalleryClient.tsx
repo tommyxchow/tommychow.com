@@ -11,23 +11,16 @@ import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
 import { motion, useMotionValue, useSpring, type PanInfo } from 'motion/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-// Shared spring config for consistent animations across the gallery
-const SPRING_CONFIG = {
-  stiffness: 100,
-  damping: 20,
+// Configuration for gallery behavior
+const GALLERY_CONFIG = {
+  SPRING: { stiffness: 100, damping: 20 },
+  SCROLL_THRESHOLD: 0.15, // % of viewport for pan
+  SCROLL_COOLDOWN: 500, // ms between scrolls
+  WHEEL_THRESHOLD: 60, // delta sum to trigger scroll
+  SILENCE_TIMEOUT: 150, // ms of no events to reset inertia
+  RENDER_WINDOW: 3,
+  PREFETCH_COUNT: 2,
 }
-
-// Scroll threshold: 15% of viewport height to trigger snap to next/prev
-const SCROLL_THRESHOLD = 0.15
-
-// Number of images to prefetch ahead
-const PREFETCH_COUNT = 2
-
-// Maximum number of prefetched images to track (prevents unbounded memory growth)
-const MAX_PREFETCH_CACHE = 20
-
-// Virtual scrolling: render window around current index for performance
-const RENDER_WINDOW = 3
 
 interface GalleryClientProps {
   images: {
@@ -40,6 +33,7 @@ interface GalleryClientProps {
 export function GalleryClient({ images }: GalleryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const targetIndexRef = useRef(0)
+  const lastScrollTimeRef = useRef(0)
   const prefetchedRef = useRef<Set<number>>(new Set())
   const shouldScrollToSelectedRef = useRef(false)
   const [displayIndex, setDisplayIndex] = useState(0)
@@ -48,23 +42,23 @@ export function GalleryClient({ images }: GalleryClientProps) {
 
   // Transform-based animation for 120fps on ProMotion displays
   const yOffset = useMotionValue(0)
-  const springY = useSpring(yOffset, SPRING_CONFIG)
+  const springY = useSpring(yOffset, GALLERY_CONFIG.SPRING)
 
   // Mark image as loaded
   const handleImageLoad = useCallback((index: number) => {
     setLoadedImages((prev) => new Set(prev).add(index))
   }, [])
 
-  // Prefetch upcoming images using link prefetch (better browser integration)
+  // Prefetch upcoming images using link prefetch
   useEffect(() => {
     const linksAdded: HTMLLinkElement[] = []
+    const MAX_PREFETCH_CACHE = 20
 
-    // Clear cache if it grows too large to prevent unbounded memory growth
     if (prefetchedRef.current.size > MAX_PREFETCH_CACHE) {
       prefetchedRef.current.clear()
     }
 
-    for (let i = 1; i <= PREFETCH_COUNT; i++) {
+    for (let i = 1; i <= GALLERY_CONFIG.PREFETCH_COUNT; i++) {
       const indices = [displayIndex + i, displayIndex - i]
       for (const idx of indices) {
         if (
@@ -83,25 +77,31 @@ export function GalleryClient({ images }: GalleryClientProps) {
       }
     }
 
-    return () => {
-      linksAdded.forEach((link) => link.remove())
-    }
+    return () => linksAdded.forEach((link) => link.remove())
   }, [displayIndex, images])
 
   const scrollToIndex = useCallback(
-    (index: number) => {
-      if (!containerRef.current) return
+    (index: number, ignoreCooldown = false) => {
+      if (!containerRef.current) return false
       const clampedIndex = Math.max(0, Math.min(index, images.length - 1))
 
-      // Skip if already at target
-      if (clampedIndex === targetIndexRef.current) return
+      if (clampedIndex === targetIndexRef.current) return false
+
+      const now = Date.now()
+      if (
+        !ignoreCooldown &&
+        now - lastScrollTimeRef.current < GALLERY_CONFIG.SCROLL_COOLDOWN
+      ) {
+        return false
+      }
 
       targetIndexRef.current = clampedIndex
       setDisplayIndex(clampedIndex)
+      lastScrollTimeRef.current = now
 
-      // Update motion value - spring handles the animation on compositor thread
       const viewportHeight = containerRef.current.clientHeight
       yOffset.set(-clampedIndex * viewportHeight)
+      return true
     },
     [images.length, yOffset],
   )
@@ -112,61 +112,90 @@ export function GalleryClient({ images }: GalleryClientProps) {
         direction === 'down'
           ? targetIndexRef.current + 1
           : targetIndexRef.current - 1
-      scrollToIndex(nextIndex)
+      scrollToIndex(nextIndex, true)
     },
     [scrollToIndex],
   )
 
-  // Handle pan gesture end (works for both mouse and touch)
   const handlePanEnd = useCallback(
     (_event: PointerEvent, info: PanInfo) => {
       if (!containerRef.current) return
-      const threshold = containerRef.current.clientHeight * SCROLL_THRESHOLD
+      const threshold =
+        containerRef.current.clientHeight * GALLERY_CONFIG.SCROLL_THRESHOLD
 
-      // Use offset for total distance or velocity for quick flicks
-      const shouldNavigate =
-        Math.abs(info.offset.y) >= threshold || Math.abs(info.velocity.y) > 500
-
-      if (shouldNavigate) {
+      if (
+        Math.abs(info.offset.y) >= threshold ||
+        Math.abs(info.velocity.y) > 500
+      ) {
         const direction = info.offset.y < 0 ? 1 : -1
-        scrollToIndex(targetIndexRef.current + direction)
+        scrollToIndex(targetIndexRef.current + direction, true)
       }
     },
     [scrollToIndex],
   )
 
-  // Handle wheel scroll with threshold-based snapping
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
 
-    let scrollTimeout: ReturnType<typeof setTimeout> | null = null
     let accumulatedDelta = 0
+    let lastDelta = 0
+    let isLocked = false
+    let wheelTimeout: ReturnType<typeof setTimeout> | null = null
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
 
-      accumulatedDelta += e.deltaY
-      const threshold = container.clientHeight * SCROLL_THRESHOLD
+      const now = Date.now()
+      const timeSinceLastScroll = now - lastScrollTimeRef.current
 
-      if (Math.abs(accumulatedDelta) >= threshold) {
-        const direction = accumulatedDelta > 0 ? 1 : -1
-        scrollToIndex(targetIndexRef.current + direction)
+      // 1. Silence Detection: Reset lock and delta after a pause in events
+      if (wheelTimeout) clearTimeout(wheelTimeout)
+      wheelTimeout = setTimeout(() => {
+        isLocked = false
         accumulatedDelta = 0
+      }, GALLERY_CONFIG.SILENCE_TIMEOUT)
+
+      // 2. Hard Cooldown: Ignore everything immediately after a scroll
+      if (timeSinceLastScroll < GALLERY_CONFIG.SCROLL_COOLDOWN) {
+        isLocked = true
+        lastDelta = e.deltaY
+        return
       }
 
-      // Reset accumulated delta after a pause in scrolling
-      if (scrollTimeout) clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        accumulatedDelta = 0
-      }, 150)
+      // 3. Inertia Lock: If locked, only unlock on new intentional action
+      if (isLocked) {
+        const isNewSwipe = Math.abs(e.deltaY) > Math.abs(lastDelta) + 20
+        const isDirectionChange =
+          Math.sign(e.deltaY) !== Math.sign(lastDelta) &&
+          Math.abs(e.deltaY) > 10
+
+        if (isNewSwipe || isDirectionChange) {
+          isLocked = false
+          accumulatedDelta = 0
+        } else {
+          lastDelta = e.deltaY
+          return
+        }
+      }
+
+      // 4. Accumulate and Trigger
+      accumulatedDelta += e.deltaY
+      lastDelta = e.deltaY
+
+      if (Math.abs(accumulatedDelta) >= GALLERY_CONFIG.WHEEL_THRESHOLD) {
+        const direction = Math.sign(accumulatedDelta)
+        if (scrollToIndex(targetIndexRef.current + direction)) {
+          isLocked = true
+          accumulatedDelta = 0
+        }
+      }
     }
 
     container.addEventListener('wheel', handleWheel, { passive: false })
-
     return () => {
       container.removeEventListener('wheel', handleWheel)
-      if (scrollTimeout) clearTimeout(scrollTimeout)
+      if (wheelTimeout) clearTimeout(wheelTimeout)
     }
   }, [scrollToIndex])
 
@@ -212,7 +241,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
             key={file}
             ref={index === displayIndex ? selectedThumbnailRef : null}
             onClick={() => {
-              scrollToIndex(index)
+              scrollToIndex(index, true)
               setGridOpen(false)
             }}
             className={`relative aspect-square overflow-hidden rounded transition-all focus:outline-none ${
@@ -249,7 +278,8 @@ export function GalleryClient({ images }: GalleryClientProps) {
         <motion.div className='will-change-transform' style={{ y: springY }}>
           {images.map(({ file }, index) => {
             // Virtual scrolling: only render images within window of current index
-            const shouldRender = Math.abs(index - displayIndex) <= RENDER_WINDOW
+            const shouldRender =
+              Math.abs(index - displayIndex) <= GALLERY_CONFIG.RENDER_WINDOW
 
             if (!shouldRender) {
               // Render empty placeholder to maintain layout
@@ -274,7 +304,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 }
                 transition={{
                   type: 'spring',
-                  ...SPRING_CONFIG,
+                  ...GALLERY_CONFIG.SPRING,
                 }}
                 className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
               >
