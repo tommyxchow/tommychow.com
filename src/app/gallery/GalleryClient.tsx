@@ -297,11 +297,11 @@ export function GalleryClient({ images }: GalleryClientProps) {
             return (
               <motion.div
                 key={file}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.95, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                 transition={{
-                  type: 'spring',
-                  ...GALLERY_CONFIG.SPRING,
+                  duration: 0.6,
+                  ease: [0.25, 0.46, 0.45, 0.94],
                 }}
                 className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
               >
@@ -335,7 +335,16 @@ export function GalleryClient({ images }: GalleryClientProps) {
         </motion.div>
       </motion.div>
 
-      <div className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-4'>
+      <motion.div
+        initial={{ opacity: 0, filter: 'blur(8px)' }}
+        animate={{ opacity: 1, filter: 'blur(0px)' }}
+        transition={{
+          duration: 0.6,
+          delay: 0.2,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }}
+        className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-4'
+      >
         <div className='text-muted-foreground pointer-events-auto flex flex-col items-center gap-1 px-4 font-mono text-xs uppercase'>
           <span className='truncate'>{images[displayIndex]?.file}</span>
           <span>{images[displayIndex]?.dateTime}</span>
@@ -385,7 +394,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
             <ChevronDown className='h-6 w-6' />
           </Button>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

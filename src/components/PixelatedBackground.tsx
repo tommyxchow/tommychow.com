@@ -1,7 +1,7 @@
 'use client'
 
-import { cn } from '@/lib/utils'
-import { useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
+import { useEffect, useRef } from 'react'
 
 // Configuration for the pixelated background effect
 const CONFIG = {
@@ -56,10 +56,9 @@ createGradient()
 
 export function PixelatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
+  const prefersReducedMotion = useReducedMotion()
 
   useEffect(() => {
-    requestAnimationFrame(() => setIsMounted(true))
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -112,6 +111,14 @@ export function PixelatedBackground() {
 
     // Pulse interaction state
     const pulses: { x: number; y: number; startTime: number }[] = []
+
+    // Trigger an initial center pulse on mount
+    pulses.push({
+      x: 0.5,
+      y: 0.5,
+      startTime: performance.now(),
+    })
+
     let lastPulseTime = 0
     const handlePointerDown = (e: PointerEvent) => {
       const now = performance.now()
@@ -239,15 +246,20 @@ export function PixelatedBackground() {
     }
   }, [])
 
+  // Determine opacity based on screen size (will be set via CSS variable)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  const targetOpacity = isMobile ? 0.25 : 0.15
+
   return (
-    <canvas
+    <motion.canvas
       ref={canvasRef}
-      className={cn(
-        'pointer-events-none fixed inset-0 -z-50 h-full w-full transition-all duration-1000 ease-out',
-        isMounted
-          ? 'scale-100 opacity-25 md:opacity-15'
-          : 'scale-105 opacity-0',
-      )}
+      initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.05 }}
+      animate={{ opacity: targetOpacity, scale: 1 }}
+      transition={{
+        duration: 1,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      className='pointer-events-none fixed inset-0 -z-50 h-full w-full'
       style={{
         imageRendering: 'pixelated',
       }}
