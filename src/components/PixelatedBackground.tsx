@@ -18,7 +18,7 @@ const PALETTE = new Uint8Array(PALETTE_SIZE * 3)
 const createGradient = () => {
   // Define keyframes: [position, r, g, b]
   // Black and white thermal scope style
-  const stops = [
+  const stops: [number, number, number, number][] = [
     [0.0, 0, 0, 0], // Black
     [0.3, 20, 20, 20], // Very dark grey
     [0.5, 60, 60, 60], // Dark grey
@@ -31,13 +31,13 @@ const createGradient = () => {
     const t = i / (PALETTE_SIZE - 1)
 
     // Find the stops we are between
-    let s1 = stops[0]
-    let s2 = stops[stops.length - 1]
+    let s1 = stops[0]!
+    let s2 = stops[stops.length - 1]!
 
     for (let j = 0; j < stops.length - 1; j++) {
-      if (t >= stops[j][0] && t <= stops[j + 1][0]) {
-        s1 = stops[j]
-        s2 = stops[j + 1]
+      if (t >= stops[j]![0] && t <= stops[j + 1]![0]) {
+        s1 = stops[j]!
+        s2 = stops[j + 1]!
         break
       }
     }
@@ -126,7 +126,7 @@ export function PixelatedBackground() {
       if (now - lastPulseTime < 150) return
 
       // Don't trigger pulses on buttons/links to avoid cluttering interactions
-      if ((e.target as HTMLElement)?.closest('button, a')) return
+      if ((e.target as HTMLElement).closest('button, a')) return
 
       lastPulseTime = now
       pulses.push({
@@ -148,7 +148,7 @@ export function PixelatedBackground() {
 
       // Cleanup expired pulses (older than 2 seconds)
       for (let i = pulses.length - 1; i >= 0; i--) {
-        if (now - pulses[i].startTime > 2000) {
+        if (now - pulses[i]!.startTime > 2000) {
           pulses.splice(i, 1)
         }
       }
@@ -225,9 +225,9 @@ export function PixelatedBackground() {
           // Map to palette (LUT)
           const paletteIndex = Math.floor(value * 255) * 3
 
-          data[index++] = PALETTE[paletteIndex]
-          data[index++] = PALETTE[paletteIndex + 1]
-          data[index++] = PALETTE[paletteIndex + 2]
+          data[index++] = PALETTE[paletteIndex]!
+          data[index++] = PALETTE[paletteIndex + 1]!
+          data[index++] = PALETTE[paletteIndex + 2]!
           data[index++] = 255 // Full opacity
         }
       }

@@ -13,7 +13,8 @@ export function Header() {
   return (
     <header className='fixed inset-x-0 top-0 z-50 flex items-center justify-between p-4'>
       <Button
-        asChild
+        render={<Link aria-label='Go back to home page' href='/' />}
+        nativeButton={false}
         variant='ghost'
         size='icon'
         className={twJoin(
@@ -21,9 +22,7 @@ export function Header() {
           showBackButton ? 'opacity-100' : 'pointer-events-none opacity-0',
         )}
       >
-        <Link aria-label='Go back to home page' href='/'>
-          <Home />
-        </Link>
+        <Home />
       </Button>
     </header>
   )

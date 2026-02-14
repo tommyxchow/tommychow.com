@@ -65,8 +65,8 @@ export async function getSortedImagesByDate() {
           file,
           exifData,
           thumbHashDataURL,
-          width: metadata.width ?? 0,
-          height: metadata.height ?? 0,
+          width: metadata.width,
+          height: metadata.height,
         }
       }),
     )

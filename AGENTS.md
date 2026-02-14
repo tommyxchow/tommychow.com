@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio site for Tommy Chow, built with **Next.js 16**, **React 19**, **Tailwind CSS v4**, and **shadcn/ui** (radix-vega style).
+Personal portfolio site for Tommy Chow, built with **Next.js 16**, **React 19**, **React Compiler**, **Tailwind CSS v4**, and **shadcn/ui** (base-vega style). Typed routes enabled.
 
 ## Commands
 
@@ -19,6 +19,8 @@ pnpm format       # Prettier format
 ## Architecture
 
 - **App Router** with React Server Components by default; use `'use client'` only when needed
+- **React Compiler** enabled for automatic memoization
+- **Typed Routes** enabled for type-safe `href` props
 - **Path alias**: `@/*` maps to `./src/*`
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
 - **Gallery system**: Images in `public/gallery/images/` are processed at build time using `sharp` for metadata and `thumbhash` for blur placeholders (dev mode limits to 20 images for faster reloads)

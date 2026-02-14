@@ -71,7 +71,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
           const link = document.createElement('link')
           link.rel = 'prefetch'
           link.as = 'image'
-          link.href = `/gallery/images/${images[idx].file}`
+          link.href = `/gallery/images/${images[idx]!.file}`
           document.head.appendChild(link)
           linksAdded.push(link)
         }

@@ -41,5 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 # ai
-.claude
-.opencode
+.claude/settings.local.json
