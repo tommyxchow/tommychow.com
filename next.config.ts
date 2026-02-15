@@ -1,8 +1,10 @@
 import type { NextConfig } from 'next'
 
-import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
-
-void initOpenNextCloudflareForDev()
+if (process.env.NODE_ENV === 'development') {
+  void import('@opennextjs/cloudflare').then(
+    ({ initOpenNextCloudflareForDev }) => initOpenNextCloudflareForDev(),
+  )
+}
 
 const nextConfig: NextConfig = {
   typedRoutes: true,
