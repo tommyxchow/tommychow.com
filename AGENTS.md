@@ -4,18 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio site for Tommy Chow, built with **Next.js 16**, **React 19**, **React Compiler**, **Tailwind CSS v4**, and **shadcn/ui** (base-vega style). Typed routes enabled.
+Personal portfolio site for Tommy Chow, built with **Next.js 16**, **React 19**, **React Compiler**, **Tailwind CSS v4**, and **shadcn/ui** (base-vega style). Typed routes enabled. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
 ## Commands
 
 ```bash
 pnpm dev          # Start dev server
-pnpm build        # Production build
+pnpm build        # Production build (auto-runs gallery via prebuild)
+pnpm gallery      # Regenerate gallery manifest (run when images change)
+pnpm preview      # Build and preview on local Cloudflare Workers
+pnpm deploy       # Build and deploy to Cloudflare Workers
 pnpm lint         # ESLint
 pnpm typecheck    # TypeScript check (tsc --noEmit)
 pnpm format       # Prettier format
-pnpm clean        # Remove .next build cache
-pnpm nuke         # Remove .next and node_modules
+pnpm clean        # Remove .next, .open-next build caches
+pnpm nuke         # Remove .next, .open-next, and node_modules
 ```
 
 ## Architecture
@@ -25,7 +28,7 @@ pnpm nuke         # Remove .next and node_modules
 - **Typed Routes** enabled for type-safe `href` props
 - **Path alias**: `@/*` maps to `./src/*`
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
-- **Gallery system**: Images in `public/gallery/images/` are processed at build time using `sharp` for metadata and `thumbhash` for blur placeholders (dev mode limits to 20 images for faster reloads)
+- **Gallery system**: Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib/gallery-manifest.json` using `sharp` and `thumbhash`. The manifest is committed to git and re-exported by `src/lib/server-utils.ts`
 
 ### Component Organization
 
@@ -74,7 +77,7 @@ Create `src/app/<route>/page.tsx` as a Server Component. For interactive feature
 
 ### New images
 
-Drop images into `public/gallery/images/`. Build process extracts EXIF data and generates thumbhash placeholders automatically.
+Drop images into `public/gallery/images/`, then run `pnpm gallery` to regenerate the manifest. Commit the updated `src/lib/gallery-manifest.json`.
 
 ## Gotchas
 

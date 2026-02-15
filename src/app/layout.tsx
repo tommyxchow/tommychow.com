@@ -1,8 +1,6 @@
 import { Header } from '@/components/Header'
 import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata } from 'next'
 import localFont from 'next/font/local'
 import { twJoin } from 'tailwind-merge'
@@ -45,9 +43,6 @@ export default function RootLayout({
           <Header />
           <main className='grid min-h-dvh grow'>{children}</main>
         </Providers>
-
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   )

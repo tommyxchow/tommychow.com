@@ -5,8 +5,8 @@ import { getSortedImagesByDate } from '@/lib/server-utils'
 import Link from 'next/link'
 import { HomeClient } from './HomeClient'
 
-export default async function HomePage() {
-  const allImages = await getSortedImagesByDate()
+export default function HomePage() {
+  const allImages = getSortedImagesByDate()
   const previewImages = allImages.slice(0, 3)
 
   return (

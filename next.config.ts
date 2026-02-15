@@ -1,7 +1,11 @@
 import type { NextConfig } from 'next'
 
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare'
+
+void initOpenNextCloudflareForDev()
+
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['exifr'],
+  images: { unoptimized: true },
   typedRoutes: true,
   reactCompiler: true,
   logging: {
