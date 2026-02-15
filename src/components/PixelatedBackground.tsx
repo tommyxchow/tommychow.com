@@ -1,7 +1,14 @@
 'use client'
 
 import { motion, useReducedMotion } from 'motion/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useSyncExternalStore } from 'react'
+
+const getOpacity = () => (window.innerWidth < 768 ? 0.25 : 0.15)
+const subscribeResize = (callback: () => void) => {
+  window.addEventListener('resize', callback)
+  return () => window.removeEventListener('resize', callback)
+}
+const getServerOpacity = () => 0.15
 
 // Configuration for the pixelated background effect
 const CONFIG = {
@@ -51,14 +58,23 @@ const createGradient = () => {
   }
 }
 
-// Initialize palette once
-createGradient()
+let paletteInitialized = false
 
 export function PixelatedBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const prefersReducedMotion = useReducedMotion()
+  const targetOpacity = useSyncExternalStore(
+    subscribeResize,
+    getOpacity,
+    getServerOpacity,
+  )
 
   useEffect(() => {
+    if (!paletteInitialized) {
+      createGradient()
+      paletteInitialized = true
+    }
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -92,7 +108,13 @@ export function PixelatedBackground() {
     }
 
     updateSize()
-    window.addEventListener('resize', updateSize)
+
+    let resizeTimeout: ReturnType<typeof setTimeout>
+    const debouncedResize = () => {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(updateSize, 150)
+    }
+    window.addEventListener('resize', debouncedResize)
 
     // Animation state
     let time = Math.random() * 1000
@@ -107,17 +129,9 @@ export function PixelatedBackground() {
       targetMouseX = e.clientX / window.innerWidth
       targetMouseY = e.clientY / window.innerHeight
     }
-    window.addEventListener('mousemove', handleMouseMove)
 
     // Pulse interaction state
     const pulses: { x: number; y: number; startTime: number }[] = []
-
-    // Trigger an initial center pulse on mount
-    pulses.push({
-      x: 0.5,
-      y: 0.5,
-      startTime: performance.now(),
-    })
 
     let lastPulseTime = 0
     const handlePointerDown = (e: PointerEvent) => {
@@ -137,7 +151,6 @@ export function PixelatedBackground() {
       // Limit number of active pulses for performance
       if (pulses.length > 8) pulses.shift()
     }
-    window.addEventListener('pointerdown', handlePointerDown)
 
     let animationId: number
     let startTime: number | null = null
@@ -236,19 +249,34 @@ export function PixelatedBackground() {
       animationId = requestAnimationFrame(animate)
     }
 
+    // When reduced motion is preferred, render a single static frame
+    if (prefersReducedMotion) {
+      animate(performance.now())
+      return () => {
+        window.removeEventListener('resize', debouncedResize)
+        clearTimeout(resizeTimeout)
+      }
+    }
+
+    // Trigger an initial center pulse on mount
+    pulses.push({
+      x: 0.5,
+      y: 0.5,
+      startTime: performance.now(),
+    })
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('pointerdown', handlePointerDown)
     animationId = requestAnimationFrame(animate)
 
     return () => {
-      window.removeEventListener('resize', updateSize)
+      window.removeEventListener('resize', debouncedResize)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('pointerdown', handlePointerDown)
+      clearTimeout(resizeTimeout)
       cancelAnimationFrame(animationId)
     }
-  }, [])
-
-  // Determine opacity based on screen size (will be set via CSS variable)
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
-  const targetOpacity = isMobile ? 0.25 : 0.15
+  }, [prefersReducedMotion])
 
   return (
     <motion.canvas
