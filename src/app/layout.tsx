@@ -30,7 +30,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html
+      lang='en'
+      className='dark'
+      style={{ colorScheme: 'dark' }}
+      suppressHydrationWarning
+    >
       <body
         className={twJoin(
           'bg-background/80 text-foreground selection:bg-foreground selection:text-background relative min-h-dvh font-sans underline-offset-4',
