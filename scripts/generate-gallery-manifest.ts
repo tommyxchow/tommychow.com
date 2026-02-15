@@ -12,6 +12,8 @@ const OUTPUT_PATH = path.join(
   'gallery-manifest.json',
 )
 
+const IMAGE_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif'])
+
 const DATE_FORMAT: Intl.DateTimeFormatOptions = {
   month: 'short',
   day: 'numeric',
@@ -29,9 +31,10 @@ interface ManifestEntry {
 async function processImage(file: string) {
   const imagePath = path.join(IMAGES_DIR, file)
 
-  const { DateTimeOriginal } = (await exifr.parse(imagePath)) as {
-    DateTimeOriginal: Date
-  }
+  const exifData = (await exifr.parse(imagePath)) as {
+    DateTimeOriginal?: Date
+  } | null
+  const date = exifData?.DateTimeOriginal ?? new Date(0)
 
   const { data, info } = await sharp(imagePath)
     .rotate()
@@ -42,7 +45,7 @@ async function processImage(file: string) {
 
   return {
     file,
-    date: DateTimeOriginal,
+    date,
     thumbHashDataURL: rgbaToDataURL(info.width, info.height, data),
   }
 }
@@ -52,7 +55,10 @@ function formatDate(date: Date): string {
 }
 
 async function generateManifest(): Promise<void> {
-  const imageFiles = await fs.readdir(IMAGES_DIR)
+  const allFiles = await fs.readdir(IMAGES_DIR)
+  const imageFiles = allFiles.filter((f) =>
+    IMAGE_EXTENSIONS.has(path.extname(f).toLowerCase()),
+  )
   const processed = await Promise.all(imageFiles.map(processImage))
 
   processed.sort((a, b) => b.date.getTime() - a.date.getTime())

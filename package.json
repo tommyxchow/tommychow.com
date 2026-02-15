@@ -13,7 +13,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "format": "prettier . --write",
-    "clean": "node -e \"['.next','.open-next','node_modules'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
+    "clean": "node -e \"['.next','.open-next'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
     "nuke": "node -e \"['.next','.open-next','node_modules','pnpm-lock.yaml'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\""
   },
   "dependencies": {
