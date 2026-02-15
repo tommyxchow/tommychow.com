@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -14,6 +14,8 @@ pnpm build        # Production build
 pnpm lint         # ESLint
 pnpm typecheck    # TypeScript check (tsc --noEmit)
 pnpm format       # Prettier format
+pnpm clean        # Remove .next build cache
+pnpm nuke         # Remove .next and node_modules
 ```
 
 ## Architecture
@@ -73,3 +75,9 @@ Create `src/app/<route>/page.tsx` as a Server Component. For interactive feature
 ### New images
 
 Drop images into `public/gallery/images/`. Build process extracts EXIF data and generates thumbhash placeholders automatically.
+
+## Gotchas
+
+- **Dark mode only**: App forces dark theme (`forcedTheme='dark'` in Providers) — don't add light mode variants
+- **shadcn uses @base-ui/react**: Not Radix UI — component primitives differ from older shadcn examples
+- **Extra TS strict flags**: `noUncheckedIndexedAccess` is enabled — always handle potential `undefined` from array/object index access
