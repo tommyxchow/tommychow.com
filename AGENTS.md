@@ -18,7 +18,7 @@ pnpm lint         # ESLint
 pnpm typecheck    # TypeScript check (tsc --noEmit)
 pnpm format       # Prettier format
 pnpm clean        # Remove .next, .open-next build caches
-pnpm nuke         # Remove .next, .open-next, and node_modules
+pnpm nuke         # Remove .next, .open-next, node_modules, and pnpm-lock.yaml
 ```
 
 ## Architecture
@@ -33,7 +33,7 @@ pnpm nuke         # Remove .next, .open-next, and node_modules
 ### Component Organization
 
 - **UI primitives**: `src/components/ui/` — shadcn/ui components
-- **App components**: `src/components/` — custom components like `CustomImage`, `Header`, `Providers`
+- **App components**: `src/components/` — custom components like `CustomImage`, `Header`, `Providers`, `Prose`, `PixelatedBackground`
 - **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
 
 ## Code Style
@@ -56,6 +56,13 @@ pnpm nuke         # Remove .next, .open-next, and node_modules
 
 - Single quotes, no semicolons (Prettier configured)
 - Prettier auto-organizes imports and sorts Tailwind classes
+
+### ESLint
+
+- `strict-boolean-expressions` — no implicit coercion; use explicit checks (e.g., `str !== undefined` instead of `if (str)` for non-boolean types, though nullable booleans and nullable strings are allowed)
+- `switch-exhaustiveness-check` — switch statements must handle all union members
+- `no-console` — `console.log` warns; only `console.warn` and `console.error` allowed
+- `no-array-index-key` — avoid array index as React key (warning)
 
 ### Icons & Animations
 
@@ -84,3 +91,4 @@ Drop images into `public/gallery/images/`, then run `pnpm gallery` to regenerate
 - **Dark mode only**: App forces dark theme (`forcedTheme='dark'` in Providers) — don't add light mode variants
 - **shadcn uses @base-ui/react**: Not Radix UI — component primitives differ from older shadcn examples
 - **Extra TS strict flags**: `noUncheckedIndexedAccess` is enabled — always handle potential `undefined` from array/object index access
+- **More TS strict flags**: `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, and `verbatimModuleSyntax` (use `import type` / `export type` for type-only imports)
