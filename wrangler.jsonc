@@ -37,12 +37,6 @@
   "minify": true,
   "keep_vars": true,
   "observability": {
-    "logs": {
-      "enabled": true,
-      "invocation_logs": true,
-    },
-    "traces": {
-      "enabled": false,
-    },
+    "enabled": true,
   },
 }
