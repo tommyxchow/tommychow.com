@@ -1,6 +1,5 @@
 'use client'
 
-import { ThemeProvider } from 'next-themes'
 import { useEffect } from 'react'
 
 interface ProvidersProps {
@@ -16,13 +15,5 @@ export function Providers({ children }: ProvidersProps) {
     }
   }, [])
 
-  return (
-    <ThemeProvider
-      attribute='class'
-      forcedTheme='dark'
-      disableTransitionOnChange
-    >
-      {children}
-    </ThemeProvider>
-  )
+  return children
 }
