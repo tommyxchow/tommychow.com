@@ -1,5 +1,6 @@
 'use client'
 
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { useEffect } from 'react'
 
 interface ProvidersProps {
@@ -15,5 +16,5 @@ export function Providers({ children }: ProvidersProps) {
     }
   }, [])
 
-  return children
+  return <NuqsAdapter>{children}</NuqsAdapter>
 }

@@ -9,7 +9,15 @@ import {
 } from '@/components/ui/popover'
 import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
 import { motion, useMotionValue, useSpring, type PanInfo } from 'motion/react'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { parseAsString, useQueryState } from 'nuqs'
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 
 // Configuration for gallery behavior
 const GALLERY_CONFIG = {
@@ -32,17 +40,60 @@ interface GalleryClientProps {
 
 export function GalleryClient({ images }: GalleryClientProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const targetIndexRef = useRef(0)
   const lastScrollTimeRef = useRef(0)
   const prefetchedRef = useRef<Set<number>>(new Set())
   const shouldScrollToSelectedRef = useRef(false)
-  const [displayIndex, setDisplayIndex] = useState(0)
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
   const [gridOpen, setGridOpen] = useState(false)
+
+  // URL state: persist the selected image filename in the query string
+  const [imageParam, setImageParam] = useQueryState(
+    'image',
+    parseAsString.withOptions({ shallow: true, history: 'replace' }),
+  )
+
+  // Derive display index from the URL param
+  const displayIndex = useMemo(() => {
+    if (imageParam === null) return 0
+    const index = images.findIndex((img) => img.file === imageParam)
+    return index >= 0 ? index : 0
+  }, [imageParam, images])
+
+  // Clear invalid image param from URL
+  useEffect(() => {
+    if (imageParam !== null && !images.some((img) => img.file === imageParam)) {
+      void setImageParam(null)
+    }
+  }, [imageParam, images, setImageParam])
+
+  const targetIndexRef = useRef(displayIndex)
 
   // Transform-based animation for 120fps on ProMotion displays
   const yOffset = useMotionValue(0)
   const springY = useSpring(yOffset, GALLERY_CONFIG.SPRING)
+
+  // Set initial scroll position synchronously before first paint
+  const hasInitializedRef = useRef(false)
+  useLayoutEffect(() => {
+    if (hasInitializedRef.current) return
+    hasInitializedRef.current = true
+    targetIndexRef.current = displayIndex
+    if (containerRef.current && displayIndex > 0) {
+      const offset = -displayIndex * containerRef.current.clientHeight
+      yOffset.jump(offset)
+      springY.jump(offset)
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Sync scroll position when URL changes externally (back/forward navigation)
+  useEffect(() => {
+    if (!hasInitializedRef.current) return
+    if (targetIndexRef.current === displayIndex) return
+    targetIndexRef.current = displayIndex
+    if (containerRef.current) {
+      yOffset.set(-displayIndex * containerRef.current.clientHeight)
+    }
+  }, [displayIndex, yOffset])
 
   // Mark image as loaded
   const handleImageLoad = useCallback((index: number) => {
@@ -97,14 +148,19 @@ export function GalleryClient({ images }: GalleryClientProps) {
       }
 
       targetIndexRef.current = clampedIndex
-      setDisplayIndex(clampedIndex)
       lastScrollTimeRef.current = now
 
       const viewportHeight = containerRef.current.clientHeight
       yOffset.set(-clampedIndex * viewportHeight)
+
+      // Update URL with the image filename
+      const file = images[clampedIndex]?.file
+      if (file !== undefined) {
+        void setImageParam(file)
+      }
       return true
     },
-    [images.length, yOffset],
+    [images, yOffset, setImageParam],
   )
 
   const handleScroll = useCallback(
