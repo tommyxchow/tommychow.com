@@ -35,7 +35,7 @@
     "binding": "IMAGES",
   },
   "vars": {
-    "SITE_URL": "https://www.tommychow.com",
+    "SITE_URL": "https://tommychow.com",
   },
   "minify": true,
   "keep_names": false,
