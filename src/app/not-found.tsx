@@ -1,4 +1,4 @@
-import { buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 export default function NotFound() {
@@ -8,9 +8,9 @@ export default function NotFound() {
       <p className='text-muted-foreground'>
         The page you&apos;re looking for doesn&apos;t exist.
       </p>
-      <Link href='/' className={buttonVariants()}>
-        Go home
-      </Link>
+      <Button asChild>
+        <Link href='/'>Go home</Link>
+      </Button>
     </div>
   )
 }
