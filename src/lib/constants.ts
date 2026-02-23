@@ -1,1 +1,2 @@
-export const BASE_URL = process.env.SITE_URL ?? 'https://www.tommychow.com'
+export const BASE_URL =
+  process.env.SITE_URL ?? 'http://localhost:3000'

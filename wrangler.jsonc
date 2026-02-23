@@ -34,6 +34,9 @@
     // see https://opennext.js.org/cloudflare/howtos/image
     "binding": "IMAGES",
   },
+  "vars": {
+    "SITE_URL": "https://www.tommychow.com",
+  },
   "minify": true,
   "keep_names": false,
   "upload_source_maps": true,

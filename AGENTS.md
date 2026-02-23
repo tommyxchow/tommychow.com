@@ -1,12 +1,10 @@
 # AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ---
 
-## Author Preferences
+# Author Preferences
 
-### Code Opinions
+## Code Opinions
 
 - Prefer production-ready solutions over toy examples
 - Named exports only — no default exports except where required by Next.js (page, layout, route, etc.)
@@ -17,40 +15,49 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Inline until a pattern repeats 3+ times, then extract
 - For new components/hooks/APIs: include a usage example
 
-### Workflow
+## Workflow
 
-- When implementing new code, search the codebase for existing usages and follow established patterns
-- When new code supersedes existing functionality, find and remove everything it makes redundant
-- Favor parallel tool calls and subagents when tasks are independent
-- For refactors: summary → trade-offs → next steps
+- In plan mode, interview thoroughly — ask about technical implementation, UI/UX, tradeoffs, and edge cases before coding. Don't begin implementation until all important details are resolved.
+- When implementing new code, search the codebase for existing usages and follow established patterns.
+- When new code supersedes existing functionality, find and remove everything it makes redundant.
+- Favor parallel tool calls and subagents when tasks are independent.
+- For refactors: summary → trade-offs → next steps.
 
-### Testing
+## Testing
 
-- Suggest tests when changes touch logic, but don't write tests unless asked
-- Run targeted tests for relevant files, not the full suite
+- Suggest tests when changes touch logic, but don't write tests unless asked.
+- Run targeted tests for relevant files, not the full suite.
 
-### Code Review
+## Code Review
 
 - Label severity: `critical` / `major` / `minor`
 - Prefer minimal, tightly scoped diffs
 - Flag security issues (XSS, CSRF, injection, auth gaps) with fixes
 - Flag unnecessary complexity with a simpler alternative
 
-### Never
+## Commit Convention
+
+Commits use lowercase, descriptive messages without prefixes (e.g., `fix landscape bottom padding`, `add swipe gesture support`). Keep commits tightly scoped.
+
+## Verification
+
+When asked to "verify", always use web search to check current documentation and sources before responding. Do not rely solely on training data.
+
+## Never
 
 - Never use `npm`, `npx`, or `yarn` — always use `pnpm` / `pnpx`
 - Never install a new dependency without asking first
 
 ---
 
-## Project Overview
+# Project
 
-Personal portfolio site for Tommy Chow, built with **Next.js 16**, **React 19**, **React Compiler**, **Tailwind CSS v4**, and **shadcn/ui**. Typed routes are enabled. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
+Personal portfolio site for Tommy Chow. Dark mode only.
 
 ## Commands
 
 ```bash
-pnpm dev          # Start dev server
+pnpm dev          # Start development server
 pnpm build        # Production build (auto-runs gallery via prebuild)
 pnpm start        # Start production server (Node.js)
 pnpm gallery      # Regenerate gallery manifest (run when images change)
@@ -58,91 +65,74 @@ pnpm preview      # Build and preview on local Cloudflare Workers
 pnpm deploy       # Build and deploy to Cloudflare Workers
 pnpm upload       # Build and upload to Cloudflare Workers (no deploy)
 pnpm cf-typegen   # Generate CloudflareEnv types from wrangler.jsonc
-pnpm lint         # ESLint
-pnpm typecheck    # TypeScript check (tsc --noEmit)
+pnpm lint         # Run ESLint
+pnpm typecheck    # TypeScript type checking (tsc --noEmit)
+pnpm format       # Format with Prettier
 pnpm check        # Full check: typecheck + lint + build
 pnpm ui:update    # Regenerate all shadcn components to latest
-pnpm format       # Prettier format
-pnpm clean        # Remove .next, .open-next, node_modules
-pnpm nuke         # clean + remove pnpm-lock.yaml
+pnpm clean        # Delete .next, .open-next, and node_modules
+pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 ```
 
 ## Architecture
 
-- **App Router** with React Server Components by default; use `'use client'` only when needed
-- **React Compiler** enabled for automatic memoization
-- **Typed Routes** enabled for type-safe `href` props
-- **Path alias**: `@/*` maps to `./src/*`
-- **Runtime**: Node.js >= 22, pnpm 10
-- **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
-- **Gallery system**: Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib/gallery-manifest.json` using `sharp` and `thumbhash`. The manifest is committed to git and re-exported by `src/lib/server-utils.ts`
+Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
-### Component Organization
+**Runtime**: Node.js >= 22, pnpm 10
 
-- **UI primitives**: `src/components/ui/` — shadcn/ui components (managed by `pnpm ui:update`)
-- **App components**: `src/components/` — custom components like `CustomImage`, `Header`, `Providers`, `Prose`, `PixelatedBackground`
-- **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
+### Key Configuration
+
+- **React Compiler**: Enabled for automatic memoization
+- **Typed Routes**: Enabled for type-safe `href` props
+- **Path Alias**: `@/*` maps to `./src/*`
+- **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, `verbatimModuleSyntax`
 
 ### Source Structure
 
 - `src/app/` - App Router pages and layouts
-- `src/components/` - React components
-- `src/lib/` - Utilities and constants
+- `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm dlx shadcn@latest add <component>`)
+  - **shadcn components are pre-installed.** Before building custom UI, check `src/components/ui/` for existing components and consult [shadcn docs](https://ui.shadcn.com/docs/components) for usage patterns, composition examples, and any newer components that can be added.
+- `src/lib/` - Utilities (`cn()` for className merging), constants, and server-only code
 - `src/hooks/` - Custom React hooks
+
+### Cloudflare Workers
+
+- `wrangler.jsonc` - Cloudflare Workers configuration (bindings, R2, services, etc.)
+- `open-next.config.ts` - OpenNext adapter config
+- `cloudflare-env.d.ts` - Generated types for Cloudflare bindings (run `pnpm cf-typegen` to regenerate)
+
+### Environment Variables
+
+- `SITE_URL` — Base URL for the site. Declared in `wrangler.jsonc`, defaults to `http://localhost:3000` for local dev. Used in `src/lib/constants.ts` for `metadataBase`, sitemap, and robots.txt.
+
+### Gallery System
+
+Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib/gallery-manifest.json` using `sharp` and `thumbhash`. The manifest is committed to git and re-exported by `src/lib/server-utils.ts`.
+
+### Key Libraries
+
+- **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
+- **motion** — Animation library (Framer Motion v12+)
+- **react-medium-image-zoom** — Zoomable images in the gallery
+- **lucide-react** — Icons; `react-icons` for brand icons (e.g., `SiGithub`)
 
 ## Code Style
 
-### TypeScript
-
-- Strict mode enabled; use inline type imports: `import { type Foo } from 'bar'`
-- Prefer explicit `interface` over `type` for component props
-- Define prop interfaces directly above component
-- Prefix unused variables with `_`
-
-### Styling
-
-- Use `cn()` from `@/lib/utils` for conditional classes (combines `clsx` + `tailwind-merge`)
-- Use `twJoin`/`twMerge` from `tailwind-merge` for simpler cases
-- Colors via CSS custom properties: `--foreground`, `--background`, `--muted-foreground`, etc.
-- Tailwind v4 syntax: `@theme`, `@plugin`, `@custom-variant` in `globals.css`
-
-### Formatting
-
-- Single quotes, no semicolons (Prettier configured)
-- Prettier auto-organizes imports and sorts Tailwind classes
-
-### ESLint
+Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Non-obvious decisions:
 
 - Enums are banned — use `as const` objects or union types
-- `switch-exhaustiveness-check` — switch statements must handle all union members
-- `no-console` — `console.log` warns; only `console.warn` and `console.error` allowed
-- `no-array-index-key` — avoid array index as React key (warning)
-
-### Icons & Animations
-
-- Use `lucide-react` for icons; `react-icons` for brand icons (e.g., `SiGithub`)
-- Use `motion` package: `import { motion } from 'motion/react'`
-- Imperative animations: `import { animate } from 'motion'`
-
-## Adding Features
-
-### New shadcn/ui component
-
-```bash
-pnpm dlx shadcn@latest add <component-name>
-```
-
-### New page
-
-Create `src/app/<route>/page.tsx` as a Server Component. For interactive features, extract to a colocated `*Client.tsx` file with `'use client'` directive.
-
-### New images
-
-Drop images into `public/gallery/images/`, then run `pnpm gallery` to regenerate the manifest. Commit the updated `src/lib/gallery-manifest.json`.
+- Use `import type` / `export type` with inline style (`import { type Foo }`)
+- Prefix unused variables with `_`
+- Prettier auto-sorts imports and Tailwind classes — don't sort manually
+- Use `cn()` from `@/lib/utils` for conditional classes (combines `clsx` + `tailwind-merge`)
+- Colors via CSS custom properties: `--foreground`, `--background`, `--muted-foreground`, etc.
+- `strict-boolean-expressions` — no implicit boolean coercion; use explicit checks (e.g., `!== undefined`) instead of truthy checks
+- `prefer-nullish-coalescing` — prefer `??` over `||` for nullish checks
+- `react-you-might-not-need-an-effect` — flags unnecessary `useEffect`; derive state or use event handlers instead
 
 ## Gotchas
 
 - **Dark mode only**: App uses a dark-first design — don't introduce light-mode specific assumptions
 - **shadcn uses @base-ui/react**: Not Radix UI — component primitives differ from older shadcn examples
-- **Extra TS strict flags**: `noUncheckedIndexedAccess` is enabled — always handle potential `undefined` from array/object index access
-- **More TS strict flags**: `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, and `verbatimModuleSyntax` (use `import type` / `export type` for type-only imports)
+- **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
+- **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
