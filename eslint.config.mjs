@@ -7,7 +7,8 @@ import { defineConfig } from 'eslint/config'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig(
-  { ignores: ['src/components/ui/'] },
+  // Managed by shadcn (pnpm ui:update)
+  { ignores: ['src/components/ui/', '.open-next/'] },
   eslintJs.configs.recommended,
   nextVitals,
 
@@ -30,11 +31,15 @@ export default defineConfig(
       reactYouMightNotNeedAnEffect.configs.recommended,
     ],
     rules: {
-      eqeqeq: ['error', 'smart'],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { fixStyle: 'inline-type-imports' },
+      ],
+      '@typescript-eslint/consistent-type-exports': [
+        'error',
+        { fixMixedExportsWithInlineTypeSpecifier: true },
       ],
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -49,6 +54,7 @@ export default defineConfig(
         },
       ],
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/strict-boolean-expressions': [
         'error',
         {
@@ -56,13 +62,28 @@ export default defineConfig(
           allowNullableString: true,
         },
       ],
-      '@typescript-eslint/no-unnecessary-condition': 'error',
+      '@typescript-eslint/no-unnecessary-condition': [
+        'error',
+        { allowConstantLoopConditions: 'only-allowed-literals' },
+      ],
+      '@typescript-eslint/prefer-nullish-coalescing': [
+        'error',
+        { ignorePrimitives: { string: true } },
+      ],
       '@typescript-eslint/no-misused-promises': [
         'error',
         { checksVoidReturn: { attributes: false } },
       ],
       '@eslint-react/jsx-shorthand-boolean': 'error',
       '@eslint-react/no-array-index-key': 'warn',
+
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'TSEnumDeclaration',
+          message: 'Use `as const` objects or union types instead of enums.',
+        },
+      ],
 
       // Redundant with react-you-might-not-need-an-effect
       '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',

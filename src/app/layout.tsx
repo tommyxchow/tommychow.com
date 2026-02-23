@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header'
 import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
+import { BASE_URL } from '@/lib/constants'
 import { type Metadata } from 'next'
 import localFont from 'next/font/local'
 import { twJoin } from 'tailwind-merge'
@@ -16,11 +17,14 @@ const fontMono = localFont({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.tommychow.com'),
+  metadataBase: new URL(BASE_URL),
   title: 'Tommy Chow',
   description: 'Mobile & web engineer.',
   openGraph: {
-    url: 'https://www.tommychow.com',
+    url: BASE_URL,
+  },
+  twitter: {
+    card: 'summary_large_image',
   },
 }
 

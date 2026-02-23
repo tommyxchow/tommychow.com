@@ -1,0 +1,8 @@
+packages: []
+onlyBuiltDependencies:
+  - esbuild
+  - msw
+  - sharp
+  - unrs-resolver
+  - workerd
+verifyDepsBeforeRun: install
