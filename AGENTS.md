@@ -92,7 +92,7 @@ Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@op
 - `src/app/` - App Router pages and layouts
 - `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm dlx shadcn@latest add <component>`)
   - **shadcn components are pre-installed.** Before building custom UI, check `src/components/ui/` for existing components and consult [shadcn docs](https://ui.shadcn.com/docs/components) for usage patterns, composition examples, and any newer components that can be added.
-  - To style non-button elements (e.g. `<Link>`) as buttons, use `<Button asChild>` — `buttonVariants()` cannot be called from server components since `button.tsx` is a client module.
+  - `button.tsx` is a `'use client'` module — `buttonVariants()` and `<Button>` can only be used in client components. There is no `asChild` prop (Base UI, not Radix).
 - `src/lib/` - Utilities (`cn()` for className merging), constants, and server-only code
 - `src/hooks/` - Custom React hooks
 
