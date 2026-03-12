@@ -312,7 +312,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
               src={`/gallery/images/${file}`}
               alt={`Thumbnail ${index + 1}`}
               fill
-              sizes='(min-width: 640px) 120px, 150px'
+              sizes='(min-width: 640px) 120px, 180px'
               className='object-cover shadow-none'
               placeholder='blur'
               blurDataURL={thumbHashDataURL}

@@ -58,7 +58,7 @@ export default function HomePage() {
                   src={`/gallery/images/${file}`}
                   alt='Gallery preview'
                   fill
-                  sizes='(max-width: 640px) 50vw, 400px'
+                  sizes='(min-width: 768px) 211px, calc((100vw - 40px) / 3)'
                   className='object-cover shadow-none transition-transform duration-500 group-hover:scale-105'
                   placeholder='blur'
                   blurDataURL={thumbHashDataURL}
