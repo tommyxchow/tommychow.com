@@ -1,8 +1,7 @@
-import { CustomImage } from '@/components/CustomImage'
 import { Prose } from '@/components/Prose'
 import { links } from '@/lib/links'
 import { getSortedImagesByDate } from '@/lib/server-utils'
-import Link from 'next/link'
+import { GalleryPreview } from './GalleryPreview'
 import { HomeClient } from './HomeClient'
 
 export default function HomePage() {
@@ -49,33 +48,7 @@ export default function HomePage() {
         </p>
       </Prose>
 
-      <section className='mt-8 flex flex-col gap-4'>
-        <Link href='/gallery' className='group block'>
-          <div className='grid grid-cols-3 gap-1 overflow-hidden rounded-sm'>
-            {previewImages.map(({ file, thumbHashDataURL }) => (
-              <div key={file} className='relative aspect-3/4 overflow-hidden'>
-                <CustomImage
-                  src={`/gallery/images/${file}`}
-                  alt='Gallery preview'
-                  fill
-                  sizes='(min-width: 768px) 211px, calc((100vw - 40px) / 3)'
-                  className='object-cover shadow-none transition-transform duration-500 group-hover:scale-105'
-                  placeholder='blur'
-                  blurDataURL={thumbHashDataURL}
-                />
-              </div>
-            ))}
-          </div>
-          <div className='mt-3 flex items-center justify-between'>
-            <span className='text-muted-foreground text-sm font-medium tracking-wide uppercase'>
-              Gallery
-            </span>
-            <span className='text-muted-foreground transition-transform group-hover:translate-x-1'>
-              →
-            </span>
-          </div>
-        </Link>
-      </section>
+      <GalleryPreview images={previewImages} />
     </HomeClient>
   )
 }

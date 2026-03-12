@@ -1,9 +1,8 @@
 'use client'
 
+import { MOTION_EASING } from '@/lib/constants'
 import { motion } from 'motion/react'
 import React from 'react'
-
-const easing: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94]
 
 const item = {
   hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },
@@ -25,7 +24,7 @@ export function HomeClient({ children }: { children: React.ReactNode }) {
         <motion.div
           key={index}
           variants={item}
-          transition={{ duration: 0.6, ease: easing }}
+          transition={{ duration: 0.6, ease: MOTION_EASING }}
         >
           {child}
         </motion.div>
