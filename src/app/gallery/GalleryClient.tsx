@@ -308,14 +308,14 @@ export function GalleryClient({ images }: GalleryClientProps) {
             }`}
             aria-label={`Go to image ${index + 1}`}
           >
-            <CustomImage
-              src={`/gallery/images/${file}`}
+            {/* TODO: once image optimization is re-enabled, add a second <img> layer
+                with src={`/_next/image?url=${encodeURIComponent(`/gallery/images/${file}`)}&w=256&q=75`}
+                loading="lazy" decoding="async" that fades in over the thumbhash */}
+            {/* eslint-disable-next-line @next/next/no-img-element -- plain <img> avoids mounting 81 <Image> components */}
+            <img
+              src={thumbHashDataURL}
               alt={`Thumbnail ${index + 1}`}
-              fill
-              sizes='(min-width: 640px) 120px, 180px'
-              className='object-cover shadow-none'
-              placeholder='blur'
-              blurDataURL={thumbHashDataURL}
+              className='absolute inset-0 h-full w-full object-cover'
             />
           </button>
         ))}
