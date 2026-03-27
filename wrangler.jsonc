@@ -29,6 +29,9 @@
   //     "bucket_name": "<BUCKET_NAME>",
   //   },
   // ],
+  "images": {
+    "binding": "IMAGES",
+  },
   "vars": {
     "SITE_URL": "https://tommychow.com",
   },
