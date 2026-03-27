@@ -7,8 +7,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const nextConfig: NextConfig = {
-  // TODO: re-enable image optimization once Cloudflare free transformation quota resets
-  images: { unoptimized: true },
+  images: {
+    loader: 'custom',
+    loaderFile: './image-loader.ts',
+    deviceSizes: [640, 828, 1200, 1920, 3840],
+    imageSizes: [128, 256, 384],
+  },
   typedRoutes: true,
   reactCompiler: true,
   logging: {
