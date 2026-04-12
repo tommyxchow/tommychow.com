@@ -1,12 +1,12 @@
 'use client'
 
-import { CustomImage } from '@/components/CustomImage'
 import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { buildSrcSet, largestVariantSrc } from '@/lib/gallery-image'
 import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
 import { motion, useMotionValue, useSpring, type PanInfo } from 'motion/react'
 import { parseAsString, useQueryState } from 'nuqs'
@@ -35,6 +35,9 @@ interface GalleryClientProps {
     file: string
     thumbHashDataURL: string
     dateTime: string
+    width: number
+    height: number
+    variants: number[]
   }[]
 }
 
@@ -97,7 +100,10 @@ export function GalleryClient({ images }: GalleryClientProps) {
 
   // Mark image as loaded
   const handleImageLoad = useCallback((index: number) => {
-    setLoadedImages((prev) => new Set(prev).add(index))
+    setLoadedImages((prev) => {
+      if (prev.has(index)) return prev
+      return new Set(prev).add(index)
+    })
   }, [])
 
   // Prefetch upcoming images using link prefetch
@@ -119,10 +125,11 @@ export function GalleryClient({ images }: GalleryClientProps) {
           !prefetchedRef.current.has(idx)
         ) {
           prefetchedRef.current.add(idx)
+          const target = images[idx]!
           const link = document.createElement('link')
           link.rel = 'prefetch'
           link.as = 'image'
-          link.href = `/gallery/images/${images[idx]!.file}`
+          link.href = largestVariantSrc(target.file, target.variants)
           document.head.appendChild(link)
           linksAdded.push(link)
         }
@@ -293,7 +300,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const thumbnailGrid = useMemo(
     () => (
       <div className='grid grid-cols-2 gap-1.5 sm:grid-cols-3'>
-        {images.map(({ file, thumbHashDataURL }, index) => (
+        {images.map(({ file, thumbHashDataURL, variants }, index) => (
           <button
             key={file}
             ref={index === displayIndex ? selectedThumbnailRef : null}
@@ -306,15 +313,16 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 ? 'ring-foreground ring-2'
                 : 'hover:ring-foreground/50 opacity-70 hover:opacity-100 hover:ring-2'
             }`}
+            style={{ backgroundImage: `url(${thumbHashDataURL})` }}
             aria-label={`Go to image ${index + 1}`}
           >
-            {/* TODO: once image optimization is re-enabled, add a second <img> layer
-                with src={`/_next/image?url=${encodeURIComponent(`/gallery/images/${file}`)}&w=256&q=75`}
-                loading="lazy" decoding="async" that fades in over the thumbhash */}
             {/* eslint-disable-next-line @next/next/no-img-element -- plain <img> avoids mounting 81 <Image> components */}
             <img
-              src={thumbHashDataURL}
+              srcSet={buildSrcSet(file, variants)}
+              sizes='120px'
               alt={`Thumbnail ${index + 1}`}
+              loading='lazy'
+              decoding='async'
               className='absolute inset-0 h-full w-full object-cover'
             />
           </button>
@@ -333,7 +341,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
         style={{ touchAction: 'none' }}
       >
         <motion.div className='will-change-transform' style={{ y: springY }}>
-          {images.map(({ file }, index) => {
+          {images.map(({ file, width, height, variants }, index) => {
             // Virtual scrolling: only render images within window of current index
             const shouldRender =
               Math.abs(index - displayIndex) <= GALLERY_CONFIG.RENDER_WINDOW
@@ -350,6 +358,9 @@ export function GalleryClient({ images }: GalleryClientProps) {
             }
 
             const isLoaded = loadedImages.has(index)
+            // Preload the first two images for LCP, and the immediate neighbors for smooth transitions
+            const shouldPreload =
+              index < 2 || Math.abs(index - displayIndex) <= 1
             return (
               <motion.div
                 key={file}
@@ -373,15 +384,21 @@ export function GalleryClient({ images }: GalleryClientProps) {
                       isLoaded ? 'opacity-100' : 'opacity-0'
                     }`}
                   >
-                    <CustomImage
-                      src={`/gallery/images/${file}`}
-                      alt={`Gallery image ${file}`}
-                      fill
-                      // Preload the first two images for LCP, and the immediate neighbors for smooth transitions
-                      preload={index < 2 || Math.abs(index - displayIndex) <= 1}
+                    {/* eslint-disable-next-line @next/next/no-img-element -- static pre-generated variants, not served by next/image */}
+                    <img
+                      ref={(img) => {
+                        if (img?.complete) handleImageLoad(index)
+                      }}
+                      srcSet={buildSrcSet(file, variants)}
                       sizes='100vw'
-                      className='object-contain shadow-none'
+                      width={width}
+                      height={height}
+                      alt={`Gallery image ${file}`}
+                      fetchPriority={shouldPreload ? 'high' : 'auto'}
+                      loading={shouldPreload ? 'eager' : 'lazy'}
+                      decoding='async'
                       onLoad={() => handleImageLoad(index)}
+                      className='absolute inset-0 h-full w-full object-contain shadow-none'
                     />
                   </div>
                 </div>

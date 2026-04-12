@@ -1,10 +1,10 @@
 'use client'
 
-import { CustomImage } from '@/components/CustomImage'
 import { MOTION_EASING } from '@/lib/constants'
+import { buildSrcSet } from '@/lib/gallery-image'
 import { motion } from 'motion/react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const TRANSITION = { duration: 0.5, ease: MOTION_EASING } as const
 
@@ -25,55 +25,73 @@ function getHoverState(hoveredIndex: number | null, index: number) {
 }
 
 interface GalleryPreviewProps {
-  images: { file: string; thumbHashDataURL: string }[]
+  images: {
+    file: string
+    thumbHashDataURL: string
+    width: number
+    height: number
+    variants: number[]
+  }[]
 }
 
 export function GalleryPreview({ images }: GalleryPreviewProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const [loadedCount, setLoadedCount] = useState(0)
   const allLoaded = loadedCount >= images.length
+  const countedRef = useRef(new Set<number>())
 
-  function handleLoad() {
+  function handleImageLoaded(index: number) {
+    if (countedRef.current.has(index)) return
+    countedRef.current.add(index)
     setLoadedCount((prev) => prev + 1)
   }
 
   return (
     <div className='mt-8 grid grid-cols-3 gap-1 overflow-hidden rounded-sm'>
-      {images.map(({ file, thumbHashDataURL }, index) => {
-        const state = getHoverState(hoveredIndex, index)
+      {images.map(
+        ({ file, thumbHashDataURL, width, height, variants }, index) => {
+          const state = getHoverState(hoveredIndex, index)
 
-        return (
-          <Link
-            key={file}
-            href={`/gallery?image=${file}`}
-            className='relative aspect-3/4 overflow-hidden bg-cover bg-center'
-            style={{ backgroundImage: `url(${thumbHashDataURL})` }}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <motion.div
-              className='absolute inset-0'
-              initial={false}
-              animate={{
-                opacity: allLoaded ? 1 : 0,
-                scale: HOVER_SCALE[state],
-                filter: HOVER_FILTER[state],
-              }}
-              transition={TRANSITION}
+          return (
+            <Link
+              key={file}
+              href={`/gallery?image=${file}`}
+              className='relative aspect-3/4 overflow-hidden bg-cover bg-center'
+              style={{ backgroundImage: `url(${thumbHashDataURL})` }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <CustomImage
-                src={`/gallery/images/${file}`}
-                alt='Gallery preview'
-                fill
-                priority={index === 0}
-                sizes='(min-width: 768px) 211px, calc((100vw - 40px) / 3)'
-                className='object-cover shadow-none'
-                onLoad={handleLoad}
-              />
-            </motion.div>
-          </Link>
-        )
-      })}
+              <motion.div
+                className='absolute inset-0'
+                initial={false}
+                animate={{
+                  opacity: allLoaded ? 1 : 0,
+                  scale: HOVER_SCALE[state],
+                  filter: HOVER_FILTER[state],
+                }}
+                transition={TRANSITION}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element -- static pre-generated variants, not served by next/image */}
+                <img
+                  ref={(img) => {
+                    if (img?.complete) handleImageLoaded(index)
+                  }}
+                  srcSet={buildSrcSet(file, variants)}
+                  sizes='(min-width: 768px) 211px, calc((100vw - 40px) / 3)'
+                  width={width}
+                  height={height}
+                  alt='Gallery preview'
+                  fetchPriority={index === 0 ? 'high' : 'auto'}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding='async'
+                  onLoad={() => handleImageLoaded(index)}
+                  className='absolute inset-0 h-full w-full object-cover shadow-none'
+                />
+              </motion.div>
+            </Link>
+          )
+        },
+      )}
     </div>
   )
 }

@@ -6,6 +6,9 @@ export interface GalleryImage {
   file: string
   thumbHashDataURL: string
   dateTime: string
+  width: number
+  height: number
+  variants: number[]
 }
 
 export function getSortedImagesByDate(): GalleryImage[] {
