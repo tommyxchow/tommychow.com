@@ -4,7 +4,7 @@ interface ProseProps {
 
 export function Prose({ children }: ProseProps) {
   return (
-    <div className='prose prose-sm sm:prose-base prose-zinc prose-invert prose-headings:text-foreground prose-h1:text-lg prose-h1:font-semibold prose-h2:text-lg prose-h2:font-semibold prose-a:text-foreground prose-a:no-underline sm:prose-h2:mt-8 max-w-none'>
+    <div className='prose prose-sm max-w-none prose-zinc prose-invert sm:prose-base prose-headings:text-foreground prose-h1:text-lg prose-h1:font-semibold prose-h2:text-lg prose-h2:font-semibold sm:prose-h2:mt-8 prose-a:text-foreground prose-a:no-underline'>
       {children}
     </div>
   )

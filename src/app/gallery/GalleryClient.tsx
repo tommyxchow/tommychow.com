@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/popover'
 import { buildSrcSet, largestVariantSrc } from '@/lib/gallery-image'
 import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
-import { motion, useMotionValue, useSpring, type PanInfo } from 'motion/react'
+import { motion, type PanInfo, useMotionValue, useSpring } from 'motion/react'
 import { parseAsString, useQueryState } from 'nuqs'
 import {
   useCallback,
@@ -86,7 +86,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
       yOffset.jump(offset)
       springY.jump(offset)
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []) // eslint-disable-line @eslint-react/exhaustive-deps
 
   // Sync scroll position when URL changes externally (back/forward navigation)
   useEffect(() => {
@@ -308,10 +308,10 @@ export function GalleryClient({ images }: GalleryClientProps) {
               scrollToIndex(index, true)
               setGridOpen(false)
             }}
-            className={`relative aspect-square overflow-hidden rounded transition-all focus:outline-none ${
+            className={`relative aspect-square overflow-hidden rounded-sm transition-all focus:outline-none ${
               index === displayIndex
-                ? 'ring-foreground ring-2'
-                : 'hover:ring-foreground/50 opacity-70 hover:opacity-100 hover:ring-2'
+                ? 'ring-2 ring-foreground'
+                : 'opacity-70 hover:opacity-100 hover:ring-2 hover:ring-foreground/50'
             }`}
             style={{ backgroundImage: `url(${thumbHashDataURL})` }}
             aria-label={`Go to image ${index + 1}`}
@@ -323,7 +323,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
               alt={`Thumbnail ${index + 1}`}
               loading='lazy'
               decoding='async'
-              className='absolute inset-0 h-full w-full object-cover'
+              className='absolute inset-0 size-full object-cover'
             />
           </button>
         ))}
@@ -336,7 +336,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
     <div className='relative h-dvh w-full overflow-hidden'>
       <motion.div
         ref={containerRef}
-        className='h-full w-full'
+        className='size-full'
         onPanEnd={handlePanEnd}
         style={{ touchAction: 'none' }}
       >
@@ -372,15 +372,15 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 }}
                 className='flex h-dvh w-full shrink-0 items-center justify-center px-4 pt-16 pb-32 md:px-12 md:pt-20 md:pb-32'
               >
-                <div className='relative h-full w-full'>
+                <div className='relative size-full'>
                   {/* Loading spinner */}
                   {!isLoaded && (
                     <div className='absolute inset-0 flex items-center justify-center'>
-                      <div className='border-muted-foreground/30 border-t-muted-foreground size-8 animate-spin rounded-full border-2' />
+                      <div className='size-8 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-muted-foreground' />
                     </div>
                   )}
                   <div
-                    className={`h-full w-full transition-opacity duration-500 ${
+                    className={`size-full transition-opacity duration-500 ${
                       isLoaded ? 'opacity-100' : 'opacity-0'
                     }`}
                   >
@@ -398,7 +398,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
                       loading={shouldPreload ? 'eager' : 'lazy'}
                       decoding='async'
                       onLoad={() => handleImageLoad(index)}
-                      className='absolute inset-0 h-full w-full object-contain shadow-none'
+                      className='absolute inset-0 size-full object-contain shadow-none'
                     />
                   </div>
                 </div>
@@ -418,7 +418,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
         }}
         className='pointer-events-none absolute inset-x-0 bottom-4 flex flex-col items-center gap-4'
       >
-        <div className='text-muted-foreground pointer-events-auto flex flex-col items-center gap-1 px-4 font-mono text-xs uppercase'>
+        <div className='pointer-events-auto flex flex-col items-center gap-1 px-4 font-mono text-xs text-muted-foreground uppercase'>
           <span className='truncate'>{images[displayIndex]?.file}</span>
           <span>{images[displayIndex]?.dateTime}</span>
         </div>
@@ -428,17 +428,17 @@ export function GalleryClient({ images }: GalleryClientProps) {
             size='icon'
             onClick={() => handleScroll('up')}
             disabled={displayIndex === 0}
-            className='bg-background/20 hover:bg-background/40 pointer-events-auto rounded-full backdrop-blur-md transition-transform active:scale-95'
+            className='pointer-events-auto rounded-full bg-background/20 backdrop-blur-md transition-transform hover:bg-background/40 active:scale-95'
             aria-label='Scroll to previous image'
           >
-            <ChevronUp className='h-6 w-6' />
+            <ChevronUp className='size-6' />
           </Button>
           <Popover open={gridOpen} onOpenChange={setGridOpen}>
             <PopoverTrigger
-              className='bg-background/20 hover:bg-background/40 text-muted-foreground hover:text-foreground pointer-events-auto flex min-w-20 items-center justify-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-sm tabular-nums backdrop-blur-md transition-all active:scale-95'
+              className='pointer-events-auto flex min-w-20 items-center justify-center gap-1.5 rounded-full bg-background/20 px-3 py-1.5 font-mono text-sm text-muted-foreground tabular-nums backdrop-blur-md transition-all hover:bg-background/40 hover:text-foreground active:scale-95'
               aria-label='Open image gallery grid'
             >
-              <Grid className='h-3.5 w-3.5' />
+              <Grid className='size-3.5' />
               <span
                 className='inline-block text-right'
                 style={{ minWidth: `${String(images.length).length}ch` }}
@@ -461,10 +461,10 @@ export function GalleryClient({ images }: GalleryClientProps) {
             size='icon'
             onClick={() => handleScroll('down')}
             disabled={displayIndex === images.length - 1}
-            className='bg-background/20 hover:bg-background/40 pointer-events-auto rounded-full backdrop-blur-md transition-transform active:scale-95'
+            className='pointer-events-auto rounded-full bg-background/20 backdrop-blur-md transition-transform hover:bg-background/40 active:scale-95'
             aria-label='Scroll to next image'
           >
-            <ChevronDown className='h-6 w-6' />
+            <ChevronDown className='size-6' />
           </Button>
         </div>
       </motion.div>

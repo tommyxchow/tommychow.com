@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <HomeClient>
       <header className='flex items-center gap-2'>
-        <h1 className='text-muted-foreground text-sm font-medium tracking-wide uppercase'>
+        <h1 className='text-sm font-medium tracking-wide text-muted-foreground uppercase'>
           Tommy Chow
         </h1>
         <nav aria-label='Social links'>
@@ -23,7 +23,7 @@ export default function HomePage() {
                   target='_blank'
                   rel='noopener noreferrer'
                   aria-label={link.title}
-                  className='text-muted-foreground hover:text-foreground transition-colors'
+                  className='text-muted-foreground transition-colors hover:text-foreground'
                 >
                   {link.icon}
                 </a>

@@ -85,7 +85,7 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
                   loading={index === 0 ? 'eager' : 'lazy'}
                   decoding='async'
                   onLoad={() => handleImageLoaded(index)}
-                  className='absolute inset-0 h-full w-full object-cover shadow-none'
+                  className='absolute inset-0 size-full object-cover shadow-none'
                 />
               </motion.div>
             </Link>

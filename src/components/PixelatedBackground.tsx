@@ -324,7 +324,7 @@ export function PixelatedBackground() {
         duration: 1,
         ease: [0.25, 0.46, 0.45, 0.94],
       }}
-      className='pointer-events-none fixed inset-0 -z-50 h-full w-full'
+      className='pointer-events-none fixed inset-0 -z-50 size-full'
       style={{
         imageRendering: 'pixelated',
       }}

@@ -1,5 +1,5 @@
 import { Mail } from 'lucide-react'
-import { SiGithub, SiLinkedin } from 'react-icons/si'
+import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 
 export interface LinkInfo {
   icon?: React.ReactNode
@@ -14,12 +14,12 @@ export const links: LinkInfo[] = [
     href: 'mailto:tommyxchow@gmail.com',
   },
   {
-    icon: <SiGithub size={16} />,
+    icon: <FaGithub size={16} />,
     title: 'GitHub',
     href: 'https://github.com/tommyxchow',
   },
   {
-    icon: <SiLinkedin size={16} />,
+    icon: <FaLinkedin size={16} />,
     title: 'LinkedIn',
     href: 'https://linkedin.com/in/tommy-chow/',
   },

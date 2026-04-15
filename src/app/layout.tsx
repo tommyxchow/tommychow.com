@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang='en' className='dark'>
       <body
         className={twJoin(
-          'bg-background/80 text-foreground selection:bg-foreground selection:text-background relative min-h-dvh font-sans underline-offset-4',
+          'relative min-h-dvh bg-background/80 font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
           fontSans.variable,
           fontMono.variable,
         )}
