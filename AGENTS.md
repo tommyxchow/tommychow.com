@@ -111,6 +111,19 @@ Preset: `base-vega` + `neutral` (see `components.json`). Update command: `pnpm u
 
 This project's `button.tsx` and `popover.tsx` are heavily customized (sizing, colors, popup styling). Running `pnpm ui:update` will overwrite them with vanilla shadcn output and lose the customizations. If you need to sync upstream changes, prefer manual edits over a blind regenerate, or back up the customized files first.
 
+### Workflow
+
+1. Ensure clean working tree: `git status`
+2. Run `pnpm ui:update`
+3. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 4. Otherwise skip to 6
+4. Generate a reference project in a sandbox path:
+   ```
+   pnpm dlx shadcn@latest init --template next --base base --preset vega --name fresh --yes --cwd "C:/Users/Tommy/Developer/shadcn-fresh-ref"
+   ```
+   Diff `shadcn-fresh-ref/fresh/app/globals.css` against `src/app/globals.css`. Look for new `--*` tokens in `@theme inline {}` and any chart/color palette changes
+5. Add missing tokens to `src/app/globals.css` manually, then re-run `pnpm ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
+6. `git diff` the full changeset, commit
+
 ### Gotchas
 
 - **`add --all` scope**: `shadcn add --all --overwrite --yes` iterates through components already installed in `src/components/ui/` and re-renders each from the registry. It does NOT install brand-new components from the registry — for those, use `shadcn add <name>` explicitly. Base-incompatible components (see `form` below) are silently excluded.
