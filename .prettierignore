@@ -1,6 +1,7 @@
 # auto-generated
 pnpm-lock.yaml
 .open-next
+src/lib/gallery-manifest.json
 
-# managed by shadcn (pnpm ui:update)
+# managed by shadcn (pnpm ui:add / ui:update)
 src/components/ui/

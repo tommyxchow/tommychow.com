@@ -19,6 +19,7 @@ Personal portfolio site for Tommy Chow. Dark mode only.
 ```bash
 pnpm dev          # Start development server
 pnpm build        # Production build (auto-runs gallery via prebuild)
+pnpm build:worker # Build the Cloudflare Worker bundle (opennextjs-cloudflare build)
 pnpm start        # Start production server (Node.js)
 pnpm gallery      # Regenerate gallery manifest (run when images change)
 pnpm preview      # Build and preview on local Cloudflare Workers
@@ -28,8 +29,10 @@ pnpm cf-typegen   # Generate CloudflareEnv types from wrangler.jsonc
 pnpm lint         # Run ESLint
 pnpm typecheck    # TypeScript type checking (tsc --noEmit)
 pnpm format       # Format with Prettier
-pnpm check        # Full check: typecheck + lint + build
-pnpm ui:update    # Regenerate all shadcn components to latest
+pnpm format:check # Check formatting without writing
+pnpm check        # Full check: typecheck + lint + format check + build
+pnpm ui:add       # Add a shadcn component (pnpm ui:add <component>)
+pnpm ui:update    # Refresh named shadcn components (pnpm ui:update <component...>)
 pnpm clean        # Delete .next, .open-next, and node_modules
 pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 ```
@@ -38,19 +41,20 @@ pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 
 Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
-**Runtime**: Node.js >= 22, pnpm 10
+**Runtime**: Node.js >= 24, pnpm 11 (managed via corepack and the `packageManager` field)
 
 ### Key Configuration
 
 - **React Compiler**: Enabled for automatic memoization
 - **Typed Routes**: Enabled for type-safe `href` props
+- **Cache Components**: Enabled (`cacheComponents: true`) — everything is dynamic (SSR) by default; opt into caching with `"use cache"` + `cacheLife()`, and wrap async work in `<Suspense>` for PPR. See [docs](https://nextjs.org/docs/app/getting-started/cache-components).
 - **Path Alias**: `@/*` maps to `./src/*`
-- **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, `verbatimModuleSyntax`
+- **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, `verbatimModuleSyntax`, `exactOptionalPropertyTypes`, `erasableSyntaxOnly`
 
 ### Source Structure
 
 - `src/app/` - App Router pages and layouts
-- `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm dlx shadcn@latest add <component>`)
+- `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm ui:add <component>`)
   - Only the components actually in use live in `src/components/ui/` (currently `button.tsx` and `popover.tsx`). Add more as needed.
   - `<Button>` has no `asChild` prop (Base UI, not Radix).
 - `src/lib/` - Utilities (`cn()` for className merging), constants, and server-only code
@@ -105,30 +109,36 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Project-specific 
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
 - **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are fetched on demand via `pnpm dlx` (see `.mcp.json`) — not installed as deps
 
-## Updating shadcn
+## shadcn
 
-Preset: `base-vega` + `neutral` (see `components.json`). Update command: `pnpm ui:update`. **Never use `shadcn apply`** — see Gotchas.
+Preset: `base-vega` + `neutral` + `default-translucent` menus (see `components.json`). Components are installed **lazily** — only the ones in use live in `src/components/ui/` (currently `button.tsx` and `popover.tsx`). Add new ones on demand with `pnpm ui:add <component>`; refresh named ones with `pnpm ui:update <component...>`. **Never use `shadcn apply`** — see Gotchas.
 
-This project's `button.tsx` and `popover.tsx` are heavily customized (sizing, colors, popup styling). Running `pnpm ui:update` will overwrite them with vanilla shadcn output and lose the customizations. If you need to sync upstream changes, prefer manual edits over a blind regenerate, or back up the customized files first.
+> [!NOTE]
+> `pnpm ui:add` / `pnpm ui:update` run the locally-pinned `shadcn` (a devDependency), **not** `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
+
+`button.tsx` and `popover.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update button popover` regenerates them safely. If you later customize a component, note it here and prefer a manual merge over a blind regenerate so the customization isn't silently lost.
+
+The theme in `src/app/globals.css` is the stock `base-vega`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`DepartureMono`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `@plugin '@tailwindcss/typography'` (used by `Prose`), and `color-scheme: dark` (the site is dark-only). Keep those when regenerating; everything else should match upstream.
 
 ### Workflow
 
 1. Ensure clean working tree: `git status`
-2. Run `pnpm ui:update`
-3. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 4. Otherwise skip to 6
-4. Generate a reference project in a sandbox path:
+2. Add components on demand with `pnpm ui:add <component>`
+3. Refresh existing components explicitly with `pnpm ui:update <component...>`
+4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 5. Otherwise skip to 7
+5. Generate a reference project in a sandbox path:
    ```
    pnpm dlx shadcn@latest init --template next --base base --preset vega --name fresh --yes --cwd "C:/Users/Tommy/Developer/shadcn-fresh-ref"
    ```
    Diff `shadcn-fresh-ref/fresh/app/globals.css` against `src/app/globals.css`. Look for new `--*` tokens in `@theme inline {}` and any chart/color palette changes
-5. Add missing tokens to `src/app/globals.css` manually, then re-run `pnpm ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
-6. `git diff` the full changeset, commit
+6. Add missing tokens to `src/app/globals.css` manually, then re-run the `ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
+7. `git diff` the full changeset, commit
 
 ### Gotchas
 
-- **`add --all` scope**: `shadcn add --all --overwrite --yes` iterates through components already installed in `src/components/ui/` and re-renders each from the registry. It does NOT install brand-new components from the registry — for those, use `shadcn add <name>` explicitly. Base-incompatible components (see `form` below) are silently excluded.
-- **`add` is config-aware**: If a newer component references a CSS variable missing from `globals.css`, shadcn silently strips the class from the rendered output and skips the file as "identical". Add missing tokens to `globals.css` first.
-- **Misleading skip hint**: `"use --overwrite to overwrite"` is printed even when `--overwrite` is already passed. It means "rendered output matches disk", not "you forgot a flag".
+- **`add --all` scope**: `shadcn add --all` installs **every** registry component. Don't use it for this lazy setup — add or refresh named components explicitly.
+- **`add` is config-aware**: If a newer component references a CSS variable missing from `globals.css`, shadcn silently strips the class from the rendered output and skips the file as "identical". Add missing tokens to `globals.css` first (workflow step 4).
+- **Misleading skip hint**: `"use --overwrite to overwrite"` is printed even when `--overwrite` is already passed (`ui:update` passes it). It means "rendered output matches disk", not "you forgot a flag".
 - **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports.
 - **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ.
 - **Preset name mismatch**: `components.json` stores the style as `"base-vega"` (with prefix), but the CLI `init`/`apply` accepts only `vega` (no prefix) with an explicit `--base base` flag.

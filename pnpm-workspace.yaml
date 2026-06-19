@@ -1,7 +1,10 @@
 packages: []
-onlyBuiltDependencies:
-  - esbuild
-  - msw
-  - sharp
-  - workerd
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
 verifyDepsBeforeRun: install
+engineStrict: true
+publicHoistPattern:
+  - '*eslint*'
+  - '*prettier*'
