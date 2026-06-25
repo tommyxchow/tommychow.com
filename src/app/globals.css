@@ -127,10 +127,10 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 
   html {
-    @apply font-sans;
+    @apply bg-background font-sans;
   }
 }

@@ -34,10 +34,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' className='dark'>
+    <html
+      lang='en'
+      className='dark'
+      style={{ colorScheme: 'dark' }}
+      suppressHydrationWarning
+    >
       <body
         className={twJoin(
-          'relative min-h-dvh bg-background/80 font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
+          'relative min-h-dvh bg-transparent font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
           fontSans.variable,
           fontMono.variable,
         )}
