@@ -1,8 +1,8 @@
 import { Prose } from '@/components/Prose'
-import { links } from '@/lib/links'
 import { getSortedImagesByDate } from '@/lib/server-utils'
 import { GalleryPreview } from './GalleryPreview'
 import { HomeClient } from './HomeClient'
+import { SocialLinks } from './SocialLinks'
 
 export default function HomePage() {
   const allImages = getSortedImagesByDate()
@@ -14,28 +14,7 @@ export default function HomePage() {
         <h1 className='text-sm leading-none font-medium tracking-wide text-muted-foreground uppercase'>
           Tommy Chow
         </h1>
-        <nav aria-label='Social links' className='flex h-4 items-center'>
-          <ul className='flex h-4 items-center gap-2'>
-            {links.map((link) => {
-              const isExternal = link.href.startsWith('http')
-
-              return (
-                <li key={link.title} className='flex h-4 items-center'>
-                  <a
-                    href={link.href}
-                    {...(isExternal
-                      ? { target: '_blank', rel: 'noopener noreferrer' }
-                      : {})}
-                    aria-label={link.title}
-                    className='relative flex size-4 items-center justify-center text-muted-foreground transition-colors before:absolute before:-inset-1 before:content-[""] hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:size-4'
-                  >
-                    {link.icon}
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+        <SocialLinks />
       </header>
 
       <Prose>
