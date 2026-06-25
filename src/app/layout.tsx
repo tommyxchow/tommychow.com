@@ -12,14 +12,16 @@ const fontSans = localFont({
   variable: '--font-sans',
 })
 const fontMono = localFont({
-  src: './DepartureMono-Regular.woff2',
+  src: './Lilex-Variable.woff2',
   variable: '--font-mono',
+  weight: '100 700',
 })
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: 'Tommy Chow',
   description: 'Mobile & web engineer.',
+  themeColor: '#09090b',
   openGraph: {
     url: BASE_URL,
   },
