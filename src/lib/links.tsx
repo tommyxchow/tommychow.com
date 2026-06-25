@@ -9,7 +9,7 @@ export interface LinkInfo {
 
 export const links: LinkInfo[] = [
   {
-    icon: <Mail size={18} />,
+    icon: <Mail size={16} />,
     title: 'Email',
     href: 'mailto:tommyxchow@gmail.com',
   },

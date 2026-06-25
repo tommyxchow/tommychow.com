@@ -56,7 +56,8 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
             <Link
               key={file}
               href={`/gallery?image=${file}`}
-              className='relative aspect-3/4 overflow-hidden bg-cover bg-center'
+              aria-label={`View ${file} in gallery`}
+              className='relative aspect-3/4 overflow-hidden rounded-sm bg-cover bg-center focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50'
               style={{ backgroundImage: `url(${thumbHashDataURL})` }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -80,7 +81,7 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
                   sizes='(min-width: 768px) 211px, calc((100vw - 40px) / 3)'
                   width={width}
                   height={height}
-                  alt='Gallery preview'
+                  alt=''
                   fetchPriority={index === 0 ? 'high' : 'auto'}
                   loading={index === 0 ? 'eager' : 'lazy'}
                   decoding='async'

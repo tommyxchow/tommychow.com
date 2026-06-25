@@ -10,25 +10,30 @@ export default function HomePage() {
 
   return (
     <HomeClient>
-      <header className='flex items-center gap-2'>
-        <h1 className='text-sm font-medium tracking-wide text-muted-foreground uppercase'>
+      <header className='flex h-4 items-center gap-2'>
+        <h1 className='text-sm leading-none font-medium tracking-wide text-muted-foreground uppercase'>
           Tommy Chow
         </h1>
-        <nav aria-label='Social links'>
-          <ul className='flex items-center gap-2'>
-            {links.map((link) => (
-              <li key={link.title}>
-                <a
-                  href={link.href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  aria-label={link.title}
-                  className='text-muted-foreground transition-colors hover:text-foreground'
-                >
-                  {link.icon}
-                </a>
-              </li>
-            ))}
+        <nav aria-label='Social links' className='flex h-4 items-center'>
+          <ul className='flex h-4 items-center gap-2'>
+            {links.map((link) => {
+              const isExternal = link.href.startsWith('http')
+
+              return (
+                <li key={link.title} className='flex h-4 items-center'>
+                  <a
+                    href={link.href}
+                    {...(isExternal
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
+                    aria-label={link.title}
+                    className='relative flex size-4 items-center justify-center text-muted-foreground transition-colors before:absolute before:-inset-1 before:content-[""] hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:size-4'
+                  >
+                    {link.icon}
+                  </a>
+                </li>
+              )
+            })}
           </ul>
         </nav>
       </header>

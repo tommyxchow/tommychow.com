@@ -13,7 +13,13 @@ export function Header() {
   return (
     <header className='fixed inset-x-0 top-0 z-50 flex items-center justify-between p-4'>
       <Button
-        render={<Link aria-label='Go back to home page' href='/' />}
+        render={
+          <Link
+            aria-label='Go back to home page'
+            href='/'
+            tabIndex={showBackButton ? 0 : -1}
+          />
+        }
         nativeButton={false}
         variant='ghost'
         size='icon'

@@ -1,7 +1,7 @@
 'use client'
 
 import { MOTION_EASING } from '@/lib/constants'
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import React from 'react'
 
 const item = {
@@ -9,16 +9,24 @@ const item = {
   show: { opacity: 1, y: 0, filter: 'blur(0px)' },
 }
 
+const containerClassName =
+  'mx-auto flex max-w-(--breakpoint-sm) flex-col gap-2 place-self-center px-4 py-20 md:px-0'
+
 export function HomeClient({ children }: { children: React.ReactNode }) {
+  const prefersReducedMotion = useReducedMotion()
   // Convert children to array to apply staggered animations
   const childArray = React.Children.toArray(children)
+
+  if (prefersReducedMotion) {
+    return <div className={containerClassName}>{children}</div>
+  }
 
   return (
     <motion.div
       initial='hidden'
       animate='show'
       transition={{ staggerChildren: 0.15, delayChildren: 0.3 }}
-      className='mx-auto flex max-w-(--breakpoint-sm) flex-col gap-2 place-self-center px-4 py-20 md:px-0'
+      className={containerClassName}
     >
       {childArray.map((child, index) => (
         <motion.div
