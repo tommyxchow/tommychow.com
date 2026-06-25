@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "next-devtools": {
+      "command": "pnpm",
+      "args": ["dlx", "next-devtools-mcp@latest"]
+    },
+    "chrome-devtools": {
+      "command": "pnpm",
+      "args": ["dlx", "chrome-devtools-mcp@latest"]
+    },
+    "shadcn": {
+      "command": "pnpm",
+      "args": ["dlx", "shadcn@latest", "mcp"]
+    }
+  }
+}
