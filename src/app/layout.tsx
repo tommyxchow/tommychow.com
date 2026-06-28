@@ -2,7 +2,7 @@ import { Header } from '@/components/Header'
 import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
-import { type Metadata } from 'next'
+import { type Metadata, type Viewport } from 'next'
 import localFont from 'next/font/local'
 import { twJoin } from 'tailwind-merge'
 import './globals.css'
@@ -21,13 +21,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: 'Tommy Chow',
   description: 'Mobile & web engineer.',
-  themeColor: '#09090b',
   openGraph: {
     url: BASE_URL,
   },
   twitter: {
     card: 'summary_large_image',
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#09090b',
 }
 
 export default function RootLayout({

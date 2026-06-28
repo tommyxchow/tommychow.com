@@ -25,7 +25,7 @@ export function SocialLinks() {
                         ? { target: '_blank', rel: 'noopener noreferrer' }
                         : {})}
                       aria-label={link.title}
-                      className='relative flex size-4 items-center justify-center text-muted-foreground transition-colors before:absolute before:-inset-1 before:content-[""] hover:text-foreground focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:size-4'
+                      className='relative flex size-4 items-center justify-center text-muted-foreground transition-colors before:absolute before:-inset-1 before:content-[""] hover:text-foreground focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none [&_svg]:size-4'
                     />
                   }
                 >

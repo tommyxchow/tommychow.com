@@ -46,6 +46,7 @@ next-env.d.ts
 
 # ai
 .claude/settings.local.json
+.claude/worktrees/
 .playwright-mcp
 
 # editor

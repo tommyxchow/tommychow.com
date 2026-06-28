@@ -61,7 +61,7 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
                 key={file}
                 href={`/gallery?image=${file}`}
                 aria-label={`View ${file} in gallery`}
-                className='relative aspect-3/4 overflow-hidden rounded-sm bg-cover bg-center focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50'
+                className='relative aspect-3/4 overflow-hidden rounded-sm bg-cover bg-center focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none'
                 style={{ backgroundImage: `url(${thumbHashDataURL})` }}
                 onMouseEnter={() => setHoveredIndex(index)}
               >

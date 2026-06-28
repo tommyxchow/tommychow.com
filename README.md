@@ -33,7 +33,7 @@ Personal portfolio site for Tommy Chow, built on top of `next-template` with gal
 | `pnpm cf-typegen` | Generate Cloudflare binding types                        |
 | `pnpm lint`       | Run ESLint                                               |
 | `pnpm typecheck`  | TypeScript type checking                                 |
-| `pnpm check`      | Full check: typecheck + lint + build                     |
+| `pnpm check`      | Full check: typecheck + lint + format check + build      |
 | `pnpm format`     | Format with Prettier                                     |
 | `pnpm ui:update`  | Regenerate shadcn components to latest                   |
 | `pnpm clean`      | Remove `.next`, `.open-next`, `node_modules`             |

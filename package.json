@@ -21,14 +21,14 @@
     "ui:add": "shadcn add --yes",
     "ui:update": "shadcn add --overwrite --yes",
     "clean": "node -e \"['.next','.open-next','node_modules'].forEach(p=>require('fs').rmSync(p,{recursive:true,force:true}))\"",
-    "nuke": "pnpm clean && node -e \"require('fs').rmSync('pnpm-lock.yaml',{force:true})\""
+    "nuke": "node -e \"const fs=require('fs'); ['.next','.open-next','node_modules'].forEach(p=>fs.rmSync(p,{recursive:true,force:true})); fs.rmSync('pnpm-lock.yaml',{force:true})\""
   },
   "dependencies": {
-    "@base-ui/react": "^1.5.0",
+    "@base-ui/react": "^1.6.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^1.18.0",
-    "motion": "^12.40.0",
+    "lucide-react": "^1.21.0",
+    "motion": "^12.42.0",
     "next": "^16.2.9",
     "nuqs": "^2.8.9",
     "react": "^19.2.7",
@@ -39,36 +39,36 @@
     "tw-animate-css": "^1.4.0"
   },
   "devDependencies": {
-    "@eslint-react/eslint-plugin": "^5.9.0",
+    "@eslint-react/eslint-plugin": "^5.9.5",
     "@eslint/js": "^10.0.1",
     "@next/eslint-plugin-next": "^16.2.9",
-    "@opennextjs/cloudflare": "^1.19.11",
+    "@opennextjs/cloudflare": "^1.20.1",
     "@tailwindcss/postcss": "^4.3.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-react-compiler": "^1.0.0",
-    "eslint": "^10.5.0",
+    "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-better-tailwindcss": "^4.6.0",
-    "eslint-plugin-react-you-might-not-need-an-effect": "^1.0.0",
+    "eslint-plugin-react-you-might-not-need-an-effect": "^1.0.1",
     "exifr": "^7.1.3",
     "postcss": "^8.5.15",
-    "prettier": "^3.8.4",
+    "prettier": "^3.8.5",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "shadcn": "^4.11.0",
+    "shadcn": "^4.12.0",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.1",
     "thumbhash": "^0.1.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.61.0",
-    "wrangler": "^4.100.0"
+    "typescript-eslint": "^8.62.0",
+    "wrangler": "^4.105.0"
   },
   "engines": {
     "node": ">=24"
   },
-  "packageManager": "pnpm@11.5.2+sha512.71c631e382066efc25625d5cf029075de07b61b37f6e27350fbd84b1bda5864c8c1967adc280776b45c30a715c0359a3be08fef42d5bb09e2b99029979692916"
+  "packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b"
 }

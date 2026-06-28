@@ -7,9 +7,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const nextConfig: NextConfig = {
+  cacheComponents: true,
   typedRoutes: true,
   reactCompiler: true,
-  cacheComponents: true,
   logging: {
     fetches: {
       fullUrl: true,

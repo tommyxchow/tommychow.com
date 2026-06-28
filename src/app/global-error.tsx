@@ -1,7 +1,12 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
 
+/**
+ * Catches errors thrown in the root layout itself. It replaces the whole
+ * document, so it must render its own <html>/<body> and can't rely on
+ * globals.css being applied — hence the inline styles.
+ */
 export default function GlobalError({
   error,
   reset,
@@ -9,44 +14,42 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  useEffect(() => {
-    console.error(error)
-  }, [error])
+  useLogBoundaryError(error)
 
   return (
     <html lang='en'>
-      <body>
-        <div
+      <body
+        style={{
+          display: 'flex',
+          minHeight: '100dvh',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '1rem',
+          padding: '4rem 1.5rem',
+          textAlign: 'center',
+          fontFamily: 'system-ui, sans-serif',
+        }}
+      >
+        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, margin: 0 }}>
+          Something went wrong
+        </h1>
+        <p style={{ color: '#71717a', margin: 0 }}>
+          A critical error occurred. Please reload the page.
+        </p>
+        <button
+          onClick={reset}
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '100dvh',
-            gap: '1rem',
-            textAlign: 'center',
-            fontFamily: 'system-ui, sans-serif',
+            cursor: 'pointer',
+            borderRadius: '0.375rem',
+            border: '1px solid currentColor',
+            background: 'transparent',
+            padding: '0.5rem 1rem',
+            font: 'inherit',
           }}
         >
-          <h1 style={{ fontSize: '2rem', fontWeight: 600 }}>
-            Something went wrong
-          </h1>
-          <p style={{ color: '#666' }}>
-            An unexpected error occurred. Please try again.
-          </p>
-          <button
-            onClick={reset}
-            style={{
-              padding: '0.5rem 1rem',
-              borderRadius: '0.375rem',
-              border: '1px solid #ccc',
-              cursor: 'pointer',
-              fontSize: '0.875rem',
-            }}
-          >
-            Try again
-          </button>
-        </div>
+          Try again
+        </button>
       </body>
     </html>
   )

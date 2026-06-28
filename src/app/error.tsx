@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useEffect } from 'react'
+import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
+import { statusPageClassName } from '@/lib/status-page'
 
 export default function Error({
   error,
@@ -10,17 +11,16 @@ export default function Error({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  useEffect(() => {
-    console.error(error)
-  }, [error])
+  useLogBoundaryError(error)
 
   return (
-    <div className='flex flex-1 flex-col items-center justify-center gap-4 py-16 text-center'>
+    <div className={statusPageClassName}>
       <h1 className='text-4xl font-semibold tracking-tight'>
         Something went wrong
       </h1>
       <p className='text-muted-foreground'>
-        An unexpected error occurred. Please try again.
+        An unexpected error occurred. Try again, and if it keeps happening,
+        reload the page.
       </p>
       <Button onClick={reset}>Try again</Button>
     </div>

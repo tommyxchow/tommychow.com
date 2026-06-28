@@ -2,9 +2,9 @@
 
 <!-- BEGIN:nextjs-agent-rules -->
 
-# Next.js: ALWAYS read docs before coding
+# This is NOT the Next.js you know
 
-Before any Next.js work, find and read the relevant doc in `node_modules/next/dist/docs/`. Your training data is outdated — the docs are the source of truth.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
 <!-- END:nextjs-agent-rules -->
 
@@ -55,7 +55,7 @@ Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@op
 
 - `src/app/` - App Router pages and layouts
 - `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm ui:add <component>`)
-  - Only the components actually in use live in `src/components/ui/` (currently `button.tsx` and `popover.tsx`). Add more as needed.
+  - Only the components actually in use live in `src/components/ui/` (currently `button.tsx`, `popover.tsx`, and `tooltip.tsx`). Add more as needed.
   - `<Button>` has no `asChild` prop (Base UI, not Radix).
 - `src/lib/` - Utilities (`cn()` for className merging), constants, and server-only code
 - `src/hooks/` - Custom React hooks
@@ -69,7 +69,7 @@ Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@op
 ### Environment
 
 - `SITE_URL` — Base URL for the site. Declared in `wrangler.jsonc`, defaults to `http://localhost:3000` for local dev. Used in `src/lib/constants.ts` for `metadataBase`, sitemap, and robots.txt.
-- `src/env.d.ts` narrows `process.env.SITE_URL` to `string | undefined`. Without it, the auto-generated `cloudflare-env.d.ts` types it as a literal from `wrangler.jsonc`, which makes the `??` fallback look like dead code to TS even though it's needed in `pnpm dev`. Don't declare secrets in `wrangler.jsonc` (committed to git) — set production secrets via Cloudflare dashboard or `pnpx wrangler secret put`.
+- `src/env.d.ts` narrows `process.env.SITE_URL` to `string | undefined`. Without it, the auto-generated `cloudflare-env.d.ts` types it as a literal from `wrangler.jsonc`, which makes the `??` fallback look like dead code to TS even though it's needed in `pnpm dev`. Don't declare secrets in `wrangler.jsonc` (committed to git) — set production secrets via Cloudflare dashboard or `pnpm exec wrangler secret put`.
 
 ### Images
 
@@ -84,7 +84,6 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 
 - **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
 - **motion** — Animation library (Framer Motion v12+). Import from `motion/react` (e.g., `import { motion, useMotionValue } from 'motion/react'`), not `framer-motion`
-- **react-medium-image-zoom** — Zoomable images in the gallery
 - **lucide-react** — Icons; `react-icons/fa6` for brand icons (`FaGithub`, `FaLinkedin`)
 
 ## Code Style
@@ -107,32 +106,27 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Project-specific 
 - **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`)
 - **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
-- **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are fetched on demand via `pnpm dlx` (see `.mcp.json`) — not installed as deps
+- **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are fetched on demand via `pnpm dlx` (see `.mcp.json` for Claude Code, `.cursor/mcp.json` for Cursor) — not installed as deps
+- **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
 
 ## shadcn
 
-Preset: `base-vega` + `neutral` + `default-translucent` menus (see `components.json`). Components are installed **lazily** — only the ones in use live in `src/components/ui/` (currently `button.tsx` and `popover.tsx`). Add new ones on demand with `pnpm ui:add <component>`; refresh named ones with `pnpm ui:update <component...>`. **Never use `shadcn apply`** — see Gotchas.
+Style `base-nova` / `neutral` / `default-translucent` menus (see `components.json`). Components install lazily — only the ones in use live in `src/components/ui/` (currently `button.tsx`, `popover.tsx`, and `tooltip.tsx`). Inspect with `pnpm exec shadcn info` (project config + CSS vars); pull a component's docs into context with `pnpm exec shadcn docs <name>`.
 
 > [!NOTE]
 > `pnpm ui:add` / `pnpm ui:update` run the locally-pinned `shadcn` (a devDependency), **not** `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
 
-`button.tsx` and `popover.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update button popover` regenerates them safely. If you later customize a component, note it here and prefer a manual merge over a blind regenerate so the customization isn't silently lost.
+`button.tsx` and `popover.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update button popover` regenerates them safely. `tooltip.tsx` has one local override: optional `showArrow` on `TooltipContent` (used by social link labels). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
 
-The theme in `src/app/globals.css` is the stock `base-vega`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`DepartureMono`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `@plugin '@tailwindcss/typography'` (used by `Prose`), and `color-scheme: dark` (the site is dark-only). Keep those when regenerating; everything else should match upstream.
+The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `@plugin '@tailwindcss/typography'` (used by `Prose`), `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
 
 ### Workflow
 
 1. Ensure clean working tree: `git status`
 2. Add components on demand with `pnpm ui:add <component>`
 3. Refresh existing components explicitly with `pnpm ui:update <component...>`
-4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Proceed to step 5. Otherwise skip to 7
-5. Generate a reference project in a sandbox path:
-   ```
-   pnpm dlx shadcn@latest init --template next --base base --preset vega --name fresh --yes --cwd "C:/Users/Tommy/Developer/shadcn-fresh-ref"
-   ```
-   Diff `shadcn-fresh-ref/fresh/app/globals.css` against `src/app/globals.css`. Look for new `--*` tokens in `@theme inline {}` and any chart/color palette changes
-6. Add missing tokens to `src/app/globals.css` manually, then re-run the `ui:update`. Repeat until the skipped count stabilizes. Clean up the sandbox dir after: `rm -rf "C:/Users/Tommy/Developer/shadcn-fresh-ref"`
-7. `git diff` the full changeset, commit
+4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then diff against a fresh reference (`pnpm dlx shadcn@latest init --template next --base base --preset nova ...` — the CLI wants the bare preset name `nova` + `--base base`, not the combined `base-nova` from `components.json`), add missing tokens, re-run.
+5. `git diff` the full changeset, commit
 
 ### Gotchas
 
@@ -141,4 +135,4 @@ The theme in `src/app/globals.css` is the stock `base-vega`/`neutral` palette an
 - **Misleading skip hint**: `"use --overwrite to overwrite"` is printed even when `--overwrite` is already passed (`ui:update` passes it). It means "rendered output matches disk", not "you forgot a flag".
 - **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports.
 - **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ.
-- **Preset name mismatch**: `components.json` stores the style as `"base-vega"` (with prefix), but the CLI `init`/`apply` accepts only `vega` (no prefix) with an explicit `--base base` flag.
+- **Preset name mismatch**: `components.json` stores the style as `"base-nova"` (with prefix), but the CLI `init`/`apply` accepts only `nova` (no prefix) with an explicit `--base base` flag.
