@@ -1,16 +1,16 @@
 'use client'
 
-import { MOTION_EASING } from '@/lib/constants'
+import { MOTION_EASING, narrowPageContainerClassName } from '@/lib/constants'
 import { motion, useReducedMotion } from 'motion/react'
 import { Children, type ReactNode } from 'react'
+import { twJoin } from 'tailwind-merge'
 
 const item = {
   hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },
   show: { opacity: 1, y: 0, filter: 'blur(0px)' },
 }
 
-const containerClassName =
-  'mx-auto flex w-full max-w-md min-w-0 flex-col gap-6 place-self-center px-6 py-16 md:px-0'
+const containerClassName = twJoin(narrowPageContainerClassName, 'gap-6')
 
 interface HomeClientProps {
   children: ReactNode

@@ -1,46 +1,48 @@
-'use client'
+import { narrowPageContainerClassName } from '@/lib/constants'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
+import { type ComponentProps, type ReactNode } from 'react'
+import { twJoin } from 'tailwind-merge'
 
-import { HomeClient } from '@/app/HomeClient'
-import { type ReactNode } from 'react'
+const actionClassName =
+  'text-muted-foreground transition-colors hover:text-foreground'
 
 interface StatusPageProps {
   title: string
-  message: string
-  actions: ReactNode
-  eyebrow?: string
-  hint?: string
+  actions?: ReactNode
 }
 
-export function StatusPage({
-  title,
-  message,
-  actions,
-  eyebrow,
-  hint,
-}: StatusPageProps) {
+export function StatusPage({ title, actions }: StatusPageProps) {
   return (
-    <HomeClient>
-      <section key='content' className='flex flex-col gap-3'>
-        {eyebrow ? (
-          <p className='font-mono text-xs tracking-[0.18em] text-muted-foreground uppercase'>
-            {eyebrow}
-          </p>
-        ) : null}
-        <div className='space-y-2'>
-          <h1 className='text-3xl font-semibold tracking-tight text-balance sm:text-4xl'>
-            {title}
-          </h1>
-          <p className='max-w-sm text-sm/6 text-muted-foreground'>{message}</p>
+    <div
+      className={twJoin(
+        narrowPageContainerClassName,
+        'gap-4 font-mono text-xs uppercase',
+      )}
+    >
+      <h1 className='text-xs/relaxed text-foreground'>{title}</h1>
+      {actions != null ? (
+        <div className='flex flex-wrap items-center gap-x-3 gap-y-1'>
+          {actions}
         </div>
-        {hint ? (
-          <p className='font-mono text-xs/relaxed text-muted-foreground normal-case'>
-            {hint}
-          </p>
-        ) : null}
-      </section>
-      <div key='actions' className='flex flex-wrap items-center gap-2'>
-        {actions}
-      </div>
-    </HomeClient>
+      ) : null}
+    </div>
   )
+}
+
+export function StatusPageAction({
+  className,
+  type = 'button',
+  ...props
+}: ComponentProps<'button'>) {
+  return (
+    <button type={type} className={cn(actionClassName, className)} {...props} />
+  )
+}
+
+export function StatusPageLink({
+  className,
+  ...props
+}: ComponentProps<typeof Link>) {
+  return <Link className={cn(actionClassName, className)} {...props} />
 }

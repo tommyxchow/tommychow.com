@@ -1,7 +1,6 @@
 'use client'
 
-import { StatusPage } from '@/components/StatusPage'
-import { Button } from '@/components/ui/button'
+import { StatusPage, StatusPageAction } from '@/components/StatusPage'
 import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { twJoin } from 'tailwind-merge'
@@ -30,17 +29,12 @@ export default function GlobalError({
           fontMono.variable,
         )}
       >
-        <main className='grid min-h-dvh grow'>
+        <main className='grid min-h-dvh grow place-items-center'>
           <StatusPage
-            eyebrow='Critical error'
             title='Something went wrong'
-            message='A critical error occurred. Reload the page to continue.'
             actions={
-              <Button variant='outline' onClick={reset}>
-                Try again
-              </Button>
+              <StatusPageAction onClick={reset}>Try again</StatusPageAction>
             }
-            hint='If the problem persists, clear your cache and reload.'
           />
         </main>
       </body>
