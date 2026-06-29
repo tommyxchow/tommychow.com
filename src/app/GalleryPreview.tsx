@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { buildSrcSet } from '@/lib/gallery-image'
+import { thumbHashToPlaceholder } from '@/lib/thumbhash'
 import { cn } from '@/lib/utils'
 import { useReducedMotion } from 'motion/react'
 import Link from 'next/link'
@@ -170,7 +171,7 @@ function useGalleryDrag(api: CarouselApi | undefined) {
 
 interface GalleryImage {
   file: string
-  thumbHashDataURL: string
+  thumbHash: string
   width: number
   height: number
   variants: number[]
@@ -218,7 +219,7 @@ function PreviewImage({
   isLoaded,
   focus = FOCUS_FULL,
 }: PreviewImageProps) {
-  const { file, thumbHashDataURL, width, height, variants } = image
+  const { file, thumbHash, width, height, variants } = image
 
   return (
     <Link
@@ -232,7 +233,7 @@ function PreviewImage({
         SLIDE_CLASS,
       )}
       style={{
-        backgroundImage: `url(${thumbHashDataURL})`,
+        backgroundImage: `url(${thumbHashToPlaceholder(thumbHash)})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         opacity: isLoaded ? focus : 1,

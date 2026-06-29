@@ -7,6 +7,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 import { buildSrcSet, largestVariantSrc } from '@/lib/gallery-image'
+import { thumbHashToPlaceholder } from '@/lib/thumbhash'
 import { ChevronDown, ChevronUp, Grid } from 'lucide-react'
 import { motion, type PanInfo, useMotionValue, useSpring } from 'motion/react'
 import { parseAsString, useQueryState } from 'nuqs'
@@ -33,7 +34,7 @@ const GALLERY_CONFIG = {
 interface GalleryClientProps {
   images: {
     file: string
-    thumbHashDataURL: string
+    thumbHash: string
     dateTime: string
     width: number
     height: number
@@ -300,7 +301,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const thumbnailGrid = useMemo(
     () => (
       <div className='grid grid-cols-2 gap-1.5 sm:grid-cols-3'>
-        {images.map(({ file, thumbHashDataURL, variants }, index) => (
+        {images.map(({ file, thumbHash, variants }, index) => (
           <button
             key={file}
             ref={index === displayIndex ? selectedThumbnailRef : null}
@@ -313,7 +314,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 ? 'ring-2 ring-foreground'
                 : 'opacity-70 hover:opacity-100 hover:ring-2 hover:ring-foreground/50'
             }`}
-            style={{ backgroundImage: `url(${thumbHashDataURL})` }}
+            style={{ backgroundImage: `url(${thumbHashToPlaceholder(thumbHash)})` }}
             aria-label={`Go to image ${index + 1}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element -- plain <img> avoids mounting 81 <Image> components */}

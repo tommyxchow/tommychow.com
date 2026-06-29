@@ -4,7 +4,7 @@ import galleryManifest from './gallery-manifest.json'
 
 export interface GalleryImage {
   file: string
-  thumbHashDataURL: string
+  thumbHash: string
   dateTime: string
   width: number
   height: number

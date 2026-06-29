@@ -2,7 +2,7 @@ import exifr from 'exifr'
 import fs from 'fs/promises'
 import path from 'path'
 import sharp from 'sharp'
-import { rgbaToDataURL } from 'thumbhash'
+import { rgbaToThumbHash } from 'thumbhash'
 
 const IMAGES_DIR = path.join(process.cwd(), 'public', 'gallery', 'images')
 const OPTIMIZED_DIR = path.join(process.cwd(), 'public', 'gallery', 'optimized')
@@ -27,11 +27,15 @@ const DATE_FORMAT: Intl.DateTimeFormatOptions = {
 
 interface ManifestEntry {
   file: string
-  thumbHashDataURL: string
+  thumbHash: string
   dateTime: string
   width: number
   height: number
   variants: number[]
+}
+
+function thumbHashToBase64(hash: Uint8Array): string {
+  return Buffer.from(hash).toString('base64')
 }
 
 function stripExt(file: string): string {
@@ -99,7 +103,9 @@ async function processImage(file: string) {
   return {
     file,
     date,
-    thumbHashDataURL: rgbaToDataURL(info.width, info.height, data),
+    thumbHash: thumbHashToBase64(
+      rgbaToThumbHash(info.width, info.height, new Uint8Array(data)),
+    ),
     width: originalWidth,
     height: originalHeight,
     variants,
@@ -122,9 +128,9 @@ async function generateManifest(): Promise<void> {
   processed.sort((a, b) => b.date.getTime() - a.date.getTime())
 
   const manifest: ManifestEntry[] = processed.map(
-    ({ file, thumbHashDataURL, date, width, height, variants }) => ({
+    ({ file, thumbHash, date, width, height, variants }) => ({
       file,
-      thumbHashDataURL,
+      thumbHash,
       dateTime: formatDate(date),
       width,
       height,
