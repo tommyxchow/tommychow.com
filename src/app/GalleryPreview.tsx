@@ -47,10 +47,10 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
 
   return (
     <div
-      className='group/gallery mt-8 flex flex-col gap-1'
+      className='group/gallery flex flex-col gap-1'
       onMouseLeave={() => setHoveredIndex(null)}
     >
-      <div className='grid grid-cols-3 gap-1 overflow-hidden rounded-sm'>
+      <div className='grid grid-cols-2 gap-1 [&>a:first-child]:rounded-tl-sm [&>a:nth-child(2)]:rounded-tr-sm [&>a:nth-child(3)]:rounded-bl-sm [&>a:last-child]:rounded-br-sm'>
         {images.map(
           ({ file, thumbHashDataURL, width, height, variants }, index) => {
             const state = getHoverState(hoveredIndex, index)
@@ -61,7 +61,7 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
                 key={file}
                 href={`/gallery?image=${file}`}
                 aria-label={`View ${file} in gallery`}
-                className='relative aspect-3/4 overflow-hidden rounded-sm bg-cover bg-center focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none'
+                className='relative aspect-3/4 overflow-hidden bg-cover bg-center focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none'
                 style={{ backgroundImage: `url(${thumbHashDataURL})` }}
                 onMouseEnter={() => setHoveredIndex(index)}
               >
@@ -86,7 +86,7 @@ export function GalleryPreview({ images }: GalleryPreviewProps) {
                       if (img?.complete) handleImageLoad(index)
                     }}
                     srcSet={buildSrcSet(file, variants)}
-                    sizes='(min-width: 768px) 211px, calc((100vw - 40px) / 3)'
+                    sizes='(min-width: 768px) 222px, calc((100vw - 40px) / 2)'
                     width={width}
                     height={height}
                     alt=''

@@ -10,16 +10,20 @@ const item = {
 }
 
 const containerClassName =
-  'mx-auto flex max-w-(--breakpoint-sm) flex-col gap-2 place-self-center px-4 py-20 md:px-0'
+  'mx-auto flex max-w-md flex-col gap-6 place-self-center px-4 py-16 md:px-0'
 
-export function HomeClient({ children }: { children: React.ReactNode }) {
+interface HomeClientProps {
+  children: React.ReactNode
+}
+
+export function HomeClient({ children }: HomeClientProps) {
   const prefersReducedMotion = useReducedMotion()
-  // Convert children to array to apply staggered animations
-  const childArray = React.Children.toArray(children)
 
   if (prefersReducedMotion) {
     return <div className={containerClassName}>{children}</div>
   }
+
+  const childArray = React.Children.toArray(children)
 
   return (
     <motion.div
