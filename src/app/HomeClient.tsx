@@ -2,7 +2,7 @@
 
 import { MOTION_EASING } from '@/lib/constants'
 import { motion, useReducedMotion } from 'motion/react'
-import React from 'react'
+import { Children, type ReactNode } from 'react'
 
 const item = {
   hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },
@@ -10,10 +10,10 @@ const item = {
 }
 
 const containerClassName =
-  'mx-auto flex max-w-md flex-col gap-6 place-self-center px-4 py-16 md:px-0'
+  'mx-auto flex w-full max-w-md min-w-0 flex-col gap-6 place-self-center px-6 py-16 md:px-0'
 
 interface HomeClientProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function HomeClient({ children }: HomeClientProps) {
@@ -23,8 +23,6 @@ export function HomeClient({ children }: HomeClientProps) {
     return <div className={containerClassName}>{children}</div>
   }
 
-  const childArray = React.Children.toArray(children)
-
   return (
     <motion.div
       initial='hidden'
@@ -32,9 +30,9 @@ export function HomeClient({ children }: HomeClientProps) {
       transition={{ staggerChildren: 0.15, delayChildren: 0.3 }}
       className={containerClassName}
     >
-      {childArray.map((child, index) => (
+      {/* eslint-disable-next-line @eslint-react/no-children-map -- RSC children are opaque; this preserves streamed children during hydration. */}
+      {Children.map(children, (child) => (
         <motion.div
-          key={index}
           variants={item}
           transition={{ duration: 0.6, ease: MOTION_EASING }}
         >

@@ -1,19 +1,24 @@
 'use client'
 
-import { buttonVariants } from '@/components/ui/button'
-import { statusPageClassName } from '@/lib/status-page'
+import { StatusPage } from '@/components/StatusPage'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className={statusPageClassName}>
-      <h1 className='text-4xl font-semibold tracking-tight'>404</h1>
-      <p className='text-muted-foreground'>
-        The page you&apos;re looking for doesn&apos;t exist.
-      </p>
-      <Link href='/' className={buttonVariants()}>
-        Go home
-      </Link>
-    </div>
+    <StatusPage
+      eyebrow='404'
+      title='Page not found'
+      message="The page you're looking for doesn't exist."
+      actions={
+        <Button
+          render={<Link href='/' />}
+          nativeButton={false}
+          variant='outline'
+        >
+          Go home
+        </Button>
+      }
+    />
   )
 }

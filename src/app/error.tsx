@@ -1,8 +1,9 @@
 'use client'
 
+import { StatusPage } from '@/components/StatusPage'
 import { Button } from '@/components/ui/button'
 import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
-import { statusPageClassName } from '@/lib/status-page'
+import Link from 'next/link'
 
 export default function Error({
   error,
@@ -14,15 +15,25 @@ export default function Error({
   useLogBoundaryError(error)
 
   return (
-    <div className={statusPageClassName}>
-      <h1 className='text-4xl font-semibold tracking-tight'>
-        Something went wrong
-      </h1>
-      <p className='text-muted-foreground'>
-        An unexpected error occurred. Try again, and if it keeps happening,
-        reload the page.
-      </p>
-      <Button onClick={reset}>Try again</Button>
-    </div>
+    <StatusPage
+      eyebrow='Error'
+      title='Something went wrong'
+      message='An unexpected error occurred while loading this page.'
+      actions={
+        <>
+          <Button variant='outline' onClick={reset}>
+            Try again
+          </Button>
+          <Button
+            render={<Link href='/' />}
+            nativeButton={false}
+            variant='ghost'
+          >
+            Go home
+          </Button>
+        </>
+      }
+      hint='If the problem persists, reload the page.'
+    />
   )
 }

@@ -127,10 +127,10 @@
   }
 
   body {
-    @apply text-foreground;
+    @apply overflow-x-clip text-foreground;
   }
 
   html {
-    @apply bg-background font-sans;
+    @apply overflow-x-clip bg-background font-sans;
   }
 }

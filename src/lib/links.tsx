@@ -9,17 +9,17 @@ export interface LinkInfo {
 
 export const links: LinkInfo[] = [
   {
-    icon: <Mail size={16} />,
+    icon: <Mail size={12} />,
     title: 'Email',
     href: 'mailto:tommyxchow@gmail.com',
   },
   {
-    icon: <FaGithub size={16} />,
+    icon: <FaGithub size={12} />,
     title: 'GitHub',
     href: 'https://github.com/tommyxchow',
   },
   {
-    icon: <FaLinkedin size={16} />,
+    icon: <FaLinkedin size={12} />,
     title: 'LinkedIn',
     href: 'https://linkedin.com/in/tommy-chow/',
   },

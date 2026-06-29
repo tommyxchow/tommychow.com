@@ -1,11 +1,16 @@
 'use client'
 
+import { StatusPage } from '@/components/StatusPage'
+import { Button } from '@/components/ui/button'
 import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
+import { fontMono, fontSans } from '@/lib/fonts'
+import { twJoin } from 'tailwind-merge'
+import './globals.css'
 
 /**
  * Catches errors thrown in the root layout itself. It replaces the whole
- * document, so it must render its own <html>/<body> and can't rely on
- * globals.css being applied — hence the inline styles.
+ * document, so it must render its own <html>/<body> and import globals.css
+ * directly instead of inheriting from layout.tsx.
  */
 export default function GlobalError({
   error,
@@ -17,39 +22,27 @@ export default function GlobalError({
   useLogBoundaryError(error)
 
   return (
-    <html lang='en'>
+    <html lang='en' className='dark' style={{ colorScheme: 'dark' }}>
       <body
-        style={{
-          display: 'flex',
-          minHeight: '100dvh',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '1rem',
-          padding: '4rem 1.5rem',
-          textAlign: 'center',
-          fontFamily: 'system-ui, sans-serif',
-        }}
+        className={twJoin(
+          'relative min-h-dvh bg-background font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
+          fontSans.variable,
+          fontMono.variable,
+        )}
       >
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, margin: 0 }}>
-          Something went wrong
-        </h1>
-        <p style={{ color: '#71717a', margin: 0 }}>
-          A critical error occurred. Please reload the page.
-        </p>
-        <button
-          onClick={reset}
-          style={{
-            cursor: 'pointer',
-            borderRadius: '0.375rem',
-            border: '1px solid currentColor',
-            background: 'transparent',
-            padding: '0.5rem 1rem',
-            font: 'inherit',
-          }}
-        >
-          Try again
-        </button>
+        <main className='grid min-h-dvh grow'>
+          <StatusPage
+            eyebrow='Critical error'
+            title='Something went wrong'
+            message='A critical error occurred. Reload the page to continue.'
+            actions={
+              <Button variant='outline' onClick={reset}>
+                Try again
+              </Button>
+            }
+            hint='If the problem persists, clear your cache and reload.'
+          />
+        </main>
       </body>
     </html>
   )

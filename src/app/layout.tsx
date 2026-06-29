@@ -2,20 +2,10 @@ import { Header } from '@/components/Header'
 import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
+import { fontMono, fontSans } from '@/lib/fonts'
 import { type Metadata, type Viewport } from 'next'
-import localFont from 'next/font/local'
 import { twJoin } from 'tailwind-merge'
 import './globals.css'
-
-const fontSans = localFont({
-  src: './UncutSans-Variable.woff2',
-  variable: '--font-sans',
-})
-const fontMono = localFont({
-  src: './Lilex-Variable.woff2',
-  variable: '--font-mono',
-  weight: '100 700',
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -55,7 +45,9 @@ export default function RootLayout({
         <Providers>
           <PixelatedBackground />
           <Header />
-          <main className='grid min-h-dvh grow'>{children}</main>
+          <main className='grid min-h-dvh grow place-items-center'>
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
