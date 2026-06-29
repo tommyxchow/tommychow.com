@@ -5,7 +5,7 @@ import { SocialLinks } from './SocialLinks'
 const profileRows: { label: string; value: ReactNode }[] = [
   {
     label: 'name',
-    value: <h1 className='font-normal text-inherit'>Tommy Chow</h1>,
+    value: <h1>Tommy Chow</h1>,
   },
   { label: 'work', value: 'Software engineer, Tesla' },
   { label: 'school', value: 'University at Buffalo' },

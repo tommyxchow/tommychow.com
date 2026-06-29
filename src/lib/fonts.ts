@@ -6,7 +6,17 @@ export const fontSans = localFont({
 })
 
 export const fontMono = localFont({
-  src: '../app/Lilex-Variable.woff2',
+  src: [
+    {
+      path: '../app/Lilex-Variable.woff2',
+      weight: '100 700',
+      style: 'normal',
+    },
+    {
+      path: '../app/Lilex-Variable-Italic.woff2',
+      weight: '100 700',
+      style: 'italic',
+    },
+  ],
   variable: '--font-mono',
-  weight: '100 700',
 })
