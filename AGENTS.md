@@ -41,7 +41,7 @@ pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 
 Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
-**Runtime**: Node.js >= 24, pnpm 11 (managed via corepack and the `packageManager` field)
+**Runtime**: Node.js >= 22, pnpm 11 (managed via corepack and the `packageManager` field)
 
 ### Key Configuration
 
