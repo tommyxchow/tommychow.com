@@ -136,3 +136,11 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 - **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports.
 - **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ.
 - **Preset name mismatch**: `components.json` stores the style as `"base-nova"` (with prefix), but the CLI `init`/`apply` accepts only `nova` (no prefix) with an explicit `--base base` flag.
+
+## Cursor Cloud specific instructions
+
+Single service: the Next.js dev server (`pnpm dev`, http://localhost:3000). No database/backend/external service. Standard commands live in `## Commands` above. The update script keeps deps fresh (`nvm install 24` + `pnpm install`).
+
+- **Node version / PATH gotcha**: the repo requires `node >=24` with `engineStrict: true`, so any `pnpm`/`next` command run under Node 22 fails with `ERR_PNPM_UNSUPPORTED_ENGINE`. The VM ships a `/exec-daemon/node` (v22) pinned at the **front** of `PATH` that `nvm use 24` cannot displace. **Login shells** (`bash -lc '...'`) get Node 24 because `~/.bashrc` explicitly prepends the nvm v24 bin; **non-login** shells (`bash -c`, `sh -c`, many tool runners) silently fall back to v22. Run dev/build/lint/test via a login shell, e.g. `bash -lc 'pnpm dev'`, or first prepend `"$(ls -d "$HOME"/.nvm/versions/node/v24.*/bin | sort -V | tail -1)"` to `PATH`.
+- **`/gallery` is lightbox-first**: there's no grid landing page — the route opens directly into the full-screen photo viewer (arrow keys navigate, a grid/thumbnail toggle is at the bottom). This is intentional, not a rendering bug.
+- **`pnpm build` regenerates the gallery manifest** via the `prebuild` hook (`pnpm gallery` → `src/lib/gallery-manifest.json`); the manifest is committed, so expect a git diff only when `public/gallery/images/` actually changed.
