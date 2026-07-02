@@ -1,17 +1,25 @@
 import { Mail } from 'lucide-react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 
-export interface LinkInfo {
-  icon?: React.ReactNode
-  title: string
-  href: string
-}
+export const EMAIL = 'tommyxchow@gmail.com'
+
+export type LinkInfo =
+  | {
+      icon?: React.ReactNode
+      title: string
+      href: string
+    }
+  | {
+      icon?: React.ReactNode
+      title: string
+      copyValue: string
+    }
 
 export const links: LinkInfo[] = [
   {
     icon: <Mail size={12} />,
-    title: 'Email',
-    href: 'mailto:tommyxchow@gmail.com',
+    title: 'Copy email',
+    copyValue: EMAIL,
   },
   {
     icon: <FaGithub size={12} />,
