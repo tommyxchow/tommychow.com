@@ -2,9 +2,9 @@
 
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+# Next.js: ALWAYS read docs before coding
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+Before any Next.js work, find and read the relevant doc in `node_modules/next/dist/docs/`. Your training data is outdated — the docs are the source of truth.
 
 <!-- END:nextjs-agent-rules -->
 
@@ -47,9 +47,15 @@ Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@op
 
 - **React Compiler**: Enabled for automatic memoization
 - **Typed Routes**: Enabled for type-safe `href` props
-- **Cache Components**: Enabled (`cacheComponents: true`) — everything is dynamic (SSR) by default; opt into caching with `"use cache"` + `cacheLife()`, and wrap async work in `<Suspense>` for PPR. See [docs](https://nextjs.org/docs/app/getting-started/cache-components).
+- **Cache Components**: Enabled — see Caching below
 - **Path Alias**: `@/*` maps to `./src/*`
 - **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, `verbatimModuleSyntax`, `exactOptionalPropertyTypes`, `erasableSyntaxOnly`
+
+### Caching (Cache Components)
+
+Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — opt into caching with `"use cache"` + `cacheLife()`, and wrap async work in `<Suspense>` for PPR. Invalidate with `cacheTag()` + `revalidateTag()`/`updateTag()` (`updateTag` only works inside Server Actions). The old `revalidate`/`dynamic`/`fetchCache` route exports are build-breaking once `cacheComponents` is on — remove them rather than leaving them in place. On Cloudflare, durable cache needs the R2 binding (commented in `wrangler.jsonc` / `open-next.config.ts`); time-based and on-demand revalidation also need OpenNext's DO queue + tag cache.
+
+`cacheComponents` also enables React `<Activity>` for route-level UI state: navigating away and back no longer unmounts the previous route, so `useState`, form inputs, and scroll position persist. Dropdowns/dialogs/forms that should reset on return need explicit reset logic.
 
 ### Source Structure
 
@@ -83,7 +89,7 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 ### Key Libraries
 
 - **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
-- **motion** — Animation library (Framer Motion v12+). Import from `motion/react` (e.g., `import { motion, useMotionValue } from 'motion/react'`), not `framer-motion`
+- **motion** — Animation library (Framer Motion v12+). Import from `motion/react`, not `framer-motion` — see the Animation section for when to reach for it
 - **lucide-react** — Icons; `react-icons/fa6` for brand icons (`FaGithub`, `FaLinkedin`)
 
 ## Code Style
@@ -94,8 +100,6 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Project-specific 
 - Prefix unused variables with `_` — `no-unused-vars` whitelists the `^_` pattern
 - Prettier auto-sorts imports and Tailwind classes — don't sort manually
 - Use `interface` for component props, colocated directly above the component (`interface FooProps { ... }`)
-- Use `cn()` from `@/lib/utils` for conditional/merged classes (combines `clsx` + `tailwind-merge`); use `twJoin` from `tailwind-merge` when you just need to concatenate static strings without merging conflicts
-- Colors via CSS custom properties: `--foreground`, `--background`, `--muted-foreground`, etc.
 
 ## Gotchas
 
@@ -107,7 +111,7 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Project-specific 
 - **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
 - **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are fetched on demand via `pnpm dlx` (see `.mcp.json` for Claude Code, `.cursor/mcp.json` for Cursor) — not installed as deps
-- **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
+- **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `onlyBuiltDependencies`/`neverBuiltDependencies`/`ignoredBuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
 
 ## shadcn
 
@@ -125,7 +129,7 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 1. Ensure clean working tree: `git status`
 2. Add components on demand with `pnpm ui:add <component>`
 3. Refresh existing components explicitly with `pnpm ui:update <component...>`
-4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then diff against a fresh reference (`pnpm dlx shadcn@latest init --template next --base base --preset nova ...` — the CLI wants the bare preset name `nova` + `--base base`, not the combined `base-nova` from `components.json`), add missing tokens, re-run.
+4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — see the preset name mismatch gotcha below), diff `globals.css` against it, add missing tokens, re-run.
 5. `git diff` the full changeset, commit
 
 ### Gotchas
@@ -133,6 +137,34 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 - **`add --all` scope**: `shadcn add --all` installs **every** registry component. Don't use it for this lazy setup — add or refresh named components explicitly.
 - **`add` is config-aware**: If a newer component references a CSS variable missing from `globals.css`, shadcn silently strips the class from the rendered output and skips the file as "identical". Add missing tokens to `globals.css` first (workflow step 4).
 - **Misleading skip hint**: `"use --overwrite to overwrite"` is printed even when `--overwrite` is already passed (`ui:update` passes it). It means "rendered output matches disk", not "you forgot a flag".
-- **`form` is Radix-only**: The shadcn `form` component depends on `@radix-ui/react-slot` for the `asChild` pattern and has no Base UI variant. For form composition, use `react-hook-form` directly without the shadcn wrapper, or check [basecn.dev](https://basecn.dev) for Base UI ports.
+- **`form` has no Base UI port**: `shadcn add form` fails silently (it hard-depends on Radix). shadcn deprecated the `<Form>` wrapper for `<Field>` (`shadcn add field` has a Base UI port), but `Field` has no `FormField`-style auto-binding — wire each field yourself with `react-hook-form`'s `Controller` render prop (`field` spread onto the input, `fieldState.invalid`/`fieldState.error` into `Field`/`FieldError`) per `ui.shadcn.com/docs/forms/react-hook-form`.
 - **Don't use `shadcn apply`**: It writes files outside `src/components/ui/` (`layout.tsx`, `globals.css`, `lib/utils.ts`, `package.json`) with its own template style, and has a broken dedupe that inserts duplicate imports when quote styles differ.
 - **Preset name mismatch**: `components.json` stores the style as `"base-nova"` (with prefix), but the CLI `init`/`apply` accepts only `nova` (no prefix) with an explicit `--base base` flag.
+
+## React
+
+- React Compiler is on — let it handle memoization instead of reaching for `useMemo`/`useCallback`/`memo` by default. They're still legitimate escape hatches for effect-dependency stability or refs handed to non-compiled third-party code.
+- Avoid `useEffect` unless syncing with an external system (React's "You Might Not Need an Effect") — otherwise compute during render or in event handlers. Avoid `useRef` unless you need DOM access, imperative work, or a mutable value that shouldn't trigger a re-render.
+
+## Styling
+
+- Use `cn()` from `@/lib/utils` for conditional/merged class lists (combines `clsx` + `tailwind-merge`), not string concatenation; use `twJoin` from `tailwind-merge` when you just need to concatenate static strings without merging conflicts.
+- Style from the theme tokens in `globals.css` (`bg-background`, `text-foreground`, `text-muted-foreground`), not scattered raw palette. Arbitrary values (`w-[37px]`) are an escape hatch; extract a repeated class string into a component/variant rather than `@apply`.
+- The default scale (`p-4`, `text-lg`, `gap-2`) is rem-based — lean on it. Use fixed px only for things meant to stay put on zoom (hairline borders/dividers `border`/`h-px`, decorative underlines `decoration-2`).
+- Default to logical utilities (`ms`/`me`/`ps`/`pe`, logical `inset`) over physical (`ml`/`mr`) for RTL-readiness.
+- Full-height layouts: `min-h-svh` over `min-h-screen`/`100vh` (which overflows under mobile browser chrome). Use `dvh` only to track the bar live (can jank); fixed `h-svh` only for app shells with internal scroll.
+- For a component reused at different widths (or heights), prefer container queries (`@container`, `@sm:`/`@md:`, `@container-size` + `cqh`/`cqb` for height-aware) over viewport breakpoints.
+- Translucent fill/border: a color/alpha utility (`bg-black/50`, `border-white/20`) or a solid token, not `opacity-*` (which fades children too). Keep `opacity-*` for fading a whole element/state.
+- `tabular-nums` for numbers that update in place or align in columns (timers, counters, prices, tables).
+- `text-balance` on headings, `text-pretty` on body copy (`pretty` not in Firefox yet — progressive enhancement).
+- Tracking scales inversely with size: widen all-caps/eyebrow labels (`tracking-wider`/`tracking-widest`), tighten large display headings (`tracking-tight`/`tracking-tighter`), leave body alone.
+- Don't hard-cut overflow: `truncate`/`line-clamp-*` for text, a fade (`mask-*` gradient)/shadow/peek edge for scrollable regions.
+- Reserve space to avoid CLS: `aspect-*` (or `size-*`/`w-`/`h-`) on media, fixed skeleton dims, `scrollbar-gutter-stable` on scroll containers/modals.
+
+## Animation
+
+- Reach for native CSS / Web Animations first — Tailwind covers most of it (`transition`/`animate-*`, `starting:` + `transition-discrete`, view transitions, scroll-driven animations); `tw-animate-css` powers shadcn's. Pull in Motion (npm `motion`, import `motion/react`) only for orchestration, gesture/interrupt control, or shared-element/layout animations.
+- Animate open/close to intrinsic height with the grid trick (`grid-rows-[0fr]` → `grid-rows-[1fr]`); transitioning to `h-auto` via `interpolate-size`/`calc-size()` is cleaner but Chromium-only (enhancement).
+- Animate only compositor-friendly props — transform utilities (`translate-*`/`scale-*`/`rotate-*`) and `opacity-*`. Avoid transitioning layout utilities (`w-`/`h-`/`inset`/`m-`).
+- Respect `prefers-reduced-motion` — gate non-essential motion behind `motion-safe:`; reduce/replace rather than strip.
+- Keep keyboard focus visible: style `focus-visible:` with `ring-*`/`outline-*`; never strip it (`outline-hidden`, `ring-0`) without a clear replacement.

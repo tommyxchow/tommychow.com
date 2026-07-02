@@ -1,13 +1,16 @@
 'use client'
 
+import { statSheetTypographyClassName } from '@/lib/constants'
 import { type PointerEvent, type ReactNode, useState } from 'react'
 import { twJoin } from 'tailwind-merge'
 
 const DOT_LEADER_LENGTH = 512
 const DOTS = '.'.repeat(DOT_LEADER_LENGTH)
 
-const statSheetListClassName =
-  'flex flex-col font-mono text-xs font-normal leading-none uppercase'
+const statSheetListClassName = twJoin(
+  'flex flex-col',
+  statSheetTypographyClassName,
+)
 
 const rowTextTransition =
   'transition-colors duration-200 ease-out motion-reduce:transition-none'
@@ -18,20 +21,17 @@ function rowToneClasses(tone: RowTone) {
   switch (tone) {
     case 'focused':
       return {
-        label: 'text-foreground',
-        value: 'text-foreground',
+        text: 'text-foreground',
         dots: 'text-foreground/45',
       }
     case 'dimmed':
       return {
-        label: 'text-muted-foreground',
-        value: 'text-muted-foreground',
+        text: 'text-muted-foreground',
         dots: 'text-muted-foreground/25',
       }
     case 'default':
       return {
-        label: 'text-foreground',
-        value: 'text-muted-foreground',
+        text: 'text-muted-foreground',
         dots: 'text-muted-foreground/45',
       }
   }
@@ -61,15 +61,13 @@ interface MetaRowProps {
 }
 
 function MetaRow({ label, value, tone }: MetaRowProps) {
-  const { label: labelClass, value: valueClass } = rowToneClasses(tone)
+  const { text: textClass } = rowToneClasses(tone)
 
   return (
     <div className='grid grid-cols-[auto_1fr_auto] items-center gap-x-2'>
-      <dt className={twJoin(labelClass, rowTextTransition)}>{label}</dt>
+      <dt className={twJoin(textClass, rowTextTransition)}>{label}</dt>
       <DotLeader tone={tone} />
-      <dd
-        className={twJoin('flex items-center', valueClass, rowTextTransition)}
-      >
+      <dd className={twJoin('flex items-center', textClass, rowTextTransition)}>
         {value}
       </dd>
     </div>
