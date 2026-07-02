@@ -61,7 +61,7 @@ Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — 
 
 - `src/app/` - App Router pages and layouts
 - `src/components/` - React components (`ui/` subdirectory for shadcn — add with `pnpm ui:add <component>`)
-  - Only the components actually in use live in `src/components/ui/` (currently `button.tsx`, `popover.tsx`, and `tooltip.tsx`). Add more as needed.
+  - Only the components actually in use live in `src/components/ui/` — check the directory for the current set. Add more as needed.
   - `<Button>` has no `asChild` prop (Base UI, not Radix).
 - `src/lib/` - Utilities (`cn()` for className merging), constants, and server-only code
 - `src/hooks/` - Custom React hooks
@@ -104,6 +104,7 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Conventions beyon
 - Prefix unused variables with `_` — `no-unused-vars` whitelists the `^_` pattern
 - Prettier auto-sorts imports and Tailwind classes — don't sort manually
 - Use `interface` for component props, colocated directly above the component (`interface FooProps { ... }`)
+- Component files are `PascalCase` (`Header.tsx`, `GalleryClient.tsx`); non-component modules are `kebab-case` (`server-utils.ts`, `use-log-boundary-error.ts`)
 
 ## Gotchas
 
@@ -119,12 +120,12 @@ Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Conventions beyon
 
 ## shadcn
 
-Style `base-nova` / `neutral` / `default-translucent` menus (see `components.json`). Components install lazily — only the ones in use live in `src/components/ui/` (currently `button.tsx`, `popover.tsx`, and `tooltip.tsx`). Inspect with `pnpm exec shadcn info` (project config + CSS vars); pull a component's docs into context with `pnpm exec shadcn docs <name>`.
+Style `base-nova` / `neutral` / `default-translucent` menus (see `components.json`). Components install lazily — only the ones in use live in `src/components/ui/`; check the directory for the current set. Inspect with `pnpm exec shadcn info` (project config + CSS vars); pull a component's docs into context with `pnpm exec shadcn docs <name>`.
 
 > [!NOTE]
 > `pnpm ui:add` / `pnpm ui:update` run the locally-pinned `shadcn` (a devDependency), **not** `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
 
-`button.tsx` and `popover.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update button popover` regenerates them safely. `tooltip.tsx` has one local override: optional `showArrow` on `TooltipContent` (used by social link labels). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
+`button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` on `TooltipContent`, used by social link labels) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
 
 The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `@plugin '@tailwindcss/typography'` (used by `Prose`), `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
 
