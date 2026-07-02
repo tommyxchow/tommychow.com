@@ -94,17 +94,12 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 
 ## Code Style
 
-Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Conventions beyond the linters:
+Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Notable conventions:
 
-- Named exports only — use a default export only where Next.js/tooling requires one (`page`/`layout` and other special files, config files, `React.lazy`/`dynamic` targets).
-- No TS enums — use `as const` objects or union types. Prefer discriminated unions over boolean flags for mutually exclusive states.
-- Avoid `any`; if genuinely unavoidable, leave a one-line comment saying why. Don't paper over types with `as` casts or non-null `!` — fix at the definition.
-- Conventional commits: `type(scope): description` — lowercase, no period, tightly scoped; `!` before `:` for breaking changes.
 - Inline type imports (`import { type Foo }`) — enforced by `consistent-type-imports` with `fixStyle: 'inline-type-imports'`
 - Prefix unused variables with `_` — `no-unused-vars` whitelists the `^_` pattern
 - Prettier auto-sorts imports and Tailwind classes — don't sort manually
 - Use `interface` for component props, colocated directly above the component (`interface FooProps { ... }`)
-- Component files are `PascalCase` (`Header.tsx`, `GalleryClient.tsx`); non-component modules are `kebab-case` (`server-utils.ts`, `use-log-boundary-error.ts`)
 
 ## Gotchas
 
