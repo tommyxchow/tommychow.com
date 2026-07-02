@@ -92,15 +92,6 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 - **motion** — Animation library (Framer Motion v12+). Import from `motion/react`, not `framer-motion` — see the Animation section for when to reach for it
 - **lucide-react** — Icons; `react-icons/fa6` for brand icons (`FaGithub`, `FaLinkedin`)
 
-## Code Style
-
-Enforced by `pnpm lint` (ESLint) and `pnpm format` (Prettier). Notable conventions:
-
-- Inline type imports (`import { type Foo }`) — enforced by `consistent-type-imports` with `fixStyle: 'inline-type-imports'`
-- Prefix unused variables with `_` — `no-unused-vars` whitelists the `^_` pattern
-- Prettier auto-sorts imports and Tailwind classes — don't sort manually
-- Use `interface` for component props, colocated directly above the component (`interface FooProps { ... }`)
-
 ## Gotchas
 
 - **Dark mode only**: App uses a dark-first design — don't introduce light-mode specific assumptions
