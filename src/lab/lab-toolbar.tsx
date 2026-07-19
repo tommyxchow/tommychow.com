@@ -6,6 +6,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {
@@ -21,6 +23,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Home,
+  Monitor,
   Moon,
   Sun,
 } from 'lucide-react'
@@ -93,6 +96,48 @@ function VariationMenuItem({
   )
 }
 
+const themeOptions = [
+  { value: 'system', label: 'System', icon: Monitor },
+  { value: 'light', label: 'Light', icon: Sun },
+  { value: 'dark', label: 'Dark', icon: Moon },
+] as const
+
+function LabThemeMenu() {
+  const { theme, setTheme } = useTheme()
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            type='button'
+            variant='outline'
+            size='icon-xs'
+            className='shrink-0'
+            aria-label='Color theme'
+          />
+        }
+      >
+        <Sun className='dark:hidden' />
+        <Moon className='hidden dark:block' />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end' className='min-w-36'>
+        <DropdownMenuRadioGroup
+          value={theme ?? 'dark'}
+          onValueChange={setTheme}
+        >
+          {themeOptions.map(({ value, label, icon: Icon }) => (
+            <DropdownMenuRadioItem key={value} value={value}>
+              <Icon />
+              {label}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
 function LabIdeaChip({ idea, pathname }: { idea: LabIdea; pathname: string }) {
   const activeVariation = idea.variations.find(
     (variation) => variation.href === pathname,
@@ -158,7 +203,6 @@ function LabIdeaChip({ idea, pathname }: { idea: LabIdea; pathname: string }) {
 
 export function LabToolbar() {
   const pathname = usePathname()
-  const { resolvedTheme, setTheme } = useTheme()
   const navRef = useRef<HTMLElement>(null)
 
   const subscribeToScroll = (onStoreChange: () => void) => {
@@ -273,17 +317,7 @@ export function LabToolbar() {
         {renderScrollChrome('right')}
       </div>
 
-      <Button
-        type='button'
-        variant='outline'
-        size='icon-xs'
-        className='shrink-0'
-        aria-label='Toggle color theme'
-        onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-      >
-        <Sun className='hidden dark:block' />
-        <Moon className='block dark:hidden' />
-      </Button>
+      <LabThemeMenu />
     </header>
   )
 }
