@@ -5,7 +5,12 @@ import type { Dirent } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
-import { pathToFileURL } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
+import prettier from 'prettier'
+
+const PRETTIER_CONFIG_PATH = fileURLToPath(
+  new URL('../package.json', import.meta.url),
+)
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 export const ISO_TIMESTAMP_PATTERN =
@@ -450,6 +455,27 @@ function assertInside(
   }
 }
 
+async function formatGeneratedContent(
+  file: GeneratedFile,
+): Promise<GeneratedFile> {
+  if (!file.path.endsWith('.ts') && !file.path.endsWith('.tsx')) return file
+
+  const config = await prettier.resolveConfig(PRETTIER_CONFIG_PATH)
+  const content = await prettier.format(file.content, {
+    ...config,
+    filepath: file.path,
+  })
+  return { path: file.path, content }
+}
+
+async function prepareGeneratedFiles(
+  ideas: LabIdea[],
+  root: string,
+): Promise<GeneratedFile[]> {
+  const generated = expectedGeneratedFiles(ideas, root)
+  return Promise.all(generated.map(formatGeneratedContent))
+}
+
 async function writeIfChanged(file: GeneratedFile): Promise<boolean> {
   const current = await fs.readFile(file.path, 'utf8').catch(() => undefined)
   if (current === file.content) return false
@@ -500,7 +526,7 @@ async function removeStaleFiles(
 export async function syncLab(root = process.cwd()): Promise<void> {
   const ideas = await readLabIdeas(root)
   const paths = getLabPaths(root)
-  const generated = expectedGeneratedFiles(ideas, root)
+  const generated = await prepareGeneratedFiles(ideas, root)
   const changed = await Promise.all(generated.map(writeIfChanged))
   const expectedRoutes = expectedViewerRoutePaths(generated, paths.manifest)
   const removed = await removeStaleFiles(expectedRoutes, [paths.viewerRoutes])
@@ -513,7 +539,7 @@ export async function syncLab(root = process.cwd()): Promise<void> {
 export async function checkLab(root = process.cwd()): Promise<string[]> {
   const ideas = await readLabIdeas(root)
   const paths = getLabPaths(root)
-  const generated = expectedGeneratedFiles(ideas, root)
+  const generated = await prepareGeneratedFiles(ideas, root)
   const issues: string[] = []
 
   const generatedIssues = await Promise.all(
