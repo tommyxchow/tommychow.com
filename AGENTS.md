@@ -122,7 +122,7 @@ Style `base-nova` / `neutral` / `default-translucent` menus (see `components.jso
 
 `button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` on `TooltipContent`, used by social link labels) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
 
-The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `@plugin '@tailwindcss/typography'` (used by `Prose`), `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
+The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
 
 ### Workflow
 
