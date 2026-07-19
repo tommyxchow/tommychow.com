@@ -1,4 +1,5 @@
 import { StatSheetList } from '@/components/MetaRow'
+import Link from 'next/link'
 import { type ReactNode } from 'react'
 import { SocialLinks } from './SocialLinks'
 
@@ -7,6 +8,14 @@ const profileRows: { label: string; value: ReactNode }[] = [
   { label: 'from', value: 'Flushing, NY' },
   { label: 'now', value: 'Cupertino, CA' },
   { label: 'school', value: 'University at Buffalo' },
+  {
+    label: 'lab',
+    value: (
+      <Link className='underline underline-offset-4' href='/lab'>
+        web experiments
+      </Link>
+    ),
+  },
   { label: 'links', value: <SocialLinks /> },
 ]
 

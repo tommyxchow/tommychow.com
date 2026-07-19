@@ -1,5 +1,3 @@
-import { Header } from '@/components/Header'
-import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
 import { fontMono, fontSans } from '@/lib/fonts'
@@ -29,12 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html
-      lang='en'
-      className='dark'
-      style={{ colorScheme: 'dark' }}
-      suppressHydrationWarning
-    >
+    <html lang='en' suppressHydrationWarning>
       <body
         className={twJoin(
           'relative min-h-dvh bg-transparent font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
@@ -42,13 +35,7 @@ export default function RootLayout({
           fontMono.variable,
         )}
       >
-        <Providers>
-          <PixelatedBackground />
-          <Header />
-          <main className='grid min-h-dvh grow place-items-center'>
-            {children}
-          </main>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tommychow.com/schemas/lab-entry.json",
+  "title": "Lab entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "createdAt"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

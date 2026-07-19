@@ -12,14 +12,18 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 # Project
 
-Personal portfolio site for Tommy Chow. Dark mode only.
+Personal portfolio site for Tommy Chow. Portfolio routes are dark-only; the Lab supports light and dark themes.
 
 ## Commands
 
 ```bash
 pnpm dev          # Start development server
-pnpm build        # Production build (auto-runs gallery via prebuild)
+pnpm build        # Production build (regenerates gallery and Lab manifests)
 pnpm build:worker # Build the Cloudflare Worker bundle (opennextjs-cloudflare build)
+pnpm lab:new      # Scaffold a Lab entry (pnpm lab:new <slug>)
+pnpm lab:sync     # Regenerate Lab routes and the public entry manifest
+pnpm lab:check    # Check Lab metadata and generated-file drift
+pnpm test:lab-infra # Test Lab scaffolding and route generation
 pnpm start        # Start production server (Node.js)
 pnpm gallery      # Regenerate gallery manifest (run when images change)
 pnpm preview      # Build and preview on local Cloudflare Workers
@@ -86,6 +90,10 @@ Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — 
 
 Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib/gallery-manifest.json` using `sharp` and `thumbhash`. The manifest is committed to git and re-exported by `src/lib/server-utils.ts`.
 
+### Lab System
+
+Public experiments live in `src/lab/entries/`. Before adding or changing one, read `src/lab/AGENTS.md`. Start with `pnpm lab:new <slug>` and never edit generated Lab manifests or route files by hand.
+
 ### Key Libraries
 
 - **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
@@ -94,7 +102,7 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 
 ## Gotchas
 
-- **Dark mode only**: App uses a dark-first design — don't introduce light-mode specific assumptions
+- **Portfolio dark mode only**: Portfolio routes are dark-only; Lab entries support light and dark unless an experiment documents a single-theme constraint
 - **shadcn uses @base-ui/react**: Not Radix UI — imports differ from older shadcn examples, and most components don't expose `asChild`
 - **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds
 - **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package

@@ -314,7 +314,9 @@ export function GalleryClient({ images }: GalleryClientProps) {
                 ? 'ring-2 ring-foreground'
                 : 'opacity-70 hover:opacity-100 hover:ring-2 hover:ring-foreground/50'
             }`}
-            style={{ backgroundImage: `url(${thumbHashToPlaceholder(thumbHash)})` }}
+            style={{
+              backgroundImage: `url(${thumbHashToPlaceholder(thumbHash)})`,
+            }}
             aria-label={`Go to image ${index + 1}`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element -- plain <img> avoids mounting 81 <Image> components */}
