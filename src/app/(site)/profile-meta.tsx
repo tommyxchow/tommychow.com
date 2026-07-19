@@ -1,7 +1,7 @@
-import { StatSheetList } from '@/components/MetaRow'
+import { StatSheetList } from '@/components/meta-row'
 import Link from 'next/link'
 import { type ReactNode } from 'react'
-import { SocialLinks } from './SocialLinks'
+import { SocialLinks } from './social-links'
 
 const profileRows: { label: string; value: ReactNode }[] = [
   { label: 'work', value: 'Software engineer, Tesla' },

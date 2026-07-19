@@ -1,4 +1,4 @@
-import { Providers } from '@/components/Providers'
+import { Providers } from '@/components/providers'
 import { BASE_URL } from '@/lib/constants'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { type Metadata, type Viewport } from 'next'

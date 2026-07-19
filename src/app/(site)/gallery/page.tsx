@@ -1,6 +1,6 @@
 import { getSortedImagesByDate } from '@/lib/server-utils'
 import { Suspense } from 'react'
-import { GalleryClient } from './GalleryClient'
+import { GalleryClient } from './gallery-client'
 
 export default function GalleryPage() {
   const allImages = getSortedImagesByDate()

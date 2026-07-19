@@ -1,6 +1,6 @@
 'use client'
 
-import { StatusPage, StatusPageAction } from '@/components/StatusPage'
+import { StatusPage, StatusPageAction } from '@/components/status-page'
 import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { twJoin } from 'tailwind-merge'

@@ -2,7 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "tommychow-com",
-  "compatibility_date": "2026-02-14",
+  "compatibility_date": "2026-06-06",
   "compatibility_flags": [
     // Enable Node.js API
     // see https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
@@ -22,11 +22,16 @@
       "service": "tommychow-com",
     },
   ],
-  // Create a R2 binding with the binding name "NEXT_INC_CACHE_R2_BUCKET"
+  // To enable durable cache storage for 'use cache' components:
+  // 1. Create an R2 bucket in the Cloudflare dashboard (Storage & Databases → R2)
+  // 2. Uncomment the block below and replace <YOUR_BUCKET_NAME>
+  // 3. Uncomment the incrementalCache config in open-next.config.ts
+  // Time-based and on-demand revalidation may also require OpenNext's
+  // DO queue and tag-cache pieces; see the OpenNext Cloudflare caching docs.
   // "r2_buckets": [
   //   {
   //     "binding": "NEXT_INC_CACHE_R2_BUCKET",
-  //     "bucket_name": "<BUCKET_NAME>",
+  //     "bucket_name": "<YOUR_BUCKET_NAME>",
   //   },
   // ],
   // Uncomment to enable runtime image optimization via next/image.

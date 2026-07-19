@@ -45,7 +45,7 @@ pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 
 Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
-**Runtime**: Node.js >= 22, pnpm 11 (managed via corepack and the `packageManager` field)
+**Runtime**: Node.js >= 24, pnpm 11 (managed via corepack and the `packageManager` field)
 
 ### Key Configuration
 
@@ -107,7 +107,8 @@ Public experiments live in `src/lab/entries/`. Before adding or changing one, re
 - **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds
 - **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package
 - **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`)
-- **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
+- **Page components**: Colocate client components with pages (e.g., `gallery-client.tsx` alongside `page.tsx`)
+- **File naming**: `kebab-case` for all files and dirs, including component files (`providers.tsx`)
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
 - **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are fetched on demand via `pnpm dlx` (see `.mcp.json` for Claude Code, `.cursor/mcp.json` for Cursor) — not installed as deps
 - **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `onlyBuiltDependencies`/`neverBuiltDependencies`/`ignoredBuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.

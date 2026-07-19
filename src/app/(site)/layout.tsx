@@ -1,5 +1,5 @@
-import { Header } from '@/components/Header'
-import { PixelatedBackground } from '@/components/PixelatedBackground'
+import { Header } from '@/components/header'
+import { PixelatedBackground } from '@/components/pixelated-background'
 
 export default function SiteLayout({
   children,

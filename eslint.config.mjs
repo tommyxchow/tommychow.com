@@ -12,9 +12,9 @@ export default defineConfig(
     'src/components/ui/', // Managed by shadcn (pnpm ui:add/ui:update)
     '.next/',
     '.open-next/',
-    '.claude/',
     'out/**',
     'build/**',
+    '.claude/',
     'next-env.d.ts',
     'cloudflare-env.d.ts',
   ]),
@@ -67,13 +67,6 @@ export default defineConfig(
       ],
       '@typescript-eslint/switch-exhaustiveness-check': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/strict-boolean-expressions': [
-        'error',
-        {
-          allowNullableBoolean: true,
-          allowNullableString: true,
-        },
-      ],
       '@typescript-eslint/no-unnecessary-condition': [
         'error',
         { allowConstantLoopConditions: 'only-allowed-literals' },
@@ -120,7 +113,7 @@ export default defineConfig(
       'better-tailwindcss/enforce-consistent-class-order': 'off',
       'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
       'better-tailwindcss/no-unnecessary-whitespace': 'off',
-      // `dark` is a @custom-variant trigger in globals.css, not a utility
+      // `dark` is a @custom-variant trigger / html class, not a utility
       'better-tailwindcss/no-unknown-classes': ['warn', { ignore: ['dark'] }],
       // Not in recommended — opt-in
       'better-tailwindcss/enforce-consistent-important-position': 'warn',

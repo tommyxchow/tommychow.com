@@ -1,4 +1,4 @@
-import { StatusPage, StatusPageLink } from '@/components/StatusPage'
+import { StatusPage, StatusPageLink } from '@/components/status-page'
 
 export default function NotFound() {
   return (

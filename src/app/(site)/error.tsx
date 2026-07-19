@@ -4,7 +4,7 @@ import {
   StatusPage,
   StatusPageAction,
   StatusPageLink,
-} from '@/components/StatusPage'
+} from '@/components/status-page'
 import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
 
 export default function Error({

@@ -1,9 +1,9 @@
 import { statSheetTypographyClassName } from '@/lib/constants'
 import { getSortedImagesByDate } from '@/lib/server-utils'
 import { twJoin } from 'tailwind-merge'
-import { GalleryPreview } from './GalleryPreview'
-import { HomeClient } from './HomeClient'
-import { ProfileMeta } from './ProfileMeta'
+import { GalleryPreview } from './gallery-preview'
+import { HomeClient } from './home-client'
+import { ProfileMeta } from './profile-meta'
 
 const PREVIEW_IMAGE_COUNT = 10
 
