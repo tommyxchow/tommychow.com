@@ -116,12 +116,12 @@ Public experiments live in `src/lab/entries/<idea>/variations/<variation>/`. Bef
 
 ## shadcn
 
-Style `base-nova` / `neutral` / `default-translucent` menus (see `components.json`). Components install lazily — only the ones in use live in `src/components/ui/`; check the directory for the current set. Inspect with `pnpm exec shadcn info` (project config + CSS vars); pull a component's docs into context with `pnpm exec shadcn docs <name>`.
+Style `base-nova` / `neutral` / solid `default` menus (see `components.json`). Components install lazily — only the ones in use live in `src/components/ui/`; check the directory for the current set. Inspect with `pnpm exec shadcn info` (project config + CSS vars); pull a component's docs into context with `pnpm exec shadcn docs <name>`.
 
 > [!NOTE]
 > `pnpm ui:add` / `pnpm ui:update` run the locally-pinned `shadcn` (a devDependency), **not** `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
 
-`button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` / `surface='popover'` on `TooltipContent`; social links and Lab toolbar use the popover surface) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
+`button.tsx`, `popover.tsx`, `carousel.tsx`, and `dropdown-menu.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` / `surface='popover'` on `TooltipContent`; social links and Lab toolbar use the popover surface) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
 
 The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
 
