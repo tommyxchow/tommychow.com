@@ -47,7 +47,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
   const lastScrollTimeRef = useRef(0)
   const prefetchedRef = useRef<Set<number>>(new Set())
   const shouldScrollToSelectedRef = useRef(false)
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set())
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(() => new Set())
   const [gridOpen, setGridOpen] = useState(false)
 
   // URL state: persist the selected image filename in the query string
@@ -65,6 +65,8 @@ export function GalleryClient({ images }: GalleryClientProps) {
 
   // Clear invalid image param from URL
   useEffect(() => {
+    // URL query state is an external system; canonicalize invalid incoming values after parsing.
+    // eslint-disable-next-line react-you-might-not-need-an-effect/no-event-handler, react-you-might-not-need-an-effect/no-pass-data-to-parent
     if (imageParam !== null && !images.some((img) => img.file === imageParam)) {
       void setImageParam(null)
     }
@@ -264,12 +266,10 @@ export function GalleryClient({ images }: GalleryClientProps) {
     }
   }, [scrollToIndex])
 
-  // Set flag to scroll when grid opens
-  useEffect(() => {
-    if (gridOpen) {
-      shouldScrollToSelectedRef.current = true
-    }
-  }, [gridOpen])
+  const handleGridOpenChange = (open: boolean) => {
+    if (open) shouldScrollToSelectedRef.current = true
+    setGridOpen(open)
+  }
 
   // Callback ref that scrolls selected thumbnail into view when it mounts
   const selectedThumbnailRef = useCallback((node: HTMLButtonElement | null) => {
@@ -436,7 +436,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
           >
             <ChevronUp className='size-6' />
           </Button>
-          <Popover open={gridOpen} onOpenChange={setGridOpen}>
+          <Popover open={gridOpen} onOpenChange={handleGridOpenChange}>
             <PopoverTrigger
               className='pointer-events-auto flex min-w-20 items-center justify-center gap-1.5 rounded-full bg-background/20 px-3 py-1.5 font-mono text-sm text-muted-foreground tabular-nums backdrop-blur-md transition-all hover:bg-background/40 hover:text-foreground active:scale-95'
               aria-label='Open image gallery grid'
