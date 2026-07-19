@@ -1,24 +1,34 @@
-import { labEntries } from '@/lab/generated-manifest'
+import { labIdeas } from '@/lab/generated-manifest'
 import { BASE_URL } from '@/lib/constants'
 import { type Metadata } from 'next'
 
 const DEFAULT_DESCRIPTION = "An experiment from Tommy Chow's Lab."
 
-export function createLabMetadata(slug: string): Metadata {
-  const entry = labEntries.find((candidate) => candidate.slug === slug)
-  if (entry === undefined) {
-    throw new Error(`Missing generated Lab metadata for "${slug}"`)
+export function createLabMetadata(
+  ideaSlug: string,
+  variationSlug: string,
+): Metadata {
+  const idea = labIdeas.find((candidate) => candidate.slug === ideaSlug)
+  const variation = idea?.variations.find(
+    (candidate) => candidate.slug === variationSlug,
+  )
+  if (idea === undefined || variation === undefined) {
+    throw new Error(
+      `Missing generated Lab metadata for "${ideaSlug}/${variationSlug}"`,
+    )
   }
 
-  const canonical = `${BASE_URL}${entry.href}`
+  const canonical = `${BASE_URL}${variation.href}`
+  const pageTitle = `${variation.title} | ${idea.title} | Lab | Tommy Chow`
+  const description = idea.description ?? DEFAULT_DESCRIPTION
 
   return {
-    title: `${entry.title} | Lab | Tommy Chow`,
-    description: entry.description ?? DEFAULT_DESCRIPTION,
+    title: pageTitle,
+    description,
     alternates: { canonical },
     openGraph: {
-      title: entry.title,
-      description: entry.description ?? DEFAULT_DESCRIPTION,
+      title: pageTitle,
+      description,
       url: canonical,
     },
   }

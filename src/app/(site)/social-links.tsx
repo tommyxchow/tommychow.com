@@ -56,12 +56,7 @@ export function SocialLinks() {
               >
                 {link.icon}
               </TooltipTrigger>
-              <TooltipContent
-                side='top'
-                sideOffset={8}
-                showArrow={false}
-                className='border border-border bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10'
-              >
+              <TooltipContent side='top' sideOffset={8} surface='popover'>
                 {link.title}
               </TooltipContent>
             </Tooltip>

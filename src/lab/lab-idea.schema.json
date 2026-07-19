@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://tommychow.com/schemas/lab-entry.json",
-  "title": "Lab entry",
+  "$id": "https://tommychow.com/schemas/lab-idea.json",
+  "title": "Lab idea",
   "type": "object",
   "additionalProperties": false,
-  "required": ["title", "createdAt"],
+  "required": ["title"],
   "properties": {
     "$schema": {
       "type": "string"
@@ -12,10 +12,6 @@
     "title": {
       "type": "string",
       "minLength": 1
-    },
-    "createdAt": {
-      "type": "string",
-      "format": "date"
     },
     "description": {
       "type": "string",

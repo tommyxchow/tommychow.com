@@ -1,4 +1,4 @@
-import { labEntries } from '@/lab/generated-manifest'
+import { labIdeas } from '@/lab/generated-manifest'
 import { BASE_URL } from '@/lib/constants'
 import { type MetadataRoute } from 'next'
 
@@ -16,12 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  const labRoutes: MetadataRoute.Sitemap = labEntries.map((entry) => ({
-    url: `${BASE_URL}${entry.href}`,
-    lastModified: entry.createdAt,
-    changeFrequency: 'monthly',
-    priority: 0.6,
-  }))
+  const labRoutes: MetadataRoute.Sitemap = labIdeas.flatMap((idea) =>
+    idea.variations.map((variation) => ({
+      url: `${BASE_URL}${variation.href}`,
+      lastModified: variation.createdAt,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })),
+  )
 
   return [...staticRoutes, ...labRoutes]
 }

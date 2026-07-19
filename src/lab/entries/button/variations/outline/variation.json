@@ -1,0 +1,6 @@
+{
+  "$schema": "https://tommychow.com/schemas/lab-variation.json",
+  "title": "Outline",
+  "createdAt": "2026-07-19T07:36:49.355Z",
+  "notes": "Bordered button for quieter actions."
+}

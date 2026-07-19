@@ -1,9 +1,9 @@
-import { labEntries } from '@/lab/generated-manifest'
+import { labIdeas } from '@/lab/generated-manifest'
 import { redirect } from 'next/navigation'
 
 export default function LabPage() {
-  const latestEntry = labEntries[0]
-  if (latestEntry === undefined) return null
+  const latestIdea = labIdeas[0]
+  if (latestIdea === undefined) return null
 
-  redirect(latestEntry.href)
+  redirect(latestIdea.href)
 }

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tommychow.com/schemas/lab-variation.json",
+  "title": "Lab variation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "createdAt"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://tommychow.com/schemas/lab-idea.json",
+  "title": "Badge",
+  "description": "Temporary badge demo so the toolbar can show more than one idea."
+}

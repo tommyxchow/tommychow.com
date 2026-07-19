@@ -1,0 +1,6 @@
+{
+  "$schema": "https://tommychow.com/schemas/lab-variation.json",
+  "title": "Ghost",
+  "createdAt": "2026-07-19T07:36:50.588Z",
+  "notes": "Minimal button with no border until hover."
+}

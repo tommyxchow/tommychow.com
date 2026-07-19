@@ -21,27 +21,28 @@ Personal portfolio site for Tommy Chow, built on top of `next-template` with gal
 
 ## Scripts
 
-| Command               | Description                                              |
-| :-------------------- | :------------------------------------------------------- |
-| `pnpm dev`            | Start development server                                 |
-| `pnpm gallery`        | Regenerate gallery manifest from `public/gallery/images` |
-| `pnpm lab:new`        | Scaffold a Lab entry (`pnpm lab:new <slug>`)             |
-| `pnpm lab:sync`       | Regenerate Lab routes and the public entry manifest      |
-| `pnpm lab:check`      | Check Lab metadata and generated-file drift              |
-| `pnpm test:lab-infra` | Test Lab scaffolding and route generation                |
-| `pnpm build`          | Build after regenerating gallery and Lab manifests       |
-| `pnpm start`          | Start production server (Node.js)                        |
-| `pnpm preview`        | Build and preview on local Cloudflare Workers            |
-| `pnpm deploy`         | Build and deploy to Cloudflare Workers                   |
-| `pnpm upload`         | Build and upload to Cloudflare Workers                   |
-| `pnpm cf-typegen`     | Generate Cloudflare binding types                        |
-| `pnpm lint`           | Run ESLint                                               |
-| `pnpm typecheck`      | TypeScript type checking                                 |
-| `pnpm check`          | Full check: typecheck + lint + format check + build      |
-| `pnpm format`         | Format with Prettier                                     |
-| `pnpm ui:update`      | Regenerate shadcn components to latest                   |
-| `pnpm clean`          | Remove `.next`, `.open-next`, `node_modules`             |
-| `pnpm nuke`           | Clean + remove `pnpm-lock.yaml`                          |
+| Command               | Description                                                                 |
+| :-------------------- | :-------------------------------------------------------------------------- |
+| `pnpm dev`            | Start development server                                                    |
+| `pnpm gallery`        | Regenerate gallery manifest from `public/gallery/images`                    |
+| `pnpm lab:new`        | Scaffold a Lab idea and first variation                                     |
+| `pnpm lab:variation`  | Clone a Lab variation                                                       |
+| `pnpm lab:sync`       | Regenerate Lab routes and the public idea manifest                          |
+| `pnpm lab:check`      | Check Lab metadata and generated-file drift                                 |
+| `pnpm test:lab-infra` | Test Lab scaffolding and route generation                                   |
+| `pnpm build`          | Build after regenerating gallery and Lab manifests                          |
+| `pnpm start`          | Start production server (Node.js)                                           |
+| `pnpm preview`        | Build and preview on local Cloudflare Workers                               |
+| `pnpm deploy`         | Build and deploy to Cloudflare Workers                                      |
+| `pnpm upload`         | Build and upload to Cloudflare Workers                                      |
+| `pnpm cf-typegen`     | Generate Cloudflare binding types                                           |
+| `pnpm lint`           | Run ESLint                                                                  |
+| `pnpm typecheck`      | TypeScript type checking                                                    |
+| `pnpm check`          | Full check: Lab tests + lab:check + typecheck + lint + format check + build |
+| `pnpm format`         | Format with Prettier                                                        |
+| `pnpm ui:update`      | Regenerate shadcn components to latest                                      |
+| `pnpm clean`          | Remove `.next`, `.open-next`, `node_modules`                                |
+| `pnpm nuke`           | Clean + remove `pnpm-lock.yaml`                                             |
 
 ## Deployment
 
@@ -66,6 +67,6 @@ pnpm deploy
 ## Notes
 
 - Gallery images live in `public/gallery/images/` and produce `src/lib/gallery-manifest.json`
-- Lab experiments live in `src/lab/entries/<slug>/`; start one with `pnpm lab:new <slug>`
+- Lab experiments live in `src/lab/entries/<idea>/variations/<variation>/`; start one with `pnpm lab:new <idea>`
 - Static caching rules are configured in `public/_headers`
 - Set `SITE_URL` in production for correct metadata, `robots.txt`, and `sitemap.xml`

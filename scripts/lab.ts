@@ -1,27 +1,46 @@
 /* eslint-disable no-console -- This file is a CLI and reports command results. */
 
+import { randomUUID } from 'node:crypto'
+import type { Dirent } from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
 import { pathToFileURL } from 'node:url'
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
-const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
-const ALLOWED_METADATA_KEYS = new Set([
+export const ISO_TIMESTAMP_PATTERN =
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/
+export const IDEA_METADATA_KEYS = new Set(['$schema', 'title', 'description'])
+export const VARIATION_METADATA_KEYS = new Set([
   '$schema',
   'title',
   'createdAt',
-  'description',
+  'notes',
 ])
+const LAB_IDEA_SCHEMA_ID = 'https://tommychow.com/schemas/lab-idea.json'
+const LAB_VARIATION_SCHEMA_ID =
+  'https://tommychow.com/schemas/lab-variation.json'
 
-export interface LabMetadata {
+export interface LabIdeaMetadata {
   title: string
-  createdAt: string
   description?: string
 }
 
-export interface LabEntry extends LabMetadata {
+export interface LabVariationMetadata {
+  title: string
+  createdAt: string
+  notes?: string
+}
+
+export interface LabVariation extends LabVariationMetadata {
   slug: string
+  href: string
+}
+
+export interface LabIdea extends LabIdeaMetadata {
+  slug: string
+  href: string
+  variations: LabVariation[]
 }
 
 interface LabPaths {
@@ -56,50 +75,91 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function isValidDate(value: string): boolean {
-  if (!DATE_PATTERN.test(value)) return false
-  const parsed = new Date(`${value}T00:00:00.000Z`)
-  return (
-    !Number.isNaN(parsed.getTime()) && parsed.toISOString().startsWith(value)
-  )
+function isCanonicalTimestamp(value: string): boolean {
+  if (!ISO_TIMESTAMP_PATTERN.test(value)) return false
+
+  const parsed = new Date(value)
+  return !Number.isNaN(parsed.getTime()) && parsed.toISOString() === value
 }
 
-function validateMetadata(value: unknown, source: string): LabMetadata {
+function validateOptionalString(
+  value: unknown,
+  key: string,
+  source: string,
+): string | undefined {
+  if (value === undefined) return undefined
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error(
+      `${source}: "${key}" must be a non-empty string when provided`,
+    )
+  }
+  return value.trim()
+}
+
+function assertRecordWithAllowedKeys(
+  value: unknown,
+  allowedKeys: Set<string>,
+  source: string,
+): Record<string, unknown> {
   if (!isRecord(value)) {
     throw new Error(`${source}: expected a JSON object`)
   }
 
-  const unknownKeys = Object.keys(value).filter(
-    (key) => !ALLOWED_METADATA_KEYS.has(key),
-  )
+  const unknownKeys = Object.keys(value).filter((key) => !allowedKeys.has(key))
   if (unknownKeys.length > 0) {
     throw new Error(`${source}: unknown field(s): ${unknownKeys.join(', ')}`)
   }
 
+  return value
+}
+
+function requireNonEmptyTitle(
+  value: Record<string, unknown>,
+  source: string,
+): string {
   if (typeof value.title !== 'string' || value.title.trim() === '') {
     throw new Error(`${source}: "title" must be a non-empty string`)
   }
-  if (typeof value.createdAt !== 'string' || !isValidDate(value.createdAt)) {
-    throw new Error(`${source}: "createdAt" must be a real YYYY-MM-DD date`)
-  }
-  if (
-    value.description !== undefined &&
-    (typeof value.description !== 'string' || value.description.trim() === '')
-  ) {
-    throw new Error(
-      `${source}: "description" must be a non-empty string when provided`,
-    )
-  }
-  if (value.$schema !== undefined && typeof value.$schema !== 'string') {
-    throw new Error(`${source}: "$schema" must be a string when provided`)
-  }
+  return value.title.trim()
+}
+
+function validateIdeaMetadata(value: unknown, source: string): LabIdeaMetadata {
+  const record = assertRecordWithAllowedKeys(value, IDEA_METADATA_KEYS, source)
+  const description = validateOptionalString(
+    record.description,
+    'description',
+    source,
+  )
 
   return {
-    title: value.title.trim(),
-    createdAt: value.createdAt,
-    ...(typeof value.description === 'string'
-      ? { description: value.description.trim() }
-      : {}),
+    title: requireNonEmptyTitle(record, source),
+    ...(description !== undefined ? { description } : {}),
+  }
+}
+
+function validateVariationMetadata(
+  value: unknown,
+  source: string,
+): LabVariationMetadata {
+  const record = assertRecordWithAllowedKeys(
+    value,
+    VARIATION_METADATA_KEYS,
+    source,
+  )
+  if (
+    typeof record.createdAt !== 'string' ||
+    !isCanonicalTimestamp(record.createdAt)
+  ) {
+    throw new Error(
+      `${source}: "createdAt" must be a canonical UTC ISO timestamp`,
+    )
+  }
+  const notes = validateOptionalString(record.notes, 'notes', source)
+
+  return {
+    title: requireNonEmptyTitle(record, source),
+    createdAt: record.createdAt,
+    ...(notes !== undefined ? { notes } : {}),
   }
 }
 
@@ -120,54 +180,125 @@ async function pathExists(target: string): Promise<boolean> {
   }
 }
 
-export async function readLabEntries(
-  root = process.cwd(),
-): Promise<LabEntry[]> {
+async function readJson(target: string): Promise<unknown> {
+  let source: string
+  try {
+    source = await fs.readFile(target, 'utf8')
+  } catch {
+    throw new Error(`${target}: missing required metadata file`)
+  }
+
+  try {
+    return JSON.parse(source) as unknown
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error)
+    throw new Error(`${target}: invalid JSON (${message})`, { cause: error })
+  }
+}
+
+async function readVariation(
+  ideaSlug: string,
+  ideaDirectory: string,
+  variationSlug: string,
+): Promise<LabVariation> {
+  validateSlug(variationSlug)
+  const variationDirectory = path.join(
+    ideaDirectory,
+    'variations',
+    variationSlug,
+  )
+  const componentPath = path.join(variationDirectory, 'entry.tsx')
+  if (!(await pathExists(componentPath))) {
+    throw new Error(`${componentPath}: missing required entry.tsx`)
+  }
+
+  const metadataPath = path.join(variationDirectory, 'variation.json')
+  const metadata = validateVariationMetadata(
+    await readJson(metadataPath),
+    metadataPath,
+  )
+  return {
+    slug: variationSlug,
+    ...metadata,
+    href: `/lab/${ideaSlug}/${variationSlug}`,
+  }
+}
+
+export async function readLabIdeas(root = process.cwd()): Promise<LabIdea[]> {
   const paths = getLabPaths(root)
   await fs.mkdir(paths.entries, { recursive: true })
   const directoryEntries = await fs.readdir(paths.entries, {
     withFileTypes: true,
   })
 
-  const entries = await Promise.all(
+  const ideas = await Promise.all(
     directoryEntries
       .filter((entry) => entry.isDirectory())
       .map(async ({ name: slug }) => {
         validateSlug(slug)
-        const entryDirectory = path.join(paths.entries, slug)
-        const metadataPath = path.join(entryDirectory, 'lab.json')
-        const componentPath = path.join(entryDirectory, 'entry.tsx')
+        const ideaDirectory = path.join(paths.entries, slug)
+        const metadataPath = path.join(ideaDirectory, 'lab.json')
+        const metadata = validateIdeaMetadata(
+          await readJson(metadataPath),
+          metadataPath,
+        )
+        const variationsDirectory = path.join(ideaDirectory, 'variations')
 
-        if (!(await pathExists(componentPath))) {
-          throw new Error(`${componentPath}: missing required entry.tsx`)
-        }
-
-        let metadataSource: string
+        let variationEntries: Dirent[]
         try {
-          metadataSource = await fs.readFile(metadataPath, 'utf8')
-        } catch {
-          throw new Error(`${metadataPath}: missing required lab.json`)
-        }
-
-        let metadata: unknown
-        try {
-          metadata = JSON.parse(metadataSource) as unknown
-        } catch (error: unknown) {
-          const message = error instanceof Error ? error.message : String(error)
-          throw new Error(`${metadataPath}: invalid JSON (${message})`, {
-            cause: error,
+          variationEntries = await fs.readdir(variationsDirectory, {
+            withFileTypes: true,
           })
+        } catch {
+          throw new Error(
+            `${variationsDirectory}: missing required variations directory`,
+          )
         }
 
-        return { slug, ...validateMetadata(metadata, metadataPath) }
+        const variationSlugs = variationEntries
+          .filter((entry) => entry.isDirectory())
+          .map(({ name }) => name)
+        if (variationSlugs.length === 0) {
+          throw new Error(
+            `${variationsDirectory}: every Lab idea must have at least one variation`,
+          )
+        }
+
+        const variations = await Promise.all(
+          variationSlugs.map((variationSlug) =>
+            readVariation(slug, ideaDirectory, variationSlug),
+          ),
+        )
+        variations.sort(
+          (left, right) =>
+            left.createdAt.localeCompare(right.createdAt) ||
+            left.title.localeCompare(right.title, 'en') ||
+            left.slug.localeCompare(right.slug, 'en'),
+        )
+        const newestVariation = variations.at(-1)
+        if (newestVariation === undefined) {
+          throw new Error(`${variationsDirectory}: no variations found`)
+        }
+
+        return {
+          slug,
+          ...metadata,
+          href: newestVariation.href,
+          variations,
+        }
       }),
   )
 
-  return entries.sort(
-    (left, right) =>
-      right.createdAt.localeCompare(left.createdAt) ||
-      left.title.localeCompare(right.title, 'en'),
-  )
+  return ideas.sort((left, right) => {
+    const leftNewest = left.variations.at(-1)
+    const rightNewest = right.variations.at(-1)
+    if (leftNewest === undefined || rightNewest === undefined) return 0
+    return (
+      rightNewest.createdAt.localeCompare(leftNewest.createdAt) ||
+      left.title.localeCompare(right.title, 'en') ||
+      left.slug.localeCompare(right.slug, 'en')
+    )
+  })
 }
 
 function quote(value: string): string {
@@ -178,65 +309,102 @@ function quote(value: string): string {
     .replaceAll('\n', '\\n')}'`
 }
 
-function renderManifest(entries: LabEntry[]): string {
-  if (entries.length === 0) {
+function renderManifest(ideas: LabIdea[]): string {
+  if (ideas.length === 0) {
     return [
-      "import { type LabEntry } from './types'",
+      "import { type LabIdea } from './types'",
       '',
-      'export const labEntries: readonly LabEntry[] = []',
+      'export const labIdeas: readonly LabIdea[] = []',
       '',
     ].join('\n')
   }
 
-  const records = entries.map((entry) => {
-    const lines = [
+  const records = ideas.map((idea) => {
+    const ideaLines = [
       '  {',
-      `    slug: ${quote(entry.slug)},`,
-      `    title: ${quote(entry.title)},`,
-      `    createdAt: ${quote(entry.createdAt)},`,
+      `    slug: ${quote(idea.slug)},`,
+      `    title: ${quote(idea.title)},`,
     ]
-    if (entry.description !== undefined) {
-      lines.push(`    description: ${quote(entry.description)},`)
+    if (idea.description !== undefined) {
+      ideaLines.push(`    description: ${quote(idea.description)},`)
     }
-    lines.push(`    href: ${quote(`/lab/${entry.slug}`)},`, '  },')
-    return lines.join('\n')
+    ideaLines.push(`    href: ${quote(idea.href)},`, '    variations: [')
+
+    for (const variation of idea.variations) {
+      const variationLines = [
+        '      {',
+        `        slug: ${quote(variation.slug)},`,
+        `        title: ${quote(variation.title)},`,
+        `        createdAt: ${quote(variation.createdAt)},`,
+      ]
+      if (variation.notes !== undefined) {
+        variationLines.push(`        notes: ${quote(variation.notes)},`)
+      }
+      variationLines.push(`        href: ${quote(variation.href)},`, '      },')
+      ideaLines.push(...variationLines)
+    }
+
+    ideaLines.push('    ],', '  },')
+    return ideaLines.join('\n')
   })
 
   return [
-    "import { type LabEntry } from './types'",
+    "import { type LabIdea } from './types'",
     '',
-    'export const labEntries: readonly LabEntry[] = [',
+    'export const labIdeas: readonly LabIdea[] = [',
     ...records,
     ']',
     '',
   ].join('\n')
 }
 
-function renderViewerRoute(entry: LabEntry): string {
+function renderVariationRoute(idea: LabIdea, variation: LabVariation): string {
   return [
-    `import Entry from '@/lab/entries/${entry.slug}/entry'`,
+    `import Entry from '@/lab/entries/${idea.slug}/variations/${variation.slug}/entry'`,
     "import { createLabMetadata } from '@/lab/metadata'",
     '',
-    `export const metadata = createLabMetadata(${quote(entry.slug)})`,
+    `export const metadata = createLabMetadata(${quote(idea.slug)}, ${quote(variation.slug)})`,
     '',
-    'export default function LabEntryPage() {',
+    'export default function LabVariationPage() {',
     '  return <Entry />',
     '}',
     '',
   ].join('\n')
 }
 
+function renderIdeaRedirect(idea: LabIdea): string {
+  return [
+    "import { redirect } from 'next/navigation'",
+    '',
+    'export default function LabIdeaPage() {',
+    `  redirect(${quote(idea.href)})`,
+    '}',
+    '',
+  ].join('\n')
+}
+
 function expectedGeneratedFiles(
-  entries: LabEntry[],
+  ideas: LabIdea[],
   root: string,
 ): GeneratedFile[] {
   const paths = getLabPaths(root)
   return [
-    { path: paths.manifest, content: renderManifest(entries) },
-    ...entries.map((entry) => ({
-      path: path.join(paths.viewerRoutes, entry.slug, 'page.tsx'),
-      content: renderViewerRoute(entry),
-    })),
+    { path: paths.manifest, content: renderManifest(ideas) },
+    ...ideas.flatMap((idea) => [
+      {
+        path: path.join(paths.viewerRoutes, idea.slug, 'page.tsx'),
+        content: renderIdeaRedirect(idea),
+      },
+      ...idea.variations.map((variation) => ({
+        path: path.join(
+          paths.viewerRoutes,
+          idea.slug,
+          variation.slug,
+          'page.tsx',
+        ),
+        content: renderVariationRoute(idea, variation),
+      })),
+    ]),
   ]
 }
 
@@ -257,9 +425,7 @@ async function walkFiles(directory: string): Promise<string[]> {
   const files = await Promise.all(
     entries.map(async (entry) => {
       const target = path.join(directory, entry.name)
-      if (entry.isDirectory()) {
-        return walkFiles(target)
-      }
+      if (entry.isDirectory()) return walkFiles(target)
       return [target]
     }),
   )
@@ -274,11 +440,13 @@ function isStrictlyInside(ownedRoot: string, target: string): boolean {
   )
 }
 
-function assertInside(ownedRoot: string, target: string): void {
+function assertInside(
+  ownedRoot: string,
+  target: string,
+  message = `Refusing to remove path outside generated Lab routes: ${target}`,
+): void {
   if (!isStrictlyInside(ownedRoot, target)) {
-    throw new Error(
-      `Refusing to remove path outside generated Lab routes: ${target}`,
-    )
+    throw new Error(message)
   }
 }
 
@@ -306,8 +474,18 @@ async function removeStaleFiles(
     await fs.rm(file)
   }
 
-  const staleSlugs = new Set(stale.map((file) => path.dirname(file)))
-  const deepestFirst = [...staleSlugs].sort((a, b) => b.length - a.length)
+  const staleDirectories = new Set<string>()
+  for (const file of stale) {
+    let directory = path.dirname(file)
+    while (ownedRoots.some((root) => isStrictlyInside(root, directory))) {
+      staleDirectories.add(directory)
+      directory = path.dirname(directory)
+    }
+  }
+
+  const deepestFirst = [...staleDirectories].sort(
+    (left, right) => right.length - left.length,
+  )
   for (const directory of deepestFirst) {
     const owner = ownedRoots.find((root) => isStrictlyInside(root, directory))
     if (owner === undefined) continue
@@ -320,22 +498,22 @@ async function removeStaleFiles(
 }
 
 export async function syncLab(root = process.cwd()): Promise<void> {
-  const entries = await readLabEntries(root)
+  const ideas = await readLabIdeas(root)
   const paths = getLabPaths(root)
-  const generated = expectedGeneratedFiles(entries, root)
+  const generated = expectedGeneratedFiles(ideas, root)
   const changed = await Promise.all(generated.map(writeIfChanged))
   const expectedRoutes = expectedViewerRoutePaths(generated, paths.manifest)
   const removed = await removeStaleFiles(expectedRoutes, [paths.viewerRoutes])
   const changedCount = changed.filter(Boolean).length
   console.log(
-    `Lab synchronized: ${entries.length} entries, ${changedCount} updated, ${removed} removed`,
+    `Lab synchronized: ${ideas.length} ideas, ${ideas.reduce((count, idea) => count + idea.variations.length, 0)} variations, ${changedCount} updated, ${removed} removed`,
   )
 }
 
 export async function checkLab(root = process.cwd()): Promise<string[]> {
-  const entries = await readLabEntries(root)
+  const ideas = await readLabIdeas(root)
   const paths = getLabPaths(root)
-  const generated = expectedGeneratedFiles(entries, root)
+  const generated = expectedGeneratedFiles(ideas, root)
   const issues: string[] = []
 
   const generatedIssues = await Promise.all(
@@ -374,65 +552,180 @@ function componentNameFromSlug(slug: string): string {
   return /^\d/.test(name) ? `Lab${name}` : name
 }
 
-function localDate(): string {
-  const now = new Date()
-  const year = String(now.getFullYear())
-  const month = String(now.getMonth() + 1).padStart(2, '0')
-  const day = String(now.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
+function writeJson(value: object): string {
+  return `${JSON.stringify(value, null, 2)}\n`
+}
+
+function assertVariationPath(variationsRoot: string, target: string): void {
+  assertInside(variationsRoot, target, `Invalid Lab variation path: ${target}`)
+  if (path.dirname(target) !== variationsRoot) {
+    throw new Error(`Invalid Lab variation path: ${target}`)
+  }
+}
+
+function labTemporaryPath(parent: string, label: string): string {
+  return path.join(parent, `.lab-tmp-${label}-${randomUUID()}`)
+}
+
+async function createTemporaryDirectory(
+  parent: string,
+  label: string,
+): Promise<string> {
+  return fs.mkdtemp(path.join(parent, `.lab-tmp-${label}-`))
 }
 
 export async function createLabEntry(
-  slug: string,
+  ideaSlug: string,
+  initialVariationSlug = 'first-pass',
   root = process.cwd(),
 ): Promise<void> {
-  validateSlug(slug)
+  validateSlug(ideaSlug)
+  validateSlug(initialVariationSlug)
   const paths = getLabPaths(root)
-  const entryDirectory = path.join(paths.entries, slug)
-  if (await pathExists(entryDirectory)) {
-    throw new Error(`Lab entry already exists: ${entryDirectory}`)
+  await fs.mkdir(paths.entries, { recursive: true })
+  const ideaDirectory = path.join(paths.entries, ideaSlug)
+  if (await pathExists(ideaDirectory)) {
+    throw new Error(`Lab idea already exists: ${ideaDirectory}`)
   }
 
-  const title = titleFromSlug(slug)
-  const componentName = componentNameFromSlug(slug)
-  await fs.mkdir(entryDirectory, { recursive: true })
-  await fs.writeFile(
-    path.join(entryDirectory, 'lab.json'),
-    `${JSON.stringify(
-      {
-        $schema: '../../lab-entry.schema.json',
-        title,
-        createdAt: localDate(),
-      },
-      null,
-      2,
-    )}\n`,
+  const temporaryIdeaDirectory = await createTemporaryDirectory(
+    paths.root,
+    ideaSlug,
   )
-  await fs.writeFile(
-    path.join(entryDirectory, 'entry.tsx'),
-    [
-      `export default function ${componentName}() {`,
-      "  return <div className='min-h-full w-full' />",
-      '}',
-      '',
-    ].join('\n'),
-  )
+  try {
+    const variationDirectory = path.join(
+      temporaryIdeaDirectory,
+      'variations',
+      initialVariationSlug,
+    )
+    await fs.mkdir(variationDirectory, { recursive: true })
+    await fs.writeFile(
+      path.join(temporaryIdeaDirectory, 'lab.json'),
+      writeJson({
+        $schema: LAB_IDEA_SCHEMA_ID,
+        title: titleFromSlug(ideaSlug),
+      }),
+    )
+    await fs.writeFile(
+      path.join(variationDirectory, 'variation.json'),
+      writeJson({
+        $schema: LAB_VARIATION_SCHEMA_ID,
+        title: titleFromSlug(initialVariationSlug),
+        createdAt: new Date().toISOString(),
+      }),
+    )
+    await fs.writeFile(
+      path.join(variationDirectory, 'entry.tsx'),
+      [
+        `export default function ${componentNameFromSlug(initialVariationSlug)}() {`,
+        "  return <div className='min-h-full w-full' />",
+        '}',
+        '',
+      ].join('\n'),
+    )
+    await fs.rename(temporaryIdeaDirectory, ideaDirectory)
+  } catch (error: unknown) {
+    await fs.rm(temporaryIdeaDirectory, { recursive: true, force: true })
+    throw error
+  }
 
   await syncLab(root)
-  console.log(`Created Lab entry: src/lab/entries/${slug}`)
+  console.log(
+    `Created Lab idea: src/lab/entries/${ideaSlug} (variation: ${initialVariationSlug})`,
+  )
 }
+
+export async function createLabVariation(
+  ideaSlug: string,
+  newVariationSlug: string,
+  sourceVariationSlug: string | undefined = undefined,
+  root = process.cwd(),
+): Promise<void> {
+  validateSlug(ideaSlug)
+  validateSlug(newVariationSlug)
+  if (sourceVariationSlug !== undefined) validateSlug(sourceVariationSlug)
+
+  const ideas = await readLabIdeas(root)
+  const idea = ideas.find((candidate) => candidate.slug === ideaSlug)
+  if (idea === undefined) {
+    throw new Error(`Lab idea does not exist: ${ideaSlug}`)
+  }
+  const sourceVariation =
+    sourceVariationSlug === undefined
+      ? idea.variations.at(-1)
+      : idea.variations.find(
+          (candidate) => candidate.slug === sourceVariationSlug,
+        )
+  if (sourceVariation === undefined) {
+    throw new Error(
+      `Lab variation does not exist: ${ideaSlug}/${sourceVariationSlug ?? '<newest>'}`,
+    )
+  }
+
+  const paths = getLabPaths(root)
+  const ideaDirectory = path.join(paths.entries, ideaSlug)
+  const variationsRoot = path.join(ideaDirectory, 'variations')
+  const sourceDirectory = path.join(variationsRoot, sourceVariation.slug)
+  const targetDirectory = path.join(variationsRoot, newVariationSlug)
+  assertVariationPath(variationsRoot, sourceDirectory)
+  assertVariationPath(variationsRoot, targetDirectory)
+  if (await pathExists(targetDirectory)) {
+    throw new Error(`Lab variation already exists: ${targetDirectory}`)
+  }
+
+  const temporaryVariationDirectory = labTemporaryPath(
+    ideaDirectory,
+    newVariationSlug,
+  )
+  try {
+    await fs.cp(sourceDirectory, temporaryVariationDirectory, {
+      recursive: true,
+      errorOnExist: true,
+    })
+    await fs.writeFile(
+      path.join(temporaryVariationDirectory, 'variation.json'),
+      writeJson({
+        $schema: LAB_VARIATION_SCHEMA_ID,
+        title: titleFromSlug(newVariationSlug),
+        createdAt: new Date().toISOString(),
+      }),
+    )
+    await fs.rename(temporaryVariationDirectory, targetDirectory)
+  } catch (error: unknown) {
+    await fs.rm(temporaryVariationDirectory, { recursive: true, force: true })
+    throw error
+  }
+
+  await syncLab(root)
+  console.log(
+    `Created Lab variation: src/lab/entries/${ideaSlug}/variations/${newVariationSlug}`,
+  )
+}
+
+const LAB_CLI_USAGE =
+  'Usage: lab.ts <new <idea> [variation] | variation <idea> <new-variation> [source-variation] | sync | check>'
 
 export async function runLabCommand(
   args: string[],
   root = process.cwd(),
 ): Promise<void> {
-  const [command, slug] = args
+  const [command, firstSlug, secondSlug, thirdSlug] = args
   switch (command) {
     case undefined:
-      throw new Error('Usage: lab.ts <new <slug> | sync | check>')
+      throw new Error(LAB_CLI_USAGE)
     case 'new':
-      if (slug === undefined) throw new Error('Usage: pnpm lab:new <slug>')
-      await createLabEntry(slug, root)
+      if (firstSlug === undefined) {
+        throw new Error('Usage: pnpm lab:new <idea> [initial-variation]')
+      }
+      await createLabEntry(firstSlug, secondSlug, root)
+      return
+    case 'variation':
+      if (firstSlug === undefined || secondSlug === undefined) {
+        throw new Error(
+          'Usage: pnpm lab:variation <idea> <new-variation> [source-variation]',
+        )
+      }
+      await createLabVariation(firstSlug, secondSlug, thirdSlug, root)
       return
     case 'sync':
       await syncLab(root)
@@ -448,7 +741,7 @@ export async function runLabCommand(
       return
     }
     default:
-      throw new Error('Usage: lab.ts <new <slug> | sync | check>')
+      throw new Error(LAB_CLI_USAGE)
   }
 }
 

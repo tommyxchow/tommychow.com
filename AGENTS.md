@@ -20,8 +20,9 @@ Personal portfolio site for Tommy Chow. Portfolio routes are dark-only; the Lab 
 pnpm dev          # Start development server
 pnpm build        # Production build (regenerates gallery and Lab manifests)
 pnpm build:worker # Build the Cloudflare Worker bundle (opennextjs-cloudflare build)
-pnpm lab:new      # Scaffold a Lab entry (pnpm lab:new <slug>)
-pnpm lab:sync     # Regenerate Lab routes and the public entry manifest
+pnpm lab:new      # Scaffold a Lab idea and first variation (pnpm lab:new <idea> [variation])
+pnpm lab:variation # Clone a Lab variation (pnpm lab:variation <idea> <new-variation> [source-variation])
+pnpm lab:sync     # Regenerate Lab routes and the public idea manifest
 pnpm lab:check    # Check Lab metadata and generated-file drift
 pnpm test:lab-infra # Test Lab scaffolding and route generation
 pnpm start        # Start production server (Node.js)
@@ -34,7 +35,7 @@ pnpm lint         # Run ESLint
 pnpm typecheck    # TypeScript type checking (tsc --noEmit)
 pnpm format       # Format with Prettier
 pnpm format:check # Check formatting without writing
-pnpm check        # Full check: typecheck + lint + format check + build
+pnpm check        # Full check: Lab tests + lab:check + typecheck + lint + format check + build
 pnpm ui:add       # Add a shadcn component (pnpm ui:add <component>)
 pnpm ui:update    # Refresh named shadcn components (pnpm ui:update <component...>)
 pnpm clean        # Delete .next, .open-next, and node_modules
@@ -92,7 +93,7 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 
 ### Lab System
 
-Public experiments live in `src/lab/entries/`. Before adding or changing one, read `src/lab/AGENTS.md`. Start with `pnpm lab:new <slug>` and never edit generated Lab manifests or route files by hand.
+Public experiments live in `src/lab/entries/<idea>/variations/<variation>/`. Before adding or changing one, read `src/lab/AGENTS.md`. Start with `pnpm lab:new <idea>` and never edit generated Lab manifests or route files by hand.
 
 ### Key Libraries
 
@@ -120,7 +121,7 @@ Style `base-nova` / `neutral` / `default-translucent` menus (see `components.jso
 > [!NOTE]
 > `pnpm ui:add` / `pnpm ui:update` run the locally-pinned `shadcn` (a devDependency), **not** `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
 
-`button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` on `TooltipContent`, used by social link labels) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
+`button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` / `surface='popover'` on `TooltipContent`; social links and Lab toolbar use the popover surface) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
 
 The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
 

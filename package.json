@@ -7,6 +7,7 @@
     "dev": "next dev",
     "gallery": "tsx scripts/generate-gallery-manifest.ts",
     "lab:new": "tsx scripts/lab.ts new",
+    "lab:variation": "tsx scripts/lab.ts variation",
     "lab:sync": "tsx scripts/lab.ts sync",
     "lab:check": "tsx scripts/lab.ts check",
     "test:lab-infra": "tsx --test scripts/lab-generator.test.ts",
