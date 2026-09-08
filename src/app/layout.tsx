@@ -1,5 +1,5 @@
+import { BlackwallBackground } from '@/components/blackwall-background'
 import { Header } from '@/components/Header'
-import { PixelatedBackground } from '@/components/PixelatedBackground'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
 import { fontMono, fontSans } from '@/lib/fonts'
@@ -43,7 +43,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <PixelatedBackground />
+          <BlackwallBackground />
           <Header />
           <main className='grid min-h-dvh grow place-items-center'>
             {children}

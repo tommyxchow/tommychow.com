@@ -1,0 +1,61 @@
+.background {
+  --blackwall-base: #080708;
+  --blackwall-signal: #e52a40;
+
+  position: fixed;
+  inset: 0;
+  z-index: -50;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--blackwall-base);
+}
+
+/* The wall is also present before hydration and when WebGL is unavailable. */
+.background::before {
+  position: absolute;
+  inset: -20% -5%;
+  content: '';
+  background:
+    linear-gradient(90deg, transparent, var(--blackwall-base) 85%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 11px,
+      color-mix(in srgb, var(--blackwall-signal) 18%, transparent) 12px,
+      transparent 13px
+    );
+  mask-image: radial-gradient(ellipse at 15% 40%, black, transparent 70%);
+  transform: perspective(600px) rotateY(28deg) rotateZ(-5deg) scale(1.3);
+}
+
+.background::after {
+  position: absolute;
+  inset: 70% -20% -30%;
+  content: '';
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--blackwall-signal) 25%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+  mask-image: linear-gradient(transparent, black);
+  transform: perspective(300px) rotateX(55deg);
+}
+
+.canvas {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.canvas[data-ready] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas {
+    transition: none;
+  }
+}
