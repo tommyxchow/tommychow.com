@@ -36,6 +36,7 @@ Personal portfolio site for Tommy Chow, built on top of `next-template` with gal
 | `pnpm check`      | Full check: typecheck + lint + format check + build      |
 | `pnpm format`     | Format with Prettier                                     |
 | `pnpm ui:update`  | Regenerate shadcn components to latest                   |
+| `pnpm ui:diff`    | Report installed shadcn items against the registry       |
 | `pnpm clean`      | Remove `.next`, `.open-next`, `node_modules`             |
 | `pnpm nuke`       | Clean + remove `pnpm-lock.yaml`                          |
 

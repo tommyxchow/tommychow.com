@@ -9,10 +9,10 @@ import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
 
 export default function Error({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }) {
   useLogBoundaryError(error)
 
@@ -21,7 +21,7 @@ export default function Error({
       title='Something went wrong'
       actions={
         <>
-          <StatusPageAction onClick={reset}>Try again</StatusPageAction>
+          <StatusPageAction onClick={retry}>Try again</StatusPageAction>
           <StatusPageLink href='/'>Go home</StatusPageLink>
         </>
       }

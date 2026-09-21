@@ -13,10 +13,10 @@ import './globals.css'
  */
 export default function GlobalError({
   error,
-  reset,
+  retry,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  retry: () => void
 }) {
   useLogBoundaryError(error)
 
@@ -33,7 +33,7 @@ export default function GlobalError({
           <StatusPage
             title='Something went wrong'
             actions={
-              <StatusPageAction onClick={reset}>Try again</StatusPageAction>
+              <StatusPageAction onClick={retry}>Try again</StatusPageAction>
             }
           />
         </main>

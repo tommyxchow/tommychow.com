@@ -2,9 +2,11 @@
 
 <!-- BEGIN:nextjs-agent-rules -->
 
-# Next.js: ALWAYS read docs before coding
+# This is NOT the Next.js you know
 
-Before any Next.js work, find and read the relevant doc in `node_modules/next/dist/docs/`. Your training data is outdated — the docs are the source of truth.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
 
@@ -33,6 +35,7 @@ pnpm format:check # Check formatting without writing
 pnpm check        # Full check: typecheck + lint + format check + build
 pnpm ui:add       # Add a shadcn component (pnpm ui:add <component>)
 pnpm ui:update    # Refresh named shadcn components (pnpm ui:update <component...>)
+pnpm ui:diff      # Report installed shadcn items against the registry
 pnpm clean        # Delete .next, .open-next, and node_modules
 pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 ```
@@ -41,7 +44,7 @@ pnpm nuke         # Delete .next, .open-next, node_modules, and pnpm-lock.yaml
 
 Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@opennextjs/cloudflare`.
 
-**Runtime**: Node.js >= 22, pnpm 11 (managed via corepack and the `packageManager` field)
+**Runtime**: Node.js >= 24 (`.nvmrc`), pnpm 11 (managed via corepack and the `packageManager` field)
 
 ### Key Configuration
 
@@ -97,12 +100,15 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 - **Dark mode only**: App uses a dark-first design — don't introduce light-mode specific assumptions
 - **shadcn uses @base-ui/react**: Not Radix UI — imports differ from older shadcn examples, and most components don't expose `asChild`
 - **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds
+- **`error.tsx` takes `retry`, not `reset`** (stable since 16.3). `retry()` re-fetches and re-renders the boundary's children, including failed Server Components; `reset()` only clears client error state and still exists for that narrow case.
 - **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package
 - **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`)
 - **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
-- **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are fetched on demand via `pnpm dlx` (see `.mcp.json` for Claude Code, `.cursor/mcp.json` for Cursor) — not installed as deps
+- **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are wired globally via the dotfiles installer (OpenCode config, `~/.cursor/mcp.json`, Claude Code user scope in `~/.claude.json`) and fetched on demand via `pnpm dlx` — not installed as deps. The project `.mcp.json` / `.cursor/mcp.json` remain as fallback for machines that haven't run the installer, and are the only place the project-local `shadcn` MCP is wired.
 - **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `onlyBuiltDependencies`/`neverBuiltDependencies`/`ignoredBuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
+- **TypeScript is pinned to 6.x on purpose.** TS 7 is ~10x faster but `typescript-eslint` peers `<6.1.0` and crashes on it — TS 7 has no stable programmatic API until 7.1. Don't bump until typescript-eslint ships support.
+- **`@types/node` tracks the runtime major** (`.nvmrc` = 24). v26 would typecheck against APIs Node 24 doesn't have. Don't bump it with `pnpm update --latest`.
 
 ## shadcn
 
@@ -120,8 +126,10 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 1. Ensure clean working tree: `git status`
 2. Add components on demand with `pnpm ui:add <component>`
 3. Refresh existing components explicitly with `pnpm ui:update <component...>`
-4. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — see the preset name mismatch gotcha below), diff `globals.css` against it, add missing tokens, re-run.
-5. `git diff` the full changeset, commit
+4. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. The registry currently rewrites `cn` imports to `from "cn"` and turns `src/lib/utils.ts` into `export { cn } from "cn"` — keep the local `@/lib/utils` helper and don't take that unless we add the `cn` package on purpose. Don't take customized files (`tooltip.tsx`, `sonner.tsx`) unless the registry actually superseded the local version.
+5. **Never `shadcn diff`** — the CLI marks it `[DEPRECATED]` and it returns false negatives. `add --diff` with no arguments opens an interactive picker instead of your installed items.
+6. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — see the preset name mismatch gotcha below), diff `globals.css` against it, add missing tokens, re-run.
+7. `git diff` the full changeset, commit
 
 ### Gotchas
 
