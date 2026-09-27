@@ -1,6 +1,6 @@
 /* The static wall shows before hydration, without WebGL, and if the shader
    fails. It follows the same layout as the shader: a wall from 18% to 68%
-   up the screen with a soft top edge, and a red glow on the floor. */
+   up the screen, with the same soft red glow above and below it. */
 .background {
   position: fixed;
   top: 0;
@@ -15,6 +15,11 @@
   background:
     radial-gradient(
       ellipse 70% 12% at 50% 84%,
+      rgb(150 8 28 / 0.35),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 70% 12% at 50% 30%,
       rgb(150 8 28 / 0.35),
       transparent
     ),
@@ -42,7 +47,6 @@
       transparent 70%
     ),
     linear-gradient(#2c030b, #9a0820 55%, #b90c26);
-  mask-image: linear-gradient(transparent, black 14%);
 }
 
 .canvas {

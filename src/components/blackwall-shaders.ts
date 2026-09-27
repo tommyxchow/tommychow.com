@@ -339,9 +339,7 @@ void main() {
 
   // LED dot structure: bright string cores with fine gaps between rows.
   wallColor *= mix(0.2, 1.0, columnProfile) * mix(0.55, 1.0, rowProfile);
-  // A straight top edge that softens into the dark instead of cutting.
-  float topFade = 1.0 - smoothstep(0.86, 1.0, wallV);
-  vec3 wall = wallColor * topFade * step(0.0, wallV) * step(wallV, 1.0);
+  vec3 wall = wallColor * step(0.0, wallV) * step(wallV, 1.0);
 
   // ---- Floor: dark, with dust points and a soft glow lit by the wall ----
   // Computed everywhere because fwidth needs uniform control flow. Depth is
@@ -373,16 +371,30 @@ void main() {
   // Fade the floor out toward the bottom of the screen.
   floorColor *= step(wallV, 0.0) * mix(0.2, 1.0, smoothstep(0.0, base, screen.y));
 
-  vec3 color = wall + floorColor;
+  // ---- Ceiling: the floor's soft glow mirrored above the top edge ----
+  float aboveTop = max(screen.y - top, 0.0);
+  float ceilingDepth = (horizon - base) / (horizon - base + aboveTop);
+  float ceilingDistance = 5.0 * (1.0 - ceilingDepth);
+  float ceilingU = wallX * ceilingDepth / wallUnits + 0.5;
+  float topLight = textureLod(uSim, vec2(ceilingU, 0.92), 3.0).r;
+  float ceilingSpill = textureLod(uSim, vec2(ceilingU, clamp(1.0 - ceilingDistance * 0.25, 0.0, 1.0)), 4.0).r;
+  vec3 ceilingColor = ramp(ceilingSpill * 0.5, 0.0) * exp(-ceilingDistance * 1.4) * 0.35;
+  ceilingColor += vec3(0.8, 0.05, 0.1) * exp(-ceilingDistance * 5.0) * (0.08 + topLight * 0.3);
+  ceilingColor *= step(1.0, wallV) * mix(0.2, 1.0, 1.0 - smoothstep(top, 1.0, screen.y));
 
-  // Bright contact line where the wall meets the floor.
+  vec3 color = wall + floorColor + ceilingColor;
+
+  // Bright lines along both edges of the wall.
   float baseLight = textureLod(uSim, vec2(u, 0.02), 2.0).r;
   float fromBase = (screen.y - base) * uResolution.y;
   color += ramp(0.8, 0.0) * exp(-abs(fromBase) / (1.2 * uPixelRatio)) * 0.35 * baseLight;
+  float topEdgeLight = textureLod(uSim, vec2(u, 0.98), 2.0).r;
+  float fromTop = (screen.y - top) * uResolution.y;
+  color += ramp(0.8, 0.0) * exp(-abs(fromTop) / (1.2 * uPixelRatio)) * 0.35 * topEdgeLight;
 
   // Haze from a blurred mip of the sim, spilling softly past both edges.
   float glow = textureLod(uSim, vec2(u, clamp(wallV, 0.0, 1.0)), 5.0).r;
-  float glowFalloff = exp(-max(-wallV, 0.0) * 6.0) * exp(-max(wallV - 1.0, 0.0) * 7.0);
+  float glowFalloff = exp(-max(-wallV, 0.0) * 6.0) * exp(-max(wallV - 1.0, 0.0) * 6.0);
   color += ramp(glow * 0.7, 0.0) * 0.28 * glowFalloff;
 
   // Fall off toward the corners.

@@ -7,7 +7,7 @@ const details = [
 
 export function ProfileMeta() {
   return (
-    <ul className='flex flex-col gap-1 text-muted-foreground'>
+    <ul className='flex flex-col gap-2 text-muted-foreground'>
       {details.map((detail) => (
         <li key={detail}>{detail}</li>
       ))}

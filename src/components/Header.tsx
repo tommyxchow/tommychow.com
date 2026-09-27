@@ -11,7 +11,9 @@ export function Header() {
   const showBackButton = path !== '/'
 
   return (
-    <header className='fixed inset-x-0 top-0 z-50 flex items-center justify-between p-4'>
+    // The bar spans the page top, so it lets clicks through to the content under
+    // it; only the home button takes them, and only while it's visible.
+    <header className='pointer-events-none fixed inset-x-0 top-0 z-50 flex items-center justify-between p-4'>
       <Button
         render={
           <Link
@@ -25,7 +27,9 @@ export function Header() {
         size='icon'
         className={twJoin(
           'transition-opacity duration-300',
-          showBackButton ? 'opacity-100' : 'pointer-events-none opacity-0',
+          showBackButton
+            ? 'pointer-events-auto opacity-100'
+            : 'pointer-events-none opacity-0',
         )}
       >
         <Home />
