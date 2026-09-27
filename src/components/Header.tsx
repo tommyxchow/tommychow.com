@@ -15,14 +15,10 @@ export function Header() {
     // it; only the home button takes them, and only while it's visible.
     <header className='pointer-events-none fixed inset-x-0 top-0 z-50 flex items-center justify-between p-4'>
       <Button
-        render={
-          <Link
-            aria-label='Go back to home page'
-            href='/'
-            tabIndex={showBackButton ? 0 : -1}
-          />
-        }
+        render={<Link aria-label='Go back to home page' href='/' />}
         nativeButton={false}
+        // Hidden on the home page: out of the tab order and screen readers too.
+        inert={!showBackButton}
         variant='ghost'
         size='icon'
         className={twJoin(

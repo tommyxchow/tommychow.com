@@ -229,8 +229,18 @@ export function startBlackwall(canvas: HTMLCanvasElement) {
   let frame = 0
   let previousFrame = 0
   let pending = 0
+  // The clock wraps with the renderer's tick count, so the shaders' time
+  // inputs stay small enough for float precision in a tab left open for days.
+  let ticks = 0
   let seconds = 0
+  let warmed = false
   let contextLost = false
+
+  const advance = () => {
+    ticks = (ticks + 1) % TICK_WRAP
+    seconds = ticks * TICK_SECONDS
+    renderer?.step(seconds)
+  }
 
   const stop = () => {
     cancelAnimationFrame(frame)
@@ -248,20 +258,17 @@ export function startBlackwall(canvas: HTMLCanvasElement) {
     if (pending < TICK_SECONDS) return
 
     pending %= TICK_SECONDS
-    seconds += TICK_SECONDS
-    renderer?.step(seconds)
+    advance()
     renderer?.draw(seconds)
   }
 
   // The first frame needs at least one sim step. The reduced-motion still
   // runs more so it shows smeared blocks, not just the fresh field.
   const warmUp = () => {
-    if (!renderer || seconds > 0) return
-    const ticks = motionQuery.matches ? STATIC_TICKS : 1
-    for (let count = 0; count < ticks; count += 1) {
-      seconds += TICK_SECONDS
-      renderer.step(seconds)
-    }
+    if (!renderer || warmed) return
+    warmed = true
+    const steps = motionQuery.matches ? STATIC_TICKS : 1
+    for (let count = 0; count < steps; count += 1) advance()
   }
 
   const syncAnimation = () => {
@@ -299,7 +306,10 @@ export function startBlackwall(canvas: HTMLCanvasElement) {
   const restoreContext = () => {
     renderer = createRenderer(canvas)
     contextLost = false
+    // The new renderer's tick count starts over, so the clock does too.
+    ticks = 0
     seconds = 0
+    warmed = false
     resize()
     syncAnimation()
   }

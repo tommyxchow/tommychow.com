@@ -5,7 +5,7 @@ import { CopyEmailButton } from './copy-email-button'
 // its line. On touch the list opens to 8px gaps and the pseudo-element pads
 // each link to a 24px tap target without overlapping its neighbours.
 const linkClassName =
-  'relative inline-block text-muted-foreground uppercase transition-colors before:absolute before:-inset-x-1 before:content-[""] pointer-coarse:before:-inset-y-1 hover:text-foreground focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none'
+  'relative inline-block text-muted-foreground uppercase transition-colors before:absolute before:-inset-x-1 before:content-[""] pointer-coarse:before:-inset-y-1 hover:text-foreground focus-visible:rounded-sm focus-visible:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none'
 
 export function SocialLinks() {
   return (

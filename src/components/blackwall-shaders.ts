@@ -119,11 +119,10 @@ void main() {
   float epochLength = 10.0 + floor(blockSeed * 24.0);
   float epoch = floor((uTick + blockSeed * 97.0) / epochLength);
   float roll = hash12(vec2(block.x + epoch * 3.17, block.y - epoch * 1.63) + uSeed);
-  float crispRoll = hash12(vec2(block.y + epoch * 2.31, block.x + 11.0) + uSeed);
 
   vec2 fresh = field(uv, uTime * MORPH_SPEED, uTime * DRIFT_SPEED);
   if (uReset > 0.5) {
-    outColor = vec4(fresh, step(0.7, crispRoll), 1.0);
+    outColor = vec4(fresh, 0.0, 1.0);
     return;
   }
 
@@ -152,13 +151,15 @@ void main() {
   );
   vec4 moved = texelFetch(uPrevious, source, 0);
 
+  // B is how blocky this texel looks. It eases toward its target over about
+  // a second, so blocks dissolve in and out instead of popping.
   if (roll < 0.05) {
-    outColor = vec4(fresh, step(0.7, crispRoll), 1.0);
-  } else if (roll < 0.2 || tear > 0.5) {
-    outColor = vec4(mix(moved.rg, fresh, 0.06), 1.0, 1.0);
+    outColor = vec4(fresh, mix(previous.b, 0.0, 0.08), 1.0);
+  } else if (roll < 0.12 || tear > 0.5) {
+    outColor = vec4(mix(moved.rg, fresh, 0.06), mix(previous.b, 1.0, 0.08), 1.0);
   } else {
     // Most blocks track the live field with a long lag.
-    outColor = vec4(mix(previous.rg, fresh, 0.18), 0.0, 1.0);
+    outColor = vec4(mix(previous.rg, fresh, 0.18), mix(previous.b, 0.0, 0.08), 1.0);
   }
 }
 `
@@ -239,6 +240,8 @@ void main() {
   // The wall faces the camera head-on: a band half the screen tall, sitting a
   // little below center.
   float base = 0.18;
+  // The homepage text is anchored at top-[32lvh] (1 - top) in
+  // src/app/page.tsx; move both together.
   float top = 0.68;
   float wallHeight = top - base;
   float halfWidth = 0.5 * aspect / wallHeight;
@@ -278,10 +281,12 @@ void main() {
     int(mod(floor(coord.x * uSimSize.x) + 0.5, uSimSize.x)),
     int(clamp(floor(coord.y * uSimSize.y), 0.0, uSimSize.y - 1.0))
   );
-  float blocky = texelFetch(uSim, nearest, 0).b;
-  // Smeared regions snap to 8-texel macroblocks, like broken video.
-  vec2 macroblock = (floor(coord * uSimSize / 8.0) + 0.5) * 8.0 / uSimSize;
-  vec4 sim = textureLod(uSim, blocky > 0.5 ? macroblock : coord, 0.0);
+  float blockiness = smoothstep(0.15, 0.85, texelFetch(uSim, nearest, 0).b);
+  // Smeared regions snap to macroblocks, like broken video.
+  // Mostly fine 4-texel blocks, with the occasional coarse 8-texel one.
+  float blockSize = hash12(floor(coord * uSimSize / 8.0) + uSeed) > 0.85 ? 8.0 : 4.0;
+  vec2 macroblock = (floor(coord * uSimSize / blockSize) + 0.5) * blockSize / uSimSize;
+  vec4 sim = mix(textureLod(uSim, coord, 0.0), textureLod(uSim, macroblock, 0.0), blockiness);
 
   float columnProfile = smoothstep(0.0, 0.35, columnFraction) * (1.0 - smoothstep(0.65, 1.0, columnFraction));
   float rowProfile = smoothstep(0.0, 0.3, rowFraction) * (1.0 - smoothstep(0.7, 1.0, rowFraction));

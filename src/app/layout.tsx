@@ -1,16 +1,16 @@
 import { BlackwallBackground } from '@/components/blackwall-background'
 import { Header } from '@/components/Header'
-import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
 import { fontMono, fontSans } from '@/lib/fonts'
 import { twJoin } from 'cn'
 import { type Metadata, type Viewport } from 'next'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import './globals.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: 'Tommy Chow',
-  description: 'Mobile & web engineer.',
+  description: 'Software engineer at Tesla.',
   openGraph: {
     url: BASE_URL,
   },
@@ -20,7 +20,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#09090b',
+  // Matches the black around the wall, so phone browser bars blend in.
+  themeColor: '#050304',
 }
 
 export default function RootLayout({
@@ -42,13 +43,13 @@ export default function RootLayout({
           fontMono.variable,
         )}
       >
-        <Providers>
+        <NuqsAdapter>
           <BlackwallBackground />
           <Header />
           <main className='grid min-h-dvh grow place-items-center'>
             {children}
           </main>
-        </Providers>
+        </NuqsAdapter>
       </body>
     </html>
   )
