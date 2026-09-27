@@ -5,18 +5,8 @@ export const fontSans = localFont({
   variable: '--font-sans',
 })
 
+// Ioskeley Mono ships static weights, and the site only sets mono at 400.
 export const fontMono = localFont({
-  src: [
-    {
-      path: '../app/Lilex-Variable.woff2',
-      weight: '100 700',
-      style: 'normal',
-    },
-    {
-      path: '../app/Lilex-Variable-Italic.woff2',
-      weight: '100 700',
-      style: 'italic',
-    },
-  ],
+  src: '../app/IoskeleyMono-Regular.woff2',
   variable: '--font-mono',
 })

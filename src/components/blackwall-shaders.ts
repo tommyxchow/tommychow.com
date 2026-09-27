@@ -179,10 +179,6 @@ out vec4 outColor;
 
 ${noise}
 
-// Brightness steps per cell, and how strongly the ordered dither blends them.
-const float LEVELS = 9.0;
-const float DITHER = 1.0;
-
 // Energy to color: black, deep crimson, red, hot pink, then near-white at the
 // peaks, with violet pulled into the midtones where the sim marks it.
 vec3 ramp(float x, float violet) {
@@ -194,17 +190,6 @@ vec3 ramp(float x, float violet) {
   vec3 purple = vec3(0.42, 0.08, 0.5) * smoothstep(0.02, 0.3, x);
   float midtones = smoothstep(0.05, 0.25, x) * (1.0 - smoothstep(0.45, 0.7, x));
   return mix(color, purple, violet * midtones * 0.7);
-}
-
-// 4x4 ordered dither threshold in [0, 1), indexed by LED cell so the pattern
-// stays fixed on screen instead of crawling.
-float bayer2(vec2 a) {
-  a = floor(a);
-  return fract(dot(a, vec2(0.5, a.y * 0.75)));
-}
-
-float bayer4(vec2 a) {
-  return bayer2(0.5 * a) * 0.25 + bayer2(a);
 }
 
 // Lightning in the storm. Three overlapping clocks of different lengths each
@@ -320,25 +305,21 @@ void main() {
   float burst = storm(vec2(cellX, cellV), t, halfWidth);
   energy += burst * (0.1 + sim.r * 1.2);
 
-  // Hard brightness steps with an ordered dither, like an 8-bit screen.
-  float threshold = bayer4(vec2(column, rowIndex)) - 0.5;
-  float stepped = max(floor(energy * LEVELS + threshold * DITHER + 0.5) / LEVELS, 0.0);
-
-  vec3 wallColor = ramp(stepped, sim.g);
+  vec3 wallColor = ramp(energy, sim.g);
   // Bright strikes split the color channels and burn toward a cold white core.
   float split = smoothstep(0.3, 1.2, burst);
   if (split > 0.01) {
     vec2 shift = vec2(split * 2.0 * cellSize / (wallHeight * wallUnits * uResolution.y), 0.0);
     float red = textureLod(uSim, coord + shift, 0.0).r;
     float blue = textureLod(uSim, coord - shift, 0.0).r;
-    wallColor.r = ramp(stepped + (red - sim.r) * 2.0 * split, sim.g).r;
-    wallColor.b = ramp(stepped + (blue - sim.r) * 2.0 * split, sim.g).b;
+    wallColor.r = ramp(energy + (red - sim.r) * 2.0 * split, sim.g).r;
+    wallColor.b = ramp(energy + (blue - sim.r) * 2.0 * split, sim.g).b;
   }
   float core = smoothstep(0.8, 1.6, burst * (0.3 + sim.r));
   wallColor = mix(wallColor, vec3(0.85, 0.93, 1.0), core * 0.5);
 
-  // LED dot structure: bright string cores with fine gaps between rows.
-  wallColor *= mix(0.2, 1.0, columnProfile) * mix(0.55, 1.0, rowProfile);
+  // Bright string cores, with faint scanlines between rows.
+  wallColor *= mix(0.2, 1.0, columnProfile) * mix(0.8, 1.0, rowProfile);
   vec3 wall = wallColor * step(0.0, wallV) * step(wallV, 1.0);
 
   // ---- Floor: dark, with dust points and a soft glow lit by the wall ----
