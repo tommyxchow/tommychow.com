@@ -1,3 +1,4 @@
+import { BlackwallBackground } from '@/components/blackwall-background'
 import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
@@ -42,6 +43,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
+          <BlackwallBackground />
           <Header />
           <main className='grid min-h-dvh grow place-items-center'>
             {children}
