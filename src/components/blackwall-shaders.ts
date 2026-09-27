@@ -151,15 +151,15 @@ void main() {
   );
   vec4 moved = texelFetch(uPrevious, source, 0);
 
-  // B is how blocky this texel looks. It eases toward its target over about
-  // a second, so blocks dissolve in and out instead of popping.
+  // B marks a block as glitched. It switches on and off in a single frame,
+  // the way real GPU artifacts do.
   if (roll < 0.05) {
-    outColor = vec4(fresh, mix(previous.b, 0.0, 0.08), 1.0);
+    outColor = vec4(fresh, 0.0, 1.0);
   } else if (roll < 0.12 || tear > 0.5) {
-    outColor = vec4(mix(moved.rg, fresh, 0.06), mix(previous.b, 1.0, 0.08), 1.0);
+    outColor = vec4(mix(moved.rg, fresh, 0.06), 1.0, 1.0);
   } else {
     // Most blocks track the live field with a long lag.
-    outColor = vec4(mix(previous.rg, fresh, 0.18), mix(previous.b, 0.0, 0.08), 1.0);
+    outColor = vec4(mix(previous.rg, fresh, 0.18), 0.0, 1.0);
   }
 }
 `
@@ -217,14 +217,10 @@ float storm(vec2 p, float t, float halfWidth) {
     vec2 offset = (p - center) / vec2(radius * 1.6, radius);
     float shape = exp(-dot(offset, offset));
 
-    // A first flash, then one or two dimmer re-strikes, then a slow afterglow.
-    float restrike = hash12(vec2(slot + 2.0, fi + uSeed.y));
-    float second = 0.3 + restrike * 0.2;
-    float envelope = exp(-since * 7.0)
-      + step(0.12, since) * exp(-max(since - 0.12, 0.0) * 9.0) * 0.7
-      + step(second, since) * step(0.4, restrike) * exp(-max(since - second, 0.0) * 5.0) * 0.45
-      + exp(-since * 2.5) * 0.1;
-    float strength = 0.5 + 0.7 * hash12(vec2(slot * 3.3, fi + 1.0 + uSeed.y));
+    // One soft swell that fades, like lightning glimpsed through thick
+    // cloud. No rapid re-strikes, so it never strobes.
+    float envelope = smoothstep(0.0, 0.25, since) * exp(-max(since - 0.25, 0.0) * 2.2);
+    float strength = 0.4 + 0.5 * hash12(vec2(slot * 3.3, fi + 1.0 + uSeed.y));
     total += shape * envelope * strength;
   }
   return total;
@@ -277,6 +273,37 @@ void main() {
   coord.x += tear * (hash12(vec2(row, stepTime + 1.0) + uSeed) - 0.5) * 0.015;
   coord.y = clamp(coord.y + (columnSeed - 0.5) * 0.006, 0.0, 1.0);
 
+  // Glitch tiles: short, wide patches of the wall that break for a while,
+  // like the scattered corruption on the real Blackwall. Rows are staggered
+  // so seams don't line up. Each tile runs on its own random clock and
+  // switches in a single frame: offset, smeared sideways or down, or crushed
+  // into big pixels. They're rare and hold for seconds, so they read as
+  // texture rather than flicker.
+  vec2 tileSize = vec2(0.32, 0.1);
+  float tileRow = floor(cellV / tileSize.y);
+  float rowShift = hash12(vec2(tileRow, 3.7) + uSeed) * tileSize.x;
+  vec2 tile = vec2(floor((cellX + rowShift) / tileSize.x), tileRow);
+  float tileSeed = hash12(tile + uSeed + 5.1);
+  float tileSlot = floor(t / (1.2 + 2.8 * tileSeed) + tileSeed * 13.0);
+  vec2 tileRoll = hash22(tile + tileSlot * vec2(1.37, 2.11) + uSeed);
+  vec2 jump = hash22(tile + tileSlot + uSeed.yx) - 0.5;
+  float glitched = step(0.94, tileRoll.x);
+  if (glitched > 0.5) {
+    vec2 tileOrigin = vec2(tile.x * tileSize.x - rowShift, tile.y * tileSize.y);
+    if (tileRoll.y < 0.4) {
+      coord += jump * vec2(0.04, 0.12);
+    } else if (tileRoll.y < 0.7) {
+      // The whole tile repeats one column, a sideways streak.
+      coord.x = (tileOrigin.x + tileSize.x * (0.5 + jump.x)) / wallUnits + 0.5;
+    } else if (tileRoll.y < 0.85) {
+      // The whole tile repeats its top row, dragged downward.
+      coord.y = tileOrigin.y + tileSize.y;
+    } else {
+      coord = (floor(coord * uSimSize / 16.0) + 0.5) * 16.0 / uSimSize;
+    }
+    coord.y = clamp(coord.y, 0.0, 1.0);
+  }
+
   ivec2 nearest = ivec2(
     int(mod(floor(coord.x * uSimSize.x) + 0.5, uSimSize.x)),
     int(clamp(floor(coord.y * uSimSize.y), 0.0, uSimSize.y - 1.0))
@@ -294,7 +321,8 @@ void main() {
   // A few strings at a time slowly brighten, as if plucked.
   float pluck = smoothstep(0.6, 0.95, valueNoise(vec2(column * 0.21, t * 0.25) + uSeed));
   float strings = (0.65 + 0.6 * columnSeed) * mix(0.55, 1.25, strand) * (1.0 + pluck * 0.6);
-  float energy = sim.r * strings * 1.5;
+  // Broken tiles sit a touch brighter or darker than their surroundings.
+  float energy = sim.r * strings * 1.5 * mix(1.0, 0.9 + 0.2 * (jump.y + 0.5), glitched);
 
   // Every so often a soft band of light swells and fades across the wall, at
   // random times.
