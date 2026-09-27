@@ -1,4 +1,3 @@
-import { BlackwallBackground } from '@/components/blackwall-background'
 import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
@@ -37,13 +36,12 @@ export default function RootLayout({
     >
       <body
         className={twJoin(
-          'relative min-h-dvh bg-transparent font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
+          'relative min-h-dvh font-sans text-foreground underline-offset-4 selection:bg-foreground selection:text-background',
           fontSans.variable,
           fontMono.variable,
         )}
       >
         <Providers>
-          <BlackwallBackground />
           <Header />
           <main className='grid min-h-dvh grow place-items-center'>
             {children}
