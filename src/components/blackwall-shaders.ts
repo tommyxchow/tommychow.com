@@ -184,11 +184,10 @@ void main() {
   float t = uTime;
   float stepTime = floor(t * 6.0);
 
-  // The wall faces the camera head-on. On phones it sits a little higher and
-  // shorter so the floor still reads below the text.
-  float landscape = smoothstep(0.7, 1.4, aspect);
-  float base = mix(0.3, 0.26, landscape);
-  float top = mix(0.8, 0.86, landscape);
+  // The wall faces the camera head-on: a hard-edged band half the screen
+  // tall, sitting a little below center.
+  float base = 0.18;
+  float top = 0.68;
   float wallHeight = top - base;
   float wallUnits = uSimSize.x / uSimSize.y;
   float wallX = (screen.x - 0.5) * aspect / wallHeight;
@@ -229,18 +228,8 @@ void main() {
   float band = (wallV - bandY) * 22.0;
   energy += exp(-band * band) * envelope * 0.55 * (0.6 + 0.4 * profile);
 
-  // A ragged, blocky top edge that breaks up into loose fragments above it.
-  float edgeBlock = floor(u * uSimSize.x / 8.0);
-  float edgeStep = floor(t * 1.5 + hash12(vec2(edgeBlock, 3.0)) * 10.0);
-  float edge = 0.96
-    + (hash12(vec2(edgeBlock, edgeStep)) - 0.5) * 0.08
-    + (periodicNoise(vec2(u * 5.0, t * 0.1), 5.0) - 0.5) * 0.14;
-  float above = wallV - edge;
-  float fragmentRow = floor(wallV * uSimSize.y / 4.0);
-  float fragments = step(0.55 + above * 6.0, hash12(vec2(edgeBlock + fragmentRow * 13.0, floor(t * 3.0))));
-  energy *= above <= 0.0 ? 1.0 : fragments * exp(-above * 10.0);
-
-  vec3 wall = ramp(energy, sim.g) * step(0.0, wallV);
+  // Straight cuts top and bottom.
+  vec3 wall = ramp(energy, sim.g) * step(0.0, wallV) * step(wallV, 1.0);
 
   // ---- Floor: a sparse point cloud lit by the wall ----
   // Computed everywhere because fwidth needs uniform control flow. Depth is
@@ -276,15 +265,13 @@ void main() {
   float fromBase = (screen.y - base) * uResolution.y;
   color += ramp(0.8, 0.0) * exp(-abs(fromBase) / (1.2 * uPixelRatio)) * 0.35 * baseLight;
 
-  // Haze that bleeds past the wall's edges, from a blurred mip of the sim.
+  // Haze from a blurred mip of the sim. It spills down onto the floor but
+  // stops at the top edge, so the cut stays clean against the black.
   float glow = textureLod(uSim, vec2(u, clamp(wallV, 0.0, 1.0)), 5.0).r;
-  float glowFalloff = exp(-max(wallV - 1.0, 0.0) * 5.0) * exp(-max(-wallV, 0.0) * 3.0);
+  float glowFalloff = step(wallV, 1.0) * exp(-max(-wallV, 0.0) * 3.0);
   color += ramp(glow * 0.7, 0.0) * 0.28 * glowFalloff;
 
-  // Keep the centered text readable, and fall off toward the corners.
-  vec2 fromCenter = (screen - 0.5) * vec2(aspect, 1.0);
-  float reading = length(fromCenter * vec2(0.75, 1.35));
-  color *= mix(0.14, 1.0, smoothstep(0.1, 0.5, reading));
+  // Fall off toward the corners.
   color *= mix(1.0, 0.45, smoothstep(0.35, 1.1, length((screen - 0.5) * vec2(1.0, 1.1))));
 
   color += vec3(0.012, 0.006, 0.008);
