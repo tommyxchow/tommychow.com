@@ -9,7 +9,7 @@ import { type LinkInfo, links } from '@/lib/links'
 import { toast } from 'sonner'
 
 const linkClassName =
-  'relative flex size-3 items-center justify-center text-inherit before:absolute before:-inset-1.5 before:content-[""] focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none [&_svg]:size-3'
+  'relative flex size-4 items-center justify-center text-muted-foreground transition-colors hover:text-foreground before:absolute before:-inset-1 before:content-[""] focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none [&_svg]:size-4'
 
 function isCopyLink(
   link: LinkInfo,
@@ -29,7 +29,7 @@ async function copyToClipboard(value: string) {
 export function SocialLinks() {
   return (
     <nav aria-label='Social links'>
-      <ul className='flex items-center gap-1.5 leading-none'>
+      <ul className='flex items-center gap-4 leading-none'>
         {links.map((link) => (
           <li key={link.title}>
             <Tooltip>
