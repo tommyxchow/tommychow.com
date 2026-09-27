@@ -36,7 +36,6 @@
     "nuqs": "=2.10.1",
     "react": "=19.3.0",
     "react-dom": "=19.3.0",
-    "react-icons": "=5.7.0",
     "server-only": "=0.0.1",
     "sonner": "=2.0.8",
     "thumbhash": "=0.1.1",

@@ -93,7 +93,7 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 
 - **nuqs** — Type-safe URL search params (`useQueryState`, `useQueryStates`)
 - **motion** — Animation library (Framer Motion v12+). Import from `motion/react`, not `framer-motion` — see the Animation section for when to reach for it
-- **lucide-react** — Icons; `react-icons/fa6` for brand icons (`FaGithub`, `FaLinkedin`)
+- **lucide-react** — Icons
 
 ## Gotchas
 
@@ -118,7 +118,7 @@ Style `base-nova` / `neutral` / `default-translucent` menus (see `components.jso
 > [!NOTE]
 > `pnpm ui:add` / `pnpm ui:update` run the locally-pinned `shadcn` (a devDependency), **not** `pnpm dlx shadcn@latest`. To pick up newer shadcn releases, bump `shadcn` in `package.json` first, then `pnpm install`.
 
-`button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `tooltip.tsx` (optional `showArrow` on `TooltipContent`, used by social link labels) and `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
+`button.tsx`, `popover.tsx`, and `carousel.tsx` track **vanilla** shadcn output (no local overrides), so `pnpm ui:update` regenerates them safely. Customized: `sonner.tsx` (hardcoded `theme='dark'`, lucide icon set, token-mapped CSS vars). Prefer a manual merge over a blind regenerate on customized components so the customization isn't silently lost.
 
 The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette and radius scale. The only intentional deltas from a fresh scaffold are: local fonts (`UncutSans`/`Lilex`) wired through `--font-sans`/`--font-mono`, the `--font-sans--font-feature-settings` stylistic sets, `@plugin '@tailwindcss/typography'` (used by `Prose`), `color-scheme: dark` (the site is dark-only), and `html { @apply bg-background }` (solid base for in-app webview compositing). Keep those when regenerating; everything else should match upstream.
 
@@ -127,7 +127,7 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 1. Ensure clean working tree: `git status`
 2. Add components on demand with `pnpm ui:add <component>`
 3. Refresh existing components explicitly with `pnpm ui:update <component...>`
-4. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. `src/lib/utils.ts` always shows `overwrite` because Prettier writes `export { cn } from 'cn'` while the registry still has double quotes and a semicolon; that one is cosmetic. Don't take customized files (`tooltip.tsx`, `sonner.tsx`) unless the registry actually superseded the local version.
+4. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. `src/lib/utils.ts` always shows `overwrite` because Prettier writes `export { cn } from 'cn'` while the registry still has double quotes and a semicolon; that one is cosmetic. Don't take customized files (`sonner.tsx`) unless the registry actually superseded the local version.
 5. **Never `shadcn diff`** — the CLI marks it `[DEPRECATED]` and it returns false negatives. `add --diff` with no arguments opens an interactive picker instead of your installed items.
 6. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — see the preset name mismatch gotcha below), diff `globals.css` against it, add missing tokens, re-run.
 7. `git diff` the full changeset, commit

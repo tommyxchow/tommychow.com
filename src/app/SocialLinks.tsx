@@ -1,15 +1,11 @@
 'use client'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
 import { type LinkInfo, links } from '@/lib/links'
 import { toast } from 'sonner'
 
+// The pseudo-element pads the hit area to about 24px around the small text.
 const linkClassName =
-  'relative flex size-4 items-center justify-center text-muted-foreground transition-colors hover:text-foreground before:absolute before:-inset-1 before:content-[""] focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none [&_svg]:size-4'
+  'relative text-muted-foreground uppercase transition-colors before:absolute before:-inset-x-1 before:-inset-y-1.5 before:content-[""] hover:text-foreground focus-visible:rounded-sm focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none'
 
 function isCopyLink(
   link: LinkInfo,
@@ -29,42 +25,28 @@ async function copyToClipboard(value: string) {
 export function SocialLinks() {
   return (
     <nav aria-label='Social links'>
-      <ul className='flex items-center gap-4 leading-none'>
+      <ul className='flex flex-wrap gap-x-4 gap-y-2 md:justify-end'>
         {links.map((link) => (
-          <li key={link.title}>
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  isCopyLink(link) ? (
-                    <button
-                      type='button'
-                      onClick={() => void copyToClipboard(link.copyValue)}
-                      aria-label={link.title}
-                      className={linkClassName}
-                    />
-                  ) : (
-                    <a
-                      href={link.href}
-                      {...(link.href.startsWith('http')
-                        ? { target: '_blank', rel: 'noopener noreferrer' }
-                        : {})}
-                      aria-label={link.title}
-                      className={linkClassName}
-                    />
-                  )
-                }
+          <li key={link.label}>
+            {isCopyLink(link) ? (
+              <button
+                type='button'
+                onClick={() => void copyToClipboard(link.copyValue)}
+                aria-label={`Copy ${link.label.toLowerCase()}`}
+                className={linkClassName}
               >
-                {link.icon}
-              </TooltipTrigger>
-              <TooltipContent
-                side='top'
-                sideOffset={8}
-                showArrow={false}
-                className='border border-border bg-popover text-popover-foreground shadow-md ring-1 ring-foreground/10'
+                {link.label}
+              </button>
+            ) : (
+              <a
+                href={link.href}
+                target='_blank'
+                rel='noopener noreferrer'
+                className={linkClassName}
               >
-                {link.title}
-              </TooltipContent>
-            </Tooltip>
+                {link.label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
