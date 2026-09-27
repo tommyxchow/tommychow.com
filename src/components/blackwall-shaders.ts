@@ -25,8 +25,10 @@ float periodicNoise(vec2 p, float period) {
   vec2 cell = floor(p);
   vec2 f = fract(p);
   f = f * f * (3.0 - 2.0 * f);
-  float x0 = mod(cell.x, period);
-  float x1 = mod(cell.x + 1.0, period);
+  // Wrap with a half-cell nudge: some GPUs divide through an approximate
+  // reciprocal, so mod(6.0, 6.0) can come back as 6.0 and open a seam.
+  float x0 = cell.x - period * floor((cell.x + 0.5) / period);
+  float x1 = cell.x + 1.0 - period * floor((cell.x + 1.5) / period);
   float a = hash12(vec2(x0, cell.y));
   float b = hash12(vec2(x1, cell.y));
   float c = hash12(vec2(x0, cell.y + 1.0));
@@ -63,6 +65,7 @@ precision highp float;
 
 uniform sampler2D uPrevious;
 uniform vec2 uSimSize;
+uniform vec2 uSeed;
 uniform float uTime;
 uniform float uTick;
 uniform float uReset;
@@ -70,19 +73,23 @@ out vec4 outColor;
 
 ${noise}
 
-const float CELLS = 6.0;
+// Cells across the texture width. These are periods of the tiling noise, so
+// they stay whole numbers.
+const float CELLS = 9.0;
+const float HOT_CELLS = 4.0;
+const float REGION_CELLS = 6.0;
 // The domain warp compounds speed through each layer, so the shapes need a
 // very slow clock to morph over tens of seconds. The sideways drift is a plain
 // translation and runs on its own, gentler clock.
 const float MORPH_SPEED = 0.06;
 const float DRIFT_SPEED = 0.03;
 
-// R: energy, G: violet tint.
+// R: energy, G: violet tint. The seed only ever translates the noise, which
+// keeps the horizontal tiling seamless.
 vec2 field(vec2 uv, float t, float drift) {
-  vec2 p = vec2(uv.x * CELLS, uv.y * 2.2);
-  p.x += drift;
+  vec2 p = vec2(uv.x * CELLS + drift, uv.y * 2.2 + uSeed.x);
 
-  // Two rounds of domain warping give the liquid, smeared shapes.
+  // Two rounds of domain warping give the slow, storm-like shapes.
   vec2 q = vec2(
     fbm(p + vec2(0.0, t * 0.06), CELLS, 3),
     fbm(p + vec2(3.1, 7.4 - t * 0.05), CELLS, 3)
@@ -93,13 +100,11 @@ vec2 field(vec2 uv, float t, float drift) {
   );
   float f = fbm(p + 3.0 * r, CELLS, 4);
 
-  float lit = smoothstep(0.3, 0.7, f);
-  // Thin dark tendrils where the warp field crosses its midpoint.
-  float veins = smoothstep(0.012, 0.07, abs(r.x - 0.5));
-  float hot = smoothstep(0.56, 0.82, fbm(vec2(uv.x * 3.0 + t * 0.03, uv.y * 1.3 - t * 0.02), 3.0, 3));
-  float region = 0.55 + 0.45 * periodicNoise(vec2(uv.x * 4.0, t * 0.04), 4.0);
+  float lit = smoothstep(0.32, 0.68, f);
+  float hot = smoothstep(0.56, 0.82, fbm(vec2(uv.x * HOT_CELLS + t * 0.03, uv.y * 1.3 - t * 0.02 + uSeed.y), HOT_CELLS, 3));
+  float region = 0.55 + 0.45 * periodicNoise(vec2(uv.x * REGION_CELLS, t * 0.04 + uSeed.y), REGION_CELLS);
 
-  float energy = ((0.05 + 0.5 * lit) * mix(0.2, 1.0, veins) + hot * 0.42 * lit) * region;
+  float energy = ((0.04 + 0.52 * lit) + hot * 0.42 * lit) * region;
   float violet = smoothstep(0.45, 0.85, q.y) * (1.0 - hot);
   return vec2(energy, violet);
 }
@@ -110,11 +115,11 @@ void main() {
   vec2 block = floor(texel / 8.0);
   vec2 blocks = uSimSize / 8.0;
 
-  float blockSeed = hash12(block + 0.37);
+  float blockSeed = hash12(block + uSeed + 0.37);
   float epochLength = 10.0 + floor(blockSeed * 24.0);
   float epoch = floor((uTick + blockSeed * 97.0) / epochLength);
-  float roll = hash12(vec2(block.x + epoch * 3.17, block.y - epoch * 1.63));
-  float crispRoll = hash12(vec2(block.y + epoch * 2.31, block.x + 11.0));
+  float roll = hash12(vec2(block.x + epoch * 3.17, block.y - epoch * 1.63) + uSeed);
+  float crispRoll = hash12(vec2(block.y + epoch * 2.31, block.x + 11.0) + uSeed);
 
   vec2 fresh = field(uv, uTime * MORPH_SPEED, uTime * DRIFT_SPEED);
   if (uReset > 0.5) {
@@ -124,24 +129,25 @@ void main() {
 
   // Neighbouring blocks share motion, the way real P-frame smear drifts in sheets.
   float motionPeriod = 8.0;
-  vec2 motionCoord = vec2(block.x / blocks.x * motionPeriod, block.y * 0.25 + epoch * 0.05);
+  vec2 motionCoord = vec2(block.x / blocks.x * motionPeriod, block.y * 0.25 + epoch * 0.05 + uSeed.x);
   vec2 flow = vec2(
     periodicNoise(motionCoord, motionPeriod),
     periodicNoise(motionCoord + vec2(0.0, 41.0), motionPeriod)
   );
   vec2 motion = floor((flow - 0.5) * vec2(4.0, 2.0) + 0.5);
-  if (hash12(block + epoch) > 0.5) motion.y = 0.0;
+  if (hash12(block + epoch + uSeed) > 0.5) motion.y = 0.0;
   // Step the smear every fourth tick so trails creep instead of streak.
   if (mod(uTick + floor(blockSeed * 4.0), 4.0) >= 1.0) motion = vec2(0.0);
 
   // Rare horizontal tears drag a few rows sideways.
   float tearRow = floor(texel.y / 4.0);
-  float tear = step(0.996, hash12(vec2(tearRow, floor(uTick / 6.0))));
-  motion.x += tear * (hash12(vec2(tearRow, uTick)) > 0.5 ? 4.0 : -4.0);
+  float tear = step(0.996, hash12(vec2(tearRow, floor(uTick / 6.0)) + uSeed));
+  motion.x += tear * (hash12(vec2(tearRow, uTick) + uSeed) > 0.5 ? 4.0 : -4.0);
 
   vec4 previous = texelFetch(uPrevious, ivec2(texel), 0);
   ivec2 source = ivec2(
-    int(mod(texel.x - motion.x, uSimSize.x)),
+    // The half-texel nudge keeps an inexact mod from landing on the width.
+    int(mod(texel.x - motion.x + 0.5, uSimSize.x)),
     int(clamp(texel.y - motion.y, 0.0, uSimSize.y - 1.0))
   );
   vec4 moved = texelFetch(uPrevious, source, 0);
@@ -151,26 +157,31 @@ void main() {
   } else if (roll < 0.2 || tear > 0.5) {
     outColor = vec4(mix(moved.rg, fresh, 0.06), 1.0, 1.0);
   } else {
-    // Most blocks track the live field with a long lag, which leaves the
-    // soft, painterly trails.
+    // Most blocks track the live field with a long lag.
     outColor = vec4(mix(previous.rg, fresh, 0.18), 0.0, 1.0);
   }
 }
 `
 
-// Pass 2: the frontal wall, the point-cloud floor, and the haze, at screen
-// resolution. It only samples the simulation, so the per-pixel cost stays low.
+// Pass 2: the wall as a grid of LED cells, the mirrored floor, and the storm,
+// at screen resolution. It only samples the simulation, so the per-pixel cost
+// stays low.
 export const displayFragmentShader = `#version 300 es
 precision highp float;
 
 uniform sampler2D uSim;
 uniform vec2 uSimSize;
 uniform vec2 uResolution;
+uniform vec2 uSeed;
 uniform float uPixelRatio;
 uniform float uTime;
 out vec4 outColor;
 
 ${noise}
+
+// Brightness steps per cell, and how strongly the ordered dither blends them.
+const float LEVELS = 9.0;
+const float DITHER = 1.0;
 
 // Energy to color: black, deep crimson, red, hot pink, then near-white at the
 // peaks, with violet pulled into the midtones where the sim marks it.
@@ -185,6 +196,54 @@ vec3 ramp(float x, float violet) {
   return mix(color, purple, violet * midtones * 0.7);
 }
 
+// 4x4 ordered dither threshold in [0, 1), indexed by LED cell so the pattern
+// stays fixed on screen instead of crawling.
+float bayer2(vec2 a) {
+  a = floor(a);
+  return fract(dot(a, vec2(0.5, a.y * 0.75)));
+}
+
+float bayer4(vec2 a) {
+  return bayer2(0.5 * a) * 0.25 + bayer2(a);
+}
+
+// Lightning in the storm. Three overlapping clocks of different lengths each
+// may fire one strike per slot at a random time and place, so strikes land
+// irregularly and never repeat in step. p is in wall units: x across the
+// screen, y up the wall.
+float storm(vec2 p, float t, float halfWidth) {
+  float total = 0.0;
+  for (int i = 0; i < 3; i++) {
+    float fi = float(i);
+    float slotLength = 2.7 + fi * 1.3;
+    float shifted = t + uSeed.x * (fi + 1.0) * 3.7;
+    float slot = floor(shifted / slotLength);
+    vec2 timing = hash22(vec2(slot + fi * 17.0, uSeed.y + fi * 5.3));
+    // Most slots stay quiet.
+    if (timing.x > 0.4) continue;
+
+    float since = shifted - (slot + timing.y * 0.5) * slotLength;
+    if (since < 0.0 || since > 2.5) continue;
+
+    vec2 place = hash22(vec2(slot * 1.7 + 3.1, fi * 11.0 + uSeed.x));
+    vec2 center = vec2((place.x - 0.5) * 1.8 * halfWidth, 0.15 + 0.75 * place.y);
+    float radius = 0.08 + 0.22 * hash12(vec2(slot, fi + 7.0 + uSeed.x));
+    vec2 offset = (p - center) / vec2(radius * 1.6, radius);
+    float shape = exp(-dot(offset, offset));
+
+    // A first flash, then one or two dimmer re-strikes, then a slow afterglow.
+    float restrike = hash12(vec2(slot + 2.0, fi + uSeed.y));
+    float second = 0.3 + restrike * 0.2;
+    float envelope = exp(-since * 7.0)
+      + step(0.12, since) * exp(-max(since - 0.12, 0.0) * 9.0) * 0.7
+      + step(second, since) * step(0.4, restrike) * exp(-max(since - second, 0.0) * 5.0) * 0.45
+      + exp(-since * 2.5) * 0.1;
+    float strength = 0.5 + 0.7 * hash12(vec2(slot * 3.3, fi + 1.0 + uSeed.y));
+    total += shape * envelope * strength;
+  }
+  return total;
+}
+
 void main() {
   vec2 pixel = gl_FragCoord.xy;
   vec2 screen = pixel / uResolution;
@@ -192,71 +251,129 @@ void main() {
   float t = uTime;
   float stepTime = floor(t * 2.0);
 
-  // The wall faces the camera head-on: a hard-edged band half the screen
-  // tall, sitting a little below center.
+  // The wall faces the camera head-on: a band half the screen tall, sitting a
+  // little below center.
   float base = 0.18;
   float top = 0.68;
   float wallHeight = top - base;
+  float halfWidth = 0.5 * aspect / wallHeight;
   float wallUnits = uSimSize.x / uSimSize.y;
   float wallX = (screen.x - 0.5) * aspect / wallHeight;
   float wallV = (screen.y - base) / wallHeight;
   float u = wallX / wallUnits + 0.5;
 
-  // ---- Wall ----
-  float row = floor(wallV * uSimSize.y);
-  float tear = step(0.997, hash12(vec2(row * 0.37, stepTime)));
-  vec2 coord = vec2(u + tear * (hash12(vec2(row, stepTime + 1.0)) - 0.5) * 0.015, min(wallV, 1.0));
-
-  // Hairline columns like the strings of a harp. A slow wave bends them, and
-  // its amplitude changes smoothly across the screen so neighbouring strings
-  // sway together instead of crossing.
+  // ---- Wall: a grid of LED cells strung on swaying strings ----
+  // A slow wave bends the strings, and its amplitude changes smoothly across
+  // the screen so neighbouring strings sway together instead of crossing.
   float across = pixel.x / uResolution.y;
-  float swayAmount = valueNoise(vec2(across * 3.0, t * 0.08)) - 0.35;
+  float swayAmount = valueNoise(vec2(across * 3.0 + uSeed.x, t * 0.08)) - 0.35;
   float sway = max(swayAmount, 0.0) * 14.0 * uPixelRatio
-    * sin(wallV * 3.5 - t * 0.55 + across * 2.0);
-  coord.x += sway / (wallHeight * wallUnits * uResolution.y);
+    * sin(wallV * 3.5 - t * 0.55 + across * 2.0 + uSeed.y);
 
-  float columnWidth = max(2.0, 3.0 * uPixelRatio);
-  float column = floor((pixel.x + sway) / columnWidth);
-  float columnFraction = fract((pixel.x + sway) / columnWidth);
-  float columnSeed = hash12(vec2(column, 7.1));
-  coord.y += (columnSeed - 0.5) * 0.012;
+  float cellSize = max(2.0, 3.0 * uPixelRatio);
+  float columnPosition = (pixel.x + sway) / cellSize;
+  float column = floor(columnPosition);
+  float columnFraction = fract(columnPosition);
+  float rowIndex = floor(pixel.y / cellSize);
+  float rowFraction = fract(pixel.y / cellSize);
+  float columnSeed = hash12(vec2(column, 7.1) + uSeed);
+
+  // Every pixel in a cell samples the cell's center, which pixelates the
+  // content into LED dots.
+  float cellX = (((column + 0.5) * cellSize - sway) / uResolution.x - 0.5) * aspect / wallHeight;
+  float cellV = ((rowIndex + 0.5) * cellSize / uResolution.y - base) / wallHeight;
+  vec2 coord = vec2(cellX / wallUnits + 0.5, clamp(cellV, 0.0, 1.0));
+
+  float row = floor(cellV * uSimSize.y);
+  float tear = step(0.997, hash12(vec2(row * 0.37, stepTime) + uSeed));
+  coord.x += tear * (hash12(vec2(row, stepTime + 1.0) + uSeed) - 0.5) * 0.015;
+  coord.y = clamp(coord.y + (columnSeed - 0.5) * 0.006, 0.0, 1.0);
 
   ivec2 nearest = ivec2(
-    int(mod(floor(coord.x * uSimSize.x), uSimSize.x)),
+    int(mod(floor(coord.x * uSimSize.x) + 0.5, uSimSize.x)),
     int(clamp(floor(coord.y * uSimSize.y), 0.0, uSimSize.y - 1.0))
   );
-  vec4 block = texelFetch(uSim, nearest, 0);
-  // Smeared blocks stay pixel-sharp; the rest is filtered smooth.
-  vec4 sim = block.b > 0.5 ? block : textureLod(uSim, coord, 0.0);
+  float blocky = texelFetch(uSim, nearest, 0).b;
+  // Smeared regions snap to 8-texel macroblocks, like broken video.
+  vec2 macroblock = (floor(coord * uSimSize / 8.0) + 0.5) * 8.0 / uSimSize;
+  vec4 sim = textureLod(uSim, blocky > 0.5 ? macroblock : coord, 0.0);
 
-  float profile = smoothstep(0.0, 0.4, columnFraction) * (1.0 - smoothstep(0.6, 1.0, columnFraction));
-  float strand = valueNoise(vec2(column * 0.73, wallV * 5.0 - t * (0.15 + 0.25 * columnSeed)));
+  float columnProfile = smoothstep(0.0, 0.35, columnFraction) * (1.0 - smoothstep(0.65, 1.0, columnFraction));
+  float rowProfile = smoothstep(0.0, 0.3, rowFraction) * (1.0 - smoothstep(0.7, 1.0, rowFraction));
+  float strand = valueNoise(vec2(column * 0.73, cellV * 5.0 - t * (0.15 + 0.25 * columnSeed)) + uSeed);
   // A few strings at a time slowly brighten, as if plucked.
-  float pluck = smoothstep(0.6, 0.95, valueNoise(vec2(column * 0.21, t * 0.25)));
-  float columns = mix(0.18, 1.0, profile) * (0.65 + 0.6 * columnSeed) * mix(0.55, 1.25, strand) * (1.0 + pluck * 0.6);
-  float scanline = 0.88 + 0.12 * step(0.5, fract(wallV * uSimSize.y));
-  float energy = sim.r * columns * scanline * 1.7;
+  float pluck = smoothstep(0.6, 0.95, valueNoise(vec2(column * 0.21, t * 0.25) + uSeed));
+  float strings = (0.65 + 0.6 * columnSeed) * mix(0.55, 1.25, strand) * (1.0 + pluck * 0.6);
+  float energy = sim.r * strings * 1.5;
 
-  // Every so often a soft band of light swells and fades across the wall.
-  float cycle = floor(t / 16.0);
-  float phase = t - cycle * 16.0;
-  float bandY = 0.2 + 0.6 * hash12(vec2(cycle, 5.0));
-  float envelope = smoothstep(0.0, 1.5, phase) * (1.0 - smoothstep(2.5, 5.0, phase));
-  float band = (wallV - bandY) * 10.0;
-  energy += exp(-band * band) * envelope * 0.3 * (0.6 + 0.4 * profile);
+  // Data packets: a few strings at a time carry a small bright pulse that
+  // travels slowly up or down, like traffic through the network.
+  float lane = hash12(vec2(column, 31.0) + uSeed);
+  float laneSlot = floor(t * 0.05 + lane * 10.0);
+  float carrying = step(0.95, hash12(vec2(column, laneSlot) + uSeed.yx));
+  float direction = lane > 0.5 ? 1.0 : -1.0;
+  float head = fract(lane * 7.3 + t * (0.04 + 0.1 * lane) * direction);
+  float behind = fract((head - cellV) * direction);
+  energy += carrying * (1.0 - smoothstep(0.0, 0.06, behind)) * 0.55;
 
-  // Straight cuts top and bottom.
-  vec3 wall = ramp(energy, sim.g) * step(0.0, wallV) * step(wallV, 1.0);
+  // Every so often a soft band of light swells and fades across the wall, at
+  // random times.
+  float bandSlot = floor(t / 11.0 + uSeed.x);
+  vec2 bandRoll = hash22(vec2(bandSlot, 5.0) + uSeed);
+  float bandAge = clamp(t - (bandSlot - uSeed.x + bandRoll.x * 0.4) * 11.0, 0.0, 11.0);
+  float envelope = step(bandRoll.y, 0.6) * smoothstep(0.0, 1.5, bandAge) * (1.0 - smoothstep(2.5, 5.0, bandAge));
+  float band = (cellV - (0.2 + 0.6 * hash12(vec2(bandSlot, 9.0) + uSeed))) * 10.0;
+  energy += exp(-band * band) * envelope * 0.3;
 
-  // ---- Floor: a sparse point cloud lit by the wall ----
+  // Lightning lights the storm shapes from inside, so it follows the clouds
+  // instead of sitting on top as a flat glow.
+  float burst = storm(vec2(cellX, cellV), t, halfWidth);
+  energy += burst * (0.1 + sim.r * 1.2);
+
+  // Hard brightness steps with an ordered dither, like an 8-bit screen.
+  float threshold = bayer4(vec2(column, rowIndex)) - 0.5;
+  float stepped = max(floor(energy * LEVELS + threshold * DITHER + 0.5) / LEVELS, 0.0);
+
+  vec3 wallColor = ramp(stepped, sim.g);
+  // Bright strikes split the color channels and burn toward a cold white core.
+  float split = smoothstep(0.3, 1.2, burst);
+  if (split > 0.01) {
+    vec2 shift = vec2(split * 2.0 * cellSize / (wallHeight * wallUnits * uResolution.y), 0.0);
+    float red = textureLod(uSim, coord + shift, 0.0).r;
+    float blue = textureLod(uSim, coord - shift, 0.0).r;
+    wallColor.r = ramp(stepped + (red - sim.r) * 2.0 * split, sim.g).r;
+    wallColor.b = ramp(stepped + (blue - sim.r) * 2.0 * split, sim.g).b;
+  }
+  float core = smoothstep(0.8, 1.6, burst * (0.3 + sim.r));
+  wallColor = mix(wallColor, vec3(0.85, 0.93, 1.0), core * 0.5);
+
+  // LED dot structure: bright string cores with fine gaps between rows.
+  wallColor *= mix(0.2, 1.0, columnProfile) * mix(0.55, 1.0, rowProfile);
+  // A straight top edge that softens into the dark instead of cutting.
+  float topFade = 1.0 - smoothstep(0.86, 1.0, wallV);
+  vec3 wall = wallColor * topFade * step(0.0, wallV) * step(wallV, 1.0);
+
+  // ---- Floor: a dark, glossy mirror of the wall ----
+  // The wall faces the camera and the floor runs through its base, so the
+  // reflection is the wall mirrored about the base line in screen space.
+  float mirrorV = clamp((base - screen.y) / wallHeight, 0.0, 1.0);
+  float ripple = (valueNoise(vec2(wallX * 6.0 + uSeed.x, mirrorV * 40.0 - t * 0.3)) - 0.5) * 0.012 * mirrorV;
+  // Rougher and blurrier the further the reflection is from the wall.
+  float roughness = mix(0.8, 4.5, smoothstep(0.0, 0.7, mirrorV));
+  float mirrored = textureLod(uSim, vec2(u + ripple, mirrorV), roughness).r * 1.5;
+  mirrored += storm(vec2(wallX, mirrorV), t, halfWidth) * (0.15 + mirrored) * 0.8;
+  // The string texture only survives in the reflection right at the base.
+  mirrored *= mix(1.0, mix(0.3, 1.0, columnProfile), exp(-mirrorV * 10.0));
+  float fresnel = 0.55 * exp(-mirrorV * 3.0);
+  vec3 floorColor = vec3(0.02, 0.003, 0.006) + ramp(mirrored, 0.0) * fresnel;
+
+  // Faint dust points catching the wall light.
   // Computed everywhere because fwidth needs uniform control flow. Depth is
-  // clamped so pixels above the floor don't overflow exp() to Inf, which the
-  // floor mask below would turn into NaN instead of zero.
+  // clamped so pixels above the floor don't overflow exp() to Inf.
   float horizon = base + 0.07;
   float depth = min((horizon - base) / max(horizon - screen.y, 0.001), 1.0);
   float wallDistance = 5.0 * (1.0 - depth);
-  vec2 floorPoint = vec2(wallX * depth, wallDistance) / 0.012;
+  vec2 floorPoint = vec2(wallX * depth, wallDistance) / 0.012 + uSeed;
   vec2 cell = floor(floorPoint);
   vec2 jitter = 0.15 + 0.7 * hash22(cell);
   vec2 footprint = max(fwidth(floorPoint), vec2(0.0001));
@@ -269,13 +386,9 @@ void main() {
   float coverage = density * min(2.0 * footprint.x * footprint.y, 0.3);
   point = mix(point, coverage, smoothstep(0.3, 1.0, max(footprint.x, footprint.y)));
   float twinkle = 0.6 + 0.4 * hash12(cell + floor(t * 0.5 + hash12(cell) * 4.0));
+  float wallLight = textureLod(uSim, vec2(wallX * depth / wallUnits + 0.5, 0.08), 3.0).r;
+  floorColor += ramp(0.3 + wallLight * 0.6, 0.0) * point * twinkle * exp(-wallDistance * 0.5) * 0.35;
 
-  float floorU = wallX * depth / wallUnits + 0.5;
-  float wallLight = textureLod(uSim, vec2(floorU, 0.08), 3.0).r;
-  float reflection = textureLod(uSim, vec2(floorU, clamp(wallDistance * 0.25, 0.0, 1.0)), 4.0).r;
-  vec3 floorColor = ramp(0.3 + wallLight * 0.6, 0.0) * point * twinkle * exp(-wallDistance * 0.5);
-  floorColor += ramp(reflection * 0.5, 0.0) * exp(-wallDistance * 1.4) * 0.35;
-  floorColor += vec3(0.8, 0.05, 0.1) * exp(-wallDistance * 5.0) * (0.08 + wallLight * 0.3);
   // Fade the floor out toward the bottom of the screen.
   floorColor *= step(wallV, 0.0) * mix(0.2, 1.0, smoothstep(0.0, base, screen.y));
 
@@ -286,10 +399,9 @@ void main() {
   float fromBase = (screen.y - base) * uResolution.y;
   color += ramp(0.8, 0.0) * exp(-abs(fromBase) / (1.2 * uPixelRatio)) * 0.35 * baseLight;
 
-  // Haze from a blurred mip of the sim. It spills down onto the floor but
-  // stops at the top edge, so the cut stays clean against the black.
+  // Haze from a blurred mip of the sim, spilling softly past both edges.
   float glow = textureLod(uSim, vec2(u, clamp(wallV, 0.0, 1.0)), 5.0).r;
-  float glowFalloff = step(wallV, 1.0) * exp(-max(-wallV, 0.0) * 6.0);
+  float glowFalloff = exp(-max(-wallV, 0.0) * 6.0) * exp(-max(wallV - 1.0, 0.0) * 7.0);
   color += ramp(glow * 0.7, 0.0) * 0.28 * glowFalloff;
 
   // Fall off toward the corners.

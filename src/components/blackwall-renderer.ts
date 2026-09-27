@@ -5,8 +5,8 @@ import {
 } from './blackwall-shaders'
 
 // The sim is a small texture in wall space; its texels are square, so the
-// wall is 3.2 heights wide before it repeats.
-const SIM_WIDTH = 512
+// wall is 4.8 heights wide before it repeats, wider than a 21:9 screen shows.
+const SIM_WIDTH = 768
 const SIM_HEIGHT = 160
 const SIM_LEVELS = Math.floor(Math.log2(SIM_WIDTH)) + 1
 // The datamosh reads as digital at 30 Hz, and it halves the GPU work.
@@ -15,10 +15,13 @@ const MAX_PIXEL_RATIO = 1.5
 const MAX_PIXELS = 1_600_000
 // Reduced motion shows one frame, after the sim has had time to smear.
 const STATIC_TICKS = 45
-// The tick feeds shader hashes, which lose float precision as it grows. This
-// wraps it at a multiple of every block's epoch length (4 to 13 ticks), so
-// the wrap itself doesn't reshuffle the blocks.
+// The tick feeds shader hashes, which lose float precision as it grows, so it
+// wraps about every 3.3 hours. The blocks reshuffle once at the wrap, which
+// reads as one more datamosh refresh.
 const TICK_WRAP = 360_360
+// A fresh seed per page load makes every visit a different wall. It stays
+// small so the shader hashes keep their precision.
+const SEED_RANGE = 500
 
 function compileProgram(gl: WebGL2RenderingContext, fragmentSource: string) {
   const vertex = gl.createShader(gl.VERTEX_SHADER)
@@ -147,6 +150,7 @@ function createRenderer(canvas: HTMLCanvasElement) {
     pixelRatio: gl.getUniformLocation(display, 'uPixelRatio'),
     time: gl.getUniformLocation(display, 'uTime'),
   }
+  const seed = [Math.random() * SEED_RANGE, Math.random() * SEED_RANGE] as const
   gl.useProgram(simulation)
   gl.uniform1i(gl.getUniformLocation(simulation, 'uPrevious'), 0)
   gl.uniform2f(
@@ -154,6 +158,7 @@ function createRenderer(canvas: HTMLCanvasElement) {
     SIM_WIDTH,
     SIM_HEIGHT,
   )
+  gl.uniform2f(gl.getUniformLocation(simulation, 'uSeed'), ...seed)
   gl.useProgram(display)
   gl.uniform1i(gl.getUniformLocation(display, 'uSim'), 0)
   gl.uniform2f(
@@ -161,6 +166,7 @@ function createRenderer(canvas: HTMLCanvasElement) {
     SIM_WIDTH,
     SIM_HEIGHT,
   )
+  gl.uniform2f(gl.getUniformLocation(display, 'uSeed'), ...seed)
 
   // targets[latest] holds the newest sim frame; the other one is written next.
   let latest = 0
