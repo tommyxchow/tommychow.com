@@ -3,8 +3,8 @@ import { Header } from '@/components/Header'
 import { Providers } from '@/components/Providers'
 import { BASE_URL } from '@/lib/constants'
 import { fontMono, fontSans } from '@/lib/fonts'
+import { twJoin } from 'cn'
 import { type Metadata, type Viewport } from 'next'
-import { twJoin } from 'tailwind-merge'
 import './globals.css'
 
 export const metadata: Metadata = {

@@ -12,6 +12,7 @@ import {
 import { buildSrcSet } from '@/lib/gallery-image'
 import { thumbHashToPlaceholder } from '@/lib/thumbhash'
 import { cn } from '@/lib/utils'
+import { twJoin } from 'cn'
 import { useReducedMotion } from 'motion/react'
 import Link from 'next/link'
 import {
@@ -23,7 +24,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import { twJoin } from 'tailwind-merge'
 
 // Uniform preview frames — aligned with HomeClient max-w-md (+ px-6 on small screens)
 const SLIDE_CLASS =

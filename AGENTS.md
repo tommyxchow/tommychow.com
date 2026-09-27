@@ -101,12 +101,13 @@ Images in `public/gallery/images/` are processed by `pnpm gallery` into `src/lib
 - **shadcn uses @base-ui/react**: Not Radix UI — imports differ from older shadcn examples, and most components don't expose `asChild`
 - **`useSearchParams()` needs Suspense**: Always wrap components using `useSearchParams()` in a `<Suspense>` boundary — required for production builds
 - **`error.tsx` takes `retry`, not `reset`** (stable since 16.3). `retry()` re-fetches and re-renders the boundary's children, including failed Server Components; `reset()` only clears client error state and still exists for that narrow case.
-- **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package
+- **Never remove `tw-animate-css`**: Required by shadcn/ui components for animations. Check shadcn dependencies before removing any package. `cn` has to be 0.3.2 or newer: earlier releases treat `animate-in` as a Tailwind animation and drop it
 - **No `pnpm` prefix inside package.json scripts**: The package manager is already the script runner. Use bare commands (e.g., `next build`, not `pnpm next build`)
 - **Page components**: Colocate client components with pages (e.g., `GalleryClient.tsx` alongside `page.tsx`)
 - **Server utilities**: `src/lib/server-utils.ts` uses `import 'server-only'` to enforce server-only code
 - **Dev tools**: `next-devtools-mcp` and `chrome-devtools-mcp` are wired globally via the dotfiles installer (OpenCode config, `~/.cursor/mcp.json`, Claude Code user scope in `~/.claude.json`) and fetched on demand via `pnpm dlx` — not installed as deps. The project `.mcp.json` / `.cursor/mcp.json` remain as fallback for machines that haven't run the installer, and are the only place the project-local `shadcn` MCP is wired.
 - **pnpm 11 config lives in `pnpm-workspace.yaml`** (`.npmrc` is auth/registry only). `allowBuilds` replaces the old `onlyBuiltDependencies`/`neverBuiltDependencies`/`ignoredBuiltDependencies` keys; env vars are `pnpm_config_*` not `npm_config_*`. pnpm 11 defaults `minimumReleaseAge` to 24h for supply-chain protection — keep that default; wait a day after a fresh publish before bumping, or add a targeted `minimumReleaseAgeExclude` entry if you truly need same-day. The version is pinned in `packageManager` (`package.json`); if `pnpm -v` differs, a standalone install is shadowing corepack's shim.
+- **Direct deps are exact (`=x.y.z`).** `savePrefix: '='` in `pnpm-workspace.yaml` keeps `pnpm add` / `pnpm update` from writing carets. Name the version (`pnpm update next@16.3.6`). Transitives still follow their own ranges; the lockfile and the age delay are that gate. Don't put `^` back.
 - **TypeScript is pinned to 6.x on purpose.** TS 7 is ~10x faster but `typescript-eslint` peers `<6.1.0` and crashes on it — TS 7 has no stable programmatic API until 7.1. Don't bump until typescript-eslint ships support.
 - **`@types/node` tracks the runtime major** (`.nvmrc` = 24). v26 would typecheck against APIs Node 24 doesn't have. Don't bump it with `pnpm update --latest`.
 
@@ -126,7 +127,7 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 1. Ensure clean working tree: `git status`
 2. Add components on demand with `pnpm ui:add <component>`
 3. Refresh existing components explicitly with `pnpm ui:update <component...>`
-4. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. The registry currently rewrites `cn` imports to `from "cn"` and turns `src/lib/utils.ts` into `export { cn } from "cn"` — keep the local `@/lib/utils` helper and don't take that unless we add the `cn` package on purpose. Don't take customized files (`tooltip.tsx`, `sonner.tsx`) unless the registry actually superseded the local version.
+4. `pnpm ui:diff` reports every installed item against the registry in one table (`= skip (identical)` vs `~ overwrite`). Inspect anything listed `overwrite` with `pnpm exec shadcn add <name> --diff`, and take the change only if the registry genuinely superseded yours. `src/lib/utils.ts` always shows `overwrite` because Prettier writes `export { cn } from 'cn'` while the registry still has double quotes and a semicolon; that one is cosmetic. Don't take customized files (`tooltip.tsx`, `sonner.tsx`) unless the registry actually superseded the local version.
 5. **Never `shadcn diff`** — the CLI marks it `[DEPRECATED]` and it returns false negatives. `add --diff` with no arguments opens an interactive picker instead of your installed items.
 6. **Check for silently stripped components**: if the shadcn output says "Skipped N files (might be identical)" for more components than seems right, your `globals.css` is probably missing a new theme token. Check `shadcn info` for CSS vars, then regenerate a fresh reference via `shadcn init` in a scratch dir (check the current CLI flags first — see the preset name mismatch gotcha below), diff `globals.css` against it, add missing tokens, re-run.
 7. `git diff` the full changeset, commit
@@ -147,7 +148,7 @@ The theme in `src/app/globals.css` is the stock `base-nova`/`neutral` palette an
 
 ## Styling
 
-- Use `cn()` from `@/lib/utils` for conditional/merged class lists (combines `clsx` + `tailwind-merge`), not string concatenation; use `twJoin` from `tailwind-merge` when you just need to concatenate static strings without merging conflicts.
+- Class lists go through `cn` from the `cn` package (`@/lib/utils` re-exports it; new registry files import `cn` directly), not string concatenation; use `twJoin` from `cn` when you just need to concatenate static strings without merging conflicts.
 - Style from the theme tokens in `globals.css` (`bg-background`, `text-foreground`, `text-muted-foreground`), not scattered raw palette. Arbitrary values (`w-[37px]`) are an escape hatch; extract a repeated class string into a component/variant rather than `@apply`.
 - The default scale (`p-4`, `text-lg`, `gap-2`) is rem-based — lean on it. Use fixed px only for things meant to stay put on zoom (hairline borders/dividers `border`/`h-px`, decorative underlines `decoration-2`).
 - Default to logical utilities (`ms`/`me`/`ps`/`pe`, logical `inset`) over physical (`ml`/`mr`) for RTL-readiness.

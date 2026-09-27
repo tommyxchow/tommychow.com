@@ -1,6 +1,6 @@
 import { statSheetTypographyClassName } from '@/lib/constants'
 import { getSortedImagesByDate } from '@/lib/server-utils'
-import { twJoin } from 'tailwind-merge'
+import { twJoin } from 'cn'
 import { GalleryPreview } from './GalleryPreview'
 import { HomeClient } from './HomeClient'
 import { ProfileMeta } from './ProfileMeta'

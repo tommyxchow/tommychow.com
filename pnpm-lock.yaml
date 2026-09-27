@@ -9,134 +9,131 @@ importers:
   .:
     dependencies:
       '@base-ui/react':
-        specifier: ^1.8.0
+        specifier: '=1.8.0'
         version: 1.8.0(@date-fns/tz@1.4.1)(@types/react@19.3.0)(date-fns@4.1.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       class-variance-authority:
-        specifier: ^0.7.1
+        specifier: '=0.7.1'
         version: 0.7.1
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
+      cn:
+        specifier: '=0.3.2'
+        version: 0.3.2
       embla-carousel-react:
-        specifier: ^8.6.0
+        specifier: '=8.6.0'
         version: 8.6.0(react@19.3.0)
       lucide-react:
-        specifier: ^1.47.0
+        specifier: '=1.47.0'
         version: 1.47.0(react@19.3.0)
       motion:
-        specifier: ^12.43.0
+        specifier: '=12.43.0'
         version: 12.43.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next:
-        specifier: ^16.3.5
+        specifier: '=16.3.5'
         version: 16.3.5(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@24.13.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       next-themes:
-        specifier: ^0.4.6
+        specifier: '=0.4.6'
         version: 0.4.6(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       nuqs:
-        specifier: ^2.10.1
+        specifier: '=2.10.1'
         version: 2.10.1(next@16.3.5(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@24.13.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(react@19.3.0)
       react:
-        specifier: ^19.3.0
+        specifier: '=19.3.0'
         version: 19.3.0
       react-dom:
-        specifier: ^19.3.0
+        specifier: '=19.3.0'
         version: 19.3.0(react@19.3.0)
       react-icons:
-        specifier: ^5.7.0
+        specifier: '=5.7.0'
         version: 5.7.0(react@19.3.0)
       server-only:
-        specifier: ^0.0.1
+        specifier: '=0.0.1'
         version: 0.0.1
       sonner:
-        specifier: ^2.0.8
+        specifier: '=2.0.8'
         version: 2.0.8(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      tailwind-merge:
-        specifier: ^3.7.0
-        version: 3.7.0
       thumbhash:
-        specifier: ^0.1.1
+        specifier: '=0.1.1'
         version: 0.1.1
       tw-animate-css:
-        specifier: ^1.4.0
+        specifier: '=1.4.0'
         version: 1.4.0
     devDependencies:
       '@eslint-react/eslint-plugin':
-        specifier: ^5.20.0
+        specifier: '=5.20.0'
         version: 5.20.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       '@eslint/js':
-        specifier: ^10.0.1
+        specifier: '=10.0.1'
         version: 10.0.1(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))
       '@next/eslint-plugin-next':
-        specifier: ^16.3.5
+        specifier: '=16.3.5'
         version: 16.3.5(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))
       '@opennextjs/cloudflare':
-        specifier: ^1.20.6
+        specifier: '=1.20.6'
         version: 1.20.6(next@16.3.5(@babel/core@7.29.7(supports-color@10.2.2))(@types/node@24.13.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0))(supports-color@10.2.2)(wrangler@4.135.0(@types/node@24.13.6))
       '@tailwindcss/postcss':
-        specifier: ^4.3.3
+        specifier: '=4.3.3'
         version: 4.3.3
       '@tailwindcss/typography':
-        specifier: ^0.5.20
+        specifier: '=0.5.20'
         version: 0.5.20(tailwindcss@4.3.3)
       '@types/node':
-        specifier: ^24.13.6
+        specifier: '=24.13.6'
         version: 24.13.6
       '@types/react':
-        specifier: ^19.3.0
+        specifier: '=19.3.0'
         version: 19.3.0
       '@types/react-dom':
-        specifier: ^19.3.0
+        specifier: '=19.3.0'
         version: 19.3.0(@types/react@19.3.0)
       babel-plugin-react-compiler:
-        specifier: ^1.0.0
+        specifier: '=1.0.0'
         version: 1.0.0
       eslint:
-        specifier: ^10.11.0
+        specifier: '=10.11.0'
         version: 10.11.0(jiti@2.7.0)(supports-color@10.2.2)
       eslint-config-prettier:
-        specifier: ^10.1.8
+        specifier: '=10.1.8'
         version: 10.1.8(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))
       eslint-plugin-better-tailwindcss:
-        specifier: ^4.7.0
+        specifier: '=4.7.0'
         version: 4.7.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(tailwindcss@4.3.3)(typescript@6.0.3)
       eslint-plugin-react-you-might-not-need-an-effect:
-        specifier: ^1.0.2
+        specifier: '=1.0.2'
         version: 1.0.2(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))
       exifr:
-        specifier: ^7.1.3
+        specifier: '=7.1.3'
         version: 7.1.3
       postcss:
-        specifier: ^8.5.28
+        specifier: '=8.5.28'
         version: 8.5.28
       prettier:
-        specifier: ^3.9.8
+        specifier: '=3.9.8'
         version: 3.9.8
       prettier-plugin-organize-imports:
-        specifier: ^4.3.0
+        specifier: '=4.3.0'
         version: 4.3.0(prettier@3.9.8)(typescript@6.0.3)
       prettier-plugin-tailwindcss:
-        specifier: ^0.8.1
+        specifier: '=0.8.1'
         version: 0.8.1(prettier-plugin-organize-imports@4.3.0(prettier@3.9.8)(typescript@6.0.3))(prettier@3.9.8)
       shadcn:
-        specifier: ^4.21.0
+        specifier: '=4.21.0'
         version: 4.21.0(supports-color@10.2.2)(typescript@6.0.3)
       sharp:
-        specifier: ^0.35.4
+        specifier: '=0.35.4'
         version: 0.35.4(@types/node@24.13.6)
       tailwindcss:
-        specifier: ^4.3.3
+        specifier: '=4.3.3'
         version: 4.3.3
       tsx:
-        specifier: ^4.23.13
+        specifier: '=4.23.13'
         version: 4.23.13
       typescript:
-        specifier: ^6.0.3
+        specifier: '=6.0.3'
         version: 6.0.3
       typescript-eslint:
-        specifier: ^8.70.0
+        specifier: '=8.70.0'
         version: 8.70.0(eslint@10.11.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       wrangler:
-        specifier: ^4.135.0
+        specifier: '=4.135.0'
         version: 4.135.0(@types/node@24.13.6)
 
 packages:
@@ -2144,6 +2141,11 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
+  cn@0.3.2:
+    resolution: {integrity: sha512-RKzY5Edavc8B2Ka6tjJecKFC4nm0p7lADY72xzICmiJSf4TkaxWXt0fHsib2P2G4FkFyXfSDi9oDtIBuCZvY2g==}
+    engines: {node: '>=20'}
+    hasBin: true
+
   code-block-writer@13.0.3:
     resolution: {integrity: sha512-Oofo0pq3IKnsFtuHqSF7TqBfr71aeyZDVJ0HpmqB7FBM2qEigL0iPONSCZSO9pE9dZTAxANe5XHG9Uy0YMv8cg==}
 
@@ -3696,9 +3698,6 @@ packages:
     peerDependenciesMeta:
       '@eslint/css':
         optional: true
-
-  tailwind-merge@3.7.0:
-    resolution: {integrity: sha512-XPPUyAc+cvspz3lHTcR/QgPfW2A0lv/xQNIjX3HGhLR+Nq2lHaLq5MtTesHn8GUr3W3DguT2KT5x3NVgRtYwmA==}
 
   tailwindcss@4.3.3:
     resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
@@ -6155,6 +6154,8 @@ snapshots:
 
   cn@0.2.6: {}
 
+  cn@0.3.2: {}
+
   code-block-writer@13.0.3: {}
 
   color-convert@2.0.1:
@@ -7699,8 +7700,6 @@ snapshots:
       '@pkgr/core': 0.3.6
 
   tailwind-csstree@0.3.3: {}
-
-  tailwind-merge@3.7.0: {}
 
   tailwindcss@4.3.3: {}
 

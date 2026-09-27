@@ -1,8 +1,8 @@
 import { narrowPageContainerClassName } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+import { twJoin } from 'cn'
 import Link from 'next/link'
 import { type ComponentProps, type ReactNode } from 'react'
-import { twJoin } from 'tailwind-merge'
 
 const actionClassName =
   'text-muted-foreground transition-colors hover:text-foreground'

@@ -1,9 +1,9 @@
 'use client'
 
 import { MOTION_EASING, narrowPageContainerClassName } from '@/lib/constants'
+import { twJoin } from 'cn'
 import { motion, useReducedMotion } from 'motion/react'
 import { Children, type ReactNode } from 'react'
-import { twJoin } from 'tailwind-merge'
 
 const item = {
   hidden: { opacity: 0, y: 16, filter: 'blur(8px)' },

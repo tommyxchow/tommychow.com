@@ -1,8 +1,8 @@
 'use client'
 
 import { statSheetTypographyClassName } from '@/lib/constants'
+import { twJoin } from 'cn'
 import { type PointerEvent, type ReactNode, useState } from 'react'
-import { twJoin } from 'tailwind-merge'
 
 const DOT_LEADER_LENGTH = 512
 const DOTS = '.'.repeat(DOT_LEADER_LENGTH)

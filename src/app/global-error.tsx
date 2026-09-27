@@ -3,7 +3,7 @@
 import { StatusPage, StatusPageAction } from '@/components/StatusPage'
 import { useLogBoundaryError } from '@/hooks/use-log-boundary-error'
 import { fontMono, fontSans } from '@/lib/fonts'
-import { twJoin } from 'tailwind-merge'
+import { twJoin } from 'cn'
 import './globals.css'
 
 /**
