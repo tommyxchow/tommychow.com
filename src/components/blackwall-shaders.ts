@@ -163,7 +163,7 @@ void main() {
 }
 `
 
-// Pass 2: the wall as a grid of LED cells, the mirrored floor, and the storm,
+// Pass 2: the wall as a grid of LED cells, the storm, and the dark floor,
 // at screen resolution. It only samples the simulation, so the per-pixel cost
 // stays low.
 export const displayFragmentShader = `#version 300 es
@@ -306,16 +306,6 @@ void main() {
   float strings = (0.65 + 0.6 * columnSeed) * mix(0.55, 1.25, strand) * (1.0 + pluck * 0.6);
   float energy = sim.r * strings * 1.5;
 
-  // Data packets: a few strings at a time carry a small bright pulse that
-  // travels slowly up or down, like traffic through the network.
-  float lane = hash12(vec2(column, 31.0) + uSeed);
-  float laneSlot = floor(t * 0.05 + lane * 10.0);
-  float carrying = step(0.95, hash12(vec2(column, laneSlot) + uSeed.yx));
-  float direction = lane > 0.5 ? 1.0 : -1.0;
-  float head = fract(lane * 7.3 + t * (0.04 + 0.1 * lane) * direction);
-  float behind = fract((head - cellV) * direction);
-  energy += carrying * (1.0 - smoothstep(0.0, 0.06, behind)) * 0.55;
-
   // Every so often a soft band of light swells and fades across the wall, at
   // random times.
   float bandSlot = floor(t / 11.0 + uSeed.x);
@@ -353,23 +343,10 @@ void main() {
   float topFade = 1.0 - smoothstep(0.86, 1.0, wallV);
   vec3 wall = wallColor * topFade * step(0.0, wallV) * step(wallV, 1.0);
 
-  // ---- Floor: a dark, glossy mirror of the wall ----
-  // The wall faces the camera and the floor runs through its base, so the
-  // reflection is the wall mirrored about the base line in screen space.
-  float mirrorV = clamp((base - screen.y) / wallHeight, 0.0, 1.0);
-  float ripple = (valueNoise(vec2(wallX * 6.0 + uSeed.x, mirrorV * 40.0 - t * 0.3)) - 0.5) * 0.012 * mirrorV;
-  // Rougher and blurrier the further the reflection is from the wall.
-  float roughness = mix(0.8, 4.5, smoothstep(0.0, 0.7, mirrorV));
-  float mirrored = textureLod(uSim, vec2(u + ripple, mirrorV), roughness).r * 1.5;
-  mirrored += storm(vec2(wallX, mirrorV), t, halfWidth) * (0.15 + mirrored) * 0.8;
-  // The string texture only survives in the reflection right at the base.
-  mirrored *= mix(1.0, mix(0.3, 1.0, columnProfile), exp(-mirrorV * 10.0));
-  float fresnel = 0.55 * exp(-mirrorV * 3.0);
-  vec3 floorColor = vec3(0.02, 0.003, 0.006) + ramp(mirrored, 0.0) * fresnel;
-
-  // Faint dust points catching the wall light.
+  // ---- Floor: dark, with dust points and a soft glow lit by the wall ----
   // Computed everywhere because fwidth needs uniform control flow. Depth is
-  // clamped so pixels above the floor don't overflow exp() to Inf.
+  // clamped so pixels above the floor don't overflow exp() to Inf, which the
+  // floor mask below would turn into NaN instead of zero.
   float horizon = base + 0.07;
   float depth = min((horizon - base) / max(horizon - screen.y, 0.001), 1.0);
   float wallDistance = 5.0 * (1.0 - depth);
@@ -386,9 +363,13 @@ void main() {
   float coverage = density * min(2.0 * footprint.x * footprint.y, 0.3);
   point = mix(point, coverage, smoothstep(0.3, 1.0, max(footprint.x, footprint.y)));
   float twinkle = 0.6 + 0.4 * hash12(cell + floor(t * 0.5 + hash12(cell) * 4.0));
-  float wallLight = textureLod(uSim, vec2(wallX * depth / wallUnits + 0.5, 0.08), 3.0).r;
-  floorColor += ramp(0.3 + wallLight * 0.6, 0.0) * point * twinkle * exp(-wallDistance * 0.5) * 0.35;
 
+  float floorU = wallX * depth / wallUnits + 0.5;
+  float wallLight = textureLod(uSim, vec2(floorU, 0.08), 3.0).r;
+  float spill = textureLod(uSim, vec2(floorU, clamp(wallDistance * 0.25, 0.0, 1.0)), 4.0).r;
+  vec3 floorColor = ramp(0.3 + wallLight * 0.6, 0.0) * point * twinkle * exp(-wallDistance * 0.5);
+  floorColor += ramp(spill * 0.5, 0.0) * exp(-wallDistance * 1.4) * 0.35;
+  floorColor += vec3(0.8, 0.05, 0.1) * exp(-wallDistance * 5.0) * (0.08 + wallLight * 0.3);
   // Fade the floor out toward the bottom of the screen.
   floorColor *= step(wallV, 0.0) * mix(0.2, 1.0, smoothstep(0.0, base, screen.y));
 
