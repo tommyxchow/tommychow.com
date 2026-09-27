@@ -50,15 +50,15 @@ Next.js 16 App Router with React 19. Deployed on **Cloudflare Workers** via `@op
 
 - **React Compiler**: Enabled for automatic memoization
 - **Typed Routes**: Enabled for type-safe `href` props
-- **Cache Components**: Enabled — see Caching below
+- **Cache Components**: Off on purpose — see Caching below
 - **Path Alias**: `@/*` maps to `./src/*`
 - **Strict TypeScript**: `noUncheckedIndexedAccess`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`, `verbatimModuleSyntax`, `exactOptionalPropertyTypes`, `erasableSyntaxOnly`
 
 ### Caching (Cache Components)
 
-Enabled via `cacheComponents: true`. Everything is dynamic (SSR) by default — opt into caching with `"use cache"` + `cacheLife()`, and wrap async work in `<Suspense>` for PPR. Invalidate with `cacheTag()` + `revalidateTag()`/`updateTag()` (`updateTag` only works inside Server Actions). The old `revalidate`/`dynamic`/`fetchCache` route exports are build-breaking once `cacheComponents` is on — remove them rather than leaving them in place. On Cloudflare, durable cache needs the R2 binding (commented in `wrangler.jsonc` / `open-next.config.ts`); time-based and on-demand revalidation also need OpenNext's DO queue + tag cache.
+`cacheComponents` is off. With Next 16.3.5 and `@opennextjs/cloudflare` 1.20.6 it hung every request on Workers: pages returned Cloudflare error 1101 ("Worker's code had hung"), and `wrangler tail` showed Next warning that it "cannot guarantee that Cache Components will run as expected due to the current runtime's implementation of `setTimeout()`". The build still reports success, so check the live site after a deploy that touches Next, OpenNext, or this setting. Nothing here uses `"use cache"`, cache tags, or PPR, and both routes prerender as static. Before turning it back on, confirm on a Cloudflare preview URL that pages return 200.
 
-`cacheComponents` also enables React `<Activity>` for route-level UI state: navigating away and back no longer unmounts the previous route, so `useState`, form inputs, and scroll position persist. Dropdowns/dialogs/forms that should reset on return need explicit reset logic.
+On Cloudflare, durable cache needs the R2 binding (commented in `wrangler.jsonc` / `open-next.config.ts`); time-based and on-demand revalidation also need OpenNext's DO queue + tag cache.
 
 ### Source Structure
 

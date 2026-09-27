@@ -42,8 +42,8 @@ export function CopyEmailButton({ className }: { className: string }) {
   const [status, setStatus] = useState('')
   const stopRef = useRef<(() => void) | null>(null)
 
-  // Next keeps a route mounted but hidden when you navigate away, so stopping
-  // the timers alone would leave a half-scrambled label for when you return.
+  // Stop the timers and reset the label if the page unmounts or is hidden
+  // mid-scramble, so it never comes back half-scrambled.
   useEffect(
     () => () => {
       stopRef.current?.()
